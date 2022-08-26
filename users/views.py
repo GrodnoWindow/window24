@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from rest_framework import exceptions
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
-# Create your views here.
-from .authentication import generate_access_token
+from rest_framework.views import APIView
+from .authentication import generate_access_token, JWTAuthentication
 from .models import User
 from .serializers import UserSerializer
 
@@ -44,6 +44,18 @@ def login(request):
     }
 
     return response
+
+
+class AuthenticatedUser(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        data = UserSerializer(request.user).data
+        # data['permissions'] = [p['name'] for p in data['role']['permissions']]
+        return Response({
+            'data': data
+        })
 
 
 @api_view(['GET'])
