@@ -6,5 +6,4 @@ urlpatterns = [
     path('login', login),
     path('logout', logout),
     path('user', AuthenticatedUser.as_view()),
-
 ]
