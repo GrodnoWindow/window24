@@ -64,7 +64,7 @@ class AuthenticatedUser(APIView):
 
     def get(self, request):
         data = UserSerializer(request.user).data
-        # data['permissions'] = [p['name'] for p in data['role']['permissions']]
+        data['permissions'] = [p['name'] for p in data['role']['permissions']]
         return Response({
             'data': data
         })
@@ -166,3 +166,30 @@ class UserGenericAPIView(
     def delete(self, request, pk=None):
         return self.destroy(request, pk)
 
+
+class ProfileUserInfoAPIView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, pk=None):
+        user = request.user
+        serializer = UserSerializer(user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+
+class ProfileChangePasswordAPIView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, pk=None):
+        user = request.user
+
+        if request.data['password'] != request.data['password_confirm']:
+            raise exceptions.ValidationError('Passwords do not match')
+
+        user.set_password(request.data['password'])
+        user.save()
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
