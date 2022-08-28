@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model, authenticate, login
+from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.shortcuts import render
 from rest_framework import exceptions, viewsets, status, generics, mixins
 from rest_framework.generics import CreateAPIView
@@ -28,39 +28,36 @@ class UserLogin(APIView):
     serializer_class = UserLoginSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        response = {
-            'jwt': serializer.data['token'],
-        }
-        status_code = status.HTTP_200_OK
-        return Response(response, status=status_code)
+        data=request.data
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid(raise_exception=True):
+            # user_obj = authenticate(request, username=data['username'], password=data['password'])
+            # login(request, user_obj)
+            response = Response()
+            token = serializer.data['token'],
+            response.set_cookie(key='jwt', value=token, httponly=True)
+            response.data = {
+                'jwt': token,
+            }
+            response.status_code = status.HTTP_200_OK
+            return response
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# class UserLogout(APIView):
+#     authentication_classes = [JWTAuthentication]
+#     permission_classes = [IsAuthenticated]
 #
-# @api_view(['POST'])
-# def login(request):
-#     email = request.data.get('email')
-#     password = request.data.get('password')
-#
-#     user = User.objects.filter(email=email).first()
-#
-#     if user is None:
-#         raise exceptions.AuthenticationFailed('User not found!')
-#
-#     if not user.check_password(password):
-#         raise exceptions.AuthenticationFailed('Incorrect Password!')
-#
-#     response = Response()
-#
-#     token = generate_access_token(user)
-#     response.set_cookie(key='jwt', value=token, httponly=True)
-#     response.data = {
-#         'jwt': token
-#     }
-#
-#     return response
-
+#     def post(self):
+#         # user = request.user
+#         # if user.is_authenticated:
+#         #     logout(request)
+#         response = Response()
+#         response.delete_cookie(key='jwt')
+#         response.data = {
+#             'message': 'Success'
+#         }
+#         return response
 
 @api_view(['POST'])
 def logout(_):
