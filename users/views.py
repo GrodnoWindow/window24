@@ -1,27 +1,38 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from rest_framework import exceptions, viewsets, status, generics, mixins
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 
 from core.pagination import CustomPagination
 from .authentication import generate_access_token, JWTAuthentication
-from .models import User, Permission, Role
-from .serializers import UserSerializer, PermissionSerializer, RoleSerializer
+from .models import Permission, Role
+from .serializers import UserSerializer, PermissionSerializer, RoleSerializer, UserRegistrationSerializer
+
+User = get_user_model()
 
 
-@api_view(['POST'])
-def register(request):
-    data = request.data
+class UserRegisterAPIView(CreateAPIView):
+    permission_classes = [AllowAny]
+    queryset = User.objects.all()
+    serializer_class = UserRegistrationSerializer
 
-    if data['password'] != data['password_confirm']:
-        raise exceptions.APIException('Passwords do not match!')
 
-    serializer = UserSerializer(data=data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return Response(serializer.data)
+#
+# @api_view(['POST'])
+# def register(request):
+#     data = request.data
+#
+#     if data['password'] != data['password_confirm']:
+#         raise exceptions.APIException('Passwords do not match!')
+#
+#     serializer = UserSerializer(data=data)
+#     serializer.is_valid(raise_exception=True)
+#     serializer.save()
+#     return Response(serializer.data)
 
 
 @api_view(['POST'])
