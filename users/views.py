@@ -1,52 +1,63 @@
+from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.shortcuts import render
 from rest_framework import exceptions, viewsets, status, generics, mixins
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 
 from core.pagination import CustomPagination
 from .authentication import generate_access_token, JWTAuthentication
-from .models import User, Permission, Role
-from .serializers import UserSerializer, PermissionSerializer, RoleSerializer
+from .models import Permission, Role
+from .serializers import UserSerializer, PermissionSerializer, RoleSerializer, UserRegistrationSerializer, \
+    UserLoginSerializer
+
+User = get_user_model()
 
 
-@api_view(['POST'])
-def register(request):
-    data = request.data
+class UserRegister(CreateAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserRegistrationSerializer
 
-    if data['password'] != data['password_confirm']:
-        raise exceptions.APIException('Passwords do not match!')
-
-    serializer = UserSerializer(data=data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return Response(serializer.data)
+    queryset = User.objects.all()
 
 
-@api_view(['POST'])
-def login(request):
-    email = request.data.get('email')
-    password = request.data.get('password')
+class UserLogin(APIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserLoginSerializer
 
-    user = User.objects.filter(email=email).first()
+    def post(self, request, *args, **kwargs):
+        data=request.data
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid(raise_exception=True):
+            # user_obj = authenticate(request, username=data['username'], password=data['password'])
+            # login(request, user_obj)
+            response = Response()
+            token = serializer.data['token'],
+            response.set_cookie(key='jwt', value=token, httponly=True)
+            response.data = {
+                'jwt': token,
+            }
+            response.status_code = status.HTTP_200_OK
+            return response
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    if user is None:
-        raise exceptions.AuthenticationFailed('User not found!')
 
-    if not user.check_password(password):
-        raise exceptions.AuthenticationFailed('Incorrect Password!')
-
-    response = Response()
-
-    token = generate_access_token(user)
-    response.set_cookie(key='jwt', value=token, httponly=True)
-    response.data = {
-        'jwt': token
-    }
-
-    return response
-
+# class UserLogout(APIView):
+#     authentication_classes = [JWTAuthentication]
+#     permission_classes = [IsAuthenticated]
+#
+#     def post(self):
+#         # user = request.user
+#         # if user.is_authenticated:
+#         #     logout(request)
+#         response = Response()
+#         response.delete_cookie(key='jwt')
+#         response.data = {
+#             'message': 'Success'
+#         }
+#         return response
 
 @api_view(['POST'])
 def logout(_):
