@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate, login
 from django.shortcuts import render
 from rest_framework import exceptions, viewsets, status, generics, mixins
 from rest_framework.generics import CreateAPIView
@@ -10,53 +10,56 @@ from rest_framework.views import APIView
 from core.pagination import CustomPagination
 from .authentication import generate_access_token, JWTAuthentication
 from .models import Permission, Role
-from .serializers import UserSerializer, PermissionSerializer, RoleSerializer, UserRegistrationSerializer
+from .serializers import UserSerializer, PermissionSerializer, RoleSerializer, UserRegistrationSerializer, \
+    UserLoginSerializer
 
 User = get_user_model()
 
 
-class UserRegisterAPIView(CreateAPIView):
+class UserRegister(CreateAPIView):
     permission_classes = [AllowAny]
-    queryset = User.objects.all()
     serializer_class = UserRegistrationSerializer
+
+    queryset = User.objects.all()
+
+
+class UserLogin(APIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserLoginSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        response = {
+            'jwt': serializer.data['token'],
+        }
+        status_code = status.HTTP_200_OK
+        return Response(response, status=status_code)
 
 
 #
 # @api_view(['POST'])
-# def register(request):
-#     data = request.data
+# def login(request):
+#     email = request.data.get('email')
+#     password = request.data.get('password')
 #
-#     if data['password'] != data['password_confirm']:
-#         raise exceptions.APIException('Passwords do not match!')
+#     user = User.objects.filter(email=email).first()
 #
-#     serializer = UserSerializer(data=data)
-#     serializer.is_valid(raise_exception=True)
-#     serializer.save()
-#     return Response(serializer.data)
-
-
-@api_view(['POST'])
-def login(request):
-    email = request.data.get('email')
-    password = request.data.get('password')
-
-    user = User.objects.filter(email=email).first()
-
-    if user is None:
-        raise exceptions.AuthenticationFailed('User not found!')
-
-    if not user.check_password(password):
-        raise exceptions.AuthenticationFailed('Incorrect Password!')
-
-    response = Response()
-
-    token = generate_access_token(user)
-    response.set_cookie(key='jwt', value=token, httponly=True)
-    response.data = {
-        'jwt': token
-    }
-
-    return response
+#     if user is None:
+#         raise exceptions.AuthenticationFailed('User not found!')
+#
+#     if not user.check_password(password):
+#         raise exceptions.AuthenticationFailed('Incorrect Password!')
+#
+#     response = Response()
+#
+#     token = generate_access_token(user)
+#     response.set_cookie(key='jwt', value=token, httponly=True)
+#     response.data = {
+#         'jwt': token
+#     }
+#
+#     return response
 
 
 @api_view(['POST'])
