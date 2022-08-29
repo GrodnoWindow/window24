@@ -26,10 +26,10 @@ def register(request):
 
 @api_view(['POST'])
 def login(request):
-    email = request.data.get('email')
+    username = request.data.get('username')
     password = request.data.get('password')
 
-    user = User.objects.filter(email=email).first()
+    user = User.objects.filter(username=username).first()
 
     if user is None:
         raise exceptions.AuthenticationFailed('User not found!')
@@ -83,8 +83,8 @@ class PermissionAPIView(APIView):
 
 
 class RoleViewSet(viewsets.ViewSet):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     def list(self, request):
         serializer = RoleSerializer(Role.objects.all(), many=True)
@@ -129,8 +129,8 @@ class UserGenericAPIView(
     generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
     mixins.UpdateModelMixin, mixins.DestroyModelMixin
 ):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
     pagination_class = CustomPagination
