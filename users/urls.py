@@ -15,8 +15,6 @@ urlpatterns = [
         'put': 'update',
         'delete': 'delete'
     })),
-    path('users/info', ProfileUserInfoAPIView.as_view()),
-    path('users/password', ProfileChangePasswordAPIView.as_view()),
     path('users', UserGenericAPIView.as_view()),
     path('users/<str:pk>', UserGenericAPIView.as_view())
 ]
