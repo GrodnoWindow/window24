@@ -14,25 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, re_path
-from client.views import ClientAPIView
-from drf_yasg2.views import get_schema_view
-from drf_yasg2 import openapi
-
-schema_view = get_schema_view(
-    openapi.Info(
-        title="Window24 Docs.",
-        default_version='v1',
-    ),
-    public=True,
+from django.urls import path, include
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularSwaggerView,
+    SpectacularRedocView
 )
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    path('api/shema/', SpectacularAPIView.as_view(), name='schema'),
+    path('', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+
     path('api/', include('users.urls')),
+    
     # path('client/',include('client.urls')),
     path('client/', ClientAPIView.as_view()),
 
-    re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
