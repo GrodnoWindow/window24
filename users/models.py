@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class Permission(models.Model):
@@ -23,3 +24,8 @@ class User(AbstractUser):
     # REQUIRED_FIELDS = []
 
 
+    @property
+    def tokens(self) -> dict[str, str]:
+        """Allow us to get a user's token by calling `user.token`."""
+        refresh = RefreshToken.for_user(self)
+        return {'refresh': str(refresh), 'access': str(refresh.access_token)}

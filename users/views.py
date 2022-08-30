@@ -1,18 +1,16 @@
 from django.conf import settings
-from django.contrib.auth import authenticate
+
 from django.middleware import csrf
-from django.shortcuts import render
 from rest_framework import exceptions, viewsets, status, generics, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import RefreshToken
-
 from core.pagination import CustomPagination
-from .authentication import get_tokens_for_user, JWTAuthenticationApp
-from .models import User, Permission, Role
-from .serializers import UserSerializer, PermissionSerializer, RoleSerializer
+from .authentication import JWTAuthenticationApp
+# from django.contrib.auth.models import Permission, ContentType
+from .models import Role, User, Permission
+from .serializers import UserSerializer, PermissionSerializer, RoleSerializer, LoginSerializer, LogoutSerializer
 
 
 @api_view(['POST'])
@@ -63,47 +61,49 @@ def register(request):
 
 
 class LoginView(APIView):
-    def post(self, request, format=None):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
         data = request.data
         response = Response()
-        username = data.get('username', None)
-        password = data.get('password', None)
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            data = get_tokens_for_user(user)
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid():
+            tokens = serializer.data["tokens"]
             response.set_cookie(
                 key=settings.SIMPLE_JWT['AUTH_COOKIE'],
-                value=data["access"],
+                value=tokens["access"],
                 # expires=settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'],
                 secure=settings.SIMPLE_JWT['AUTH_COOKIE_SECURE'],
                 httponly=settings.SIMPLE_JWT['AUTH_COOKIE_HTTP_ONLY'],
                 samesite=settings.SIMPLE_JWT['AUTH_COOKIE_SAMESITE']
             )
             csrf.get_token(request)
-            response.data = {"Success": "Login successfully", "data": data}
+            response.data = serializer.data
             return response
         else:
-            return Response({"Invalid": "Invalid username or password!!"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
 
 class LogoutView(APIView):
+    serializer_class = LogoutSerializer
     # permission_classes = (IsAuthenticated,)
 
     def post(self, request):
-        try:
-            response = Response()
-            response.delete_cookie(key='access_token')
-            response.delete_cookie(key='csrftoken')
-            refresh_token = request.data["refresh"]
-            RefreshToken(refresh_token)
-            return Response(status=status.HTTP_205_RESET_CONTENT)
-        except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        response = Response()
+        response.delete_cookie(key='access_token')
+        response.delete_cookie(key='csrftoken')
+
+        serializer.save()
+        return Response(status=status.HTTP_205_RESET_CONTENT)
 
 
 class AuthenticatedUser(APIView):
     authentication_classes = [JWTAuthenticationApp]
-    permission_classes = [IsAuthenticated]
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UserSerializer
 
     def get(self, request):
         data = UserSerializer(request.user).data
@@ -116,6 +116,7 @@ class AuthenticatedUser(APIView):
 class PermissionAPIView(APIView):
     authentication_classes = [JWTAuthenticationApp]
     permission_classes = [IsAuthenticated]
+    serializer_class = PermissionSerializer
 
     def get(self, request):
         serializer = PermissionSerializer(Permission.objects.all(), many=True)
@@ -128,6 +129,7 @@ class PermissionAPIView(APIView):
 class RoleViewSet(viewsets.ViewSet):
     authentication_classes = [JWTAuthenticationApp]
     permission_classes = [IsAuthenticated]
+    serializer = RoleSerializer
 
     def list(self, request):
         serializer = RoleSerializer(Role.objects.all(), many=True)
