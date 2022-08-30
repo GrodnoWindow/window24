@@ -1,12 +1,16 @@
+from django.conf import settings
+from django.contrib.auth import authenticate
+from django.middleware import csrf
 from django.shortcuts import render
 from rest_framework import exceptions, viewsets, status, generics, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from core.pagination import CustomPagination
-from .authentication import generate_access_token, JWTAuthentication
+from .authentication import get_tokens_for_user, JWTAuthenticationApp
 from .models import User, Permission, Role
 from .serializers import UserSerializer, PermissionSerializer, RoleSerializer
 
@@ -24,42 +28,81 @@ def register(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
-def login(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
+# @api_view(['POST'])
+# def login(request):
+#     username = request.data.get('username')
+#     password = request.data.get('password')
+#
+#     user = User.objects.filter(username=username).first()
+#
+#     if user is None:
+#         raise exceptions.AuthenticationFailed('User not found!')
+#
+#     if not user.check_password(password):
+#         raise exceptions.AuthenticationFailed('Incorrect Password!')
+#
+#     response = Response()
+#
+#     # token = generate_access_token(user)
+#     # response.set_cookie(key='access_token', value=token, httponly=True)
+#     # response.data = {
+#     #     'access_token': token
+#     # }
+#
+#     return response
 
-    user = User.objects.filter(username=username).first()
 
-    if user is None:
-        raise exceptions.AuthenticationFailed('User not found!')
-
-    if not user.check_password(password):
-        raise exceptions.AuthenticationFailed('Incorrect Password!')
-
-    response = Response()
-
-    token = generate_access_token(user)
-    response.set_cookie(key='jwt', value=token, httponly=True)
-    response.data = {
-        'jwt': token
-    }
-
-    return response
+# @api_view(['POST'])
+# def logout(_):
+#     response = Response()
+#     response.delete_cookie(key='access_token')
+#     response.data= {
+#         'message': 'Success'
+#     }
+#     return response
 
 
-@api_view(['POST'])
-def logout(_):
-    response = Response()
-    response.delete_cookie(key='jwt')
-    response.data= {
-        'message': 'Success'
-    }
-    return response
+class LoginView(APIView):
+    def post(self, request, format=None):
+        data = request.data
+        response = Response()
+        username = data.get('username', None)
+        password = data.get('password', None)
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            data = get_tokens_for_user(user)
+            response.set_cookie(
+                key=settings.SIMPLE_JWT['AUTH_COOKIE'],
+                value=data["access"],
+                # expires=settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'],
+                secure=settings.SIMPLE_JWT['AUTH_COOKIE_SECURE'],
+                httponly=settings.SIMPLE_JWT['AUTH_COOKIE_HTTP_ONLY'],
+                samesite=settings.SIMPLE_JWT['AUTH_COOKIE_SAMESITE']
+            )
+            csrf.get_token(request)
+            response.data = {"Success": "Login successfully", "data": data}
+            return response
+        else:
+            return Response({"Invalid": "Invalid username or password!!"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class LogoutView(APIView):
+    # permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            response = Response()
+            response.delete_cookie(key='access_token')
+            response.delete_cookie(key='csrftoken')
+            refresh_token = request.data["refresh"]
+            RefreshToken(refresh_token)
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class AuthenticatedUser(APIView):
-    authentication_classes = [JWTAuthentication]
+    authentication_classes = [JWTAuthenticationApp]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -71,7 +114,7 @@ class AuthenticatedUser(APIView):
 
 
 class PermissionAPIView(APIView):
-    authentication_classes = [JWTAuthentication]
+    authentication_classes = [JWTAuthenticationApp]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -83,8 +126,8 @@ class PermissionAPIView(APIView):
 
 
 class RoleViewSet(viewsets.ViewSet):
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthenticationApp]
+    permission_classes = [IsAuthenticated]
 
     def list(self, request):
         serializer = RoleSerializer(Role.objects.all(), many=True)
@@ -129,8 +172,9 @@ class UserGenericAPIView(
     generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
     mixins.UpdateModelMixin, mixins.DestroyModelMixin
 ):
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthenticationApp]
+    permission_classes = [IsAuthenticated]
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
     pagination_class = CustomPagination
@@ -168,8 +212,8 @@ class UserGenericAPIView(
 
 
 class ProfileUserInfoAPIView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     def put(self, request, pk=None):
         user = request.user
@@ -180,8 +224,8 @@ class ProfileUserInfoAPIView(APIView):
 
 
 class ProfileChangePasswordAPIView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     def put(self, request, pk=None):
         user = request.user

@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model, authenticate
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from .authentication import generate_access_token
+# from .authentication import generate_access_token
 from .models import Permission, Role
 
 User = get_user_model()
@@ -52,7 +52,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'username', 'email', 'password', 'password_confirm', 'role',
+            'id','first_name', 'last_name', 'username', 'email', 'password', 'password_confirm', 'role',
         ]
         extra_kwargs = {
             'first_name': {'required': True},
@@ -119,8 +119,8 @@ class UserLoginSerializer(serializers.ModelSerializer):
             )
 
 
-        token = generate_access_token(user)
-        data['token'] = token
+        # token = generate_access_token(user)
+        # data['token'] = token
         return data
 
 
