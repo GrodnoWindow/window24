@@ -22,6 +22,8 @@ from drf_spectacular.views import (
 )
 from client.views import ClientAPIView
 
+from client.views import ClientAPIView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     
