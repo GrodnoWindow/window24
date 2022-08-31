@@ -10,7 +10,8 @@ from core.pagination import CustomPagination
 from .authentication import JWTAuthenticationApp
 # from django.contrib.auth.models import Permission, ContentType
 from .models import Role, User, Permission
-from .serializers import UserSerializer, PermissionSerializer, RoleSerializer, LoginSerializer, LogoutSerializer
+from .serializers import UserSerializer, PermissionSerializer, RoleSerializer, LoginSerializer, LogoutSerializer, \
+    UserRegistrationSerializer
 
 
 @api_view(['POST'])
@@ -20,44 +21,10 @@ def register(request):
     if data['password'] != data['password_confirm']:
         raise exceptions.APIException('Passwords do not match!')
 
-    serializer = UserSerializer(data=data)
+    serializer = UserRegistrationSerializer(data=data)
     serializer.is_valid(raise_exception=True)
     serializer.save()
     return Response(serializer.data)
-
-
-# @api_view(['POST'])
-# def login(request):
-#     username = request.data.get('username')
-#     password = request.data.get('password')
-#
-#     user = User.objects.filter(username=username).first()
-#
-#     if user is None:
-#         raise exceptions.AuthenticationFailed('User not found!')
-#
-#     if not user.check_password(password):
-#         raise exceptions.AuthenticationFailed('Incorrect Password!')
-#
-#     response = Response()
-#
-#     # token = generate_access_token(user)
-#     # response.set_cookie(key='access_token', value=token, httponly=True)
-#     # response.data = {
-#     #     'access_token': token
-#     # }
-#
-#     return response
-
-
-# @api_view(['POST'])
-# def logout(_):
-#     response = Response()
-#     response.delete_cookie(key='access_token')
-#     response.data= {
-#         'message': 'Success'
-#     }
-#     return response
 
 
 class LoginView(APIView):
