@@ -9,12 +9,25 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
-class ClientAPIList(generics.ListCreateAPIView):
+class ClientAPIList(generics.ListCreateAPIView): # GET and POST requests
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
+    def create(self, request, *args, **kwargs):
 
-class ClientAPIView(generics.ListAPIView):
+        serializer_user = UserSerializer(request.user) # current user
+        current_user = serializer_user.data['username']
+
+        client_new = Client.objects.create(
+            author=current_user,
+            phone=request.data['phone'],
+            name=request.data['name'],
+        )
+
+        return Response({'client': ClientSerializer(client_new).data})
+
+
+class ClientAPIView(generics.ListAPIView): # all requests get,put,patch ...
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 

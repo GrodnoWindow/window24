@@ -22,7 +22,6 @@ from drf_spectacular.views import (
 )
 from client.views import ClientAPIView
 
-from client.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,9 +31,9 @@ urlpatterns = [
     path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 
     path('api/', include('users.urls')),
-    
+    path('clients', include('client.urls')),
+
     # path('client/',include('client.urls')),
-    path('client/', ClientAPIList.as_view()),
-    path('client/<int:pk>/', ClientAPIView.as_view()),
+
 
 ]

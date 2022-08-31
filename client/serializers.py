@@ -12,7 +12,6 @@ from rest_framework.parsers import JSONParser
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        # fields = ('author','name','phone','time_create')
         fields = '__all__'
 
     # author = serializers.CharField(max_length=255)
