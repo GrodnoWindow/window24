@@ -9,30 +9,35 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
+class ClientAPIList(generics.ListCreateAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
 
 class ClientAPIView(generics.ListAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
 
-    def get(self,request):
-        w = Client.objects.all()
-        return Response({"clients": ClientSerializer(w,many=True).data})
+    def get(self,request, **kwargs):
+        pk = kwargs.get('pk', None)
+        w = Client.objects.get(pk=pk)
+        return Response({"clients": ClientSerializer(w).data})
 
 
-    def post(self,request):
-        serializer = ClientSerializer(data=request.data) # validator to json
-        serializer.is_valid(raise_exception=True)
+    # def post(self,request):
+    #     serializer = ClientSerializer(data=request.data) # validator to json
+    #     serializer.is_valid(raise_exception=True)
+    #     # serializer_user = UserSerializer(request.user) # current user
+    #     # current_user = serializer_user.data['username']
+    #     serializer.save()
+    #     return Response({'client': serializer.data})
 
-        serializer_user = UserSerializer(request.user) # current user
-        current_user = serializer_user.data['email']
-        serializer.save()
 
     def put(self,request, *args,**kwargs):
         pk = kwargs.get('pk',None)
         if not pk:
             return Response({'error':'Method PUT not allowed'})
-
 
         try:
             instance = Client.objects.get(pk=pk)
@@ -43,12 +48,11 @@ class ClientAPIView(generics.ListAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'post':serializer.data})
+
         # client_new = Client.objects.create(
         #     author = current_user,
         #     name = request.data['name'],
         # )
-
-        return Response({'client': serializer.data})
 
 
 # class ClientAPIView(APIView):

@@ -22,7 +22,7 @@ from drf_spectacular.views import (
 )
 from client.views import ClientAPIView
 
-from client.views import ClientAPIView
+from client.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,7 +34,7 @@ urlpatterns = [
     path('api/', include('users.urls')),
     
     # path('client/',include('client.urls')),
-    path('client/', ClientAPIView.as_view()),
+    path('client/', ClientAPIList.as_view()),
     path('client/<int:pk>/', ClientAPIView.as_view()),
 
 ]
