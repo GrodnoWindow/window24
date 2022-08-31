@@ -28,6 +28,21 @@ class ClientAPIView(generics.ListAPIView):
         current_user = serializer_user.data['email']
         serializer.save()
 
+    def put(self,request, *args,**kwargs):
+        pk = kwargs.get('pk',None)
+        if not pk:
+            return Response({'error':'Method PUT not allowed'})
+
+
+        try:
+            instance = Client.objects.get(pk=pk)
+        except:
+            return Response({'error':'Object does not exists'})
+
+        serializer = ClientSerializer(data=request.data,instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'post':serializer.data})
         # client_new = Client.objects.create(
         #     author = current_user,
         #     name = request.data['name'],

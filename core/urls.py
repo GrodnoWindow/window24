@@ -33,5 +33,6 @@ urlpatterns = [
     
     # path('client/',include('client.urls')),
     path('client/', ClientAPIView.as_view()),
+    path('client/<int:pk>/', ClientAPIView.as_view()),
 
 ]

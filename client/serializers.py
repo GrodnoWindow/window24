@@ -24,6 +24,9 @@ class ClientSerializer(serializers.Serializer):
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get("name",instance.name)
+
+        instance.save()
+        return instance
 # def encode():
 #     model = CLientModel('angelina jolie')
 #     model_sr = ClientSerializer(model)
