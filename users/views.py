@@ -159,7 +159,7 @@ class UserGenericAPIView(
     def post(self, request):
         request.data.update({
             'password': 1234,
-            'role': request.data['role_id']
+            # 'role': request.data['role_id']
         })
         return Response({
             'data': self.create(request).data
