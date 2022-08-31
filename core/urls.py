@@ -20,6 +20,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
     SpectacularRedocView
 )
+from client.views import ClientAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
