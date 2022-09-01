@@ -31,21 +31,10 @@ class ClientAPIView(generics.ListAPIView): # all requests get,put,patch ...
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
-
     def get(self,request, **kwargs):
         pk = kwargs.get('pk', None)
         w = Client.objects.get(pk=pk)
         return Response({"clients": ClientSerializer(w).data})
-
-
-    # def post(self,request):
-    #     serializer = ClientSerializer(data=request.data) # validator to json
-    #     serializer.is_valid(raise_exception=True)
-    #     # serializer_user = UserSerializer(request.user) # current user
-    #     # current_user = serializer_user.data['username']
-    #     serializer.save()
-    #     return Response({'client': serializer.data})
-
 
     def patch(self,request, *args,**kwargs):
         pk = kwargs.get('pk',None)
@@ -66,10 +55,3 @@ class ClientAPIView(generics.ListAPIView): # all requests get,put,patch ...
         #     author = current_user,
         #     name = request.data['name'],
         # )
-
-
-# class ClientAPIView(APIView):
-#     def get(self, request):
-#         lst = Client.objects.all().values()
-#         return Response({'name':list(lst)})
-

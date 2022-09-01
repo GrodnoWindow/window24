@@ -1,16 +1,31 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, viewsets, mixins
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
+from users.serializers import UserSerializer
 from .serializer import TaskSerializer
 from .models import Task
 
+
 class TaskAPIList(generics.ListCreateAPIView): # GET and POST requests
-    queryset = Task.objects.filter(overdue=False).values()
+    queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
-    # def get(self,request, **kwargs):
-    #     is_overdue = kwargs.get('slug', None)
-    #     w = Task.objects.filter(overdue=is_overdue)
-    #     return Response({"Tasks": TaskSerializer(w,many=True).data})
 
+class TaskViewSet(mixins.CreateModelMixin, # viewsets.ModelViewSet
+                   mixins.RetrieveModelMixin,
+                   mixins.UpdateModelMixin,
+                   mixins.ListModelMixin,
+                   GenericViewSet): # get, post , get<id>, put<id>, path<id>
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        if self.request.query_params == {}:
+            queryset = Task.objects.all()
+        else:
+            overdue = self.request.query_params.get('overdue')
+            author = self.request.query_params.get('author')
+            queryset = Task.objects.filter(overdue=overdue, author=author).order_by('time_create')
+        return queryset
