@@ -5,8 +5,7 @@ from client.views import *
 
 urlpatterns = [
 
-    # path('/all/', ClientAPIViewAll.as_view()),
-    path('all/', ClientAPIList.as_view()),
-    path('<int:pk>/', ClientAPIView.as_view()),
+    path(r'', ClientAPIList.as_view()),
+    path(r'<int:pk>/', ClientAPIView.as_view()),
 
 ]

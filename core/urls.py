@@ -32,6 +32,7 @@ urlpatterns = [
 
     path('api/', include('users.urls')),
     path('clients/', include('client.urls')),
+    path('diary/', include('diary.urls')),
 
     # path('client/',include('client.urls')),
 

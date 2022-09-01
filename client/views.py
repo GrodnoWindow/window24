@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from users.serializers import UserSerializer
 from .models import Client
-from .serializers import ClientSerializer
+from .serializer import ClientSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -47,7 +47,7 @@ class ClientAPIView(generics.ListAPIView): # all requests get,put,patch ...
     #     return Response({'client': serializer.data})
 
 
-    def put(self,request, *args,**kwargs):
+    def patch(self,request, *args,**kwargs):
         pk = kwargs.get('pk',None)
         if not pk:
             return Response({'error':'Method PUT not allowed'})
