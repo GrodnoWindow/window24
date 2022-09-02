@@ -1,5 +1,5 @@
 from django.contrib.auth.models import Group
-from auth_group.serializers import GroupSerializer
+from auth_groups.serializers import GroupSerializer
 from utils import crud
 
 
