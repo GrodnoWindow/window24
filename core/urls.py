@@ -30,8 +30,8 @@ urlpatterns = [
     path('auth/token_refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth/', include('authorization.urls')),
 
-    path('admin/', include('auth_groups.urls')),
-    path('admin/', include('auth_permissions.urls')),
+    path('auth_group/', include('auth_groups.urls')),
+    path('auth_perm/', include('auth_permissions.urls')),
 
     path('shema/', SpectacularAPIView.as_view(), name='schema'),
     path('', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),

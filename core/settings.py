@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'authorization',
     'auth_groups',
+    'auth_permissions',
     'users',
     'client',
 ]
