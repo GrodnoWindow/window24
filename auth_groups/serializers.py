@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import Group
-from users.serializers import PermissionSerializer
+from auth_permissions.serializers import PermissionSerializer
 
 
 # Query creation for groups

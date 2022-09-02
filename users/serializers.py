@@ -12,12 +12,12 @@ from .models import User
 
 
 
-class ContentTypeSerializer(serializers.ModelSerializer):
-    permission = PermissionSerializer(many=True)
-
-    class Meta:
-        model = ContentType
-        fields = '__all__'
+# class ContentTypeSerializer(serializers.ModelSerializer):
+#     permission = PermissionSerializer(many=True)
+#
+#     class Meta:
+#         model = ContentType
+#         fields = '__all__'
 
 
 

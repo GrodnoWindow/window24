@@ -9,8 +9,7 @@ from core.pagination import CustomPagination
 from utils.authentication import JWTAuthenticationApp
 from django.contrib.auth.models import Permission, Group
 from .models import User
-from .serializers import UserSerializer, PermissionSerializer,\
-    UserRegistrationSerializer
+from .serializers import UserSerializer, UserRegistrationSerializer
 
 
 @api_view(['POST'])
@@ -36,19 +35,6 @@ class AuthenticatedUser(APIView):
         # data['permissions'] = [p['name'] for p in data['groups']['user_permissions']]
         return Response({
             'data': data
-        })
-
-
-class PermissionAPIView(APIView):
-    authentication_classes = [JWTAuthenticationApp]
-    permission_classes = [IsAuthenticated]
-    serializer_class = PermissionSerializer
-
-    def get(self, request):
-        serializer = PermissionSerializer(Permission.objects.all(), many=True)
-
-        return Response({
-            'data': serializer.data
         })
 
 
