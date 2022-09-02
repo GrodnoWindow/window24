@@ -1,16 +1,15 @@
-from django.conf import settings
-
-from django.middleware import csrf
 from rest_framework import exceptions, viewsets, status, generics, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
+
+
 from core.pagination import CustomPagination
-from .authentication import JWTAuthenticationApp
-# from django.contrib.auth.models import Permission, ContentType
-from .models import Role, User, Permission
-from .serializers import UserSerializer, PermissionSerializer, RoleSerializer, LoginSerializer, LogoutSerializer, \
+from utils.authentication import JWTAuthenticationApp
+from django.contrib.auth.models import Permission, Group
+from .models import User
+from .serializers import UserSerializer, PermissionSerializer, GroupSerializer, \
     UserRegistrationSerializer
 
 
@@ -27,46 +26,6 @@ def register(request):
     return Response(serializer.data)
 
 
-class LoginView(APIView):
-    serializer_class = LoginSerializer
-
-    def post(self, request):
-        data = request.data
-        response = Response()
-        serializer = self.serializer_class(data=data)
-        if serializer.is_valid():
-            tokens = serializer.data["tokens"]
-            response.set_cookie(
-                key=settings.SIMPLE_JWT['AUTH_COOKIE'],
-                value=tokens["access"],
-                # expires=settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'],
-                secure=settings.SIMPLE_JWT['AUTH_COOKIE_SECURE'],
-                httponly=settings.SIMPLE_JWT['AUTH_COOKIE_HTTP_ONLY'],
-                samesite=settings.SIMPLE_JWT['AUTH_COOKIE_SAMESITE']
-            )
-            csrf.get_token(request)
-            response.data = serializer.data
-            return response
-        else:
-            return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
-
-
-class LogoutView(APIView):
-    serializer_class = LogoutSerializer
-    # permission_classes = (IsAuthenticated,)
-
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        response = Response()
-        response.delete_cookie(key='access_token')
-        response.delete_cookie(key='csrftoken')
-
-        serializer.save()
-        return Response(status=status.HTTP_205_RESET_CONTENT)
-
-
 class AuthenticatedUser(APIView):
     authentication_classes = [JWTAuthenticationApp]
     permission_classes = (IsAuthenticated,)
@@ -74,7 +33,7 @@ class AuthenticatedUser(APIView):
 
     def get(self, request):
         data = UserSerializer(request.user).data
-        data['permissions'] = [p['name'] for p in data['role']['permissions']]
+        # data['permissions'] = [p['name'] for p in data['groups']['user_permissions']]
         return Response({
             'data': data
         })
@@ -93,20 +52,20 @@ class PermissionAPIView(APIView):
         })
 
 
-class RoleViewSet(viewsets.ViewSet):
+class GroupViewSet(viewsets.ViewSet):
     authentication_classes = [JWTAuthenticationApp]
     permission_classes = [IsAuthenticated]
-    serializer = RoleSerializer
+    serializer = GroupSerializer
 
     def list(self, request):
-        serializer = RoleSerializer(Role.objects.all(), many=True)
+        serializer = GroupSerializer(Group.objects.all(), many=True)
 
         return Response({
             'data': serializer.data
         })
 
     def create(self, request):
-        serializer = RoleSerializer(data=request.data)
+        serializer = GroupSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({
@@ -114,16 +73,16 @@ class RoleViewSet(viewsets.ViewSet):
         }, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, pk=None):
-        role = Role.objects.get(id=pk)
-        serializer = RoleSerializer(role)
+        group = Group.objects.get(id=pk)
+        serializer = GroupSerializer(group)
 
         return Response({
             'data': serializer.data
         })
 
     def update(self, request, pk=None):
-        role = Role.objects.get(id=pk)
-        serializer = RoleSerializer(instance=role, data=request.data)
+        role = Group.objects.get(id=pk)
+        serializer = GroupSerializer(instance=role, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
@@ -132,7 +91,7 @@ class RoleViewSet(viewsets.ViewSet):
         }, status=status.HTTP_202_ACCEPTED)
 
     def delete(self, request, pk=None):
-        role = Role.objects.get(id=pk)
+        role = Group.objects.get(id=pk)
         role.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -167,10 +126,10 @@ class UserGenericAPIView(
 
     def put(self, request, pk=None):
 
-        if request.data['role_id']:
-            request.data.update({
-                'role': request.data['role_id']
-            })
+        # if request.data['role_id']:
+        #     request.data.update({
+        #         'role': request.data['role_id']
+        #     })
 
         return Response({
             'data': self.partial_update(request, pk).data
@@ -181,8 +140,9 @@ class UserGenericAPIView(
 
 
 class ProfileUserInfoAPIView(APIView):
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthenticationApp]
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
 
     def put(self, request, pk=None):
         user = request.user
@@ -193,8 +153,9 @@ class ProfileUserInfoAPIView(APIView):
 
 
 class ProfileChangePasswordAPIView(APIView):
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthenticationApp]
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
 
     def put(self, request, pk=None):
         user = request.user
