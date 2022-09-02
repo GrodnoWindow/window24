@@ -9,7 +9,7 @@ from core.pagination import CustomPagination
 from utils.authentication import JWTAuthenticationApp
 from django.contrib.auth.models import Permission, Group
 from .models import User
-from .serializers import UserSerializer, PermissionSerializer, GroupSerializer, \
+from .serializers import UserSerializer, PermissionSerializer,\
     UserRegistrationSerializer
 
 
@@ -50,50 +50,6 @@ class PermissionAPIView(APIView):
         return Response({
             'data': serializer.data
         })
-
-
-class GroupViewSet(viewsets.ViewSet):
-    authentication_classes = [JWTAuthenticationApp]
-    permission_classes = [IsAuthenticated]
-    serializer = GroupSerializer
-
-    def list(self, request):
-        serializer = GroupSerializer(Group.objects.all(), many=True)
-
-        return Response({
-            'data': serializer.data
-        })
-
-    def create(self, request):
-        serializer = GroupSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({
-            'data': serializer.data
-        }, status=status.HTTP_201_CREATED)
-
-    def retrieve(self, request, pk=None):
-        group = Group.objects.get(id=pk)
-        serializer = GroupSerializer(group)
-
-        return Response({
-            'data': serializer.data
-        })
-
-    def update(self, request, pk=None):
-        role = Group.objects.get(id=pk)
-        serializer = GroupSerializer(instance=role, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response({
-            'data': serializer.data
-        }, status=status.HTTP_202_ACCEPTED)
-
-    def delete(self, request, pk=None):
-        role = Group.objects.get(id=pk)
-        role.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class UserGenericAPIView(
