@@ -6,10 +6,9 @@ from rest_framework import status
 from rest_framework.response import Response
 # from .permissions import CustomObjectPermissions
 from utils.authentication import JWTAuthenticationApp
+
+
 # Create
-
-
-
 class CreateMixin(mixins.CreateModelMixin,
                   generics.GenericAPIView):
     # permission_classes = (IsAuthenticated, CustomObjectPermissions)
@@ -30,6 +29,7 @@ class CreateMixin(mixins.CreateModelMixin,
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
+
 # Read single item data
 class RetrieveMixin(mixins.RetrieveModelMixin,
                     generics.GenericAPIView):
@@ -40,6 +40,7 @@ class RetrieveMixin(mixins.RetrieveModelMixin,
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
+
 # Read all items data
 class RetrieveListMixin(mixins.ListModelMixin,
                         generics.GenericAPIView):
@@ -49,6 +50,7 @@ class RetrieveListMixin(mixins.ListModelMixin,
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
 
 # Update
 class UpdateMixin(mixins.UpdateModelMixin,
