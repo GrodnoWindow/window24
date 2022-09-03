@@ -14,5 +14,4 @@ urlpatterns = [
     path('', include(router.urls)),
     path('tasks/', TaskAPIList.as_view()),
     # path('', TaskViewSet.as_view({'get':'list'})),
-    # path('<int:pk>', TaskViewSet.as_view({'put':'update'})),
 ]
