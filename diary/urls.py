@@ -13,5 +13,4 @@ urlpatterns = [
     # path(r'overdue=<slug:slug>', TaskAPIList.as_view()),
     path('', include(router.urls)),
     path('tasks/', TaskAPIList.as_view()),
-    # path('', TaskViewSet.as_view({'get':'list'})),
 ]
