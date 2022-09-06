@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'users',
     'client',
     'diary',
-    'calls',
+    'call',
 ]
 
 MIDDLEWARE = [
