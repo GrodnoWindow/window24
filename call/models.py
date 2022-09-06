@@ -3,8 +3,7 @@ from client.models import Client
 
 
 class Call(models.Model):
-    date = models.DateField()
-    time = models.TimeField()
+    timestamp = models.CharField(max_length=255)
     from_phone = models.CharField(max_length=255)
     to_phone = models.CharField(max_length=255)
     status = models.CharField(max_length=255)

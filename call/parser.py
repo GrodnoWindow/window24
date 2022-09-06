@@ -63,16 +63,13 @@ def parse():
     }
 
     fetch_phones_session = requests.Session()
-    fetch_phones_request = fetch_phones_session.post(
-        headers=fetch_phones_headers, json=fetch_phones_params, url=MAIN_URL, verify=False, cookies=keiro_cookies)
-    print(fetch_phones_request.json())
 
-    return fetch_phones_request.json()
-    # while True:
-    #     fetch_phones_request = fetch_phones_session.post(
-    #         headers=fetch_phones_headers, json=fetch_phones_params, url=MAIN_URL, verify=False, cookies=keiro_cookies)
-    #     print(fetch_phones_request.json())
-    #     time.sleep(10)
+    while True:
+        fetch_phones_request = fetch_phones_session.post(
+            headers=fetch_phones_headers, json=fetch_phones_params, url=MAIN_URL, verify=False, cookies=keiro_cookies)
+        print(fetch_phones_request.json())
+        time.sleep(10)
 
 
-
+if __name__ == "__main__":
+    parse()
