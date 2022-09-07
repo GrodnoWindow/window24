@@ -3,12 +3,12 @@ from client.models import Client
 
 
 class Call(models.Model):
-    timestamp = models.CharField(max_length=255)
     from_phone = models.CharField(max_length=255)
     to_phone = models.CharField(max_length=255)
+    timestamp = models.CharField(max_length=255)
     status = models.CharField(max_length=255)
-    client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, verbose_name='Клиент', blank=True)
-
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True)
+    comment = models.CharField(max_length=255)
     manager = models.CharField(max_length=255)
 
 
