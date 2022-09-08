@@ -1,13 +1,16 @@
-import requests,json
+import requests, json
 import time
+from .models import Call
+from datetime import datetime
+
+
+API_URL = "https://86.57.178.104:4021"
+MAIN_URL = API_URL + "/admin/api/jsonrpc/"
+LOGIN = "Ilya"
+PASSWORD = "bkmz1337"
 
 
 def parse_active_call():
-    API_URL = "https://86.57.178.104:4021"
-    MAIN_URL = API_URL + "/admin/api/jsonrpc/"
-    LOGIN = "Ilya"
-    PASSWORD = "bkmz1337"
-
     login_session = requests.Session()
 
     login_headers = {
@@ -62,15 +65,21 @@ def parse_active_call():
     }
 
     fetch_phones_session = requests.Session()
+
     fetch_phones_request = fetch_phones_session.post(
         headers=fetch_phones_headers, json=fetch_phones_params, url=MAIN_URL, verify=False, cookies=keiro_cookies)
-    print(fetch_phones_request.json())
+    data = fetch_phones_request.json()
+    if not data["result"]["calls"]:
+        pass
+    else:
+        for item in data["result"]["calls"]:
+            if item["TO"]["NUMBER"] == "14":
+                id_call = item["id"]
+                number = item["FROM"]["NUMBER"]
+                status = "Не принятый вызов"
+                client = "Новый клиент"
+                call = Call(id_call=id_call,number=number,status=status,client=client)
+                call.save()
 
-    return fetch_phones_request.json()
 
-    # while True:
-    #     fetch_phones_request = fetch_phones_session.post(
-    #         headers=fetch_phones_headers, json=fetc
-    #         h_phones_params, url=MAIN_URL, verify=False, cookies=keiro_cookies)
-    #     print(fetch_phones_request.json())
-    #     time.sleep(10)
+

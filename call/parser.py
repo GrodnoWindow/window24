@@ -50,7 +50,7 @@ def parse():
         "method": "CallHistory.get",
         "params": {
             "query": {
-                "limit": 1,
+                "limit": 100,
                 "start": 0,
                 "orderBy": [
                     {

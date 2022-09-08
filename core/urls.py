@@ -33,7 +33,7 @@ urlpatterns = [
     path('clients/', include('client.urls')),
     path('diary/', include('diary.urls')),
     path('calls/', include('call.urls')),
-    path('calculation/', include('calculation.urls')),
+    # path('calculation/', include('calculation.urls')),
 
     # path('client/',include('client.urls')),
 
