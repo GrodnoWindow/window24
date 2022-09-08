@@ -9,12 +9,12 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('calculations', '0001_initial'),
+        ('calculation', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='calculations',
+            model_name='calculation',
             name='manager',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL),
         ),

@@ -7,16 +7,6 @@ from .serializer import CallSerializer
 from .models import Call
 from .serializer import CallSerializer
 from rest_framework import generics, viewsets, mixins
-import time
-
-
-# class CallAPIList(generics.ListCreateAPIView): # GET and POST requests
-#     queryset = Call.objects.all()
-#     serializer_class = CallSerializer
-
-    # def get(self, request, *args, **kwargs):
-    #
-    #     # return self.list(request, *args, **kwargs)
 
 
 class CallViewSet(mixins.CreateModelMixin,
@@ -24,6 +14,7 @@ class CallViewSet(mixins.CreateModelMixin,
                    mixins.UpdateModelMixin,
                    mixins.ListModelMixin,
                    GenericViewSet): # get, post , get<id>, put<id>, path<id>
+
     queryset = Call.objects.all()
     serializer_class = CallSerializer
 
