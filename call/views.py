@@ -1,11 +1,12 @@
 from django.forms import model_to_dict
 from django.shortcuts import render
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
 from .serializer import CallSerializer
 from .models import Call
 from .serializer import CallSerializer
-from rest_framework import generics, viewsets
+from rest_framework import generics, viewsets, mixins
 import time
 
 
@@ -18,7 +19,11 @@ import time
     #     # return self.list(request, *args, **kwargs)
 
 
-class CallViewSet(viewsets.ModelViewSet): # get, post , get<id>, put<id>, path<id>
+class CallViewSet(mixins.CreateModelMixin,
+                   mixins.RetrieveModelMixin,
+                   mixins.UpdateModelMixin,
+                   mixins.ListModelMixin,
+                   GenericViewSet): # get, post , get<id>, put<id>, path<id>
     queryset = Call.objects.all()
     serializer_class = CallSerializer
 

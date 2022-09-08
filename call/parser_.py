@@ -25,7 +25,7 @@ def parse():
             "password": PASSWORD,
             "application": {
                 "name": "Test",
-                "vendor": "Keiro",
+                "vendor": "Kerio",
                 "version": "1.0",
                 "remember": True
             }
