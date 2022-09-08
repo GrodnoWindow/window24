@@ -1,6 +1,5 @@
-import requests
+import requests, json
 import time
-
 
 API_URL = "https://86.57.178.104:4021"
 MAIN_URL = API_URL + "/admin/api/jsonrpc/"
@@ -64,11 +63,17 @@ def parse():
 
     fetch_phones_session = requests.Session()
 
-    while True:
-        fetch_phones_request = fetch_phones_session.post(
-            headers=fetch_phones_headers, json=fetch_phones_params, url=MAIN_URL, verify=False, cookies=keiro_cookies)
-        print(fetch_phones_request.json())
-        time.sleep(10)
+    fetch_phones_request = fetch_phones_session.post(
+        headers=fetch_phones_headers, json=fetch_phones_params, url=MAIN_URL, verify=False, cookies=keiro_cookies)
+    data = fetch_phones_request.json()
+    print(data)
+    if not data["result"]["calls"]:
+        print('None')
+        return None
+    else:
+        number = data["result"]["calls"]["from"]["number"]
+        print(number)
+
 
 
 if __name__ == "__main__":
