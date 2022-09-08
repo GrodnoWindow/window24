@@ -1,5 +1,5 @@
-from calculations.seializer import CalculationsSerializer
-from calculations.models import Calculations
+from calculation.seializer import CalculationsSerializer
+from calculation.models import Calculations
 from rest_framework import generics, viewsets, mixins
 from rest_framework.viewsets import GenericViewSet
 
