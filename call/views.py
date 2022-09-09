@@ -7,7 +7,7 @@ from .serializer import CallSerializer
 from .models import Call
 from .serializer import CallSerializer
 from rest_framework import generics, viewsets, mixins
-from .utils import parse_active_call
+from .utils import *
 
 class CallViewSet(mixins.CreateModelMixin,
                    mixins.RetrieveModelMixin,
@@ -19,7 +19,7 @@ class CallViewSet(mixins.CreateModelMixin,
     serializer_class = CallSerializer
 
     def get_queryset(self, *args, **kwargs):
-        parse_active_call()
+        parse_active_calls()
         queryset = Call.objects.all()
         return queryset
 

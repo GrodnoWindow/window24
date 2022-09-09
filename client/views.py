@@ -20,7 +20,7 @@ class ClientAPIList(generics.ListCreateAPIView): # GET and POST requests
 
         client_new = Client.objects.create(
             author=current_user,
-            phone=request.data['phone'],
+            number=request.data['number'],
             name=request.data['name'],
         )
 
