@@ -5,13 +5,15 @@ from .views import *
 from rest_framework import routers
 
 
-router = routers.SimpleRouter()
-router.register(r'', CallViewSet) # all routers
+# router = routers.SimpleRouter()
+# router.register(r'', CallView) # all routers
 
 
 urlpatterns = [
-    path('', include(router.urls)),
-    # path(r'', CallAPIList.as_view()),
+    # path('', include(router.urls)),
+    path(r'', CallView.as_view()),
+    path(r'<int:pk>/', CallAPIView.as_view()),
+    # path(r'all', CallAllView.as_view()),
     # path(r'', CallViewSet.as_view({'get':'list'})),
     # path(r'<int:pk>/', CallViewSet.as_view({'put':'update'})),
     # path(r'<int:pk>/', ClientAPIView.as_view()),

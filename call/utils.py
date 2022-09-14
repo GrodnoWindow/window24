@@ -159,7 +159,7 @@ def parse_active_calls():
     data = get_calls()
     if not data["calls"]:
         print('No call for record')
-        return None
+
     else:
         for item in data["calls"]:
             id_call = item["id"].split(".")[0] # add id only number and check record
@@ -179,5 +179,6 @@ def parse_active_calls():
                 call = Call(id_call=id_call, number=number, status=status,
                             id_client=client_id, name_client=client_name)
                 call.save()
+
 
 # 3.72

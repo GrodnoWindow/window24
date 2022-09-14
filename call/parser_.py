@@ -1,16 +1,14 @@
-import requests, json
-import time
-from .models import Call
-from datetime import datetime
+import requests
 
 
-API_URL = "https://86.57.178.104:4021"
+# API_URL = "https://86.57.178.104:4021"
+API_URL = "https://192.168.1.209:4021"
 MAIN_URL = API_URL + "/admin/api/jsonrpc/"
 LOGIN = "Ilya"
 PASSWORD = "bkmz1337"
-bkmz1337
 
-def parse_active_call():
+
+def get_credentials():
     login_session = requests.Session()
 
     login_headers = {
@@ -26,10 +24,10 @@ def parse_active_call():
             "userName": LOGIN,
             "password": PASSWORD,
             "application": {
-                "name": "Test",
-                "vendor": "Kerio",
-                "version": "1.0",
-                "remember": True
+                  "name": "Test",
+                  "vendor": "Keiro",
+                  "version": "1.0",
+                  "remember": True
             }
         }
     }
@@ -39,52 +37,114 @@ def parse_active_call():
 
     token = login_response.json()["result"]["token"]
     keiro_cookies = login_session.cookies.get_dict()
+    return {"token": token, "cookies": keiro_cookies}
 
-    fetch_phones_headers = {
+
+def get_current_blacklist():
+    credentials = get_credentials()
+
+    get_current_blacklist_headers = {
         "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.61 Safari/537.36",
-        "X-Token": token
+        "X-Token": credentials["token"]
     }
 
-    fetch_phones_params = {
+    get_current_blacklist_params = {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "CallerIdBlacklist.get",
+    }
+
+    get_current_blacklist_session = requests.Session()
+    get_current_blacklist_response = get_current_blacklist_session.post(headers=get_current_blacklist_headers,
+                                                                        url=MAIN_URL, json=get_current_blacklist_params, verify=False, cookies=credentials["cookies"])
+    return get_current_blacklist_response.json()["result"]
+
+
+def block_number(number):
+    credentials = get_credentials()
+
+    block_number_headers = {
+        "Content-Type": "application/json",
+        "X-Token": credentials["token"]
+    }
+
+    current_blacklist = get_current_blacklist()
+
+    block_number_params = {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "CallerIdBlacklist.set",
+        "params": {
+            "blockAnonymous": current_blacklist["blockAnonymous"],
+            "blacklistItemList": current_blacklist["blacklistItemList"] + [{"expression": number, "enabled": True, "description": ""}]
+        }
+    }
+
+    block_number_session = requests.Session()
+    block_number_response = block_number_session.post(
+        headers=block_number_headers, url=MAIN_URL, json=block_number_params, verify=False, cookies=credentials["cookies"])
+
+    return block_number_response.json()
+
+
+def get_calls():
+    credentials = get_credentials()
+    get_calls_headers = {
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.61 Safari/537.36",
+        "X-Token": credentials["token"]
+    }
+
+    get_calls_params = {
         "jsonrpc": "2.0",
         "id": 1,
         "method": "Status.getCalls",
         "params": {
             "query": {
-                "limit": -1,
-                "start": 0,
-                "orderBy": [
-                    {
-                        "columnName": "ANSWERED_DURATION",
-                        "direction": "Asc"
-                    }
-                ]
+                  "limit": -1,
+                  "start": 0,
+                  "orderBy": [
+                      {
+                          "columnName": "ANSWERED_DURATION",
+                          "direction": "Asc"
+                      }
+                  ]
             }
         }
     }
 
-    fetch_phones_session = requests.Session()
+    get_calls_session = requests.Session()
+    get_calls_request = get_calls_session.post(
+        headers=get_calls_headers, json=get_calls_params, url=MAIN_URL, verify=False, cookies=credentials["cookies"])
 
-    fetch_phones_request = fetch_phones_session.post(
-        headers=fetch_phones_headers, json=fetch_phones_params, url=MAIN_URL, verify=False, cookies=keiro_cookies)
-    data = fetch_phones_request.json()
-    # print(data)
-    if not data["result"]["calls"]:
-        print('None')
-        return None
-    else:
-        for item in data["result"]["calls"]:
-            if item["TO"]["NUMBER"] == "14":
-                id_call = item["id"]
-                number = item["FROM"]["NUMBER"]
-                status = "Не принят"
-                client = "Новый клиент"
-                call = Call(id_call=id_call,number=number,status=status,client=client)
-                call.save()
+    return get_calls_request.json()["result"]
 
+
+def hang_up(channel):
+    credentials = get_credentials()
+
+    hang_up_headers = {
+        "Content-Type": "application/json",
+        "X-Token": credentials["token"]
+    }
+
+    hang_up_params = {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "Server.hangupCall",
+        "params": {
+            "channels": [
+                  channel
+            ]
+        }
+    }
+
+    hang_up_session = requests.Session()
+    hang_up_request = hang_up_session.post(
+        headers=hang_up_headers, json=hang_up_params, url=MAIN_URL, verify=False, cookies=credentials["cookies"])
+
+    return hang_up_request.json()
 
 
 if __name__ == "__main__":
-    pass
-    # parse()
+    print(get_calls())
