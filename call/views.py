@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
 from .serializer import CallSerializer
+from config.pagination import CustomPagination
 from .models import Call
 from .serializer import CallSerializer
 from rest_framework import generics, viewsets, mixins
@@ -15,15 +16,41 @@ class CallView(APIView):
 
     queryset = Call.objects.all()
     serializer_class = CallSerializer
+    pagination_class = CustomPagination
 
     def get(self, request):
-
+        # database_reader() # CSV FILE
         parse_active_calls()
         data = Call.objects.all().values().order_by('-datetime')
         return Response({
             'calls': list(data)
         })
 
+    # def get(self, request, pk=None):
+    #     if pk:
+    #         return Response({
+    #             'data': self.retrieve(request, pk).data
+    #         })
+    #
+    #     return self.list(request)
+
+
+class CallGenericAPIView(
+    generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
+    mixins.UpdateModelMixin, mixins.DestroyModelMixin
+):
+
+    queryset = Call.objects.all().values().order_by('-datetime')
+    serializer_class = CallSerializer
+    pagination_class = CustomPagination
+
+    def get(self, request, pk=None):
+        if pk:
+            return Response({
+                'calls': self.retrieve(request, pk).data
+            })
+
+        return self.list(request)
 
 class CallAPIView(generics.ListAPIView): # all requests get,put,patch ...
     queryset = Call.objects.all()

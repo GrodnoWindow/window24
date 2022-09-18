@@ -1,4 +1,4 @@
-import requests
+import requests,csv
 
 from .models import Call
 from client.models import Client
@@ -181,4 +181,15 @@ def parse_active_calls():
                 call.save()
 
 
+
+def database_reader():
+    with open('call-history.csv', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            print(row['Time'], row['From Number'])
+            call = Call(number=row['From Number'], datetime=row['Time'])
+            call.save()
+            print(row)
+
+    csvfile.close()
 # 3.72
