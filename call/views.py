@@ -20,8 +20,10 @@ class CallView(APIView):
 
     def get(self, request):
         # database_reader() # CSV FILE
-        parse_active_calls()
-        data = Call.objects.all().values().order_by('-datetime')
+        if parse_active_calls():
+            data = Call.objects.all().values().order_by('-id')[:1]
+        else:
+            data = []
         return Response({
             'calls': list(data)
         })

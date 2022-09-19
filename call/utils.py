@@ -1,3 +1,5 @@
+import datetime
+
 import requests,csv
 
 from .models import Call
@@ -157,10 +159,12 @@ def hang_up(channel):
 
 def parse_active_calls():
     data = get_calls()
-    if not data["calls"]:
+    print(data)
+    if data["calls"] == []:
         print('No call for record')
-
+        return False
     else:
+        print('zashel')
         for item in data["calls"]:
             id_call = item["id"].split(".")[0] # add id only number and check record
             check_call = Call.objects.filter(id_call=id_call) # if not record call id in db
@@ -176,20 +180,27 @@ def parse_active_calls():
                     client_name = Client.objects.filter(number=number).values("name")
                     print(client_name)
                     print(client_id)
-                call = Call(id_call=id_call, number=number, status=status,
+
+                call = Call(id_call=id_call, number=number, status=status,datetime=datetime.datetime.now(),
                             id_client=client_id, name_client=client_name)
+
                 call.save()
+                print('SAVE')
+                return True
 
 
 
 def database_reader():
     with open('call-history.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
+        i = 0
         for row in reader:
-            print(row['Time'], row['From Number'])
-            call = Call(number=row['From Number'], datetime=row['Time'])
-            call.save()
-            print(row)
+            if not(row['From Number'] == "14") and not(row['From Number'] == "15"):
+                call = Call(number=row['From Number'], datetime=row['Time'])
+                call.save()
+                i += 1
+                print(f'complete : {i}')
+        print('complete')
 
     csvfile.close()
 # 3.72
