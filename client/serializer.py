@@ -4,7 +4,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
 from call.serializer import CallSerializer
-
+from users.serializers import UserSerializer
 
 # class CLientModel:
 #     def __init__(self,name):
@@ -17,10 +17,13 @@ from call.serializer import CallSerializer
 #         fields = '__all__'
 
 class ClientSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
+    # id = serializers.IntegerField(read_only=True)
+    # name = serializers.CharField(read_only=True)
+    # calls = CallSerializer(many=True,read_only=True)
+    author = serializers.CharField(read_only=True)
     name = serializers.CharField(read_only=True)
+    number = serializers.CharField(read_only=True)
     calls = CallSerializer(many=True,read_only=True)
-
     class Meta:
         model = Client
         fields = '__all__'
