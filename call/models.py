@@ -15,6 +15,6 @@ class Call(models.Model):
 
 
     def __str__(self):
-        return self.number
+        return f'{self.datetime} {self.number}'
 
 

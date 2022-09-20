@@ -10,7 +10,7 @@ class Client(models.Model):
     number = models.CharField(max_length=255)
     time_create = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
-    calls = models.ForeignKey(Call, on_delete=models.CASCADE, related_name='Calls',blank=True, null=True)
+    calls = models.ManyToManyField(Call)
 
     def __str__(self):
         return self.name

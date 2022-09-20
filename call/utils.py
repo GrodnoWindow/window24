@@ -195,7 +195,9 @@ def database_reader():
         reader = csv.DictReader(csvfile)
         i = 0
         for row in reader:
-            if not(row['From Number'] == "14") and not(row['From Number'] == "15"):
+            if not(row['From Number'] == "14") and not(row['From Number'] == "15")\
+                    and not(row['From Number'] == "20")\
+                    and not(row['From Number'] == "Unknown"):
                 call = Call(number=row['From Number'], datetime=row['Time'])
                 call.save()
                 i += 1
