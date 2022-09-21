@@ -3,8 +3,8 @@ from django.db import models
 
 # _______________________________ PRICE MODEL _______________________________
 class Price(models.Model):
-    price = models.FloatField(verbose_name="Цена", blank=True)
-    discount = models.IntegerField(verbose_name="Скидка", blank=True)
+    price = models.FloatField(verbose_name="Цена", blank=True, null=True)
+    discount = models.IntegerField(verbose_name="Скидка", blank=True, null=True)
 
     def __str__(self):
         return 'Цена - %s, скидка - %s' % (self.price, self.discount)
@@ -16,10 +16,10 @@ class Price(models.Model):
 
 # _______________________________ CONFIGURATION MODEL _______________________________
 class ProductType(models.Model):
-    product_type_name = models.CharField(max_length=255, verbose_name="Тип изделия", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Тип изделия", blank=True, null=True)
 
     def __str__(self):
-        return self.product_type_name
+        return self.name
 
     class Meta:
         verbose_name = 'Тип изделия'
@@ -27,11 +27,11 @@ class ProductType(models.Model):
 
 
 class Profile(models.Model):
-    profile_name = models.CharField(max_length=255, verbose_name="Профиль", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Профиль", blank=True, null=True)
     price = models.ManyToManyField(Price)
 
     def __str__(self):
-        return self.profile_name
+        return self.name
 
     def get_price(self):
         return ",".join([str(f) for f in self.price.all()])
@@ -42,10 +42,10 @@ class Profile(models.Model):
 
 
 class Aggregate(models.Model):
-    aggregate = models.CharField(max_length=255, verbose_name="Заполнитель №1", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Заполнитель №1", blank=True, null=True)
 
     def __str__(self):
-        return self.aggregate
+        return self.name
 
     class Meta:
         verbose_name = 'Заполнитель №1'
@@ -53,11 +53,11 @@ class Aggregate(models.Model):
 
 
 class Fittings(models.Model):
-    fittings = models.CharField(max_length=255, verbose_name="Фурнитура", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Фурнитура", blank=True, null=True)
     price = models.ManyToManyField(Price)
 
     def __str__(self):
-        return self.fittings
+        return self.name
 
     def get_price(self):
         return ",".join([str(f) for f in self.price.all()])
@@ -68,10 +68,10 @@ class Fittings(models.Model):
 
 
 class SealOutside(models.Model):
-    seal_outside = models.CharField(max_length=255, verbose_name="Уплотнение снаружи", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Уплотнение снаружи", blank=True, null=True)
 
     def __str__(self):
-        return self.seal_outside
+        return self.name
 
     class Meta:
         verbose_name = 'Уплотнение снаружи'
@@ -79,10 +79,10 @@ class SealOutside(models.Model):
 
 
 class SealRebate(models.Model):
-    seal_rebate = models.CharField(max_length=255, verbose_name="Уплотнение притвора", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Уплотнение притвора", blank=True, null=True)
 
     def __str__(self):
-        return self.seal_rebate
+        return self.name
 
     class Meta:
         verbose_name = 'Уплотнение притвора'
@@ -90,10 +90,10 @@ class SealRebate(models.Model):
 
 
 class SealInternal(models.Model):
-    seal_internal = models.CharField(max_length=255, verbose_name="Уплотнение внутренее", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Уплотнение внутренее", blank=True, null=True)
 
     def __str__(self):
-        return self.seal_internal
+        return self.name
 
     class Meta:
         verbose_name = 'Уплотнение внутренее'
@@ -101,10 +101,10 @@ class SealInternal(models.Model):
 
 
 class Lock(models.Model):
-    lock_name = models.CharField(max_length=255, verbose_name="Замок", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Замок", blank=True, null=True)
 
     def __str__(self):
-        return self.lock_name
+        return self.name
 
     class Meta:
         verbose_name = 'Замок'
@@ -112,10 +112,10 @@ class Lock(models.Model):
 
 
 class Shpros(models.Model):
-    shpros_name = models.CharField(max_length=255, verbose_name="Шпрос", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Шпрос", blank=True, null=True)
 
     def __str__(self):
-        return self.shpros_name
+        return self.name
 
     class Meta:
         verbose_name = 'Шпрос'
@@ -123,10 +123,10 @@ class Shpros(models.Model):
 
 
 class Shtapik(models.Model):
-    shtapik = models.CharField(max_length=255, verbose_name="Штапик", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Штапик", blank=True, null=True)
 
     def __str__(self):
-        return self.shtapik
+        return self.name
 
     class Meta:
         verbose_name = 'Штапик'
@@ -134,10 +134,10 @@ class Shtapik(models.Model):
 
 
 class Sash(models.Model):
-    sash = models.CharField(max_length=255, verbose_name="Створка", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Створка", blank=True, null=True)
 
     def __str__(self):
-        return self.sash
+        return self.name
 
     class Meta:
         verbose_name = 'Створка'
@@ -145,10 +145,10 @@ class Sash(models.Model):
 
 
 class Lamination_outside(models.Model):
-    lamination_outside = models.CharField(max_length=255, verbose_name="Ламинация снаружи", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Ламинация снаружи", blank=True, null=True)
 
     def __str__(self):
-        return self.lamination_outside
+        return self.name
 
     class Meta:
         verbose_name = 'Ламинация снаружи'
@@ -156,10 +156,10 @@ class Lamination_outside(models.Model):
 
 
 class Lamination_inside(models.Model):
-    lamination_inside = models.CharField(max_length=255, verbose_name="Ланиманция внутри", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Ланиманция внутри", blank=True, null=True)
 
     def __str__(self):
-        return self.lamination_inside
+        return self.name
 
     class Meta:
         verbose_name = 'Ланиманция внутри'
@@ -167,10 +167,10 @@ class Lamination_inside(models.Model):
 
 
 class Profile_weight(models.Model):
-    profile_weight = models.CharField(max_length=255, verbose_name="Масса профиля", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Масса профиля", blank=True, null=True)
 
     def __str__(self):
-        return self.profile_weight
+        return self.name
 
     class Meta:
         verbose_name = 'Масса профиля'
@@ -178,10 +178,10 @@ class Profile_weight(models.Model):
 
 
 class Note(models.Model):
-    note = models.CharField(max_length=255, verbose_name="Примечание", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Примечание", blank=True, null=True)
 
     def __str__(self):
-        return self.note
+        return self.name
 
     class Meta:
         verbose_name = 'Примечание'
@@ -192,10 +192,10 @@ class Note(models.Model):
 
 
 class Products_install(models.Model):
-    products_install = models.CharField(max_length=255, verbose_name="Монтаж изделий", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Монтаж изделий", blank=True, null=True)
 
     def __str__(self):
-        return self.products_install
+        return self.name
 
     class Meta:
         verbose_name = 'Монтаж изделий'
@@ -203,10 +203,10 @@ class Products_install(models.Model):
 
 
 class Pvc_slopes(models.Model):
-    pvc_slopes = models.CharField(max_length=255, verbose_name="Откосы ПВХ", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Откосы ПВХ", blank=True, null=True)
 
     def __str__(self):
-        return self.pvc_slopes
+        return self.name
 
     class Meta:
         verbose_name = 'Откосы ПВХ'
@@ -214,10 +214,10 @@ class Pvc_slopes(models.Model):
 
 
 class Free_positions(models.Model):
-    free_positions = models.CharField(max_length=255, verbose_name="Бесплатные позиции", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Бесплатные позиции", blank=True, null=True)
 
     def __str__(self):
-        return self.free_positions
+        return self.name
 
     class Meta:
         verbose_name = 'Бесплатные позиции'
@@ -226,10 +226,10 @@ class Free_positions(models.Model):
 
 # _______________________________ EXTRAMATERIAL MODEL _______________________________
 class Favorite_positions(models.Model):
-    favorite_positions = models.CharField(max_length=255, verbose_name="Избранные позиции", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Избранные позиции", blank=True, null=True)
 
     def __str__(self):
-        return self.favorite_positions
+        return self.name
 
     class Meta:
         verbose_name = 'Избранные позиции'
@@ -237,10 +237,10 @@ class Favorite_positions(models.Model):
 
 
 class Windowsill(models.Model):
-    windowsill = models.CharField(max_length=255, verbose_name="Подоконники", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Подоконники", blank=True, null=True)
 
     def __str__(self):
-        return self.windowsill
+        return self.name
 
     class Meta:
         verbose_name = 'Подоконники'
@@ -248,10 +248,10 @@ class Windowsill(models.Model):
 
 
 class Windowsill_danke_komfort(models.Model):
-    windowsill_danke_komfort = models.CharField(max_length=255, verbose_name="Подоконник Danke Komfort", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Подоконник Danke Komfort", blank=True, null=True)
 
     def __str__(self):
-        return self.windowsill_danke_komfort
+        return self.name
 
     class Meta:
         verbose_name = 'Подоконник Danke Komfort'
@@ -259,10 +259,10 @@ class Windowsill_danke_komfort(models.Model):
 
 
 class Windowsill_danke_standart(models.Model):
-    windowsill_danke_standart = models.CharField(max_length=255, verbose_name="Подоконник Danke Standart", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Подоконник Danke Standart", blank=True, null=True)
 
     def __str__(self):
-        return self.windowsill_danke_standart
+        return self.name
 
     class Meta:
         verbose_name = 'Подоконник Danke Standart'
@@ -270,10 +270,10 @@ class Windowsill_danke_standart(models.Model):
 
 
 class Windowsill_danke_premium(models.Model):
-    windowsill_danke_premium = models.CharField(max_length=255, verbose_name="Подоконник Danke Premium", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Подоконник Danke Premium", blank=True, null=True)
 
     def __str__(self):
-        return self.windowsill_danke_premium
+        return self.name
 
     class Meta:
         verbose_name = 'Подоконник Danke Premium'
@@ -281,10 +281,10 @@ class Windowsill_danke_premium(models.Model):
 
 
 class Low_tides(models.Model):
-    low_tides = models.CharField(max_length=255, verbose_name="Отливы", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Отливы", blank=True, null=True)
 
     def __str__(self):
-        return self.low_tides
+        return self.name
 
     class Meta:
         verbose_name = 'Отливы'
@@ -292,10 +292,10 @@ class Low_tides(models.Model):
 
 
 class Visors(models.Model):
-    visors = models.CharField(max_length=255, verbose_name="Козырьки", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Козырьки", blank=True, null=True)
 
     def __str__(self):
-        return self.visors
+        return self.name
 
     class Meta:
         verbose_name = 'Козырьки'
@@ -303,10 +303,10 @@ class Visors(models.Model):
 
 
 class Flashing(models.Model):
-    flashing = models.CharField(max_length=255, verbose_name="Нащельник", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Нащельник", blank=True, null=True)
 
     def __str__(self):
-        return self.flashing
+        return self.name
 
     class Meta:
         verbose_name = 'Нащельник'
@@ -314,10 +314,10 @@ class Flashing(models.Model):
 
 
 class Flashing_metal(models.Model):
-    flashing_metal = models.CharField(max_length=255, verbose_name="Нащельник Металл", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Нащельник Металл", blank=True, null=True)
 
     def __str__(self):
-        return self.flashing_metal
+        return self.name
 
     class Meta:
         verbose_name = 'Нащельник Металл'
@@ -325,10 +325,10 @@ class Flashing_metal(models.Model):
 
 
 class Platband(models.Model):
-    platband = models.CharField(max_length=255, verbose_name="Наличник", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Наличник", blank=True, null=True)
 
     def __str__(self):
-        return self.platband
+        return self.name
 
     class Meta:
         verbose_name = 'Наличник'
@@ -336,10 +336,10 @@ class Platband(models.Model):
 
 
 class Extensions_to_profile_sixty(models.Model):
-    extensions_to_profile_sixty = models.CharField(max_length=255, verbose_name="Доборы к профилю 60мм", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Доборы к профилю 60мм", blank=True, null=True)
 
     def __str__(self):
-        return self.extensions_to_profile_sixty
+        return self.name
 
     class Meta:
         verbose_name = 'Доборы к профилю 60мм'
@@ -347,10 +347,10 @@ class Extensions_to_profile_sixty(models.Model):
 
 
 class Extensions_to_profile_seventy(models.Model):
-    extensions_to_profile_seventy = models.CharField(max_length=255, verbose_name="Доборы к профилю 70мм", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Доборы к профилю 70мм", blank=True, null=True)
 
     def __str__(self):
-        return self.extensions_to_profile_seventy
+        return self.name
 
     class Meta:
         verbose_name = 'Доборы к профилю 70мм'
@@ -358,10 +358,10 @@ class Extensions_to_profile_seventy(models.Model):
 
 
 class Bay_window_to_profile_sixty(models.Model):
-    bay_window_to_profile_sixty = models.CharField(max_length=255, verbose_name="Эркер к профилю 60мм", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Эркер к профилю 60мм", blank=True, null=True)
 
     def __str__(self):
-        return self.bay_window_to_profile_sixty
+        return self.name
 
     class Meta:
         verbose_name = 'Эркер к профилю 60мм'
@@ -369,10 +369,10 @@ class Bay_window_to_profile_sixty(models.Model):
 
 
 class Bay_window_to_profile_seventy(models.Model):
-    bay_window_to_profile_seventy = models.CharField(max_length=255, verbose_name="Эркер к профилю 70мм", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Эркер к профилю 70мм", blank=True, null=True)
 
     def __str__(self):
-        return self.bay_window_to_profile_seventy
+        return self.name
 
     class Meta:
         verbose_name = 'Эркер к профилю 70мм'
@@ -380,10 +380,10 @@ class Bay_window_to_profile_seventy(models.Model):
 
 
 class Connector_90g(models.Model):
-    connector_90g = models.CharField(max_length=255, verbose_name="Соединитель 90гр", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Соединитель 90гр", blank=True, null=True)
 
     def __str__(self):
-        return self.connector_90g
+        return self.name
 
     class Meta:
         verbose_name = 'Соединитель 90гр'
@@ -391,10 +391,10 @@ class Connector_90g(models.Model):
 
 
 class Accessories(models.Model):
-    accessories = models.CharField(max_length=255, verbose_name="Комлпектующие", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Комлпектующие", blank=True, null=True)
 
     def __str__(self):
-        return self.accessories
+        return self.name
 
     class Meta:
         verbose_name = 'Комлпектующие'
@@ -402,10 +402,10 @@ class Accessories(models.Model):
 
 
 class Handles_and_locks(models.Model):
-    handles_and_locks = models.CharField(max_length=255, verbose_name="Ручки и замки", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Ручки и замки", blank=True, null=True)
 
     def __str__(self):
-        return self.handles_and_locks
+        return self.name
 
     class Meta:
         verbose_name = 'Ручки и замки'
@@ -413,11 +413,98 @@ class Handles_and_locks(models.Model):
 
 
 class Straight_connectors(models.Model):
-    straight_connectors = models.CharField(max_length=255, verbose_name="Прямые соединители", blank=True)
+    name = models.CharField(max_length=255, verbose_name="Прямые соединители", blank=True, null=True)
 
     def __str__(self):
-        return self.straight_connectors
+        return self.name
 
     class Meta:
         verbose_name = 'Прямые соединители'
         verbose_name_plural = 'Прямые соединители'
+
+
+# _______________________________ CONSTRUCTOR MODEL _______________________________
+class Constructor(models.Model):
+    price = models.ForeignKey(Price, max_length=255, on_delete=models.SET_NULL, verbose_name="Цена", null=True,
+                              blank=True)
+    product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, max_length=255, verbose_name="Тип изделия",
+                                     null=True, blank=True)
+    profile = models.ForeignKey(Profile, max_length=255, on_delete=models.SET_NULL, verbose_name="Профиль", null=True,
+                                blank=True)
+    aggregate = models.ForeignKey(Aggregate, max_length=255, on_delete=models.SET_NULL, verbose_name="Заполнитель №1",
+                                  null=True, blank=True)
+    fittings = models.ForeignKey(Fittings, max_length=255, on_delete=models.SET_NULL, verbose_name="Фурнитура",
+                                 null=True, blank=True)
+    seal_outside = models.ForeignKey(SealOutside, max_length=255, on_delete=models.SET_NULL,
+                                     verbose_name="Уплотнение снаружи", null=True, blank=True)
+    seal_rebate = models.ForeignKey(SealRebate, max_length=255, on_delete=models.SET_NULL,
+                                    verbose_name="Уплотнение притвора", null=True, blank=True)
+    seal_internal = models.ForeignKey(SealInternal, max_length=255, on_delete=models.SET_NULL,
+                                      verbose_name="Уплотнение внутренее", null=True, blank=True)
+    lock = models.ForeignKey(Lock, max_length=255, on_delete=models.SET_NULL, verbose_name="Замок", null=True,
+                             blank=True)
+    shpros = models.ForeignKey(Shpros, max_length=255, on_delete=models.SET_NULL, verbose_name="Шпрос", null=True,
+                               blank=True)
+    shtapik = models.ForeignKey(Shtapik, max_length=255, on_delete=models.SET_NULL, verbose_name="Шталик", null=True,
+                                blank=True)
+    sash = models.ForeignKey(Sash, max_length=255, on_delete=models.SET_NULL, verbose_name="Створка", null=True,
+                             blank=True)
+    lamination_outside = models.ForeignKey(Lamination_outside, max_length=255, on_delete=models.SET_NULL,
+                                           verbose_name="Ламинация снаружи", null=True, blank=True)
+    lamination_inside = models.ForeignKey(Lamination_inside, max_length=255, on_delete=models.SET_NULL,
+                                          verbose_name="Ланиманция внутри", null=True, blank=True)
+    profile_weight = models.ForeignKey(Profile_weight, max_length=255, on_delete=models.SET_NULL,
+                                       verbose_name="Масса профиля", null=True, blank=True)
+    note = models.ForeignKey(Note, max_length=255, on_delete=models.SET_NULL, verbose_name="Примечание", null=True,
+                             blank=True)
+    products_install = models.ForeignKey(Products_install, max_length=255, on_delete=models.SET_NULL,
+                                         verbose_name="Монтаж изделий", null=True, blank=True)
+    pvc_slopes = models.ForeignKey(Pvc_slopes, max_length=255, on_delete=models.SET_NULL, verbose_name="Откосы ПВХ",
+                                   null=True, blank=True)
+    free_positions = models.ForeignKey(Free_positions, max_length=255, on_delete=models.SET_NULL,
+                                       verbose_name="Бесплатные позиции", null=True, blank=True)
+    favorite_positions = models.ForeignKey(Favorite_positions, max_length=255, on_delete=models.SET_NULL,
+                                           verbose_name="Избранные позиции", null=True, blank=True)
+    windowsill = models.ForeignKey(Windowsill, max_length=255, on_delete=models.SET_NULL, verbose_name="Подоконники",
+                                   null=True, blank=True)
+    windowsill_danke_komfort = models.ForeignKey(Windowsill_danke_komfort, max_length=255, on_delete=models.SET_NULL,
+                                                 verbose_name="Подоконник Danke Komfort", null=True, blank=True)
+    windowsill_danke_standart = models.ForeignKey(Windowsill_danke_standart, max_length=255, on_delete=models.SET_NULL,
+                                                  verbose_name="Подоконник Danke Standart", null=True, blank=True)
+    windowsill_danke_premium = models.ForeignKey(Windowsill_danke_premium, max_length=255, on_delete=models.SET_NULL,
+                                                 verbose_name="Подоконник Danke Premium", null=True, blank=True)
+    low_tides = models.ForeignKey(Low_tides, max_length=255, on_delete=models.SET_NULL, verbose_name="Отливы",
+                                  null=True, blank=True)
+    visors = models.ForeignKey(Visors, max_length=255, on_delete=models.SET_NULL, verbose_name="Козырьки", null=True,
+                               blank=True)
+    flashing = models.ForeignKey(Flashing, max_length=255, on_delete=models.SET_NULL, verbose_name="Нащельник",
+                                 null=True, blank=True)
+    flashing_metal = models.ForeignKey(Flashing_metal, max_length=255, on_delete=models.SET_NULL,
+                                       verbose_name="Нащельник Металл", null=True, blank=True)
+    platband = models.ForeignKey(Platband, max_length=255, on_delete=models.SET_NULL, verbose_name="Наличник",
+                                 null=True, blank=True)
+    extensions_to_profile60 = models.ForeignKey(Extensions_to_profile_sixty, max_length=255, on_delete=models.SET_NULL,
+                                                verbose_name="Доборы к профилю 60мм", null=True, blank=True)
+    extensions_to_profile70 = models.ForeignKey(Extensions_to_profile_seventy, max_length=255,
+                                                on_delete=models.SET_NULL,
+                                                verbose_name="Доборы к профилю 70мм", null=True, blank=True)
+    bay_window_to_profile60 = models.ForeignKey(Bay_window_to_profile_sixty, max_length=255, on_delete=models.SET_NULL,
+                                                verbose_name="Эркер к профилю 60мм", null=True, blank=True)
+    bay_window_to_profile70 = models.ForeignKey(Bay_window_to_profile_seventy, max_length=255,
+                                                on_delete=models.SET_NULL,
+                                                verbose_name="Эркер к профилю 70мм", null=True, blank=True)
+    connector_90g = models.ForeignKey(Connector_90g, max_length=255, on_delete=models.SET_NULL,
+                                      verbose_name="Соединитель 90гр", null=True, blank=True)
+    accessories = models.ForeignKey(Accessories, max_length=255, on_delete=models.SET_NULL,
+                                    verbose_name="Комлпектующие", null=True, blank=True)
+    handles_and_locks = models.ForeignKey(Handles_and_locks, max_length=255, on_delete=models.SET_NULL,
+                                          verbose_name="Ручки и замки", null=True, blank=True)
+    straight_connectors = models.ForeignKey(Straight_connectors, max_length=255, on_delete=models.SET_NULL,
+                                            verbose_name="Прямые соединители", null=True, blank=True)
+
+    def __str__(self):
+        return 'Конструктор'
+
+    class Meta:
+        verbose_name = 'Конструктор'
+        verbose_name_plural = 'Конструктор'

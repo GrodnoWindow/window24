@@ -1,11 +1,15 @@
 from django.contrib import admin
 from .models import *
 
+admin.site.register(Constructor)
+
 
 @admin.register(Price)
-class ProfileAdmin(admin.ModelAdmin):
+class PriceAdmin(admin.ModelAdmin):
     fields = ['price', 'discount']
     list_display = ['price', 'discount']
+    ordering = ['-price']
+    list_editable = ['discount']
 
 
 admin.site.register(ProductType)
@@ -13,8 +17,9 @@ admin.site.register(ProductType)
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    fields = ['profile_name', 'price']
-    list_display = ['profile_name', 'get_price']
+    fields = ['name', 'price']
+    list_display = ['name', 'get_price']
+    ordering = ['name']
 
 
 admin.site.register(Aggregate)
@@ -22,8 +27,8 @@ admin.site.register(Aggregate)
 
 @admin.register(Fittings)
 class FittingsAdmin(admin.ModelAdmin):
-    fields = ['fittings', 'price']
-    list_display = ['fittings', 'get_price']
+    fields = ['name', 'price']
+    list_display = ['name', 'get_price']
 
 
 admin.site.register(SealOutside)
