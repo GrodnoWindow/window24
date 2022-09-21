@@ -34,6 +34,7 @@ class ClientAPIView(generics.ListAPIView): # all requests get,put,patch ...
     def get(self,request, **kwargs):
         pk = kwargs.get('pk', None)
         w = Client.objects.filter(pk=pk)
+        print(w)
         return Response({'clients': ClientSerializer(w).data})
 
     def patch(self,request, *args,**kwargs):
