@@ -425,81 +425,81 @@ class Straight_connectors(models.Model):
 
 # _______________________________ CONSTRUCTOR MODEL _______________________________
 class Constructor(models.Model):
-    price = models.ForeignKey(Price, max_length=255, on_delete=models.SET_NULL, verbose_name="Цена", null=True,
+    price = models.ForeignKey(Price, on_delete=models.SET_NULL, verbose_name="Цена", null=True,
                               blank=True)
-    product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, max_length=255, verbose_name="Тип изделия",
+    product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, verbose_name="Тип изделия",
                                      null=True, blank=True)
-    profile = models.ForeignKey(Profile, max_length=255, on_delete=models.SET_NULL, verbose_name="Профиль", null=True,
+    profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, verbose_name="Профиль", null=True,
                                 blank=True)
-    aggregate = models.ForeignKey(Aggregate, max_length=255, on_delete=models.SET_NULL, verbose_name="Заполнитель №1",
+    aggregate = models.ForeignKey(Aggregate, on_delete=models.SET_NULL, verbose_name="Заполнитель №1",
                                   null=True, blank=True)
-    fittings = models.ForeignKey(Fittings, max_length=255, on_delete=models.SET_NULL, verbose_name="Фурнитура",
+    fittings = models.ForeignKey(Fittings, on_delete=models.SET_NULL, verbose_name="Фурнитура",
                                  null=True, blank=True)
-    seal_outside = models.ForeignKey(SealOutside, max_length=255, on_delete=models.SET_NULL,
+    seal_outside = models.ForeignKey(SealOutside, on_delete=models.SET_NULL,
                                      verbose_name="Уплотнение снаружи", null=True, blank=True)
-    seal_rebate = models.ForeignKey(SealRebate, max_length=255, on_delete=models.SET_NULL,
+    seal_rebate = models.ForeignKey(SealRebate, on_delete=models.SET_NULL,
                                     verbose_name="Уплотнение притвора", null=True, blank=True)
-    seal_internal = models.ForeignKey(SealInternal, max_length=255, on_delete=models.SET_NULL,
+    seal_internal = models.ForeignKey(SealInternal, on_delete=models.SET_NULL,
                                       verbose_name="Уплотнение внутренее", null=True, blank=True)
-    lock = models.ForeignKey(Lock, max_length=255, on_delete=models.SET_NULL, verbose_name="Замок", null=True,
+    lock = models.ForeignKey(Lock, on_delete=models.SET_NULL, verbose_name="Замок", null=True,
                              blank=True)
-    shpros = models.ForeignKey(Shpros, max_length=255, on_delete=models.SET_NULL, verbose_name="Шпрос", null=True,
+    shpros = models.ForeignKey(Shpros, on_delete=models.SET_NULL, verbose_name="Шпрос", null=True,
                                blank=True)
-    shtapik = models.ForeignKey(Shtapik, max_length=255, on_delete=models.SET_NULL, verbose_name="Шталик", null=True,
+    shtapik = models.ForeignKey(Shtapik, on_delete=models.SET_NULL, verbose_name="Шталик", null=True,
                                 blank=True)
-    sash = models.ForeignKey(Sash, max_length=255, on_delete=models.SET_NULL, verbose_name="Створка", null=True,
+    sash = models.ForeignKey(Sash, on_delete=models.SET_NULL, verbose_name="Створка", null=True,
                              blank=True)
-    lamination_outside = models.ForeignKey(Lamination_outside, max_length=255, on_delete=models.SET_NULL,
+    lamination_outside = models.ForeignKey(Lamination_outside, on_delete=models.SET_NULL,
                                            verbose_name="Ламинация снаружи", null=True, blank=True)
-    lamination_inside = models.ForeignKey(Lamination_inside, max_length=255, on_delete=models.SET_NULL,
+    lamination_inside = models.ForeignKey(Lamination_inside, on_delete=models.SET_NULL,
                                           verbose_name="Ланиманция внутри", null=True, blank=True)
-    profile_weight = models.ForeignKey(Profile_weight, max_length=255, on_delete=models.SET_NULL,
+    profile_weight = models.ForeignKey(Profile_weight, on_delete=models.SET_NULL,
                                        verbose_name="Масса профиля", null=True, blank=True)
-    note = models.ForeignKey(Note, max_length=255, on_delete=models.SET_NULL, verbose_name="Примечание", null=True,
+    note = models.ForeignKey(Note, on_delete=models.SET_NULL, verbose_name="Примечание", null=True,
                              blank=True)
-    products_install = models.ForeignKey(Products_install, max_length=255, on_delete=models.SET_NULL,
+    products_install = models.ForeignKey(Products_install, on_delete=models.SET_NULL,
                                          verbose_name="Монтаж изделий", null=True, blank=True)
-    pvc_slopes = models.ForeignKey(Pvc_slopes, max_length=255, on_delete=models.SET_NULL, verbose_name="Откосы ПВХ",
+    pvc_slopes = models.ForeignKey(Pvc_slopes, on_delete=models.SET_NULL, verbose_name="Откосы ПВХ",
                                    null=True, blank=True)
-    free_positions = models.ForeignKey(Free_positions, max_length=255, on_delete=models.SET_NULL,
+    free_positions = models.ForeignKey(Free_positions, on_delete=models.SET_NULL,
                                        verbose_name="Бесплатные позиции", null=True, blank=True)
-    favorite_positions = models.ForeignKey(Favorite_positions, max_length=255, on_delete=models.SET_NULL,
+    favorite_positions = models.ForeignKey(Favorite_positions, on_delete=models.SET_NULL,
                                            verbose_name="Избранные позиции", null=True, blank=True)
-    windowsill = models.ForeignKey(Windowsill, max_length=255, on_delete=models.SET_NULL, verbose_name="Подоконники",
+    windowsill = models.ForeignKey(Windowsill, on_delete=models.SET_NULL, verbose_name="Подоконники",
                                    null=True, blank=True)
-    windowsill_danke_komfort = models.ForeignKey(Windowsill_danke_komfort, max_length=255, on_delete=models.SET_NULL,
+    windowsill_danke_komfort = models.ForeignKey(Windowsill_danke_komfort, on_delete=models.SET_NULL,
                                                  verbose_name="Подоконник Danke Komfort", null=True, blank=True)
-    windowsill_danke_standart = models.ForeignKey(Windowsill_danke_standart, max_length=255, on_delete=models.SET_NULL,
+    windowsill_danke_standart = models.ForeignKey(Windowsill_danke_standart, on_delete=models.SET_NULL,
                                                   verbose_name="Подоконник Danke Standart", null=True, blank=True)
-    windowsill_danke_premium = models.ForeignKey(Windowsill_danke_premium, max_length=255, on_delete=models.SET_NULL,
+    windowsill_danke_premium = models.ForeignKey(Windowsill_danke_premium, on_delete=models.SET_NULL,
                                                  verbose_name="Подоконник Danke Premium", null=True, blank=True)
-    low_tides = models.ForeignKey(Low_tides, max_length=255, on_delete=models.SET_NULL, verbose_name="Отливы",
+    low_tides = models.ForeignKey(Low_tides, on_delete=models.SET_NULL, verbose_name="Отливы",
                                   null=True, blank=True)
-    visors = models.ForeignKey(Visors, max_length=255, on_delete=models.SET_NULL, verbose_name="Козырьки", null=True,
+    visors = models.ForeignKey(Visors, on_delete=models.SET_NULL, verbose_name="Козырьки", null=True,
                                blank=True)
-    flashing = models.ForeignKey(Flashing, max_length=255, on_delete=models.SET_NULL, verbose_name="Нащельник",
+    flashing = models.ForeignKey(Flashing, on_delete=models.SET_NULL, verbose_name="Нащельник",
                                  null=True, blank=True)
-    flashing_metal = models.ForeignKey(Flashing_metal, max_length=255, on_delete=models.SET_NULL,
+    flashing_metal = models.ForeignKey(Flashing_metal, on_delete=models.SET_NULL,
                                        verbose_name="Нащельник Металл", null=True, blank=True)
-    platband = models.ForeignKey(Platband, max_length=255, on_delete=models.SET_NULL, verbose_name="Наличник",
+    platband = models.ForeignKey(Platband, on_delete=models.SET_NULL, verbose_name="Наличник",
                                  null=True, blank=True)
-    extensions_to_profile60 = models.ForeignKey(Extensions_to_profile_sixty, max_length=255, on_delete=models.SET_NULL,
+    extensions_to_profile60 = models.ForeignKey(Extensions_to_profile_sixty, on_delete=models.SET_NULL,
                                                 verbose_name="Доборы к профилю 60мм", null=True, blank=True)
-    extensions_to_profile70 = models.ForeignKey(Extensions_to_profile_seventy, max_length=255,
+    extensions_to_profile70 = models.ForeignKey(Extensions_to_profile_seventy,
                                                 on_delete=models.SET_NULL,
                                                 verbose_name="Доборы к профилю 70мм", null=True, blank=True)
-    bay_window_to_profile60 = models.ForeignKey(Bay_window_to_profile_sixty, max_length=255, on_delete=models.SET_NULL,
+    bay_window_to_profile60 = models.ForeignKey(Bay_window_to_profile_sixty, on_delete=models.SET_NULL,
                                                 verbose_name="Эркер к профилю 60мм", null=True, blank=True)
-    bay_window_to_profile70 = models.ForeignKey(Bay_window_to_profile_seventy, max_length=255,
+    bay_window_to_profile70 = models.ForeignKey(Bay_window_to_profile_seventy,
                                                 on_delete=models.SET_NULL,
                                                 verbose_name="Эркер к профилю 70мм", null=True, blank=True)
-    connector_90g = models.ForeignKey(Connector_90g, max_length=255, on_delete=models.SET_NULL,
+    connector_90g = models.ForeignKey(Connector_90g, on_delete=models.SET_NULL,
                                       verbose_name="Соединитель 90гр", null=True, blank=True)
-    accessories = models.ForeignKey(Accessories, max_length=255, on_delete=models.SET_NULL,
+    accessories = models.ForeignKey(Accessories, on_delete=models.SET_NULL,
                                     verbose_name="Комлпектующие", null=True, blank=True)
-    handles_and_locks = models.ForeignKey(Handles_and_locks, max_length=255, on_delete=models.SET_NULL,
+    handles_and_locks = models.ForeignKey(Handles_and_locks, on_delete=models.SET_NULL,
                                           verbose_name="Ручки и замки", null=True, blank=True)
-    straight_connectors = models.ForeignKey(Straight_connectors, max_length=255, on_delete=models.SET_NULL,
+    straight_connectors = models.ForeignKey(Straight_connectors, on_delete=models.SET_NULL,
                                             verbose_name="Прямые соединители", null=True, blank=True)
 
     def __str__(self):
