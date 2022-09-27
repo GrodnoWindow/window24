@@ -100,15 +100,15 @@ class SealInternal(models.Model):
         verbose_name_plural = 'Уплотнение внутренее'
 
 
-class Lock(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Замок", blank=True, null=True)
+class SealColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Цвет уплотнения", blank=True, null=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Замок'
-        verbose_name_plural = 'Замки'
+        verbose_name = 'Цвет уплотнения'
+        verbose_name_plural = 'Цвет уплотнения'
 
 
 class Shpros(models.Model):
@@ -401,15 +401,26 @@ class Accessories(models.Model):
         verbose_name_plural = 'Комлпектующие'
 
 
-class Handles_and_locks(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Ручки и замки", blank=True, null=True)
+class Handles(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Ручка", blank=True, null=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Ручки и замки'
-        verbose_name_plural = 'Ручки и замки'
+        verbose_name = 'Ручка'
+        verbose_name_plural = 'Ручки'
+
+
+class Locks(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Замок", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Замок'
+        verbose_name_plural = 'Замки'
 
 
 class Straight_connectors(models.Model):
@@ -423,8 +434,20 @@ class Straight_connectors(models.Model):
         verbose_name_plural = 'Прямые соединители'
 
 
+class Supply_valve(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Приточный клапан", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Приточный клапан'
+        verbose_name_plural = 'Приточные клапаны'
+
+
 # _______________________________ CONSTRUCTOR MODEL _______________________________
 class Constructor(models.Model):
+    is_active = models.BooleanField(verbose_name="Активно", default=True)
     price = models.ForeignKey(Price, on_delete=models.SET_NULL, verbose_name="Цена", null=True,
                               blank=True)
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, verbose_name="Тип изделия",
@@ -441,8 +464,8 @@ class Constructor(models.Model):
                                     verbose_name="Уплотнение притвора", null=True, blank=True)
     seal_internal = models.ForeignKey(SealInternal, on_delete=models.SET_NULL,
                                       verbose_name="Уплотнение внутренее", null=True, blank=True)
-    lock = models.ForeignKey(Lock, on_delete=models.SET_NULL, verbose_name="Замок", null=True,
-                             blank=True)
+    seal_color = models.ForeignKey(SealColor, on_delete=models.SET_NULL, verbose_name="Цвет уплотнения", null=True,
+                                   blank=True)
     shpros = models.ForeignKey(Shpros, on_delete=models.SET_NULL, verbose_name="Шпрос", null=True,
                                blank=True)
     shtapik = models.ForeignKey(Shtapik, on_delete=models.SET_NULL, verbose_name="Шталик", null=True,
@@ -497,10 +520,14 @@ class Constructor(models.Model):
                                       verbose_name="Соединитель 90гр", null=True, blank=True)
     accessories = models.ForeignKey(Accessories, on_delete=models.SET_NULL,
                                     verbose_name="Комлпектующие", null=True, blank=True)
-    handles_and_locks = models.ForeignKey(Handles_and_locks, on_delete=models.SET_NULL,
-                                          verbose_name="Ручки и замки", null=True, blank=True)
+    handles = models.ForeignKey(Handles, on_delete=models.SET_NULL,
+                                verbose_name="Ручка", null=True, blank=True)
+    locks = models.ForeignKey(Locks, on_delete=models.SET_NULL,
+                              verbose_name="Замок", null=True, blank=True)
     straight_connectors = models.ForeignKey(Straight_connectors, on_delete=models.SET_NULL,
                                             verbose_name="Прямые соединители", null=True, blank=True)
+    supply_valve = models.ForeignKey(Supply_valve, on_delete=models.SET_NULL,
+                                     verbose_name="Приточный клапан", null=True, blank=True)
 
     def __str__(self):
         return 'Конструктор'
