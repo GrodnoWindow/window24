@@ -1,55 +1,32 @@
-from rest_framework import serializers
+from datetime import datetime
+
+from requests import Response
+from rest_framework import serializers, status
 from .models import Client
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
-
 from call.serializer import CallSerializer
-from users.serializers import UserSerializer
+from .models import Call
+from django.db import models
 
-# class CLientModel:
-#     def __init__(self,name):
-#         self.name = name
-
-
-# class ClientSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Client
-#         fields = '__all__'
 
 class ClientSerializer(serializers.ModelSerializer):
-    # id = serializers.IntegerField(read_only=True)
-    # name = serializers.CharField(read_only=True)
-    # calls = CallSerializer(many=True,read_only=True)
     author = serializers.CharField(read_only=True)
-    name = serializers.CharField(read_only=True)
-    number = serializers.CharField(read_only=True)
+    number = serializers.CharField(read_only=False)
     calls = CallSerializer(many=True,read_only=True)
+
     class Meta:
         model = Client
         fields = '__all__'
-    # author = serializers.CharField(max_length=255)
-    # name = serializers.CharField(max_length=255)
 
     # def create(self, validated_data):
-    #     return Client.objects.create(**validated_data)
+    #     # create market data for Market model.
+    #     # call = Call.objects.filter(id=validated_data['calls'])
     #
-    # def update(self, instance, validated_data):
-    #     instance.name = validated_data.get("name",instance.name)
     #
-    #     instance.save()
-    #     return instance
-
-# def encode():
-#     model = CLientModel('angelina jolie')
-#     model_sr = ClientSerializer(model)
-#     print(model_sr.data, type(model_sr.data),type(model_sr), sep='\n')
-#     json = JSONRenderer().render(model_sr.data)
-#     print(json)
-#
-#
-# def decode():
-#     stream = io.BytesIO('')
-#     data = JSONParser().parse(stream)
-#     serializers = ClientSerializer(data)
-#     serializers.is_valid() # check valid data
-#     print(serializers.validated_data)
+    #     client = Client.objects.create(
+    #         name=validated_data['name'],
+    #         author=validated_data['author'],
+    #     )
+    #     client.calls.add(1)
+    #     client.number.add(1)
+    #
+    #     return {'asd':'asdasd'}

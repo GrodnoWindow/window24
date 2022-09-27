@@ -28,15 +28,6 @@ class CallView(APIView):
             'calls': list(data)
         })
 
-    # def get(self, request, pk=None):
-    #     if pk:
-    #         return Response({
-    #             'data': self.retrieve(request, pk).data
-    #         })
-    #
-    #     return self.list(request)
-
-
 class CallGenericAPIView(
     generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
     mixins.UpdateModelMixin, mixins.DestroyModelMixin
@@ -61,7 +52,7 @@ class CallAPIView(generics.ListAPIView): # all requests get,put,patch ...
     def get(self,request, **kwargs):
         pk = kwargs.get('pk', None)
         w = Call.objects.get(pk=pk)
-        return Response({"clients": CallSerializer(w).data})
+        return Response({"call": CallSerializer(w).data})
 
     def patch(self,request, *args,**kwargs):
         pk = kwargs.get('pk',None)
@@ -78,9 +69,5 @@ class CallAPIView(generics.ListAPIView): # all requests get,put,patch ...
         serializer.save()
         return Response({'post':serializer.data})
 
-        # client_new = Client.objects.create(
-        #     author = current_user,
-        #     name = request.data['name'],
-        # )
 
 

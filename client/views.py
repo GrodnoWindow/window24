@@ -1,58 +1,49 @@
-from django.forms import model_to_dict
-from django.shortcuts import render
-
-from users.serializers import UserSerializer
-from .models import Client
-from .serializer import ClientSerializer
-from rest_framework import generics
-from rest_framework.response import Response
+from requests import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import GenericViewSet
+
+from .serializer import *
+from rest_framework import viewsets, mixins, status, generics
+from rest_framework.response import Response
+from .utils import *
+from config.pagination import CustomPagination
+
+from call.models import Call
 
 
-class ClientAPIList(generics.ListCreateAPIView): # GET and POST requests
-    queryset = Client.objects.all()
+class ClientAPIView(APIView):
+
     serializer_class = ClientSerializer
 
-    def create(self, request, *args, **kwargs):
+    # permission_classes = (IsAuthenticated,)
 
-        serializer_user = UserSerializer(request.user) # current user
-        current_user = serializer_user.data['username']
-
-        client_new = Client.objects.create(
-            author=current_user,
-            number=request.data['number'],
-            name=request.data['name'],
-        )
-
-        return Response({'client': ClientSerializer(client_new).data})
-
-
-class ClientAPIView(generics.ListAPIView): # all requests get,put,patch ...
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
-
-    def get(self,request, **kwargs):
-        pk = kwargs.get('pk', None)
-        w = Client.objects.filter(pk=pk)
-        print(w)
-        return Response({'clients': ClientSerializer(w).data})
-
-    def patch(self,request, *args,**kwargs):
-        pk = kwargs.get('pk',None)
-        if not pk:
-            return Response({'error':'Method PUT not allowed'})
-
-        try:
-            instance = Client.objects.get(pk=pk)
-        except:
-            return Response({'error':'Object does not exists'})
-
-        serializer = ClientSerializer(data=request.data,instance=instance)
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({'client':serializer.data})
+        user = request.user
 
-        # client_new = Client.objects.create(
-        #     author = current_user,
-        #     name = request.data['name'],
-        # )
+        client = Client.objects.create(
+            name=request.data['name'],
+            author=user, # get current user
+        )
+        number = add_number_to_client(request.data['number'])
+        for num in number:
+            client.number.add(num['id'])
+
+        # calls = add_calls_to_client(request.data['number'])
+        client.calls.add(1)
+
+        return Response({'client': request.data,})
+
+
+class ClientViewSet(mixins.CreateModelMixin, # POST REQUESTS
+                   mixins.RetrieveModelMixin, # get all, get<id>,
+                   mixins.UpdateModelMixin, # put<id>, patch<id>
+                   GenericViewSet):
+
+    queryset = Client.objects.all() # .values().order_by('-id')
+    serializer_class = ClientSerializer
+
+
+
+
