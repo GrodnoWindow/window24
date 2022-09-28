@@ -31,7 +31,7 @@ class ClientAPIView(APIView):
             client.number.add(num['id'])
 
         # calls = add_calls_to_client(request.data['number'])
-        client.calls.add(1)
+        # client.calls.add(1)
 
         return Response({'client': request.data,})
 
