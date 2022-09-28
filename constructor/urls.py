@@ -4,9 +4,10 @@ from .views import *
 from rest_framework import routers
 
 router = routers.SimpleRouter()
-router.register(r'constructor', ConstructorViewSet)
+router.register(r'', ConstructorViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('constructor/', ConstructorAPIList.as_view()),
+    path('create/', ConstructorCreateApi.as_view()),
+    path('all/', ConstructorGenericAPIList.as_view()),
 ]

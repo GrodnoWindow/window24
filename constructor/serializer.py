@@ -11,229 +11,233 @@ class PriceSerializer(serializers.ModelSerializer):
 class ProductTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductType
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    price = PriceSerializer(many=True)
+
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ['id', 'name', 'price']
 
 
 class AggregateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aggregate
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class FittingsSerializer(serializers.ModelSerializer):
+    price = PriceSerializer(many=True)
+
     class Meta:
         model = Fittings
-        fields = '__all__'
+        fields = ['id', 'name', 'price']
 
 
 class SealOutsideSerializer(serializers.ModelSerializer):
     class Meta:
         model = SealOutside
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class SealRebateSerializer(serializers.ModelSerializer):
     class Meta:
         model = SealRebate
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class SealInternalSerializer(serializers.ModelSerializer):
     class Meta:
         model = SealInternal
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class SealColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SealColor
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class ShprosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shpros
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class ShtapikSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shtapik
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class SashSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sash
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class LaminationOutsideSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lamination_outside
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class LaminationInsideSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lamination_inside
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class ProfileWeightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile_weight
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class ProductsInstallSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products_install
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class PvcSlopesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pvc_slopes
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class FreePositionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Free_positions
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class FavoritePositionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorite_positions
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class WindowsillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Windowsill
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class WindowsillDankeKomfortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Windowsill_danke_komfort
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class WindowsillDankeStandartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Windowsill_danke_standart
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class WindowsillDankePremiumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Windowsill_danke_premium
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class LowTidesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Low_tides
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class VisorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visors
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class FlashingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flashing
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class FlashingMetalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flashing_metal
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class PlatbandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Platband
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class ExtensionsToProfile60Serializer(serializers.ModelSerializer):
     class Meta:
         model = Extensions_to_profile_sixty
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class ExtensionsToProfile70Serializer(serializers.ModelSerializer):
     class Meta:
         model = Extensions_to_profile_seventy
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class BayWindowToProfile60Serializer(serializers.ModelSerializer):
     class Meta:
         model = Bay_window_to_profile_sixty
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class BayWindowToProfile70Serializer(serializers.ModelSerializer):
     class Meta:
         model = Bay_window_to_profile_seventy
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class Connector90gSerializer(serializers.ModelSerializer):
     class Meta:
         model = Connector_90g
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class AccessoriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Accessories
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class HandlesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Handles
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class LocksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Locks
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class StraightConnectorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Straight_connectors
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class SupplyValveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supply_valve
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class ConstructorSerializer(serializers.ModelSerializer):

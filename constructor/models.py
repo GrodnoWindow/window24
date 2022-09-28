@@ -36,6 +36,7 @@ class Profile(models.Model):
     def get_price(self):
         return ",".join([str(f) for f in self.price.all()])
 
+
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
