@@ -12,6 +12,7 @@ class ClientSerializer(serializers.ModelSerializer):
     author = serializers.CharField(read_only=True)
     number = serializers.CharField(read_only=False)
     calls = CallSerializer(many=True,read_only=True)
+    is_active = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = Client

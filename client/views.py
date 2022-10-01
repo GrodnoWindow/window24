@@ -26,7 +26,8 @@ class ClientAPIView(APIView):
             name=request.data['name'],
             author=user, # get current user
         )
-        number = add_number_to_client(request.data['number'])
+        number = create_number_record(request.data['number'])
+        print(number)
         for num in number:
             client.number.add(num['id'])
 

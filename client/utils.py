@@ -2,7 +2,7 @@ from call.models import Call
 from client.models import Client, Number
 
 
-def add_number_to_client(number):
+def create_number_record(number):
     Number.objects.create(number=number)
     return Number.objects.all().values('id').order_by('-id')[:1]
 
