@@ -12,7 +12,7 @@ from rest_framework import generics, viewsets, mixins
 from .utils import *
 
 
-class CallView(APIView):
+class CallView(APIView): # get one call
 
     queryset = Call.objects.all()
     serializer_class = CallSerializer

@@ -34,10 +34,10 @@ class ClientAPIView(APIView):
         # calls = add_calls_to_client(request.data['number'])
         # client.calls.add(1)
 
-        return Response({'client': request.data,})
+        return Response({'client': serializer.data,})
 
 
-class ClientViewSet(mixins.CreateModelMixin, # POST REQUESTS
+class ClientViewSet( # mixins.CreateModelMixin, # POST REQUESTS
                    mixins.RetrieveModelMixin, # get all, get<id>,
                    mixins.UpdateModelMixin, # put<id>, patch<id>
                    GenericViewSet):
