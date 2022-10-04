@@ -12,7 +12,6 @@ from call.models import Call
 
 
 class ClientAPIView(APIView):
-
     serializer_class = ClientSerializer
 
     # permission_classes = (IsAuthenticated,)
@@ -24,7 +23,7 @@ class ClientAPIView(APIView):
 
         client = Client.objects.create(
             name=request.data['name'],
-            author=user, # get current user
+            author=user,  # get current user
         )
         number = create_number_record(request.data['number'])
         print(number)
@@ -34,17 +33,29 @@ class ClientAPIView(APIView):
         # calls = add_calls_to_client(request.data['number'])
         # client.calls.add(1)
 
-        return Response({'data':serializer.data})
+        return Response({'data': serializer.data})
 
 
-class ClientViewSet( # mixins.CreateModelMixin, # POST REQUESTS
-                   mixins.RetrieveModelMixin, # get all, get<id>,
-                   mixins.UpdateModelMixin, # put<id>, patch<id>
-                   GenericViewSet):
-
-    queryset = Client.objects.all() # .values().order_by('-id')
-    serializer_class = ClientSerializer
-
+class ClientViewSet(  # mixins.CreateModelMixin, # POST REQUESTS
+    mixins.RetrieveModelMixin,  # get all, get<id>,
+    mixins.UpdateModelMixin,  # put<id>, patch<id>
+    GenericViewSet):
+    queryset = Client.objects.all()  # .values().order_by('-id')
+    serializer_class = ClientAllSerializer
 
 
+class ClientGenericAPIView( # for pagination
+    generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
+    mixins.UpdateModelMixin, mixins.DestroyModelMixin
+):
+    queryset = Client.objects.all().values().order_by('-id')
+    serializer_class = ClientAllSerializer
+    pagination_class = CustomPagination
 
+
+
+    def get(self, request, pk=None):
+        if pk:
+            return Response({'data': self.retrieve(request, pk).data})
+
+        return self.list(request)

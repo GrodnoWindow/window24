@@ -6,8 +6,8 @@ from .models import Call
 from client.models import Client
 
 
-API_URL = "https://86.57.178.104:4021"
-# API_URL = "https://192.168.1.209:4021"
+# API_URL = "https://86.57.178.104:4021"
+API_URL = "https://192.168.1.209:4021"
 MAIN_URL = API_URL + "/admin/api/jsonrpc/"
 LOGIN = "Ilya"
 PASSWORD = "bkmz1337"
@@ -182,7 +182,8 @@ def parse_active_calls():
                     print(client_id)
 
                 call = Call(id_call=id_call, number=number, status=status,datetime=datetime.datetime.now(),
-                            id_client=client_id, name_client=client_name)
+                            # id_client=client_id, name_client=client_name)
+                            name_client=client_name)
 
                 call.save()
                 print('SAVE')

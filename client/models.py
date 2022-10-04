@@ -17,7 +17,7 @@ class Client(models.Model):
     number = models.ManyToManyField(Number, null=True, blank=True)
     time_create = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
-    calls = models.ManyToManyField(Call, null=True)
+    calls = models.ManyToManyField(Call, null=True, blank=True)
 
     def __str__(self):
         return self.name

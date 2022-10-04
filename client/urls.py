@@ -9,7 +9,8 @@ router.register(r'',ClientViewSet)
 urlpatterns = [
 
     path('',include(router.urls)),
-    path('create', ClientAPIView.as_view())
+    path('all', ClientGenericAPIView.as_view()),
+    path('create', ClientAPIView.as_view()),
     # path(r'all/', ClientGenericAPIView.as_view()),
 
 
