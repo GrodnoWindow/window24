@@ -14,7 +14,7 @@ class Number(models.Model):
 class Client(models.Model):
     author = models.CharField(max_length=255, blank=True)
     name = models.CharField(max_length=255, blank=True)
-    number = models.ManyToManyField(Number, null=True, blank=True)
+    numbers = models.ManyToManyField(Number, null=True, blank=True)
     time_create = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     calls = models.ManyToManyField(Call, null=True, blank=True)
