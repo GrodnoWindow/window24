@@ -34,7 +34,7 @@ class ClientAPIView(APIView):
         # calls = add_calls_to_client(request.data['number'])
         # client.calls.add(1)
 
-        return Response({'client': serializer.data,})
+        return Response({'data':serializer.data})
 
 
 class ClientViewSet( # mixins.CreateModelMixin, # POST REQUESTS

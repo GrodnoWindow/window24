@@ -24,9 +24,7 @@ class CallView(APIView): # get one call
             data = Call.objects.all().values().order_by('-id')[:1]
         else:
             data = []
-        return Response({
-            'calls': list(data)
-        })
+        return Response({'data:': list(data)})
 
 class CallGenericAPIView(
     generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
@@ -39,9 +37,7 @@ class CallGenericAPIView(
 
     def get(self, request, pk=None):
         if pk:
-            return Response({
-                'calls': self.retrieve(request, pk).data
-            })
+            return Response({'data': self.retrieve(request, pk).data})
 
         return self.list(request)
 
@@ -52,7 +48,7 @@ class CallAPIView(generics.ListAPIView): # all requests get,put,patch ...
     def get(self,request, **kwargs):
         pk = kwargs.get('pk', None)
         w = Call.objects.get(pk=pk)
-        return Response({"call": CallSerializer(w).data})
+        return Response({"data": CallSerializer(w).data})
 
     def patch(self,request, *args,**kwargs):
         pk = kwargs.get('pk',None)
@@ -67,7 +63,7 @@ class CallAPIView(generics.ListAPIView): # all requests get,put,patch ...
         serializer = CallSerializer(data=request.data,instance=instance)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({'post':serializer.data})
+        return Response({'data':serializer.data})
 
 
 
