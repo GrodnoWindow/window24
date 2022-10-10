@@ -65,19 +65,3 @@ class ClientsRecordsView(generics.ListAPIView):  # get all clients for paginatio
 
 
 
-
-# class ClientGenericAPIView( # for pagination
-#     generics.ListAPIView
-#     # generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin,
-# ):
-#     queryset = Client.objects.all().values().order_by('-id')
-#     serializer_class = ClientSerializer
-#     pagination_class = CustomPagination
-
-
-# def get(self, request, pk=None):
-#     if pk:
-#         return Response({'data': self.retrieve(request, pk).data})
-#
-#     return self.list(request)
-from rest_framework.pagination import PageNumberPagination

@@ -1,36 +1,20 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register(Constructor)
-
-
-@admin.register(Price)
-class PriceAdmin(admin.ModelAdmin):
-    fields = ['price', 'discount']
-    list_display = ['price', 'discount']
-    ordering = ['-price']
-    list_editable = ['discount']
-
-
-admin.site.register(ProductType)
-
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    fields = ['name', 'price']
-    list_display = ['name', 'get_price']
-    ordering = ['name']
-
-
-admin.site.register(Aggregate)
+    fields = ['name', 'price', 'discount']
 
 
 @admin.register(Fittings)
 class FittingsAdmin(admin.ModelAdmin):
-    fields = ['name', 'price']
-    list_display = ['name', 'get_price']
+    fields = ['name', 'price', 'discount']
 
 
+admin.site.register(Constructor)
+admin.site.register(ProductType)
+admin.site.register(Aggregate)
 admin.site.register(SealOutside)
 admin.site.register(SealRebate)
 admin.site.register(SealInternal)
@@ -38,35 +22,35 @@ admin.site.register(SealColor)
 admin.site.register(Shpros)
 admin.site.register(Shtapik)
 admin.site.register(Sash)
-admin.site.register(Lamination_outside)
-admin.site.register(Lamination_inside)
-admin.site.register(Profile_weight)
+admin.site.register(LaminationOutside)
+admin.site.register(LaminationInside)
+admin.site.register(ProfileWeight)
 admin.site.register(Note)
-admin.site.register(Supply_valve)
+admin.site.register(SupplyValve)
 
 # EXTRAWORKS
-admin.site.register(Products_install)
-admin.site.register(Pvc_slopes)
-admin.site.register(Free_positions)
+admin.site.register(ProductsInstall)
+admin.site.register(PvcSlopes)
+admin.site.register(FreePositions)
 
 # EXTRAMATERIALS
 
-admin.site.register(Favorite_positions)
+admin.site.register(FavoritePositions)
 admin.site.register(Windowsill)
-admin.site.register(Windowsill_danke_komfort)
-admin.site.register(Windowsill_danke_standart)
-admin.site.register(Windowsill_danke_premium)
-admin.site.register(Low_tides)
+admin.site.register(WindowsillDankeKomfort)
+admin.site.register(WindowsillDankeStandart)
+admin.site.register(WindowsillDankePremium)
+admin.site.register(LowTides)
 admin.site.register(Visors)
 admin.site.register(Flashing)
-admin.site.register(Flashing_metal)
+admin.site.register(FlashingMetal)
 admin.site.register(Platband)
-admin.site.register(Extensions_to_profile_sixty)
-admin.site.register(Extensions_to_profile_seventy)
-admin.site.register(Bay_window_to_profile_sixty)
-admin.site.register(Bay_window_to_profile_seventy)
-admin.site.register(Connector_90g)
+admin.site.register(ExtensionsToProfile60)
+admin.site.register(ExtensionsToProfile70)
+admin.site.register(BayWindowToProfile60)
+admin.site.register(BayWindowToProfile70)
+admin.site.register(Connector90g)
 admin.site.register(Accessories)
 admin.site.register(Handles)
 admin.site.register(Locks)
-admin.site.register(Straight_connectors)
+admin.site.register(StraightConnectors)
