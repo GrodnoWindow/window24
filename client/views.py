@@ -23,15 +23,20 @@ class ClientAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         user = request.user
 
+        numbers = create_number_record(request.data['numbers'])
+        if not numbers:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        calls = create_calls_record(request.data['numbers'])
+        addresses = create_address_record(request.data['addresses'])
+
         client = Client.objects.create(
             name=request.data['name'],
             author=user,  # get current user
         )
-        numbers = create_number_record(request.data['numbers'])
-        calls = create_calls_record(request.data['numbers'])
 
-        print(f'numbers {numbers}')
-        print(f'calls {calls}')
+        for address in addresses:
+            client.addresses.add(address['id'])
 
         for call in calls:
             client.calls.add(call['id'])
@@ -45,20 +50,20 @@ class ClientAPIView(APIView):
         return Response({'data': serializer.data})
 
 
-
-
 class ClientViewSet(  # mixins.CreateModelMixin, # POST REQUESTS
     mixins.RetrieveModelMixin,  # get all, get<id>,
-    # mixins.UpdateModelMixin,  # put<id>, patch<id>
+    mixins.UpdateModelMixin,  # put<id>, patch<id>
     GenericViewSet):
     queryset = Client.objects.all()  # .values().order_by('-id')
     serializer_class = ClientSerializer
 
 
-class ClientsRecordsView(generics.ListAPIView): # get all clients for pagination
+class ClientsRecordsView(generics.ListAPIView):  # get all clients for pagination
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     pagination_class = CustomPagination
+
+
 
 
 # class ClientGenericAPIView( # for pagination

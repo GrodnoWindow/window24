@@ -1,13 +1,17 @@
 import datetime
 
-import requests,csv
-
-from .models import Call
-from client.models import Client
+import requests, csv
+import time
 
 
-# API_URL = "https://86.57.178.104:4021"
-API_URL = "https://192.168.1.209:4021"
+from call.models import Call, Call_Okna
+
+from client.models import Client, Number
+
+# from client.models import Client
+
+API_URL = "https://86.57.178.104:4021"
+# API_URL = "https://192.168.1.209:4021"
 MAIN_URL = API_URL + "/admin/api/jsonrpc/"
 LOGIN = "Ilya"
 PASSWORD = "bkmz1337"
@@ -95,6 +99,35 @@ def block_number(number):
     return block_number_response.json()
 
 
+def hang_up(channel):
+    credentials = get_credentials()
+
+    hang_up_headers = {
+        "Content-Type": "application/json",
+        "X-Token": credentials["token"]
+    }
+
+    hang_up_params = {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "Server.hangupCall",
+        "params": {
+            "channels": [
+                channel
+
+            ]
+        }
+    }
+
+    hang_up_session = requests.Session()
+    hang_up_request = hang_up_session.post(
+        headers=hang_up_headers, json=hang_up_params, url=MAIN_URL, verify=False, cookies=credentials["cookies"])
+
+    print(hang_up_request.json())
+
+    return hang_up_request.json()
+
+
 def get_calls():
     credentials = get_credentials()
     get_calls_headers = {
@@ -128,82 +161,67 @@ def get_calls():
     return get_calls_request.json()["result"]
 
 
-def hang_up(channel):
-    credentials = get_credentials()
+def parse_windows24(data):
+    if not data["calls"]:
+        pass
+    else:
+        for item in data["calls"]:
+            id_call = item["id"].split(".")[0]  # add id only number and check record
+            # id_call = item["id"] # add id only number and check record
+            # print(f' IDDDDD {id_call}')
+            number = item["FROM"]["NUMBER"]
+            status = item["STATUS"]
+            # print(f'STATUS {status}')
+            call = Call.objects.filter(id_call=id_call)  # if not record call id in db
+            # print(f'CALL {call}')
+            if not call:
+                # number_find = Number.objects.filter(number=number)
+                # client = Client.objects.filter(numbers=number_find)
+                # print(f'NUMBER FIND : {number_find}')
 
-    hang_up_headers = {
-        "Content-Type": "application/json",
-        "X-Token": credentials["token"]
-    }
+                number = Number.objects.get(number=number)
+                client = Client.objects.get(numbers=number)
+                if not client:
+                    client_id = "0"
+                    client_name = None
+                else:
+                    client_id = client.id
+                    client_name = client.name
 
-    hang_up_params = {
-        "jsonrpc": "2.0",
-        "id": 1,
-        "method": "Server.hangupCall",
-        "params": {
-            "channels": [
-                channel
+                call = Call(id_call=id_call, number=number, datetime=datetime.datetime.now(),
+                            call_type=status, client_id=client_id, client_name=client_name)
+                call.save()
+            else:
+                Call.objects.filter(id_call=id_call).update(call_type=status)
+                # call = Call.objects.get(id_call=id_call)
+                # call.call_type = status
+                # call.save()
 
-            ]
-        }
-    }
 
-    hang_up_session = requests.Session()
-    hang_up_request = hang_up_session.post(
-        headers=hang_up_headers, json=hang_up_params, url=MAIN_URL, verify=False, cookies=credentials["cookies"])
 
-    print(hang_up_request.json())
 
-    return hang_up_request.json()
+
+call_reg = []
+
+
+def parse_okna360(data):
+    if not data['calls']:
+        pass
+    else:
+        for item in data['calls']:
+            id_call = item["id"].split(".")[0]  # add id only number and check record
+
+            check_call = Call_Okna.objects.filter(id_call=id_call)  # if not record call id in db
+            if not check_call:
+                call = Call_Okna(id_call=id_call)
+                call.save()
+                number = item["FROM"]["NUMBER"]
+                if not (number == '14') and not (number == '15'):
+                    response = requests.post(
+                        f'https://okna360-crm.ru/ERPOKNA360/AddNewCalls.php?key=d41d8cd98f00b204e9800998ecf8427e&PhoneClient={number}')
 
 
 def parse_active_calls():
     data = get_calls()
-    print(data)
-    if data["calls"] == []:
-        print('No call for record')
-        return False
-    else:
-        print('zashel')
-        for item in data["calls"]:
-            id_call = item["id"].split(".")[0] # add id only number and check record
-            check_call = Call.objects.filter(id_call=id_call) # if not record call id in db
-            if not check_call:
-                number = item["FROM"]["NUMBER"]
-                status = item["STATUS"]
-                check_client = Client.objects.filter(number=number).values("id")
-                if not check_client:
-                    client_id = "0"
-                    client_name = "new client"
-                else:
-                    client_id = check_client
-                    client_name = Client.objects.filter(number=number).values("name")
-                    print(client_name)
-                    print(client_id)
-
-                call = Call(id_call=id_call, number=number, status=status,datetime=datetime.datetime.now(),
-                            # id_client=client_id, name_client=client_name)
-                            name_client=client_name)
-
-                call.save()
-                print('SAVE')
-                return True
-
-
-
-def database_reader():
-    with open('call-history.csv', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        i = 0
-        for row in reader:
-            if not(row['From Number'] == "14") and not(row['From Number'] == "15")\
-                    and not(row['From Number'] == "20")\
-                    and not(row['From Number'] == "Unknown"):
-                call = Call(number=row['From Number'], datetime=row['Time'])
-                call.save()
-                i += 1
-                print(f'complete : {i}')
-        print('complete')
-
-    csvfile.close()
-# 3.72
+    parse_okna360(data)
+    parse_windows24(data)

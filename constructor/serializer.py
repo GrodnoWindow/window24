@@ -14,6 +14,14 @@ class ProductTypeSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
+class ConstructorFieldsSerializer(serializers.ModelSerializer):
+    producte_type = ProductTypeSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Constructor
+        fields = '__all__'
+
+
 class ProfileSerializer(serializers.ModelSerializer):
     price = PriceSerializer(many=True)
 
@@ -241,45 +249,46 @@ class SupplyValveSerializer(serializers.ModelSerializer):
 
 
 class ConstructorSerializer(serializers.ModelSerializer):
-    price = PriceSerializer(allow_null=True)
+    # price = PriceSerializer(allow_null=True)
     product_type = ProductTypeSerializer(allow_null=True)
-    profile = ProfileSerializer(allow_null=True)
-    aggregate = AggregateSerializer(allow_null=True)
-    fittings = FittingsSerializer(allow_null=True)
-    seal_outside = SealOutsideSerializer(allow_null=True)
-    seal_rebate = SealRebateSerializer(allow_null=True)
-    seal_internal = SealInternalSerializer(allow_null=True)
-    seal_color = SealColorSerializer(allow_null=True)
-    shpros = ShprosSerializer(allow_null=True)
-    shtapik = ShtapikSerializer(allow_null=True)
-    sash = SashSerializer(allow_null=True)
-    lamination_outside = LaminationOutsideSerializer(allow_null=True)
-    lamination_inside = LaminationInsideSerializer(allow_null=True)
-    profile_weight = ProfileWeightSerializer(allow_null=True)
-    note = NoteSerializer(allow_null=True)
-    products_install = ProductsInstallSerializer(allow_null=True)
-    pvc_slopes = PvcSlopesSerializer(allow_null=True)
-    free_positions = FreePositionsSerializer(allow_null=True)
-    favorite_positions = FavoritePositionsSerializer(allow_null=True)
-    windowsill = WindowsillSerializer(allow_null=True)
-    windowsill_danke_komfort = WindowsillDankeKomfortSerializer(allow_null=True)
-    windowsill_danke_standart = WindowsillDankeStandartSerializer(allow_null=True)
-    windowsill_danke_premium = WindowsillDankePremiumSerializer(allow_null=True)
-    low_tides = LowTidesSerializer(allow_null=True)
-    visors = VisorsSerializer(allow_null=True)
-    flashing = FlashingSerializer(allow_null=True)
-    flashing_metal = FlashingMetalSerializer(allow_null=True)
-    platband = PlatbandSerializer(allow_null=True)
-    extensions_to_profile60 = ExtensionsToProfile60Serializer(allow_null=True)
-    extensions_to_profile70 = ExtensionsToProfile70Serializer(allow_null=True)
-    bay_window_to_profile60 = BayWindowToProfile60Serializer(allow_null=True)
-    bay_window_to_profile70 = BayWindowToProfile70Serializer(allow_null=True)
-    connector_90g = Connector90gSerializer(allow_null=True)
-    accessories = AccessoriesSerializer(allow_null=True)
-    handles = HandlesSerializer(allow_null=True)
-    locks = LocksSerializer(allow_null=True)
-    straight_connectors = StraightConnectorsSerializer(allow_null=True)
-    supply_valve = SupplyValveSerializer(allow_null=True)
+
+    # profile = ProfileSerializer(allow_null=True)
+    # aggregate = AggregateSerializer(allow_null=True)
+    # fittings = FittingsSerializer(allow_null=True)
+    # seal_outside = SealOutsideSerializer(allow_null=True)
+    # seal_rebate = SealRebateSerializer(allow_null=True)
+    # seal_internal = SealInternalSerializer(allow_null=True)
+    # seal_color = SealColorSerializer(allow_null=True)
+    # shpros = ShprosSerializer(allow_null=True)
+    # shtapik = ShtapikSerializer(allow_null=True)
+    # sash = SashSerializer(allow_null=True)
+    # lamination_outside = LaminationOutsideSerializer(allow_null=True)
+    # lamination_inside = LaminationInsideSerializer(allow_null=True)
+    # profile_weight = ProfileWeightSerializer(allow_null=True)
+    # note = NoteSerializer(allow_null=True)
+    # products_install = ProductsInstallSerializer(allow_null=True)
+    # pvc_slopes = PvcSlopesSerializer(allow_null=True)
+    # free_positions = FreePositionsSerializer(allow_null=True)
+    # favorite_positions = FavoritePositionsSerializer(allow_null=True)
+    # windowsill = WindowsillSerializer(allow_null=True)
+    # windowsill_danke_komfort = WindowsillDankeKomfortSerializer(allow_null=True)
+    # windowsill_danke_standart = WindowsillDankeStandartSerializer(allow_null=True)
+    # windowsill_danke_premium = WindowsillDankePremiumSerializer(allow_null=True)
+    # low_tides = LowTidesSerializer(allow_null=True)
+    # visors = VisorsSerializer(allow_null=True)
+    # flashing = FlashingSerializer(allow_null=True)
+    # flashing_metal = FlashingMetalSerializer(allow_null=True)
+    # platband = PlatbandSerializer(allow_null=True)
+    # extensions_to_profile60 = ExtensionsToProfile60Serializer(allow_null=True)
+    # extensions_to_profile70 = ExtensionsToProfile70Serializer(allow_null=True)
+    # bay_window_to_profile60 = BayWindowToProfile60Serializer(allow_null=True)
+    # bay_window_to_profile70 = BayWindowToProfile70Serializer(allow_null=True)
+    # connector_90g = Connector90gSerializer(allow_null=True)
+    # accessories = AccessoriesSerializer(allow_null=True)
+    # handles = HandlesSerializer(allow_null=True)
+    # locks = LocksSerializer(allow_null=True)
+    # straight_connectors = StraightConnectorsSerializer(allow_null=True)
+    # supply_valve = SupplyValveSerializer(allow_null=True, many= True)
 
     class Meta:
         model = Constructor

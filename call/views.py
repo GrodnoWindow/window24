@@ -9,28 +9,13 @@ from config.pagination import CustomPagination
 from .models import Call
 from .serializer import CallSerializer
 from rest_framework import generics, viewsets, mixins
-from .utils import *
+from client.models import Client
 
-
-class CallView(APIView): # get one call
-
-    queryset = Call.objects.all()
-    serializer_class = CallSerializer
-    pagination_class = CustomPagination
-
-    def get(self, request):
-        # database_reader() # CSV FILE
-        if parse_active_calls():
-            data = Call.objects.all().values().order_by('-id')[:1]
-        else:
-            data = []
-        return Response({'data:': list(data)})
 
 class CallGenericAPIView(
     generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
     mixins.UpdateModelMixin, mixins.DestroyModelMixin
 ):
-
     queryset = Call.objects.all().values().order_by('-datetime')
     serializer_class = CallSerializer
     pagination_class = CustomPagination
@@ -41,29 +26,27 @@ class CallGenericAPIView(
 
         return self.list(request)
 
-class CallAPIView(generics.ListAPIView): # all requests get,put,patch ...
+
+class CallAPIView(generics.ListAPIView):  # all requests get,put,patch ...
     queryset = Call.objects.all()
     serializer_class = CallSerializer
 
-    def get(self,request, **kwargs):
+    def get(self, request, **kwargs):
         pk = kwargs.get('pk', None)
         w = Call.objects.get(pk=pk)
         return Response({"data": CallSerializer(w).data})
 
-    def patch(self,request, *args,**kwargs):
-        pk = kwargs.get('pk',None)
+    def patch(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', None)
         if not pk:
-            return Response({'error':'Method PUT not allowed'})
+            return Response({'error': 'Method PUT not allowed'})
 
         try:
             instance = Call.objects.get(pk=pk)
         except:
-            return Response({'error':'Object does not exists'})
+            return Response({'error': 'Object does not exists'})
 
-        serializer = CallSerializer(data=request.data,instance=instance)
+        serializer = CallSerializer(data=request.data, instance=instance)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({'data':serializer.data})
-
-
-
+        return Response({'data': serializer.data})

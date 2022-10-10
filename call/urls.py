@@ -11,7 +11,7 @@ from rest_framework import routers
 
 urlpatterns = [
     # path('', include(router.urls)),
-    path(r'active/', CallView.as_view()),
+    # path(r'active/', CallView.as_view()),
     path(r'all/', CallGenericAPIView.as_view()),
     path(r'<int:pk>/', CallAPIView.as_view()),
     # path(r'all', CallAllView.as_view()),

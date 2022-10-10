@@ -1,7 +1,7 @@
 from rest_framework import serializers, status
 
 from call.models import Call
-from .models import Client, Number
+from .models import Client, Number, Address
 from call.serializer import CallSerializer
 
 
@@ -11,9 +11,16 @@ class NumberSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class AddresSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = '__all__'
+
+
 class ClientSerializer(serializers.ModelSerializer):
     author = serializers.CharField(read_only=True)
-    numbers = NumberSerializer(many=True, read_only=False)
+    numbers = NumberSerializer(many=True, read_only=True)
+    addresses = AddresSerializer(many=True, read_only=True)
     calls = CallSerializer(many=True, read_only=True)
     is_active = serializers.BooleanField(read_only=True)
     name = serializers.CharField(read_only=False)
@@ -26,6 +33,7 @@ class ClientSerializer(serializers.ModelSerializer):
 class ClientPostSerializer(serializers.ModelSerializer):
     author = serializers.CharField(read_only=True)
     numbers = serializers.CharField(read_only=False)
+    addresses = serializers.CharField(read_only=False)
     calls = CallSerializer(many=True, read_only=True)
     is_active = serializers.BooleanField(read_only=True)
     name = serializers.CharField(read_only=False)

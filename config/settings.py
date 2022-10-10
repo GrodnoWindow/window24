@@ -14,7 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure--86iuxy1g1+!4bnm%j=+#rlz!w3x0p3sw#!xaaa82k1o!tcqmr
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
-
 
 # Application definition
 
@@ -61,7 +60,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
@@ -81,7 +79,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -105,7 +102,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -124,7 +120,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -135,7 +130,6 @@ TIME_ZONE = 'Europe/Minsk'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -200,14 +194,13 @@ SIMPLE_JWT = {
 
     # cokes token
     'AUTH_COOKIE': 'access_token',  # Имя куки. Включает файлы cookie, если установлено значение.
-    'AUTH_COOKIE_DOMAIN': None,     # Строка типа «example.com» или «Нет» для стандартного файла cookie домена.
-    'AUTH_COOKIE_SECURE': False,    # Whether the auth cookies should be secure (https:// only).
+    'AUTH_COOKIE_DOMAIN': None,  # Строка типа «example.com» или «Нет» для стандартного файла cookie домена.
+    'AUTH_COOKIE_SECURE': False,  # Whether the auth cookies should be secure (https:// only).
     'AUTH_COOKIE_HTTP_ONLY': True,  # Http only cookie flag.It's not fetch by javascript.
-    'AUTH_COOKIE_PATH': '/',        # The path of the auth cookie.
+    'AUTH_COOKIE_PATH': '/',  # The path of the auth cookie.
     'AUTH_COOKIE_SAMESITE': 'Lax',  # Whether to set the flag restricting cookie leaks on cross-site
-                                    # requests. This can be 'Lax', 'Strict', or None to disable the flag.
+    # requests. This can be 'Lax', 'Strict', or None to disable the flag.
 }
-
 
 # CORS_ALLOWED_ORIGINS = [
 #     "http://127.0.0.1:3002",

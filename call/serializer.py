@@ -8,6 +8,7 @@ from rest_framework.parsers import JSONParser
 
 class CallSerializer(serializers.ModelSerializer):
     # client = ClientSerializer(read_only=True)
+
     class Meta:
         model = Call
         fields = '__all__'

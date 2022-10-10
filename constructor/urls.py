@@ -9,5 +9,5 @@ router.register(r'', ConstructorViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('create/', ConstructorCreateApi.as_view()),
-    path('all/', ConstructorGenericAPIList.as_view()),
+    path('fields/', FiltersView.as_view()),
 ]
