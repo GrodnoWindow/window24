@@ -23,29 +23,19 @@ class ClientAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         user = request.user
 
-        numbers = create_number_record(request.data['numbers'])
-        if not numbers:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
+        number_id = create_number_record(request.data['numbers'])
         calls = create_calls_record(request.data['numbers'])
-        addresses = create_address_record(request.data['addresses'])
+        address_id = create_address_record(request.data['addresses'])
 
         client = Client.objects.create(
             name=request.data['name'],
             author=user,  # get current user
         )
 
-        for address in addresses:
-            client.addresses.add(address['id'])
-
+        client.addresses.add(address_id)
+        client.numbers.add(number_id)
         for call in calls:
             client.calls.add(call['id'])
-
-        for num in numbers:
-            client.numbers.add(num['id'])
-
-        # calls = add_calls_to_client(request.data['number'])
-        # client.calls.add(1)
 
         return Response({'data': serializer.data})
 

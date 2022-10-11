@@ -3,7 +3,6 @@ import datetime
 import requests, csv
 import time
 
-
 from call.models import Call, Call_Okna
 
 from client.models import Client, Number
@@ -167,33 +166,30 @@ def parse_window24(data):
     else:
         for item in data["calls"]:
             id_call = item["id"].split(".")[0]  # add id only number and check record
-            number = item["FROM"]["NUMBER"]
+            number_call = item["FROM"]["NUMBER"]
             status = item["STATUS"]
             call = Call.objects.filter(id_call=id_call)  # if not record call id in db
             if not call:
-                # number_find = Number.objects.filter(number=number)
-                # client = Client.objects.filter(numbers=number_find)
-                # print(f'NUMBER FIND : {number_find}')
 
-                number = Number.objects.get(number=number)
-                client = Client.objects.get(numbers=number)
-                if not client:
-                    client_id = "0"
-                    client_name = None
-                else:
+                try:
+                    number = Number.objects.get(number=number_call)
+                except Number.DoesNotExist:
+                    number = Number.objects.create(number=number_call)
+
+                try:
+                    client = Client.objects.get(numbers=number)
                     client_id = client.id
                     client_name = client.name
+                except Client.DoesNotExist:
+                    client_id = "0"
+                    client_name = None
+
 
                 call = Call(id_call=id_call, number=number, datetime=datetime.datetime.now(),
                             call_type=status, client_id=client_id, client_name=client_name)
                 call.save()
             else:
                 Call.objects.filter(id_call=id_call).update(call_type=status)
-                # call = Call.objects.get(id_call=id_call)
-                # call.call_type = status
-                # call.save()
-
-
 
 
 

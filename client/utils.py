@@ -3,23 +3,28 @@ from client.models import Client, Number, Address
 
 
 def create_number_record(number):
-    check_number = Number.objects.filter(number=number)
-    if not check_number:
-        Number.objects.create(number=number)
-    else:
-        return False
-    return Number.objects.all().values('id').order_by('-id')[:1]
+    try:
+        number_id = Number.objects.get(number=number).id
+        return number_id
+    except Number.DoesNotExist:
+        num = Number.objects.create(number=number)
+        num.save()
+        return num.id
 
 
 def create_calls_record(number):
     calls = Call.objects.filter(number=number).values('id').order_by('-id')
     return calls
 
+
 def create_address_record(address):
-    Address.objects.create(name=address)
-    return Address.objects.all().values('id').order_by('-id')[:1]
-
-
+    try:
+        address_id = Address.objects.get(name=address).id
+        return address_id
+    except Address.DoesNotExist:
+        address = Address.objects.create(name=address)
+        address.save()
+        return address.id
 
 
 # def add_calls_to_client(Client):
