@@ -442,10 +442,24 @@ class SupplyValve(models.Model):
         verbose_name_plural = 'Приточные клапаны'
 
 
+# _______________________________ CALCULATION MODEL _______________________________
+class WindowDiscount(models.Model):
+    profile_id = models.ForeignKey(Profile, verbose_name="Профиль", blank=True, null=True, on_delete=models.CASCADE)
+    fittings_id = models.ForeignKey(Fittings, verbose_name="фурнитура", blank=True, null=True, on_delete=models.CASCADE)
+    discount = models.FloatField(max_length=255, default=0.0)
+
+    def __str__(self):
+        return f'{self.profile_id.name} + {self.fittings_id.name} = {self.discount} %'
+
+    class Meta:
+        verbose_name = 'Скидка на окно'
+        verbose_name_plural = 'Скидки на окна'
+
+
 # _______________________________ CONSTRUCTOR MODEL _______________________________
 class Constructor(models.Model):
     is_active = models.BooleanField(verbose_name="Активно", default=True)
-    price = models.FloatField(max_length=255,default=0.0)
+    price = models.FloatField(max_length=255, default=0.0)
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, verbose_name="Тип изделия",
                                      null=True, blank=True)
     profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, verbose_name="Профиль", null=True,

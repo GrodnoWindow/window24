@@ -12,6 +12,12 @@ class FittingsAdmin(admin.ModelAdmin):
     fields = ['name', 'price', 'discount']
 
 
+# @admin.register(Fittings)
+# class FittingsAdmin(admin.ModelAdmin):
+#     fields = ['', 'price', 'discount']
+
+admin.site.register(WindowDiscount)
+
 admin.site.register(Constructor)
 admin.site.register(ProductType)
 admin.site.register(Aggregate)
