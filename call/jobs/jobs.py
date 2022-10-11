@@ -10,8 +10,8 @@ from client.models import Client, Number
 
 # from client.models import Client
 
-API_URL = "https://86.57.178.104:4021"
-# API_URL = "https://192.168.1.209:4021"
+# API_URL = "https://86.57.178.104:4021"
+API_URL = "https://192.168.1.209:4021"
 MAIN_URL = API_URL + "/admin/api/jsonrpc/"
 LOGIN = "Ilya"
 PASSWORD = "bkmz1337"
@@ -161,19 +161,15 @@ def get_calls():
     return get_calls_request.json()["result"]
 
 
-def parse_windows24(data):
+def parse_window24(data):
     if not data["calls"]:
         pass
     else:
         for item in data["calls"]:
             id_call = item["id"].split(".")[0]  # add id only number and check record
-            # id_call = item["id"] # add id only number and check record
-            # print(f' IDDDDD {id_call}')
             number = item["FROM"]["NUMBER"]
             status = item["STATUS"]
-            # print(f'STATUS {status}')
             call = Call.objects.filter(id_call=id_call)  # if not record call id in db
-            # print(f'CALL {call}')
             if not call:
                 # number_find = Number.objects.filter(number=number)
                 # client = Client.objects.filter(numbers=number_find)
@@ -224,4 +220,4 @@ def parse_okna360(data):
 def parse_active_calls():
     data = get_calls()
     parse_okna360(data)
-    parse_windows24(data)
+    parse_window24(data)
