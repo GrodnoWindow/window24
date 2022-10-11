@@ -29,8 +29,8 @@ class ProductType(models.Model):
 
 class Profile(models.Model):
     name = models.CharField(max_length=255, verbose_name="Профиль", blank=True, null=True)
-    price = models.FloatField(verbose_name="Цена", blank=True, null=True)
-    discount = models.FloatField(verbose_name="Скидка", blank=True, null=True)
+    # price = models.FloatField(verbose_name="Цена", blank=True, null=True)
+    # discount = models.FloatField(verbose_name="Скидка", blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -42,8 +42,8 @@ class Profile(models.Model):
 
 class Fittings(models.Model):
     name = models.CharField(max_length=255, verbose_name="Фурнитура", blank=True, null=True)
-    price = models.FloatField(verbose_name="Цена", blank=True, null=True)
-    discount = models.FloatField(verbose_name="Скидка", blank=True, null=True)
+    # price = models.FloatField(verbose_name="Цена", blank=True, null=True)
+    # discount = models.FloatField(verbose_name="Скидка", blank=True, null=True)
 
     def __str__(self):
         return self.name

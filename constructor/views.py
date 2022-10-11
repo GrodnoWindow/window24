@@ -33,77 +33,94 @@ class ConstructorWindowAPIView(APIView):
 
         serializer = ConstructorFieldsSerializer(filters)
         return Response({
-            'product_type': [
-                {'placeholder': 'Тип изделия',
-                 'label': 'Выберите тип изделия',
-                 'data': serializer.data['product_type'], }
-            ],
-            'profile': [
-                {'placeholder': 'Профиль',
-                 'label': 'Выберите профиль',
-                 'data': serializer.data['profile'], }
-            ],
-            'aggregate': [
-                {'placeholder': 'Заполнитель',
-                 'label': 'Выберите заполнитель',
-                 'data': serializer.data['aggregate'], }
-            ],
-            'fittings': [
-                {'placeholder': 'Фурнитура',
-                 'label': 'Выберите фурнитуру',
-                 'data': serializer.data['fittings'], }
-            ],
-            'seal_outside': [
-                {'placeholder': 'Уплотнение снаружи',
-                 'label': 'Выберите уплотнение снаружи',
-                 'data': serializer.data['seal_outside'], }
-            ],
-            'seal_rebate': [
-                {'placeholder': 'Уплотнение притвора',
-                 'label': 'Выберите уплотнение притвора',
-                 'data': serializer.data['seal_rebate'], }
-            ],
-            'seal_internal': [
-                {'placeholder': 'Уплотнение внутренее',
-                 'label': 'Выберите внутренее уплотнение',
-                 'data': serializer.data['seal_internal'], }
-            ],
-            'seal_color': [
-                {'placeholder': 'Цвет уплотнения',
-                 'label': 'Выберите цвет уплотнения',
-                 'data': serializer.data['seal_color'], }
-            ],
-            'shpros': [
-                {'placeholder': 'Шпрос',
-                 'label': 'Выберите шпрос',
-                 'data': serializer.data['shpros'], }
-            ],
-            'shtapik': [
-                {'placeholder': 'Штапик',
-                 'label': 'Выберите штапик',
-                 'data': serializer.data['shtapik'], }
-            ],
-            'sash': [
-                {'placeholder': 'Створка',
-                 'label': 'Выберите створку',
-                 'data': serializer.data['sash'], }
-            ],
-            'lamination_outside': [
-                {'placeholder': 'Ламинация снаружи',
-                 'label': 'Выберите наружную ламинацию',
-                 'data': serializer.data['lamination_outside'], }
-            ],
-            'lamination_inside': [
-                {'placeholder': 'Ламинация внутри',
-                 'label': 'Выберите внутреннюю ламинацию',
-                 'data': serializer.data['lamination_inside'], }
-            ],
-            'profile_weight': [
-                {'placeholder': 'Масса профиля',
-                 'label': 'Выберите массу профиля',
-                 'data': serializer.data['profile_weight'], }
-            ],
+            'data': [
+                {
+                    'name': 'product_type',
+                    'placeholder': 'Тип изделия',
+                    'label': 'Выберите тип изделия',
+                    'data': serializer.data['product_type'],
+                },
+                {
+                    'name': 'profile',
+                    'placeholder': 'Профиль',
+                    'label': 'Выберите профиль',
+                    'data': serializer.data['profile'],
+                },
+                {
+                    'name': 'aggregate',
+                    'placeholder': 'Заполнитель',
+                    'label': 'Выберите заполнитель',
+                    'data': serializer.data['aggregate'],
+                },
+                {
+                    'name': 'fittings',
+                    'placeholder': 'Фурнитура',
+                    'label': 'Выберите фурнитуру',
+                    'data': serializer.data['fittings'],
+                },
+                {
+                    'name': 'seal_outside',
+                    'placeholder': 'Уплотнение снаружи',
+                    'label': 'Выберите уплотнение снаружи',
+                    'data': serializer.data['seal_outside'],
+                },
+                {
+                    'name': 'seal_rebate',
+                    'placeholder': 'Уплотнение притвора',
+                    'label': 'Выберите уплотнение притвора',
+                    'data': serializer.data['seal_rebate'],
+                },
+                {
+                    'name': 'seal_internal',
+                    'placeholder': 'Уплотнение внутренее',
+                    'label': 'Выберите внутренее уплотнение',
+                    'data': serializer.data['seal_internal'],
+                },
+                {
+                    'name': 'seal_color',
+                    'placeholder': 'Цвет уплотнения',
+                    'label': 'Выберите цвет уплотнения',
+                    'data': serializer.data['seal_color'],
+                },
+                {
+                    'name': 'shpros',
+                    'placeholder': 'Шпрос',
+                    'label': 'Выберите шпрос',
+                    'data': serializer.data['shpros'],
+                },
+                {
+                    'name': 'shtapik',
+                    'placeholder': 'Штапик',
+                    'label': 'Выберите штапик',
+                    'data': serializer.data['shtapik'],
+                },
+                {
+                    'name': 'sash',
+                    'placeholder': 'Створка',
+                    'label': 'Выберите створку',
+                    'data': serializer.data['sash'],
+                },
+                {
+                    'name': 'lamination_outside',
+                    'placeholder': 'Ламинация снаружи',
+                    'label': 'Выберите наружную ламинацию',
+                    'data': serializer.data['lamination_outside'],
+                },
+                {
+                    'name': 'lamination_inside',
+                    'placeholder': 'Ламинация внутри',
+                    'label': 'Выберите внутреннюю ламинацию',
+                    'data': serializer.data['lamination_inside'],
+                },
+                {
+                    'name': 'profile_weight',
+                    'placeholder': 'Масса профиля',
+                    'label': 'Выберите массу профиля',
+                    'data': serializer.data['profile_weight'],
 
+                }
+
+            ]
         })
 
 
@@ -139,21 +156,27 @@ class ConstructorExtraWorkAPIView(APIView):
 
         serializer = ConstructorFieldsSerializer(filters)
         return Response({
-            'products_install': [
-                {'placeholder': 'Монтаж изделий',
-                 'label': 'Выберите монтаж изделий',
-                 'data': serializer.data['products_install'], }
-            ],
-            'pvc_slopes': [
-                {'placeholder': 'Откосы ПВХ',
-                 'label': 'Выберите откосы ПВХ',
-                 'data': serializer.data['pvc_slopes'], }
-            ],
-            'free_positions': [
-                {'placeholder': 'Бесплатные позиции',
-                 'label': 'Выберите бесплатные позиции',
-                 'data': serializer.data['free_positions'], }
-            ],
+            'data': [
+                {
+                    'name': 'products_install',
+                    'placeholder': 'Монтаж изделий',
+                    'label': 'Выберите монтаж изделий',
+                    'data': serializer.data['products_install'],
+                },
+                {
+                    'name': 'pvc_slopes',
+                    'placeholder': 'Откосы ПВХ',
+                    'label': 'Выберите откосы ПВХ',
+                    'data': serializer.data['pvc_slopes'],
+                },
+                {
+                    'name': 'free_positions',
+                    'placeholder': 'Бесплатные позиции',
+                    'label': 'Выберите бесплатные позиции',
+                    'data': serializer.data['free_positions'],
+                },
+
+            ]
         })
 
 
@@ -184,106 +207,125 @@ class ConstructorExtraMaterialAPIView(APIView):
 
         serializer = ConstructorFieldsSerializer(filters)
         return Response({
-            'windowsill': [
-                {'placeholder': 'Подоконники',
-                 'label': 'Выберите подоконник',
-                 'data': serializer.data['windowsill'], }
-            ],
-            'windowsill_danke_komfort': [
-                {'placeholder': 'Подоконники Danke Komfort',
-                 'label': 'Выберите подоконник Danke Komfort',
-                 'data': serializer.data['windowsill_danke_komfort'], }
-            ],
-            'windowsill_danke_standart': [
-                {'placeholder': 'Подоконники Danke Standart',
-                 'label': 'Выберите подоконник Danke Standart',
-                 'data': serializer.data['windowsill_danke_standart'], }
-            ],
-            'windowsill_danke_premium': [
-                {'placeholder': 'Подоконники Danke Premium',
-                 'label': 'Выберите подоконник Danke Premium',
-                 'data': serializer.data['windowsill_danke_premium'], }
-            ],
-            'low_tides': [
-                {'placeholder': 'Отливы',
+            'data': [
+                {
+                    'name': 'windowsill',
+                    'placeholder': 'Подоконники',
+                    'label': 'Выберите подоконник',
+                    'data': serializer.data['windowsill'],
+                },
+                {
+                    'name': 'windowsill_danke_komfort',
+                    'placeholder': 'Подоконники Danke Komfort',
+                    'label': 'Выберите подоконник Danke Komfort',
+                    'data': serializer.data['windowsill_danke_komfort'],
+                },
+                {
+                    'name': 'windowsill_danke_standart',
+                    'placeholder': 'Подоконники Danke Standart',
+                    'label': 'Выберите подоконник Danke Standart',
+                    'data': serializer.data['windowsill_danke_standart'],
+                },
+                {
+                    'name': 'windowsill_danke_premium',
+                    'placeholder': 'Подоконники Danke Premium',
+                    'label': 'Выберите подоконник Danke Premium',
+                    'data': serializer.data['windowsill_danke_premium'],
+                },
+                {'name': 'low_tides',
+                 'placeholder': 'Отливы',
                  'label': 'Выберите отливы',
-                 'data': serializer.data['low_tides'], }
-            ],
-            'visors': [
-                {'placeholder': 'Козырьки',
-                 'label': 'Выберите козырьки',
-                 'data': serializer.data['visors'], }
-            ],
-            'flashing': [
-                {'placeholder': 'Нащельники',
-                 'label': 'Выберите нащельники',
-                 'data': serializer.data['flashing'], }
-            ],
-            'flashing_metal': [
-                {'placeholder': 'Металлические нащельники',
-                 'label': 'Выберите металлические нащельники',
-                 'data': serializer.data['flashing_metal'], }
-            ],
-            'platband': [
-                {'placeholder': 'Наличники',
-                 'label': 'Выберите наличники',
-                 'data': serializer.data['platband'], }
-            ],
-            'extensions_to_profile60': [
-                {'placeholder': 'Доборы к профилю 60мм',
-                 'label': 'Выберите доборы к профилю 60мм',
-                 'data': serializer.data['extensions_to_profile60'], }
-            ],
-            'extensions_to_profile70': [
-                {'placeholder': 'Доборы к профилю 70мм',
-                 'label': 'Выберите доборы к профилю 70мм',
-                 'data': serializer.data['extensions_to_profile70'], }
-            ],
-            'bay_window_to_profile60': [
-                {'placeholder': 'Эркер к профилю 60мм',
-                 'label': 'Выберите эркер к профилю 60мм',
-                 'data': serializer.data['bay_window_to_profile60'], }
-            ],
-            'bay_window_to_profile70': [
-                {'placeholder': 'Эркер к профилю 70мм',
-                 'label': 'Выберите эркер к профилю 70мм',
-                 'data': serializer.data['bay_window_to_profile70'], }
-            ],
-            'connector_90g': [
-                {'placeholder': 'Соединитель 90гр',
-                 'label': 'Выберите соединитель 90гр',
-                 'data': serializer.data['connector_90g'], }
-            ],
-            'accessories': [
-                {'placeholder': 'Комлпектующие',
-                 'label': 'Выберите комлпектующие',
-                 'data': serializer.data['accessories'], }
-            ],
-            'handles': [
-                {'placeholder': 'Ручка',
-                 'label': 'Выберите ручку',
-                 'data': serializer.data['handles'], }
-            ],
-            'locks': [
-                {'placeholder': 'Замок',
-                 'label': 'Выберите замок',
-                 'data': serializer.data['locks'], }
-            ],
-            'straight_connectors': [
-                {'placeholder': 'Прямые соединители',
-                 'label': 'Выберите прямые соединители',
-                 'data': serializer.data['straight_connectors'], }
-            ],
-            'supply_valve': [
-                {'placeholder': 'Приточный клапан',
-                 'label': 'Выберите приточный клапан',
-                 'data': serializer.data['supply_valve'], }
-            ],
+                 'data': serializer.data['low_tides'], },
+                {
+                    'name': 'visors',
+                    'placeholder': 'Козырьки',
+                    'label': 'Выберите козырьки',
+                    'data': serializer.data['visors'],
+                },
+                {
+                    'name': 'flashing',
+                    'placeholder': 'Нащельники',
+                    'label': 'Выберите нащельники',
+                    'data': serializer.data['flashing'],
+                },
+                {
+                    'name': 'flashing_metal',
+                    'placeholder': 'Металлические нащельники',
+                    'label': 'Выберите металлические нащельники',
+                    'data': serializer.data['flashing_metal'],
+                },
+                {
+                    'name': 'platband',
+                    'placeholder': 'Наличники',
+                    'label': 'Выберите наличники',
+                    'data': serializer.data['platband'],
+                },
+                {
+                    'name': 'extensions_to_profile60',
+                    'placeholder': 'Доборы к профилю 60мм',
+                    'label': 'Выберите доборы к профилю 60мм',
+                    'data': serializer.data['extensions_to_profile60'],
+                },
+                {
+                    'name': 'extensions_to_profile70',
+                    'placeholder': 'Доборы к профилю 70мм',
+                    'label': 'Выберите доборы к профилю 70мм',
+                    'data': serializer.data['extensions_to_profile70'],
+                },
+                {
+                    'name': 'bay_window_to_profile60',
+                    'placeholder': 'Эркер к профилю 60мм',
+                    'label': 'Выберите эркер к профилю 60мм',
+                    'data': serializer.data['bay_window_to_profile60']
 
+                },
+                {
+                    'name': 'bay_window_to_profile70',
+                    'placeholder': 'Эркер к профилю 70мм',
+                    'label': 'Выберите эркер к профилю 70мм',
+                    'data': serializer.data['bay_window_to_profile70'],
+                },
+                {
+                    'name': 'connector_90g',
+                    'placeholder': 'Соединитель 90гр',
+                    'label': 'Выберите соединитель 90гр',
+                    'data': serializer.data['connector_90g'],
+                },
+                {
+                    'name': 'accessories',
+                    'placeholder': 'Комлпектующие',
+                    'label': 'Выберите комлпектующие',
+                    'data': serializer.data['accessories'],
+                },
+                {
+                    'name': 'handles',
+                    'placeholder': 'Ручка',
+                    'label': 'Выберите ручку',
+                    'data': serializer.data['handles'],
+                },
+                {
+                    'name': 'locks',
+                    'placeholder': 'Замок',
+                    'label': 'Выберите замок',
+                    'data': serializer.data['locks'],
+                },
+                {
+                    'name': 'straight_connectors',
+                    'placeholder': 'Прямые соединители',
+                    'label': 'Выберите прямые соединители',
+                    'data': serializer.data['straight_connectors'],
+                },
+                {
+                    'name': 'supply_valve',
+                    'placeholder': 'Приточный клапан',
+                    'label': 'Выберите приточный клапан',
+                    'data': serializer.data['supply_valve'],
+                }
+            ]
         })
 
 
 class ConstructorViewSet(viewsets.ModelViewSet):
-    queryset = Constructor.objects.all()
+    queryset = Constructor.objects.all()  # .values().order_by('-id')
     serializer_class = ConstructorSerializer
     pagination_class = CustomPagination
