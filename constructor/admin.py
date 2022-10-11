@@ -2,23 +2,16 @@ from django.contrib import admin
 from .models import *
 
 
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    fields = ['name', 'price', 'discount']
-
-
-@admin.register(Fittings)
-class FittingsAdmin(admin.ModelAdmin):
-    fields = ['name', 'price', 'discount']
 
 
 # @admin.register(Fittings)
 # class FittingsAdmin(admin.ModelAdmin):
 #     fields = ['', 'price', 'discount']
 
-admin.site.register(WindowDiscount)
 
 admin.site.register(Constructor)
+admin.site.register(Profile)
+admin.site.register(Fittings)
 admin.site.register(ProductType)
 admin.site.register(Aggregate)
 admin.site.register(SealOutside)

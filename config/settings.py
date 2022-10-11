@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'diary',
     'call',
     'constructor',
+    'calculation',
 
 ]
 
