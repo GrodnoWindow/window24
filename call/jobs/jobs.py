@@ -162,7 +162,10 @@ def get_calls():
 
 def parse_window24(data):
     if not data["calls"]:
-        pass
+        missed_calls = Call.objects.filter(call_type='0').update(call_type='2')
+        # print(f'{missed_calls}')
+        # for call in missed_calls:
+        #     call.call_type = "2"
     else:
         for item in data["calls"]:
             id_call = item["id"].split(".")[0]  # add id only number and check record
@@ -184,13 +187,12 @@ def parse_window24(data):
                     client_id = "0"
                     client_name = None
 
-
                 call = Call(id_call=id_call, number=number, datetime=datetime.datetime.now(),
                             call_type=status, client_id=client_id, client_name=client_name)
+                print(f'CAAAAAAAAAAAAAL {call}')
                 call.save()
             else:
                 Call.objects.filter(id_call=id_call).update(call_type=status)
-
 
 
 call_reg = []
