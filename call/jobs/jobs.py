@@ -9,8 +9,8 @@ from client.models import Client, Number
 
 # from client.models import Client
 
-API_URL = "https://86.57.178.104:4021"
-# API_URL = "https://192.168.1.209:4021"
+# API_URL = "https://86.57.178.104:4021"
+API_URL = "https://192.168.1.209:4021"
 MAIN_URL = API_URL + "/admin/api/jsonrpc/"
 LOGIN = "Ilya"
 PASSWORD = "bkmz1337"
@@ -162,10 +162,7 @@ def get_calls():
 
 def parse_window24(data):
     if not data["calls"]:
-        missed_calls = Call.objects.filter(call_type='0').update(call_type='2')
-        # print(f'{missed_calls}')
-        # for call in missed_calls:
-        #     call.call_type = "2"
+        Call.objects.filter(call_type='0').update(call_type='2')
     else:
         for item in data["calls"]:
             id_call = item["id"].split(".")[0]  # add id only number and check record
@@ -195,7 +192,6 @@ def parse_window24(data):
                 Call.objects.filter(id_call=id_call).update(call_type=status)
 
 
-call_reg = []
 
 
 def parse_okna360(data):

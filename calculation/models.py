@@ -6,10 +6,11 @@ from constructor.models import Constructor
 
 # Create your models here.
 class WindowsillCalc(models.Model):
-    price_windowsill = models.FloatField(max_length=255, default=0.0)
     width = models.FloatField(max_length=255, default=0.0)
     length = models.FloatField(max_length=255, default=0.0)
     count = models.FloatField(max_length=255, default=0.0)
+    price = models.FloatField(max_length=255, default=0.0)
+
     # sum = models.FloatField(max_length=255, default=0)
 
 

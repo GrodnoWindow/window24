@@ -35,8 +35,9 @@ admin.site.register(FreePositions)
 # EXTRAMATERIALS
 
 admin.site.register(FavoritePositions)
-# admin.site.register(WindowsillColor)
 admin.site.register(Windowsill)
+admin.site.register(WindowsillColor)
+admin.site.register(WindowsillType)
 admin.site.register(WindowsillDankeKomfort)
 admin.site.register(WindowsillDankeStandart)
 admin.site.register(WindowsillDankePremium)

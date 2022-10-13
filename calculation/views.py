@@ -3,20 +3,37 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
 from .models import WindowDiscount
-from .serializer import WindowsDiscountSerializer
-from .utils import calc_window_disc
-from .serializer import OrderSerializer
+from .utils import *
+from constructor.serializer import ConstructorSerializer
+from .serializer import ConstructorCalcSerializer
+from constructor.models import Constructor
 
 
 class CalculationAPIView(APIView):
-    serializer_class =
+    serializer_class = ConstructorCalcSerializer
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        return Response({'data': serializer.data})
+        # calc_window_disc(profile_id = request.data['profile'],
+        #                  fittings_id=request.data['fittings'],
+        #                  currency=['currency'], price=request.data['price'])
+        # number_id = create_number_record(request.data['numbers'])
+        # calls = create_calls_record(request.data['numbers'])
+        # address_id = create_address_record(request.data['addresses'])
 
+        # client = Constructor.objects.create(
+        #
+        # )
+        # name = request.data['name'],
+        #
+        # client.addresses.add(address_id)
+        # client.numbers.add(number_id)
+        # for call in calls:
+        #     client.calls.add(call['id'])
+
+        return Response({'data': serializer.data})
 
 # class CalculationViewSet(viewsets.ModelViewSet):
 #     serializer_class = WindowsDiscountSerializer
