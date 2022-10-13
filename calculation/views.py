@@ -5,11 +5,11 @@ from rest_framework import viewsets
 from .models import WindowDiscount
 from .serializer import WindowsDiscountSerializer
 from .utils import calc_window_disc
-from .serializer import ConstructorSerializer
+from .serializer import OrderSerializer
 
 
 class CalculationAPIView(APIView):
-    serializer_class = ConstructorSerializer
+    serializer_class =
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)

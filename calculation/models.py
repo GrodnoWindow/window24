@@ -1,8 +1,16 @@
 from django.db import models
 from constructor.models import Profile, Fittings
 
+from constructor.models import Constructor
+
 
 # Create your models here.
+class WindowsillCalc(models.Model):
+    price_windowsill = models.FloatField(max_length=255, default=0.0)
+    width = models.FloatField(max_length=255, default=0.0)
+    length = models.FloatField(max_length=255, default=0.0)
+    count = models.FloatField(max_length=255, default=0.0)
+    # sum = models.FloatField(max_length=255, default=0)
 
 
 # _______________________________ CALCULATION MODEL _______________________________
@@ -29,3 +37,7 @@ class ExchangeRates(models.Model):
     class Meta:
         verbose_name = 'Курс валют'
         verbose_name_plural = 'Курсы валют'
+
+
+class Order(models.Model):
+    constructor_id = models.ForeignKey(Constructor, verbose_name="Конструктор", blank=True, null=True, on_delete=models.CASCADE)

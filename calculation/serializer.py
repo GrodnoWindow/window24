@@ -1,16 +1,23 @@
 from rest_framework import serializers
-from .models import WindowDiscount
+from .models import WindowDiscount, WindowsillCalc, Order
 from constructor.models import Constructor
+from constructor.serializer import ConstructorSerializer
 
 
-class ConstructorSerializer(serializers.ModelSerializer):
-
+class WindowsillCalcSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Constructor
+        model = WindowsillCalc
         fields = '__all__'
 
 
 class WindowsDiscountSerializer(serializers.ModelSerializer):
     class Meta:
         model = WindowDiscount
+        fields = '__all__'
+
+
+class WindowCalcSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Order
         fields = '__all__'

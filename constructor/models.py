@@ -29,6 +29,7 @@ class ProductType(models.Model):
 
 class Profile(models.Model):
     name = models.CharField(max_length=255, verbose_name="Профиль", blank=True, null=True)
+
     # price = models.FloatField(verbose_name="Цена", blank=True, null=True)
     # discount = models.FloatField(verbose_name="Скидка", blank=True, null=True)
 
@@ -42,6 +43,7 @@ class Profile(models.Model):
 
 class Fittings(models.Model):
     name = models.CharField(max_length=255, verbose_name="Фурнитура", blank=True, null=True)
+
     # price = models.FloatField(verbose_name="Цена", blank=True, null=True)
     # discount = models.FloatField(verbose_name="Скидка", blank=True, null=True)
 
@@ -233,8 +235,21 @@ class FavoritePositions(models.Model):
         verbose_name_plural = 'Избранные позиции'
 
 
+# class WindowsillColor(models.Model):
+#     name = models.CharField(max_length=255, verbose_name='Цвет подоконника', blank=True, null=True)
+#
+#     def __str__(self):
+#         return self.name
+#
+#     class Meta:
+#         verbose_name = 'Цвет подоконника'
+#         verbose_name_plural = 'Цвета подоконников'
+
+
 class Windowsill(models.Model):
     name = models.CharField(max_length=255, verbose_name="Подоконники", blank=True, null=True)
+    # color = models.ForeignKey(WindowsillColor, on_delete=models.CASCADE, default=1)
+    price = models.FloatField(default=0.0, verbose_name='Цена', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -246,6 +261,8 @@ class Windowsill(models.Model):
 
 class WindowsillDankeKomfort(models.Model):
     name = models.CharField(max_length=255, verbose_name="Подоконник Danke Komfort", blank=True, null=True)
+    # color = models.ForeignKey(WindowsillColor, on_delete=models.CASCADE, default=1)
+    price = models.FloatField(default=0.0, verbose_name='Цена', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -257,6 +274,8 @@ class WindowsillDankeKomfort(models.Model):
 
 class WindowsillDankeStandart(models.Model):
     name = models.CharField(max_length=255, verbose_name="Подоконник Danke Standart", blank=True, null=True)
+    # color = models.ForeignKey(WindowsillColor, on_delete=models.CASCADE, default=1)
+    price = models.FloatField(default=0.0, verbose_name='Цена', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -268,6 +287,8 @@ class WindowsillDankeStandart(models.Model):
 
 class WindowsillDankePremium(models.Model):
     name = models.CharField(max_length=255, verbose_name="Подоконник Danke Premium", blank=True, null=True)
+    # color = models.ForeignKey(WindowsillColor, on_delete=models.CASCADE, default=1)
+    price = models.FloatField(default=0.0, verbose_name='Цена', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -442,11 +463,10 @@ class SupplyValve(models.Model):
         verbose_name_plural = 'Приточные клапаны'
 
 
-
 # _______________________________ CONSTRUCTOR MODEL _______________________________
 class Constructor(models.Model):
     is_active = models.BooleanField(verbose_name="Активно", default=True)
-    price = models.FloatField(max_length=255, default=0.0)
+    price = models.FloatField(max_length=255, default=0.0, blank=True, null=True)
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, verbose_name="Тип изделия",
                                      null=True, blank=True)
     profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, verbose_name="Профиль", null=True,
