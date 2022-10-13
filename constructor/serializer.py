@@ -124,22 +124,22 @@ class WindowsillSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class WindowsillDankeKomfortSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = WindowsillDankeKomfort
-        fields = ['id', 'name']
-
-
-class WindowsillDankeStandartSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = WindowsillDankeStandart
-        fields = ['id', 'name']
-
-
-class WindowsillDankePremiumSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = WindowsillDankePremium
-        fields = ['id', 'name']
+# class WindowsillDankeKomfortSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = WindowsillDankeKomfort
+#         fields = ['id', 'name']
+#
+#
+# class WindowsillDankeStandartSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = WindowsillDankeStandart
+#         fields = ['id', 'name']
+#
+#
+# class WindowsillDankePremiumSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = WindowsillDankePremium
+#         fields = ['id', 'name']
 
 
 class LowTidesSerializer(serializers.ModelSerializer):
@@ -253,9 +253,9 @@ class ConstructorFieldsSerializer(serializers.Serializer):
     free_positions = FreePositionsSerializer(read_only=True, many=True)
     favorite_positions = FavoritePositionsSerializer(read_only=True, many=True)
     windowsill = WindowsillSerializer(read_only=True, many=True)
-    windowsill_danke_komfort = WindowsillDankeKomfortSerializer(read_only=True, many=True)
-    windowsill_danke_standart = WindowsillDankeStandartSerializer(read_only=True, many=True)
-    windowsill_danke_premium = WindowsillDankePremiumSerializer(read_only=True, many=True)
+    # windowsill_danke_komfort = WindowsillDankeKomfortSerializer(read_only=True, many=True)
+    # windowsill_danke_standart = WindowsillDankeStandartSerializer(read_only=True, many=True)
+    # windowsill_danke_premium = WindowsillDankePremiumSerializer(read_only=True, many=True)
     low_tides = LowTidesSerializer(read_only=True, many=True)
     visors = VisorsSerializer(read_only=True, many=True)
     flashing = FlashingSerializer(read_only=True, many=True)

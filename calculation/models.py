@@ -1,11 +1,12 @@
 from django.db import models
-from constructor.models import Profile, Fittings
+from constructor.models import Profile, Fittings, Windowsill
 
 from constructor.models import Constructor
 
 
 # Create your models here.
 class WindowsillCalc(models.Model):
+    windowsill_id = models.ForeignKey(Windowsill, verbose_name="Подоконник", blank=True, null=True, on_delete=models.CASCADE)
     width = models.FloatField(max_length=255, default=0.0)
     length = models.FloatField(max_length=255, default=0.0)
     count = models.FloatField(max_length=255, default=0.0)
@@ -17,7 +18,7 @@ class WindowsillCalc(models.Model):
 # _______________________________ CALCULATION MODEL _______________________________
 class WindowDiscount(models.Model):
     profile_id = models.ForeignKey(Profile, verbose_name="Профиль", blank=True, null=True, on_delete=models.CASCADE)
-    fittings_id = models.ForeignKey(Fittings, verbose_name="фурнитура", blank=True, null=True, on_delete=models.CASCADE)
+    fitting_id = models.ForeignKey(Fittings, verbose_name="Фурнитура", blank=True, null=True, on_delete=models.CASCADE)
     discount = models.FloatField(max_length=255, default=0.0)
 
     def __str__(self):
@@ -39,6 +40,3 @@ class ExchangeRates(models.Model):
         verbose_name = 'Курс валют'
         verbose_name_plural = 'Курсы валют'
 
-
-class Order(models.Model):
-    constructor_id = models.ForeignKey(Constructor, verbose_name="Конструктор", blank=True, null=True, on_delete=models.CASCADE)

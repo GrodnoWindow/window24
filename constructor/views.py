@@ -135,9 +135,9 @@ class ConstructorExtraWorkAPIView(APIView):
         filters['favorite_positions'] = FavoritePositions.objects.all()
         #
         filters['windowsill'] = Windowsill.objects.all()
-        filters['windowsill_danke_komfort'] = WindowsillDankeKomfort.objects.all()
-        filters['windowsill_danke_standart'] = WindowsillDankeStandart.objects.all()
-        filters['windowsill_danke_premium'] = WindowsillDankePremium.objects.all()
+        # filters['windowsill_danke_komfort'] = WindowsillDankeKomfort.objects.all()
+        # filters['windowsill_danke_standart'] = WindowsillDankeStandart.objects.all()
+        # filters['windowsill_danke_premium'] = WindowsillDankePremium.objects.all()
         filters['low_tides'] = LowTides.objects.all()
         filters['visors'] = Visors.objects.all()
         filters['flashing'] = Flashing.objects.all()
@@ -186,9 +186,9 @@ class ConstructorExtraMaterialAPIView(APIView):
         filters = {}
         #  extramaterial
         filters['windowsill'] = Windowsill.objects.all()
-        filters['windowsill_danke_komfort'] = WindowsillDankeKomfort.objects.all()
-        filters['windowsill_danke_standart'] = WindowsillDankeStandart.objects.all()
-        filters['windowsill_danke_premium'] = WindowsillDankePremium.objects.all()
+        # filters['windowsill_danke_komfort'] = WindowsillDankeKomfort.objects.all()
+        # filters['windowsill_danke_standart'] = WindowsillDankeStandart.objects.all()
+        # filters['windowsill_danke_premium'] = WindowsillDankePremium.objects.all()
         filters['low_tides'] = LowTides.objects.all()
         filters['visors'] = Visors.objects.all()
         filters['flashing'] = Flashing.objects.all()
@@ -214,24 +214,24 @@ class ConstructorExtraMaterialAPIView(APIView):
                     'label': 'Подоконники',
                     'data': serializer.data['windowsill'],
                 },
-                {
-                    'name': 'windowsill_danke_komfort',
-                    'placeholder': 'Выберите подоконник Danke Komfort',
-                    'label': 'Подоконники Danke Komfort',
-                    'data': serializer.data['windowsill_danke_komfort'],
-                },
-                {
-                    'name': 'windowsill_danke_standart',
-                    'placeholder': 'Выберите подоконник Danke Standart',
-                    'label': 'Подоконники Danke Standart',
-                    'data': serializer.data['windowsill_danke_standart'],
-                },
-                {
-                    'name': 'windowsill_danke_premium',
-                    'placeholder': 'Выберите подоконник Danke Premium',
-                    'label': 'Подоконники Danke Premium',
-                    'data': serializer.data['windowsill_danke_premium'],
-                },
+                # {
+                #     'name': 'windowsill_danke_komfort',
+                #     'placeholder': 'Выберите подоконник Danke Komfort',
+                #     'label': 'Подоконники Danke Komfort',
+                #     'data': serializer.data['windowsill_danke_komfort'],
+                # },
+                # {
+                #     'name': 'windowsill_danke_standart',
+                #     'placeholder': 'Выберите подоконник Danke Standart',
+                #     'label': 'Подоконники Danke Standart',
+                #     'data': serializer.data['windowsill_danke_standart'],
+                # },
+                # {
+                #     'name': 'windowsill_danke_premium',
+                #     'placeholder': 'Выберите подоконник Danke Premium',
+                #     'label': 'Подоконники Danke Premium',
+                #     'data': serializer.data['windowsill_danke_premium'],
+                # },
                 {'name': 'low_tides',
                  'placeholder': 'Выберите отливы',
                  'label': 'Отливы',

@@ -7,6 +7,7 @@ from .utils import *
 from constructor.serializer import ConstructorSerializer
 from .serializer import ConstructorCalcSerializer
 from constructor.models import Constructor
+from .utils import *
 
 
 class CalculationAPIView(APIView):
@@ -16,7 +17,20 @@ class CalculationAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        # calc_window_disc(profile_id = request.data['profile'],
+        print(f"ez nahui 1 : ==={request.data['window']['profile_id']}")
+        print(f"ez nahui 1 : ==={request.data['window']['profile_id']}")
+        profile_id = request.data['window']['profile_id']
+        fittings_id = request.data['window']['fittings_id']
+        currency = request.data['currency']
+        price_input = request.data['price_input']
+        price_output = calc_window_disc(profile_id=profile_id, fittings_id=fittings_id, currency=currency, price=price_input)
+        windowsill_id = request.data['windowsills']['windowsill']['id']
+        width = request.data['windowsills']['width']
+        length = request.data['windowsills']['width']
+        count = request.data['windowsills']['width']
+        price_output = calc_windowsill(windowsill_id=windowsill_id, width=width, length=length, count=count)
+        print(price_output)
+        # calc_window_disc(profile_id = request.data['profile'][],
         #                  fittings_id=request.data['fittings'],
         #                  currency=['currency'], price=request.data['price'])
         # number_id = create_number_record(request.data['numbers'])

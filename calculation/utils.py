@@ -3,7 +3,7 @@ from calculation.models import ExchangeRates, WindowDiscount
 import requests
 from bs4 import BeautifulSoup
 import lxml
-
+from constructor.models import Windowsill
 
 def parse_exchange_rates():
     url = 'https://www.nbrb.by/statistics/rates/ratesdaily.asp'
@@ -53,3 +53,9 @@ def calc_window_disc(profile_id, fittings_id, currency, price):
     return sum
 
 
+def calc_windowsill(windowsill_id, width, length, count):
+    price_windowsill = Windowsill.objects.get(id=windowsill_id).price
+    sum = price_windowsill * ((width * length) / 1000000)
+    if count > 0:
+        sum = sum * count
+    return sum
