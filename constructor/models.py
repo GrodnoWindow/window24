@@ -2,19 +2,6 @@ from django.db import models
 from django.forms import TextInput
 
 
-# _______________________________ PRICE MODEL _______________________________
-# class Price(models.Model):
-#     price = models.FloatField(verbose_name="Цена", blank=True, null=True)
-#     discount = models.IntegerField(verbose_name="Скидка", blank=True, null=True)
-#
-#     def __str__(self):
-#         return 'Цена - %s, скидка - %s' % (self.price, self.discount)
-#
-#     class Meta:
-#         verbose_name = 'Цена'
-#         verbose_name_plural = 'Цены'
-
-
 # _______________________________ CONFIGURATION MODEL _______________________________
 class ProductType(models.Model):
     name = models.CharField(max_length=255, verbose_name="Тип изделия", blank=True, null=True)
@@ -226,6 +213,7 @@ class FreePositions(models.Model):
 # _______________________________ EXTRAMATERIAL MODEL _______________________________
 class WindowsillType(models.Model):
     name = models.CharField(max_length=255, verbose_name='Тип подоконника', blank=True, null=True)
+    type_name = models.CharField(max_length=255, verbose_name='windowsill_type', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -247,17 +235,40 @@ class WindowsillColor(models.Model):
 
 
 class Windowsill(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Подоконники", blank=True, null=True)
-    color = models.ForeignKey(WindowsillColor, on_delete=models.CASCADE, blank=True)
-    price = models.FloatField(default=0.0, verbose_name='Цена', blank=True, null=True)
-    type = models.ForeignKey(WindowsillType, on_delete=models.CASCADE, blank=True)
+    color = models.ForeignKey(WindowsillColor, on_delete=models.CASCADE, blank=True, verbose_name='Цвет подоконника')
+    type = models.ForeignKey(WindowsillType, on_delete=models.CASCADE, blank=True, verbose_name='Тип подоконника')
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.color} {self.type}'
+
+    class Meta:
+        verbose_name = 'Подоконник'
+        verbose_name_plural = 'Подоконники'
+
+
+class LowTidesType(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Тип отлива", blank=True, null=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Подоконники'
-        verbose_name_plural = 'Подоконники'
+        verbose_name = 'Тип отлива'
+        verbose_name_plural = 'Типы отливов'
+
+
+class LowTides(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название отлива", blank=True, null=True)
+    type = models.ForeignKey(LowTidesType, on_delete=models.CASCADE, blank=True, verbose_name='Тип отлива')
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Отлив'
+        verbose_name_plural = 'Отливы'
 
 
 class FavoritePositions(models.Model):
@@ -269,56 +280,6 @@ class FavoritePositions(models.Model):
     class Meta:
         verbose_name = 'Избранные позиции'
         verbose_name_plural = 'Избранные позиции'
-
-
-# class WindowsillDankeKomfort(models.Model):
-#     name = models.CharField(max_length=255, verbose_name="Подоконник Danke Komfort", blank=True, null=True)
-#     # color = models.ForeignKey(WindowsillColor, on_delete=models.CASCADE, default=1)
-#     price = models.FloatField(default=0.0, verbose_name='Цена', blank=True, null=True)
-#
-#     def __str__(self):
-#         return self.name
-#
-#     class Meta:
-#         verbose_name = 'Подоконник Danke Komfort'
-#         verbose_name_plural = 'Подоконник Danke Komfort'
-#
-#
-# class WindowsillDankeStandart(models.Model):
-#     name = models.CharField(max_length=255, verbose_name="Подоконник Danke Standart", blank=True, null=True)
-#     # color = models.ForeignKey(WindowsillColor, on_delete=models.CASCADE, default=1)
-#     price = models.FloatField(default=0.0, verbose_name='Цена', blank=True, null=True)
-#
-#     def __str__(self):
-#         return self.name
-#
-#     class Meta:
-#         verbose_name = 'Подоконник Danke Standart'
-#         verbose_name_plural = 'Подоконник Danke Standart'
-#
-#
-# class WindowsillDankePremium(models.Model):
-#     name = models.CharField(max_length=255, verbose_name="Подоконник Danke Premium", blank=True, null=True)
-#     # color = models.ForeignKey(WindowsillColor, on_delete=models.CASCADE, default=1)
-#     price = models.FloatField(default=0.0, verbose_name='Цена', blank=True, null=True)
-#
-#     def __str__(self):
-#         return self.name
-#
-#     class Meta:
-#         verbose_name = 'Подоконник Danke Premium'
-#         verbose_name_plural = 'Подоконник Danke Premium'
-
-
-class LowTides(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Отливы", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Отливы'
-        verbose_name_plural = 'Отливы'
 
 
 class Visors(models.Model):
@@ -474,94 +435,3 @@ class SupplyValve(models.Model):
         verbose_name = 'Приточный клапан'
         verbose_name_plural = 'Приточные клапаны'
 
-
-# _______________________________ CONSTRUCTOR MODEL _______________________________
-class Constructor(models.Model):
-    is_active = models.BooleanField(verbose_name="Активно", default=True)
-    price_input = models.FloatField(max_length=255, default=0.0, blank=True, null=True)
-    price_output = models.FloatField(max_length=255, default=0.0, blank=True, null=True)
-    product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, verbose_name="Тип изделия",
-                                     null=True, blank=True)
-    profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, verbose_name="Профиль", null=True,
-                                blank=True)
-    aggregate = models.ForeignKey(Aggregate, on_delete=models.SET_NULL, verbose_name="Заполнитель №1",
-                                  null=True, blank=True)
-    fittings = models.ForeignKey(Fittings, on_delete=models.SET_NULL, verbose_name="Фурнитура",
-                                 null=True, blank=True)
-    seal_outside = models.ForeignKey(SealOutside, on_delete=models.SET_NULL,
-                                     verbose_name="Уплотнение снаружи", null=True, blank=True)
-    seal_rebate = models.ForeignKey(SealRebate, on_delete=models.SET_NULL,
-                                    verbose_name="Уплотнение притвора", null=True, blank=True)
-    seal_internal = models.ForeignKey(SealInternal, on_delete=models.SET_NULL,
-                                      verbose_name="Уплотнение внутренее", null=True, blank=True)
-    seal_color = models.ForeignKey(SealColor, on_delete=models.SET_NULL, verbose_name="Цвет уплотнения", null=True,
-                                   blank=True)
-    shpros = models.ForeignKey(Shpros, on_delete=models.SET_NULL, verbose_name="Шпрос", null=True,
-                               blank=True)
-    shtapik = models.ForeignKey(Shtapik, on_delete=models.SET_NULL, verbose_name="Шталик", null=True,
-                                blank=True)
-    sash = models.ForeignKey(Sash, on_delete=models.SET_NULL, verbose_name="Створка", null=True,
-                             blank=True)
-    lamination_outside = models.ForeignKey(LaminationOutside, on_delete=models.SET_NULL,
-                                           verbose_name="Ламинация снаружи", null=True, blank=True)
-    lamination_inside = models.ForeignKey(LaminationInside, on_delete=models.SET_NULL,
-                                          verbose_name="Ланиманция внутри", null=True, blank=True)
-    profile_weight = models.ForeignKey(ProfileWeight, on_delete=models.SET_NULL,
-                                       verbose_name="Масса профиля", null=True, blank=True)
-    note = models.ForeignKey(Note, on_delete=models.SET_NULL, verbose_name="Примечание", null=True,
-                             blank=True)
-    products_install = models.ForeignKey(ProductsInstall, on_delete=models.SET_NULL,
-                                         verbose_name="Монтаж изделий", null=True, blank=True)
-    pvc_slopes = models.ForeignKey(PvcSlopes, on_delete=models.SET_NULL, verbose_name="Откосы ПВХ",
-                                   null=True, blank=True)
-    free_positions = models.ForeignKey(FreePositions, on_delete=models.SET_NULL,
-                                       verbose_name="Бесплатные позиции", null=True, blank=True)
-    favorite_positions = models.ForeignKey(FavoritePositions, on_delete=models.SET_NULL,
-                                           verbose_name="Избранные позиции", null=True, blank=True)
-    windowsill = models.ForeignKey(Windowsill, on_delete=models.SET_NULL, verbose_name="Подоконники",
-                                   null=True, blank=True)
-    # windowsill_danke_komfort = models.ForeignKey(WindowsillDankeKomfort, on_delete=models.SET_NULL,
-    #                                              verbose_name="Подоконник Danke Komfort", null=True, blank=True)
-    # windowsill_danke_standart = models.ForeignKey(WindowsillDankeStandart, on_delete=models.SET_NULL,
-    #                                               verbose_name="Подоконник Danke Standart", null=True, blank=True)
-    # windowsill_danke_premium = models.ForeignKey(WindowsillDankePremium, on_delete=models.SET_NULL,
-    #                                              verbose_name="Подоконник Danke Premium", null=True, blank=True)
-    # low_tides = models.ForeignKey(LowTides, on_delete=models.SET_NULL, verbose_name="Отливы",
-    #                               null=True, blank=True)
-    visors = models.ForeignKey(Visors, on_delete=models.SET_NULL, verbose_name="Козырьки", null=True,
-                               blank=True)
-    flashing = models.ForeignKey(Flashing, on_delete=models.SET_NULL, verbose_name="Нащельник",
-                                 null=True, blank=True)
-    flashing_metal = models.ForeignKey(FlashingMetal, on_delete=models.SET_NULL,
-                                       verbose_name="Нащельник Металл", null=True, blank=True)
-    platband = models.ForeignKey(Platband, on_delete=models.SET_NULL, verbose_name="Наличник",
-                                 null=True, blank=True)
-    extensions_to_profile60 = models.ForeignKey(ExtensionsToProfile60, on_delete=models.SET_NULL,
-                                                verbose_name="Доборы к профилю 60мм", null=True, blank=True)
-    extensions_to_profile70 = models.ForeignKey(ExtensionsToProfile70,
-                                                on_delete=models.SET_NULL,
-                                                verbose_name="Доборы к профилю 70мм", null=True, blank=True)
-    bay_window_to_profile60 = models.ForeignKey(BayWindowToProfile60, on_delete=models.SET_NULL,
-                                                verbose_name="Эркер к профилю 60мм", null=True, blank=True)
-    bay_window_to_profile70 = models.ForeignKey(BayWindowToProfile70,
-                                                on_delete=models.SET_NULL,
-                                                verbose_name="Эркер к профилю 70мм", null=True, blank=True)
-    connector_90g = models.ForeignKey(Connector90g, on_delete=models.SET_NULL,
-                                      verbose_name="Соединитель 90гр", null=True, blank=True)
-    accessories = models.ForeignKey(Accessories, on_delete=models.SET_NULL,
-                                    verbose_name="Комлпектующие", null=True, blank=True)
-    handles = models.ForeignKey(Handles, on_delete=models.SET_NULL,
-                                verbose_name="Ручка", null=True, blank=True)
-    locks = models.ForeignKey(Locks, on_delete=models.SET_NULL,
-                              verbose_name="Замок", null=True, blank=True)
-    straight_connectors = models.ForeignKey(StraightConnectors, on_delete=models.SET_NULL,
-                                            verbose_name="Прямые соединители", null=True, blank=True)
-    supply_valve = models.ForeignKey(SupplyValve, on_delete=models.SET_NULL,
-                                     verbose_name="Приточный клапан", null=True, blank=True)
-
-    def __str__(self):
-        return f'Окно №{self.id}'
-
-    class Meta:
-        verbose_name = 'Окно'
-        verbose_name_plural = 'Окна'

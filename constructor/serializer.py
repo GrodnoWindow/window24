@@ -9,7 +9,6 @@ class ProductTypeSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Profile
         fields = ['id', 'name']
@@ -22,7 +21,6 @@ class AggregateSerializer(serializers.ModelSerializer):
 
 
 class FittingsSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Fittings
         fields = ['id', 'name']
@@ -118,10 +116,25 @@ class FavoritePositionsSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
+class WindowsillColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WindowsillColor
+        fields = ['id', 'name']
+
+
+class WindowsillTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WindowsillType
+        fields = ['id', 'name']
+
+
 class WindowsillSerializer(serializers.ModelSerializer):
+    color = WindowsillColorSerializer(many=False, read_only=False)
+    type = WindowsillTypeSerializer(many=False, read_only=False)
+
     class Meta:
         model = Windowsill
-        fields = ['id', 'name']
+        fields = ['id', 'color', 'type']
 
 
 # class WindowsillDankeKomfortSerializer(serializers.ModelSerializer):
@@ -140,12 +153,19 @@ class WindowsillSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = WindowsillDankePremium
 #         fields = ['id', 'name']
+class LowTidesTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = LowTidesType
+        fields = '__all__'
 
 
 class LowTidesSerializer(serializers.ModelSerializer):
+    type = LowTidesTypeSerializer(many=False,read_only=False)
+
     class Meta:
         model = LowTides
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'type']
 
 
 class VisorsSerializer(serializers.ModelSerializer):

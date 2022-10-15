@@ -5,30 +5,25 @@ from rest_framework import viewsets
 from .models import WindowDiscount
 from .utils import *
 from constructor.serializer import ConstructorSerializer
-from .serializer import ConstructorCalcSerializer
+from .serializer import ConstructorCalcSerializer, WindowsillCalcSerializer, LowTidesCalcSerializer
 from constructor.models import Constructor
 from .utils import *
+from django.forms import model_to_dict
 
 
-class CalculationAPIView(APIView):
+class CalculationWindowAPIView(APIView):
     serializer_class = ConstructorCalcSerializer
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        print(f"ez nahui 1 : ==={request.data['window']['profile_id']}")
-        print(f"ez nahui 1 : ==={request.data['window']['profile_id']}")
         profile_id = request.data['window']['profile_id']
         fittings_id = request.data['window']['fittings_id']
         currency = request.data['currency']
         price_input = request.data['price_input']
-        price_output = calc_window_disc(profile_id=profile_id, fittings_id=fittings_id, currency=currency, price=price_input)
-        windowsill_id = request.data['windowsills']['windowsill']['id']
-        width = request.data['windowsills']['width']
-        length = request.data['windowsills']['width']
-        count = request.data['windowsills']['width']
-        price_output = calc_windowsill(windowsill_id=windowsill_id, width=width, length=length, count=count)
+        price_output = calc_window_disc(profile_id=profile_id, fittings_id=fittings_id, currency=currency,
+                                        price=price_input)
         print(price_output)
         # calc_window_disc(profile_id = request.data['profile'][],
         #                  fittings_id=request.data['fittings'],
@@ -49,14 +44,34 @@ class CalculationAPIView(APIView):
 
         return Response({'data': serializer.data})
 
-# class CalculationViewSet(viewsets.ModelViewSet):
-#     serializer_class = WindowsDiscountSerializer
-#
-#     def get_queryset(self):
-#         profile_id = self.request.query_params.get('profile')
-#         fittings_id = self.request.query_params.get('fittings')
-#         currency = self.request.query_params.get('currency')
-#         price = self.request.query_params.get('price')
-#
-#         sum = calc_window_disc(profile_id=profile_id, fittings_id=fittings_id,
-#                                currency=currency, price=price)
+
+class CalculationWindowsillAPIView(APIView):
+    serializer_class = WindowsillCalcSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        windowsill_id = request.data['windowsill_id']
+        print(windowsill_id)
+        width = request.data['width']
+        length = request.data['length']
+        count = request.data['count']
+        windowsill_calc = calc_windowsill(windowsill_id=windowsill_id, width=width, length=length, count=count)
+
+        return Response({'data': model_to_dict(windowsill_calc)})
+
+
+class CalculationLowTidesAPIView(APIView):
+    serializer_class = LowTidesCalcSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        low_tides_id = request.data['low_tides_id']
+        width = request.data['width']
+        length = request.data['length']
+        count = request.data['count']
+
+        low_tides_calc = calc_low_tides(low_tides_id=low_tides_id, width=width, length=length, count=count)
+
+        return Response({'data': model_to_dict(low_tides_calc)})
