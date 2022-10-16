@@ -1,22 +1,31 @@
 from rest_framework import serializers
-from .models import WindowDiscount, WindowsillCalc, WindowsillCalc, LowTidesCalc
+from .models import WindowDiscount, WindowsillCalc, WindowsillCalc, LowTidesCalc, WindowsCalc, ExchangeRates
 from constructor.models import Constructor
 from constructor.serializer import ConstructorSerializer
 
 from constructor.models import Windowsill
 
 
+class ExchangeRatesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExchangeRates
+        fields = '__all__'
+
+
 class WindowsCalcSerializer(serializers.ModelSerializer):
+    price_input = serializers.FloatField(max_value=None, min_value=None)
+    currency_name = serializers.CharField(max_length=255, read_only=False)
+
     class Meta:
         model = WindowDiscount
-        fields = 'profile_id', 'fitting_id'
+        fields = 'profile_id', 'fittings_id', 'price_input', 'currency_name',
 
 
 class WindowsillCalcSerializer(serializers.ModelSerializer):
+    windowsill_id = serializers.IntegerField(max_value=None, min_value=None)
     width = serializers.IntegerField(max_value=None, min_value=None)
     length = serializers.IntegerField(max_value=None, min_value=None)
     count = serializers.IntegerField(max_value=None, min_value=None)
-    windowsill_id = serializers.IntegerField(max_value=None, min_value=None)
 
     class Meta:
         model = WindowsillCalc
@@ -30,16 +39,23 @@ class LowTidesCalcSerializer(serializers.ModelSerializer):
     count = serializers.IntegerField(max_value=None, min_value=None)
 
     class Meta:
-        model = WindowsillCalc
+        model = LowTidesCalc
         fields = 'low_tides_id', 'width', 'length', 'count'
 
 
 class ConstructorCalcSerializer(serializers.ModelSerializer):
     window = WindowsCalcSerializer(read_only=False)
+    price_input = serializers.IntegerField(max_value=None, min_value=None,read_only=True)
+    price_output = serializers.IntegerField(max_value=None, min_value=None,read_only=True)
+    discount = serializers.FloatField(read_only=True)
+    currency_name = serializers.IntegerField(max_value=None, min_value=None, read_only=True)
+    currency_value = serializers.FloatField(max_value=None, min_value=None, read_only=True)
+
+    # discount = ExchangeRatesSerializer(read_only=False,many=False)
 
     class Meta:
-        model = Constructor
-        fields = 'window',
+        model = WindowsCalc
+        fields = '__all__'
 
 # windowsills = WindowsillCalcSerializer(many=True, read_only=False)
 # currency = serializers.SerializerMethodField('get_current_currency')

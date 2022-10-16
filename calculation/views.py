@@ -20,29 +20,13 @@ class CalculationWindowAPIView(APIView):
 
         profile_id = request.data['window']['profile_id']
         fittings_id = request.data['window']['fittings_id']
-        currency = request.data['currency']
-        price_input = request.data['price_input']
-        price_output = calc_window_disc(profile_id=profile_id, fittings_id=fittings_id, currency=currency,
+        currency = request.data['window']['currency_name']
+        price_input = request.data['window']['price_input']
+        window_calc = calc_window_disc(profile_id=profile_id, fittings_id=fittings_id, currency=currency,
                                         price=price_input)
-        print(price_output)
-        # calc_window_disc(profile_id = request.data['profile'][],
-        #                  fittings_id=request.data['fittings'],
-        #                  currency=['currency'], price=request.data['price'])
-        # number_id = create_number_record(request.data['numbers'])
-        # calls = create_calls_record(request.data['numbers'])
-        # address_id = create_address_record(request.data['addresses'])
 
-        # client = Constructor.objects.create(
-        #
-        # )
-        # name = request.data['name'],
-        #
-        # client.addresses.add(address_id)
-        # client.numbers.add(number_id)
-        # for call in calls:
-        #     client.calls.add(call['id'])
-
-        return Response({'data': serializer.data})
+        return Response({'data': model_to_dict(window_calc)})
+        # return Response({'data': serializer.data})
 
 
 class CalculationWindowsillAPIView(APIView):

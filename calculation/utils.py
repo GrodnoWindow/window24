@@ -1,57 +1,30 @@
-# from .models import WindowDiscount, ExchangeRates
-from calculation.models import ExchangeRates, WindowDiscount
-import requests
-from bs4 import BeautifulSoup
-import lxml
 from constructor.models import Windowsill, LowTides
 from .models import *
 
 
-def parse_exchange_rates():
-    url = 'https://www.nbrb.by/statistics/rates/ratesdaily.asp'
-    try:
-        response = requests.get(url)
-    except:
-        pass
-    soup = BeautifulSoup(response.text, 'lxml')
-    data = []
-    table = soup.find('table', attrs={'class': 'currencyTable'})
-    table_body = table.find('tbody')
-
-    rows = table_body.find_all('tr')
-    for row in rows:
-        cols = row.find_all('td')
-        cols = [ele.text.strip() for ele in cols]
-        data.append([ele for ele in cols if ele])
-
-    for row in data:
-        temp = float(row[2].replace(',', '.'))
-        if row[0] == 'Доллар США':
-            ExchangeRates.objects.filter(name='USD').update(value=temp)
-        elif row[0] == 'Российский рубль':
-            temp = temp / 100
-            ExchangeRates.objects.filter(name='RUB').update(value=temp)
-        elif row[0] == 'Евро':
-            ExchangeRates.objects.filter(name='EUR').update(value=temp)
-
-
 def calc_window_disc(profile_id, fittings_id, currency, price):
-    parse_exchange_rates()
 
-    discount = WindowDiscount.objects.get(profile_id=profile_id, fittings_id=fittings_id).discount
+    exchange_rates = ExchangeRates.objects.get(name=currency)
+    try:
+        window_discount = WindowDiscount.objects.get(profile_id=profile_id, fittings_id=fittings_id)
+        discount = window_discount.value
+        disc_window = (float(price) / 100) * discount  # discount window
 
-    disc_window = (float(price) / 100) * discount
-    exchange_rub = ExchangeRates.objects.get(name=currency).value
+        window = exchange_rates.value * (float(price) - disc_window)  # price in BYN - discount
+    except:
+        window = exchange_rates.value * float(price)  # price in BYN
+        discount = 0.0
 
-    sum = exchange_rub * (float(price) - disc_window)
-    # print(f'profile: {profile_id} and fittings {fittings_id} ')
-    #
-    # print(f'цена окна {price} {currency}')
-    # print(f'скидка на окно {discount}% = {disc_window}')
-    # print(f'сумма - скидка = {float(price) - disc_window}')
-    # print(f' {float(price) - disc_window} {currency} сумма в {sum} BYN')
+    markup = Markups.objects.last().window
+    window_price_with_markup = window + (window / 100 * markup)  # + MARKUP
+    window_price_with_markup = round(window_price_with_markup, 2)  # round output price
 
-    return sum
+    window_calc = WindowsCalc.objects.create(discount=discount, price_input=price,
+                                             currency_name=exchange_rates.name,
+                                             currency_value=exchange_rates.value,
+                                             price_output=window_price_with_markup)
+
+    return window_calc
 
 
 def calc_windowsill(windowsill_id, width, length, count):
@@ -61,13 +34,13 @@ def calc_windowsill(windowsill_id, width, length, count):
     # взять тип подоконника и сделать наценку по типу !!!!
     markup = Markups.objects.last().windowsill
 
-    price_windowsill = price_input_windowsill + (price_input_windowsill / 100 * markup)
+    price_windowsill = price_input_windowsill + (price_input_windowsill / 100 * markup)  # <MARKUP
 
     sum = price_windowsill * ((width * length) / 1000000)
     if count > 0:
         sum = sum * count
     sum = round(sum, 2)
-    windowsill_calc = WindowsillCalc.objects.create(windowsill_id=windowsill, width=width, length=length,
+    windowsill_calc = WindowsillCalc.objects.create(windowsill_id=windowsill.id, width=width, length=length,
                                                     count=count,
                                                     price_output=sum)
 
@@ -86,7 +59,7 @@ def calc_low_tides(low_tides_id, width, length, count):
     if count > 0:
         sum = sum * count
     sum = round(sum, 2)
-    low_tides_calc = LowTidesCalc.objects.create(low_tides=low_tides, width=width, length=length,
+    low_tides_calc = LowTidesCalc.objects.create(low_tides_id=low_tides.id, width=width, length=length,
                                                  count=count,
                                                  price_output=sum)
 
