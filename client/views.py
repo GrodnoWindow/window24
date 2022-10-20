@@ -23,7 +23,7 @@ class ClientAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         user = request.user
 
-        number_id = create_number_record(request.data['numbers'])
+        number_id = create_number_record(request.data['numbers']['number'], request.data['numbers']['name'])
         calls = create_calls_record(request.data['numbers'])
         address_id = create_address_record(request.data['addresses'])
 
@@ -40,18 +40,28 @@ class ClientAPIView(APIView):
         return Response({'data': serializer.data})
 
 
-class ClientViewSet(  # mixins.CreateModelMixin, # POST REQUESTS
-    mixins.RetrieveModelMixin,  # get all, get<id>,
-    mixins.UpdateModelMixin,  # put<id>, patch<id>
-    GenericViewSet):
-    queryset = Client.objects.all()  # .values().order_by('-id')
-    serializer_class = ClientSerializer
-
-
 class ClientsRecordsView(generics.ListAPIView):  # get all clients for pagination
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     pagination_class = CustomPagination
 
 
+class ClientViewSet(viewsets.ModelViewSet):
+    queryset = Client.objects.all()  # .values().order_by('-id')
+    serializer_class = ClientSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch']
 
+
+class NumberViewSet(viewsets.ModelViewSet):
+    queryset = Number.objects.all()
+    serializer_class = NumberSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
+
+
+class AddressViewSet(viewsets.ModelViewSet):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']

@@ -8,22 +8,16 @@ from call.serializer import CallSerializer
 class NumberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Number
-        fields = '__all__'
+        fields = ['id', 'number', 'name']
 
 
-class AddresSerializer(serializers.ModelSerializer):
+class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = '__all__'
+        fields = ['id', 'name']
 
 
 class ClientSerializer(serializers.ModelSerializer):
-    author = serializers.CharField(read_only=True)
-    numbers = NumberSerializer(many=True, read_only=True)
-    addresses = AddresSerializer(many=True, read_only=True)
-    calls = CallSerializer(many=True, read_only=True)
-    is_active = serializers.BooleanField(read_only=True)
-    name = serializers.CharField(read_only=False)
 
     class Meta:
         model = Client
@@ -32,7 +26,7 @@ class ClientSerializer(serializers.ModelSerializer):
 
 class ClientPostSerializer(serializers.ModelSerializer):
     author = serializers.CharField(read_only=True)
-    numbers = serializers.CharField(read_only=False)
+    numbers = NumberSerializer(read_only=False)
     addresses = serializers.CharField(read_only=False)
     calls = CallSerializer(many=True, read_only=True)
     is_active = serializers.BooleanField(read_only=True)

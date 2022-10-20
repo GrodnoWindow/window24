@@ -3,10 +3,12 @@ from .views import *
 
 
 urlpatterns = [
-    # path('window/', CalculationViewSet.as_view({'get': 'list'})),
+
+    path('constructor/', CalculationConstructorAPIView.as_view()),
     path('window/', CalculationWindowAPIView.as_view()),
-    path('windowsill', CalculationWindowsillAPIView.as_view()),
-    path('low-tides', CalculationLowTidesAPIView.as_view()),
+    path('windowsill/', CalculationWindowsillAPIView.as_view()),
+    path('low-tides/', CalculationLowTidesAPIView.as_view()),
+    path('works/', WorksGenericAPIView.as_view()),
 
 
 

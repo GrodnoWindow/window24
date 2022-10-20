@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import *
-
+from calculation.models import Constructor
 
 class ProductTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -252,7 +252,7 @@ class SupplyValveSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class ConstructorFieldsSerializer(serializers.Serializer):
+class ConstructorSerializer(serializers.Serializer):
     profile = ProfileSerializer(read_only=True, many=True)
     product_type = ProductTypeSerializer(read_only=True, many=True)
     aggregate = AggregateSerializer(read_only=True, many=True)
@@ -289,8 +289,3 @@ class ConstructorFieldsSerializer(serializers.Serializer):
     straight_connectors = StraightConnectorsSerializer(read_only=True, many=True)
     supply_valve = SupplyValveSerializer(read_only=True, many=True)
 
-
-class ConstructorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Constructor
-        fields = '__all__'

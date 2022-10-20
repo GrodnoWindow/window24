@@ -20,6 +20,8 @@ def calc_window_disc(profile_id, fittings_id, currency, price):
     window_price_with_markup = round(window_price_with_markup, 2)  # round output price
 
     window_calc = WindowsCalc.objects.create(discount=discount, price_input=price,
+                                             profile_id=profile_id,
+                                             fittings_id=fittings_id,
                                              currency_name=exchange_rates.name,
                                              currency_value=exchange_rates.value,
                                              price_output=window_price_with_markup)

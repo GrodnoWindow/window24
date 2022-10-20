@@ -5,6 +5,6 @@ from .exchange import parse_exchange_rates
 
 def start():
     scheduler = BackgroundScheduler()
-    # scheduler.add_job(parse_active_calls, 'interval', seconds=1)
+    # scheduler.add_job(parse_active_calls, 'interval', seconds=3)
     scheduler.add_job(parse_exchange_rates, 'interval', seconds=3600)
     scheduler.start()

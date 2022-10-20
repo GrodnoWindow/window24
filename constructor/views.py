@@ -1,4 +1,3 @@
-from .models import Constructor
 from .serializer import *
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import generics, mixins, viewsets
@@ -31,7 +30,7 @@ class ConstructorWindowAPIView(APIView):
         filters['lamination_inside'] = LaminationInside.objects.all()
         filters['profile_weight'] = ProfileWeight.objects.all()
 
-        serializer = ConstructorFieldsSerializer(filters)
+        serializer = ConstructorSerializer(filters)
         return Response({
             'data': [
                 {
@@ -154,7 +153,7 @@ class ConstructorExtraWorkAPIView(APIView):
         filters['straight_connectors'] = StraightConnectors.objects.all()
         filters['supply_valve'] = SupplyValve.objects.all()
 
-        serializer = ConstructorFieldsSerializer(filters)
+        serializer = ConstructorSerializer(filters)
         return Response({
             'data': [
                 {
@@ -205,7 +204,7 @@ class ConstructorExtraMaterialAPIView(APIView):
         filters['straight_connectors'] = StraightConnectors.objects.all()
         filters['supply_valve'] = SupplyValve.objects.all()
 
-        serializer = ConstructorFieldsSerializer(filters)
+        serializer = ConstructorSerializer(filters)
         return Response({
             'data': [
                 {
@@ -324,8 +323,8 @@ class ConstructorExtraMaterialAPIView(APIView):
             ]
         })
 
-
-class ConstructorViewSet(viewsets.ModelViewSet):
-    queryset = Constructor.objects.all()  # .values().order_by('-id')
-    serializer_class = ConstructorSerializer
-    pagination_class = CustomPagination
+#
+# class ConstructorViewSet(viewsets.ModelViewSet):
+#     queryset = Constructor.objects.all()  # .values().order_by('-id')
+#     serializer_class = ConstructorSerializer
+#     pagination_class = CustomPagination
