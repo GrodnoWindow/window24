@@ -20,6 +20,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
     SpectacularRedocView
 )
+from webhook.views import webhook
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,6 +35,7 @@ urlpatterns = [
     path('call/', include('call.urls')),
     path('constructor/', include('constructor.urls')),
     path('calculation/', include('calculation.urls')),
+    path('webhook', webhook),
     # path(r'django_rq/', include('django_rq.urls')),
 
     # path('client/',include('client.urls')),

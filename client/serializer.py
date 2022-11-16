@@ -18,7 +18,19 @@ class AddressSerializer(serializers.ModelSerializer):
 
 
 class ClientSerializer(serializers.ModelSerializer):
+    author = serializers.CharField(read_only=True)
+    name = serializers.CharField(read_only=False)
+    is_active = serializers.BooleanField(read_only=True)
+    numbers = NumberSerializer(many=True, read_only=False)
+    addresses = AddressSerializer(many=True, read_only=False)
+    calls = CallSerializer(many=True, read_only=False)
 
+    class Meta:
+        model = Client
+        fields = '__all__'
+
+
+class ClientPatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = '__all__'
@@ -26,11 +38,11 @@ class ClientSerializer(serializers.ModelSerializer):
 
 class ClientPostSerializer(serializers.ModelSerializer):
     author = serializers.CharField(read_only=True)
-    numbers = NumberSerializer(read_only=False)
-    addresses = serializers.CharField(read_only=False)
+    # numbers = serializers.IntegerField(read_only=False)
+    # addresses = serializers.CharField(read_only=False)
     calls = CallSerializer(many=True, read_only=True)
     is_active = serializers.BooleanField(read_only=True)
-    name = serializers.CharField(read_only=False)
+    # name = serializers.CharField(read_only=False)
 
     class Meta:
         model = Client

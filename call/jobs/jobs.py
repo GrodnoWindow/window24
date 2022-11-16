@@ -44,8 +44,8 @@ def get_credentials():
                                         url=MAIN_URL, json=login_params, verify=False)
 
     token = login_response.json()["result"]["token"]
-    keiro_cookies = login_session.cookies.get_dict()
-    return {"token": token, "cookies": keiro_cookies}
+    kerio_cookies = login_session.cookies.get_dict()
+    return {"token": token, "cookies": kerio_cookies}
 
 
 def get_current_blacklist():

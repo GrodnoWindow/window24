@@ -12,9 +12,11 @@ def create_number_record(number,name):
         return num.id
 
 
-def create_calls_record(number):
+def create_calls_record(number_id):
+    number = Number.objects.get(id=number_id)
     calls = Call.objects.filter(number=number).values('id').order_by('-id')
-    return calls
+    ids = calls.values_list('id', flat=True)
+    return ids
 
 
 def create_address_record(address):

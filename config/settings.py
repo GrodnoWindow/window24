@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'call',
     'constructor',
     'calculation',
+    'webhook',
 
 ]
 
