@@ -1,6 +1,23 @@
-from calculation.models import ExchangeRates, WindowDiscount
+from calculation.models import ExchangeRates
 import requests
 from bs4 import BeautifulSoup
+
+
+def update_exchange_rate(name, value):
+    try:
+        exchange_rate = ExchangeRates.objects.get(name=name)
+        auto = exchange_rate.auto
+        if auto:
+            exchange_rate.value = value
+
+        add_percent = exchange_rate.add_percent
+        if add_percent:
+            value_percent = exchange_rate.value_percent
+            exchange_rate.value = exchange_rate.value + (exchange_rate.value / 100 * value_percent)
+
+        exchange_rate.save()
+    except ExchangeRates.DoesNotExist:
+        ExchangeRates.objects.create(name=name, value=value, auto=True, add_percent=True)
 
 
 def parse_exchange_rates():
@@ -21,27 +38,14 @@ def parse_exchange_rates():
         data.append([ele for ele in cols if ele])
 
     for row in data:
-        temp = float(row[2].replace(',', '.'))
+        value = float(row[2].replace(',', '.'))
 
         if row[0] == 'Доллар США':
-            try:
-                exchange_rate = ExchangeRates.objects.get(name='USD')
-                exchange_rate.value = temp
-                exchange_rate.save()
-            except ExchangeRates.DoesNotExist:
-                ExchangeRates.objects.create(name='USD', value=temp)
+            update_exchange_rate('USD', value)
+
         elif row[0] == 'Российский рубль':
-            temp = temp / 100
-            try:
-                exchange_rate = ExchangeRates.objects.get(name='RUB')
-                exchange_rate.value = temp
-                exchange_rate.save()
-            except ExchangeRates.DoesNotExist:
-                ExchangeRates.objects.create(name='RUB', value=temp)
+            value = value / 100
+            update_exchange_rate('RUB', value)
+
         elif row[0] == 'Евро':
-            try:
-                exchange_rate = ExchangeRates.objects.get(name='EUR')
-                exchange_rate.value = temp
-                exchange_rate.save()
-            except ExchangeRates.DoesNotExist:
-                ExchangeRates.objects.create(name='EUR', value=temp)
+            update_exchange_rate('EUR', value)

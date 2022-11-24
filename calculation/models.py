@@ -3,13 +3,16 @@ from constructor.models import Profile, Fittings, ProductType, Aggregate, SealOu
     SealColor, Shpros, Shtapik, Sash, LaminationOutside, LaminationInside, ProfileWeight, Note, SupplyValve, \
     ProductsInstall, PvcSlopes, FreePositions, FavoritePositions, Windowsill, WindowsillColor, WindowsillType, LowTides, \
     LowTidesType, Visors, Flashing, FlashingMetal, Platband, ExtensionsToProfile60, ExtensionsToProfile70, \
-    BayWindowToProfile60, BayWindowToProfile70, Connector90g, Accessories, Handles, Locks, StraightConnectors
+    BayWindowToProfile60, BayWindowToProfile70, Connector90g, Accessories, Handles, Locks, StraightConnectors, \
+    Works
 
 
 class Markups(models.Model):
-    windowsill = models.FloatField(default=0.0, max_length=255, verbose_name='Подоконники в %')
-    low_tides = models.FloatField(default=0.0, max_length=255, verbose_name='Отливы в %')
-    window = models.FloatField(default=0.0, max_length=255, verbose_name='Окна в %')
+    low_tides = models.FloatField(default=0.0, max_length=255, verbose_name='Отливы ')
+    low_tides_in_percent = models.BooleanField(default=True, verbose_name='считать в процентах отливы')
+
+    window = models.FloatField(default=0.0, max_length=255, verbose_name='Окна')
+    window_in_percent = models.BooleanField(default=True, verbose_name='считать в процентах окно')
 
     def __str__(self):
         return f' Наценки № {self.id}'
@@ -22,6 +25,9 @@ class Markups(models.Model):
 class ExchangeRates(models.Model):
     name = models.CharField(max_length=255, verbose_name='Имя')
     value = models.FloatField(max_length=255, default=0.0, verbose_name='Значение')
+    auto = models.BooleanField(default=True, verbose_name='Получать автоматически')
+    add_percent = models.BooleanField(default=False, verbose_name='Добавлять в процентах')
+    value_percent = models.FloatField(max_length=255, default=0.0, verbose_name='Значение в процентах')
 
     def __str__(self):
         return f'1 {self.name} = {self.value} BYN '
@@ -31,12 +37,55 @@ class ExchangeRates(models.Model):
         verbose_name_plural = 'Курсы валют'
 
 
+class Windowsill_Markups(models.Model):
+    windowsill = models.ForeignKey(Windowsill, verbose_name="Подоконник", blank=True, null=True,
+                                   on_delete=models.CASCADE)
+
+    markups_diler = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка диллерская')
+    markups_diler_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( диллер )')
+
+    markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
+    markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
+
+    def __str__(self):
+        return f' Подоконник # {self.windowsill.id} цвет: {self.windowsill.color}, тип: {self.windowsill.type}, цена закупки: {self.windowsill.price_input} ,' \
+               f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
+               f' наценка ( розница ): {self.markups_diler} , в процентах : {self.markups_retail_in_percent}'
+        # return f'# {self.id} цвет: {self.color}, тип: {self.type}, цена закупки: {self.price_input}'
+
+    class Meta:
+        verbose_name = 'Наценка на подоконник'
+        verbose_name_plural = 'Наценка на подоконники'
+
+
+class LowTides_Markups(models.Model):
+    lowtides = models.ForeignKey(LowTides, verbose_name="Отливы", blank=True, null=True,
+                                 on_delete=models.CASCADE)
+
+    markups_diler = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка диллерская')
+    markups_diler_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( диллер )')
+
+    markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
+    markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
+
+    def __str__(self):
+        return f' Отлив # {self.lowtides.id} название: {self.lowtides.name}, тип: {self.lowtides.type}, цена закупки: {self.lowtides.price_input} ,' \
+               f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
+               f' наценка ( розница ): {self.markups_diler} , в процентах : {self.markups_retail_in_percent}'
+        # return f'# {self.id} цвет: {self.color}, тип: {self.type}, цена закупки: {self.price_input}'
+
+    class Meta:
+        verbose_name = 'Наценка на отлив'
+        verbose_name_plural = 'Наценка на отливы'
+
+
 # _______________________________ CALCULATION MODELS _______________________________
 class LowTidesCalc(models.Model):
     low_tides_id = models.IntegerField(default=0.0, verbose_name="№ Отлив", blank=True, null=True)
 
-    width = models.FloatField(max_length=255, default=0.0, verbose_name='ширина')
-    length = models.FloatField(max_length=255, default=0.0, verbose_name='длинна')
+    markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
+    width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
+    length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='количество')
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='цена')
 
@@ -50,6 +99,8 @@ class LowTidesCalc(models.Model):
 
 class WindowsillCalc(models.Model):
     windowsill_id = models.IntegerField(default=0.0, verbose_name="№ Подоконник", blank=True, null=True)
+
+    markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='количество')
@@ -63,17 +114,21 @@ class WindowsillCalc(models.Model):
         verbose_name_plural = 'Просчеты подоконников'
 
 
-class WindowDiscount(models.Model):
+class WindowDiscountMarkups(models.Model):
     profile_id = models.ForeignKey(Profile, verbose_name="Профиль", blank=True, null=True, on_delete=models.CASCADE)
     fittings_id = models.ForeignKey(Fittings, verbose_name="Фурнитура", blank=True, null=True, on_delete=models.CASCADE)
-    value = models.FloatField(max_length=255, default=0.0, verbose_name='Значение')
+    discount = models.FloatField(max_length=255, default=0.0, verbose_name='Значение')
+
+    markups = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка')
+    markups_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах')
 
     def __str__(self):
-        return f'Профиль : {self.profile_id.name} + Фурнитура: {self.fittings_id.name} = {self.value} %'
+        return f'Профиль : {self.profile_id.name} + Фурнитура: скидка {self.fittings_id.name} = {self.discount} %,' \
+               f' Наценка : {self.markups}, В процентах: {self.markups_in_percent}'
 
     class Meta:
-        verbose_name = 'Скидка на окно'
-        verbose_name_plural = 'Скидки на окна'
+        verbose_name = 'Скидка/Наценка на окно'
+        verbose_name_plural = 'Скидки/Наценки на окна'
 
 
 class WindowsCalc(models.Model):
@@ -85,24 +140,15 @@ class WindowsCalc(models.Model):
     price_input = models.FloatField(max_length=255, default=0.0, verbose_name='Входная цена')
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Выходная цена ( с наценкой )')
 
+    markup_value = models.FloatField(max_length=255, default=0.0, verbose_name='Значение наценки')
+    markup_percent = models.BooleanField(default=True, verbose_name='Наценка в процентах')
+
     def __str__(self):
         return f' Просчет окна № {self.id} на сумму {self.price_output} BYN'
 
     class Meta:
         verbose_name = 'Просчет окна'
         verbose_name_plural = 'Просчеты окон'
-
-
-class WorkCalc(models.Model):
-    work_name = models.CharField(max_length=255, verbose_name='Наименование работы', blank=True, null=True)
-    work_price = models.FloatField(max_length=255, default=0.0, verbose_name='Цена работы')
-
-    def __str__(self):
-        return f' Просчет работы № {self.id} {self.work_name} на сумму {self.work_price} BYN'
-
-    class Meta:
-        verbose_name = 'Просчет работы'
-        verbose_name_plural = 'Просчеты работ'
 
 
 class Constructor(models.Model):
@@ -141,8 +187,8 @@ class Constructor(models.Model):
                                        verbose_name="Бесплатные позиции", null=True, blank=True)
     favorite_positions = models.ForeignKey(FavoritePositions, on_delete=models.SET_NULL,
                                            verbose_name="Избранные позиции", null=True, blank=True)
-    windowsill = models.ForeignKey(Windowsill, on_delete=models.SET_NULL, verbose_name="Подоконники",
-                                   null=True, blank=True)
+    # windowsill = models.ForeignKey(Windowsill, on_delete=models.SET_NULL, verbose_name="Подоконники",
+    #                                null=True, blank=True)
     visors = models.ForeignKey(Visors, on_delete=models.SET_NULL, verbose_name="Козырьки", null=True,
                                blank=True)
     flashing = models.ForeignKey(Flashing, on_delete=models.SET_NULL, verbose_name="Нащельник",
@@ -176,7 +222,7 @@ class Constructor(models.Model):
     price_input = models.FloatField(max_length=255, default=0.0, blank=True, null=True, verbose_name='Входная цена')
     price_window = models.FloatField(default=0.0, verbose_name='Цена окно ( с наценкой )', max_length=255, null=True,
                                      blank=True)
-    price_works = models.ManyToManyField(WorkCalc, verbose_name='Работы', null=True, blank=True)
+
     price_material = models.FloatField(default=0.0, verbose_name='Цена материалов ( с наценкой )', max_length=255,
                                        null=True,
                                        blank=True)
@@ -186,9 +232,10 @@ class Constructor(models.Model):
                                     blank=True)
     windowsills_calc = models.ManyToManyField(WindowsillCalc, verbose_name="Просчеты подоконников", blank=True)
     lowtides_calc = models.ManyToManyField(LowTidesCalc, verbose_name="Просчеты отливов", blank=True)
+    works = models.ManyToManyField(Works, verbose_name='Работы', blank=True)
 
     def __str__(self):
-        return f'Просчет конструктора №{self.id}'
+        return f'Просчет конструктора №{self.id} на сумму {self.price_constructor}'
 
     class Meta:
         verbose_name = 'Просчет конструктора'

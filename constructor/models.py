@@ -239,7 +239,7 @@ class Windowsill(models.Model):
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
     def __str__(self):
-        return f'# {self.id} {self.color} {self.type}'
+        return f'# {self.id} цвет: {self.color}, тип: {self.type}, цена закупки: {self.price_input}'
 
     class Meta:
         verbose_name = 'Подоконник'
@@ -435,4 +435,13 @@ class SupplyValve(models.Model):
         verbose_name_plural = 'Приточные клапаны'
 
 
+class Works(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Наименование работы', blank=True, null=True)
+    price = models.FloatField(max_length=255, default=0.0, verbose_name='Цена работы')
 
+    def __str__(self):
+        return f' Работы № {self.id} {self.name} на сумму {self.price} BYN'
+
+    class Meta:
+        verbose_name = 'Просчет работы'
+        verbose_name_plural = 'Просчеты работ'

@@ -8,7 +8,7 @@ urlpatterns = [
     path('window/', CalculationWindowAPIView.as_view()),
     path('windowsill/', CalculationWindowsillAPIView.as_view()),
     path('low-tides/', CalculationLowTidesAPIView.as_view()),
-    path('works/', WorksGenericAPIView.as_view()),
+    # path('works/', WorksGenericAPIView.as_view()),
 
 
 

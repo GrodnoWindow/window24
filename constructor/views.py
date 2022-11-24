@@ -269,6 +269,8 @@ class ConstructorMaterialAPIView(APIView):
                 }
             ]
         })
+
+
 class ConstructorWindowAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
@@ -557,8 +559,20 @@ class ConstructorExtraMaterialAPIView(APIView):
             ]
         })
 
-#
-# class ConstructorViewSet(viewsets.ModelViewSet):
-#     queryset = Constructor.objects.all()  # .values().order_by('-id')
-#     serializer_class = ConstructorSerializer
-#     pagination_class = CustomPagination
+
+class WorksAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['works'] = Works.objects.all()
+        serializer = ConstructorSerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'works',
+                    'placeholder': 'Выберите работы',
+                    'label': 'Работы',
+                    'data': serializer.data['works'],
+                },
+
+            ]
+        })

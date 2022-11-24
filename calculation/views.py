@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework import generics, viewsets, mixins
-from .models import WindowDiscount
 from .utils import *
 from .serializer import *
 from .utils import *
@@ -41,7 +40,9 @@ class CalculationWindowsillAPIView(APIView):
         width = request.data['width']
         length = request.data['length']
         count = request.data['count']
-        windowsill_calc = calc_windowsill(windowsill_id=windowsill_id, width=width, length=length, count=count)
+        markups_type = request.data['markups_type']
+        windowsill_calc = calc_windowsill(windowsill_id=windowsill_id, width=width,
+                                          length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(windowsill_calc)})
 
@@ -56,8 +57,10 @@ class CalculationLowTidesAPIView(APIView):
         width = request.data['width']
         length = request.data['length']
         count = request.data['count']
+        markups_type = request.data['markups_type']
 
-        low_tides_calc = calc_low_tides(low_tides_id=low_tides_id, width=width, length=length, count=count)
+        low_tides_calc = calc_low_tides(low_tides_id=low_tides_id, width=width,
+                                        length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(low_tides_calc)})
 
@@ -91,7 +94,7 @@ class CalculationConstructorAPIView(APIView):
             pvc_slopes=request.data["pvc_slopes"],
             free_positions=request.data["free_positions"],
             favorite_positions=request.data["favorite_positions"],
-            windowsill=request.data["windowsill"],
+            # windowsill=request.data["windowsill"],
             visors=request.data["visors"],
             flashing=request.data["flashing"],
             flashing_metal=request.data["flashing_metal"],
@@ -107,29 +110,37 @@ class CalculationConstructorAPIView(APIView):
             straight_connectors=request.data["straight_connectors"],
             supply_valve=request.data["supply_valve"],
             window_calc=request.data["window_calc"], )
-
-        for i in request.data['windowsills_calc']:
-            constructor.windowsills_calc.add(i)
-        for i in request.data['lowtides_calc']:
-            constructor.lowtides_calc.add(i)
-        for i in request.data['price_works']:
-            constructor.price_works.add(i)
+        try:
+            for i in request.data['windowsills_calc']:
+                constructor.windowsills_calc.add(i)
+        except:
+            pass
+        try:
+            for i in request.data['lowtides_calc']:
+                constructor.lowtides_calc.add(i)
+        except:
+            pass
+        try:
+            for i in request.data['works']:
+                constructor.works.add(i)
+        except:
+            pass
         # constructor.addresses.add(address_id)
         # constructor.numbers.add(number_id)
         return Response({'data': request.data})
         # return Response({'data': serializer.data})
 
 
-class WorksGenericAPIView(
-    generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
-    mixins.UpdateModelMixin, mixins.DestroyModelMixin
-):
-    queryset = WorkCalc.objects.all()
-    serializer_class = WorksCalcSerializer
-    pagination_class = CustomPagination
-
-    def get(self, request, pk=None):
-        if pk:
-            return Response({'data': self.retrieve(request, pk).data})
-
-        return self.list(request)
+# class WorksGenericAPIView(
+#     generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
+#     mixins.UpdateModelMixin, mixins.DestroyModelMixin
+# ):
+#     queryset = WorkCalc.objects.all()
+#     serializer_class = WorksCalcSerializer
+#     pagination_class = CustomPagination
+#
+#     def get(self, request, pk=None):
+#         if pk:
+#             return Response({'data': self.retrieve(request, pk).data})
+#
+#         return self.list(request)

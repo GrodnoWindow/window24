@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from constructor.serializer import WorksSerializer
 
 
 class ExchangeRatesSerializer(serializers.ModelSerializer):
@@ -13,7 +14,7 @@ class WindowSerializer(serializers.ModelSerializer):
     currency_name = serializers.CharField(max_length=255, read_only=False)
 
     class Meta:
-        model = WindowDiscount
+        model = WindowDiscountMarkups
         fields = 'profile_id', 'fittings_id', 'price_input', 'currency_name',
 
 
@@ -22,10 +23,11 @@ class WindowsillCalcSerializer(serializers.ModelSerializer):
     width = serializers.IntegerField(max_value=None, min_value=None)
     length = serializers.IntegerField(max_value=None, min_value=None)
     count = serializers.IntegerField(max_value=None, min_value=None)
+    markups_type = serializers.IntegerField(max_value=None, min_value=None)
 
     class Meta:
         model = WindowsillCalc
-        fields = 'windowsill_id', 'width', 'length', 'count'
+        fields = 'windowsill_id', 'width', 'length', 'count', 'markups_type'
 
 
 class LowTidesCalcSerializer(serializers.ModelSerializer):
@@ -33,10 +35,11 @@ class LowTidesCalcSerializer(serializers.ModelSerializer):
     width = serializers.IntegerField(max_value=None, min_value=None)
     length = serializers.IntegerField(max_value=None, min_value=None)
     count = serializers.IntegerField(max_value=None, min_value=None)
+    markups_type = serializers.IntegerField(max_value=None, min_value=None)
 
     class Meta:
         model = LowTidesCalc
-        fields = 'low_tides_id', 'width', 'length', 'count'
+        fields = 'low_tides_id', 'width', 'length', 'count', 'markups_type'
 
 
 class WindowCalcSerializer(serializers.ModelSerializer):
@@ -49,20 +52,23 @@ class WindowCalcSerializer(serializers.ModelSerializer):
     currency_name = serializers.IntegerField(max_value=None, min_value=None, read_only=True)
     currency_value = serializers.FloatField(max_value=None, min_value=None, read_only=True)
 
+    markup_value = serializers.FloatField(max_value=None, min_value=None, read_only=True)
+    markup_percent = serializers.FloatField(max_value=None, min_value=None, read_only=True)
+
     class Meta:
         model = WindowsCalc
         fields = '__all__'
 
 
 class ConstructorSerializer(serializers.ModelSerializer):
+    # works = WorksSerializer(many=True, required=False)
 
     class Meta:
         model = Constructor
         fields = '__all__'
 
-
-class WorksCalcSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = WorkCalc
-        fields = '__all__'
+# class WorksCalcSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = WorkCalc
+#         fields = '__all__'

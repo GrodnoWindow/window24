@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import *
 from calculation.models import Constructor
 
+
 class ProductTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductType
@@ -154,14 +155,13 @@ class WindowsillSerializer(serializers.ModelSerializer):
 #         model = WindowsillDankePremium
 #         fields = ['id', 'name']
 class LowTidesTypeSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = LowTidesType
         fields = '__all__'
 
 
 class LowTidesSerializer(serializers.ModelSerializer):
-    type = LowTidesTypeSerializer(many=False,read_only=False)
+    type = LowTidesTypeSerializer(many=False, read_only=False)
 
     class Meta:
         model = LowTides
@@ -252,6 +252,12 @@ class SupplyValveSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
+class WorksSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Works
+        fields = ['id', 'name', 'price']
+
+
 class ConstructorSerializer(serializers.Serializer):
     profile = ProfileSerializer(read_only=True, many=True)
     product_type = ProductTypeSerializer(read_only=True, many=True)
@@ -272,7 +278,7 @@ class ConstructorSerializer(serializers.Serializer):
     pvc_slopes = PvcSlopesSerializer(read_only=True, many=True)
     free_positions = FreePositionsSerializer(read_only=True, many=True)
     favorite_positions = FavoritePositionsSerializer(read_only=True, many=True)
-    windowsill = WindowsillSerializer(read_only=True, many=True)
+    # windowsill = WindowsillSerializer(read_only=True, many=True)
     low_tides = LowTidesSerializer(read_only=True, many=True)
     visors = VisorsSerializer(read_only=True, many=True)
     flashing = FlashingSerializer(read_only=True, many=True)
@@ -288,4 +294,4 @@ class ConstructorSerializer(serializers.Serializer):
     locks = LocksSerializer(read_only=True, many=True)
     straight_connectors = StraightConnectorsSerializer(read_only=True, many=True)
     supply_valve = SupplyValveSerializer(read_only=True, many=True)
-
+    works = WorksSerializer(read_only=True, many=True)

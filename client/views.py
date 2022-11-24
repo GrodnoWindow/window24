@@ -71,7 +71,7 @@ class ClientPatchAPIView(APIView):
         client.save()
 
         serializer = ClientSerializer(client)
-        return Response({"data:": serializer.data})
+        return Response({"data": serializer.data})
 
 
 class ClientViewSet(viewsets.ModelViewSet):
@@ -83,13 +83,13 @@ class ClientViewSet(viewsets.ModelViewSet):
     def list(self, request):
         queryset = Client.objects.all()
         serializer = ClientSerializer(queryset, many=True)
-        return Response({"data:": serializer.data})
+        return Response({"data": serializer.data})
 
     def retrieve(self, request, pk=None):
         queryset = Client.objects.all()
         client = get_object_or_404(queryset, pk=pk)
         serializer = ClientSerializer(client)
-        return Response({"data:": serializer.data})
+        return Response({"data": serializer.data})
 
 
 class AddressViewSet(viewsets.ModelViewSet):
@@ -101,13 +101,13 @@ class AddressViewSet(viewsets.ModelViewSet):
     def list(self, request):
         queryset = Address.objects.all()
         serializer = AddressSerializer(queryset, many=True)
-        return Response({"data:": serializer.data})
+        return Response({"data": serializer.data})
 
     def retrieve(self, request, pk=None):
         queryset = Address.objects.all()
         address = get_object_or_404(queryset, pk=pk)
         serializer = AddressSerializer(address)
-        return Response({"data:": serializer.data})
+        return Response({"data": serializer.data})
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -119,14 +119,14 @@ class AddressViewSet(viewsets.ModelViewSet):
 
         address.save()
         serializer = AddressSerializer(address)
-        return Response({"data:": serializer.data})
+        return Response({"data": serializer.data})
 
     def update(self, request, pk=None):
         address = Address.objects.get(pk=pk)
         address.name = request.data['name']
         address.save()
         serializer = AddressSerializer(address)
-        return Response({"data:": serializer.data})
+        return Response({"data": serializer.data})
 
 
 class NumberViewSet(viewsets.ModelViewSet):
@@ -138,13 +138,13 @@ class NumberViewSet(viewsets.ModelViewSet):
     def list(self, request):
         queryset = Number.objects.all()
         serializer = NumberSerializer(queryset, many=True)
-        return Response({"data:": serializer.data})
+        return Response({"data": serializer.data})
 
     def retrieve(self, request, pk=None):
         queryset = Number.objects.all()
         address = get_object_or_404(queryset, pk=pk)
         serializer = NumberSerializer(address)
-        return Response({"data:": serializer.data})
+        return Response({"data": serializer.data})
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -158,7 +158,7 @@ class NumberViewSet(viewsets.ModelViewSet):
 
         number.save()
         serializer = NumberSerializer(number)
-        return Response({"data:": serializer.data})
+        return Response({"data": serializer.data})
 
     def update(self, request, pk=None):
         number = Number.objects.get(pk=pk)
@@ -166,4 +166,4 @@ class NumberViewSet(viewsets.ModelViewSet):
         number.number = request.data['number']
         number.save()
         serializer = NumberSerializer(number)
-        return Response({"data:": serializer.data})
+        return Response({"data": serializer.data})

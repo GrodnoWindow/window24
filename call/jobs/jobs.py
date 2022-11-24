@@ -7,6 +7,8 @@ from call.models import Call, Call_Okna
 
 from client.models import Client, Number
 
+from client.utils import create_calls_record
+
 # from client.models import Client
 
 # API_URL = "https://86.57.178.104:4021"
@@ -174,34 +176,43 @@ def parse_window24(data):
                     try:
                         number = Number.objects.get(number=number_call)
                     except Number.DoesNotExist:
-                        number = Number.objects.create(number=number_call)
+                        number = Number.objects.create(number=number_call, name='new client')
+                    print(number)
+                    number_id = number.pk
+                    print(f'f ashdlhaskjdhasjkhdkjasd {number_id}')
 
                     try:
                         client = Client.objects.get(numbers=number)
                         client_id = client.id
                         client_name = client.name
                     except Client.DoesNotExist:
-                        client_id = "0"
-                        client_name = None
+                        client = Client.objects.create(author='system', name='new client')
+                        client.numbers.add(number_id)
+                        client_id = client.pk
+                        client_name = 'new client'
 
                     call = Call(id_call=id_call, number=number, datetime=datetime.datetime.now(),
                                 call_type=status, client_id=client_id, client_name=client_name)
-                    print(f'CAAAAAAAAAAAAAL {call}')
                     call.save()
+                    client.calls.add(call.pk) # TODO fix
+                    calls = Call.objects.filter(number=number_call).values('id').order_by('-id')
+                    ids_calls = calls.values_list('id', flat=True)
+                    for call_ in ids_calls:
+                        client.calls.add(call_)
+
+                    client.save()
+
             else:
                 Call.objects.filter(id_call=id_call).update(call_type=status)
 
 
-
-
 def parse_okna360(data):
     if not data['calls']:
-        print('asd')
+        pass
     else:
         for item in data['calls']:
             id_call = item["id"].split(".")[0]  # add id only number and check record
             check_call = Call_Okna.objects.filter(id_call=id_call)  # if not record call id in db
-            print('ЗАШЕЛ')
             if not check_call:
                 call = Call_Okna(id_call=id_call)
                 call.save()
@@ -211,9 +222,8 @@ def parse_okna360(data):
                         f'https://okna360-crm.ru/ERPOKNA360/AddNewCalls.php?key=d41d8cd98f00b204e9800998ecf8427e&PhoneClient={number}')
                     print(response)
 
+
 def parse_active_calls():
     data = get_calls()
     parse_okna360(data)
     parse_window24(data)
-
-
