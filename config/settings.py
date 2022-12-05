@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'constructor',
     'calculation',
     'webhook',
+    'miscalculation',
 
 ]
 

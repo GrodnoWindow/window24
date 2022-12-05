@@ -18,30 +18,35 @@ from call.models import Call
 class ClientAPIView(APIView):
     serializer_class = ClientPostSerializer
 
-    # permission_classes = (IsAuthenticated,)
-
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = request.user
-        print(request.data['numbers'])
-        print(request.data['addresses'])
-        # number_id = create_number_record(request.data['numbers']['number'], request.data['numbers']['name'])
-        # calls = create_calls_record(request.data['numbers'])
-        # address_id = create_address_record(request.data['addresses'])
-        #
+
         client = Client.objects.create(
             name=request.data['name'],
             author=user.username,  # get current user
         )
-        for number in request.data['numbers']:
-            client.numbers.add(number)
-            calls = create_calls_record(number)
-            for call in calls:
-                client.calls.add(call)
+        try:
+            for number in request.data['numbers']:
+                client.numbers.add(number)
+                calls = create_calls_record(number)
+                for call in calls:
+                    client.calls.add(call)
+        except:
+            pass
 
-        for address in request.data['addresses']:
-            client.addresses.add(address)
+        try:
+            for address in request.data['addresses']:
+                client.addresses.add(address)
+        except:
+            pass
+
+        try:
+            for miscalculation in request.data['miscalculation']:
+                client.miscalculation.add(miscalculation)
+        except:
+            pass
 
         client.save()
         return Response({'data': serializer.data})
@@ -56,17 +61,32 @@ class ClientPatchAPIView(APIView):
         user = request.user
 
         client = Client.objects.get(id=pk)
+        client.name = request.data['name']
+        client.author = user.username
         client.numbers.clear()
         client.addresses.clear()
         client.calls.clear()
-        for number in request.data['numbers']:
-            client.numbers.add(number)
-            calls = create_calls_record(number)
-            for call in calls:
-                client.calls.add(call)
+        client.miscalculation.clear()
+        try:
+            for number in request.data['numbers']:
+                client.numbers.add(number)
+                calls = create_calls_record(number)
+                for call in calls:
+                    client.calls.add(call)
+        except:
+            pass
 
-        for address in request.data['addresses']:
-            client.addresses.add(address)
+        try:
+            for address in request.data['addresses']:
+                client.addresses.add(address)
+        except:
+            pass
+
+        try:
+            for miscalculation in request.data['miscalculation']:
+                client.miscalculation.add(miscalculation)
+        except:
+            pass
 
         client.save()
 

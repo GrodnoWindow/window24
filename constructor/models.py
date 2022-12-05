@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms import TextInput
 
+
 # _______________________________ CONFIGURATION MODEL _______________________________
 class ProductType(models.Model):
     name = models.CharField(max_length=255, verbose_name="Тип изделия", blank=True, null=True)

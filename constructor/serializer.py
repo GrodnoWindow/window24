@@ -278,7 +278,7 @@ class ConstructorSerializer(serializers.Serializer):
     pvc_slopes = PvcSlopesSerializer(read_only=True, many=True)
     free_positions = FreePositionsSerializer(read_only=True, many=True)
     favorite_positions = FavoritePositionsSerializer(read_only=True, many=True)
-    # windowsill = WindowsillSerializer(read_only=True, many=True)
+    windowsill = WindowsillSerializer(read_only=True, many=True)
     low_tides = LowTidesSerializer(read_only=True, many=True)
     visors = VisorsSerializer(read_only=True, many=True)
     flashing = FlashingSerializer(read_only=True, many=True)
