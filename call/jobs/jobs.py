@@ -170,7 +170,7 @@ def parse_window24(data):
             id_call = item["id"].split(".")[0]  # add id only number and check record
             number_call = item["FROM"]["NUMBER"]
             status = item["STATUS"]
-            call = Call.objects.filter(id_call=id_call)  # if not record call id in db
+            call = Call.objects.get(id_call=id_call)  # if not record call id in db (((((( filter )))))))
             if not call:
                 if not (number_call == '14') and not (number_call == '15'):
                     try:
