@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'webhook',
     'miscalculation',
     'complaint',
+    'correspondence',
 
 ]
 
@@ -140,9 +141,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = '/home/dev/windows24/windows24_v1/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = '/home/dev/windows24/windows24_v1/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'MEDIA')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

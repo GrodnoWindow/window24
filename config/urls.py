@@ -37,6 +37,7 @@ urlpatterns = [
     path('constructor/', include('constructor.urls')),
     path('calculation/', include('calculation.urls')),
     path('webhook', include('webhook.urls')),
+    path('correspondence', include('correspondence.urls')),
     # path(r'django_rq/', include('django_rq.urls')),
 
     # path('client/',include('client.urls')),
