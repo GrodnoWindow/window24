@@ -11,6 +11,6 @@ urlpatterns = [
     path('category/lamination/', ConstructorLaminationsAPIView.as_view()),
     path('category/additional-option/', ConstructorAdditionOptionAPIView.as_view()),
     path('category/material/', ConstructorMaterialAPIView.as_view()),
-    path('category/works', WorksAPIView.as_view()),
+    path('category/works/', WorksAPIView.as_view()),
 
 ]

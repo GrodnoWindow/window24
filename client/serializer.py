@@ -4,6 +4,7 @@ from call.models import Call
 from .models import Client, Number, Address
 from call.serializer import CallSerializer
 from miscalculation.serializer import MiscalculationSerializer
+from complaint.serializer import ComplaintSerializer
 
 
 class NumberSerializer(serializers.ModelSerializer):
@@ -26,6 +27,7 @@ class ClientSerializer(serializers.ModelSerializer):
     addresses = AddressSerializer(many=True, read_only=False)
     calls = CallSerializer(many=True, read_only=False)
     miscalculation = MiscalculationSerializer(many=True, read_only=False)
+    complaints = ComplaintSerializer(many=True, read_only=False)
 
     class Meta:
         model = Client
@@ -46,6 +48,8 @@ class ClientPostSerializer(serializers.ModelSerializer):
     numbers = NumberSerializer(many=True, read_only=True)
     addresses = AddressSerializer(many=True, read_only=True)
     miscalculation = MiscalculationSerializer(many=True, read_only=True)
+    complaints = ComplaintSerializer(many=True, read_only=True)
+    category_select = serializers.CharField(read_only=True)
 
     class Meta:
         model = Client

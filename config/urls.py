@@ -31,6 +31,8 @@ urlpatterns = [
     path('api/', include('users.urls')),
     path('clients/', include('client.urls')),
     path('diary/', include('diary.urls')),
+    path('miscalculation/', include('miscalculation.urls')),
+    path('complaint/', include('complaint.urls')),
     path('call/', include('call.urls')),
     path('constructor/', include('constructor.urls')),
     path('calculation/', include('calculation.urls')),
@@ -38,10 +40,4 @@ urlpatterns = [
     # path(r'django_rq/', include('django_rq.urls')),
 
     # path('client/',include('client.urls')),
-
-
 ]
-
-
-
-

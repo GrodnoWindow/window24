@@ -25,6 +25,7 @@ class ClientAPIView(APIView):
 
         client = Client.objects.create(
             name=request.data['name'],
+            category_select=request.data['category_select'],
             author=user.username,  # get current user
         )
         try:
@@ -47,9 +48,15 @@ class ClientAPIView(APIView):
                 client.miscalculation.add(miscalculation)
         except:
             pass
-
+        try:
+            for complaint in request.data['complaints']:
+                client.complaints.add(complaint)
+        except:
+            pass
         client.save()
-        return Response({'data': serializer.data})
+
+        serializer = ClientSerializer(client)
+        return Response({"data": serializer.data})
 
 
 class ClientPatchAPIView(APIView):
@@ -62,11 +69,13 @@ class ClientPatchAPIView(APIView):
 
         client = Client.objects.get(id=pk)
         client.name = request.data['name']
+        client.category_select = request.data['category_select']
         client.author = user.username
         client.numbers.clear()
         client.addresses.clear()
         client.calls.clear()
         client.miscalculation.clear()
+        client.complaints.clear()
         try:
             for number in request.data['numbers']:
                 client.numbers.add(number)
@@ -88,6 +97,11 @@ class ClientPatchAPIView(APIView):
         except:
             pass
 
+        try:
+            for complaint in request.data['complaints']:
+                client.complaints.add(complaint)
+        except:
+            pass
         client.save()
 
         serializer = ClientSerializer(client)

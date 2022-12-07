@@ -6,12 +6,13 @@ from rest_framework.schemas import ManualSchema, coreapi, AutoSchema
 from rest_framework.viewsets import GenericViewSet
 from .serializer import TaskSerializer
 from .models import Task
+from config.pagination import CustomPagination
 
 
 class TaskAPIList(generics.ListCreateAPIView): # GET and POST requests
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-
+    pagination_class = CustomPagination
 
 class TaskViewSet(mixins.CreateModelMixin, # viewsets.ModelViewSet
                    mixins.RetrieveModelMixin,
@@ -21,7 +22,7 @@ class TaskViewSet(mixins.CreateModelMixin, # viewsets.ModelViewSet
 
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-
+    pagination_class = CustomPagination
 
     def get_queryset(self, *args, **kwargs):
         if self.request.query_params == {}:
