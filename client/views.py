@@ -24,6 +24,7 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
     queryset = Client.objects.all()
     serializer_class = ClientPostSerializer
     pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
 
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
@@ -135,6 +136,7 @@ class NumberViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
     queryset = Number.objects.all()
     serializer_class = NumberSerializer
     pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -167,6 +169,7 @@ class AddressViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
     pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

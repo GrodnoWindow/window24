@@ -14,7 +14,6 @@ router_client.register(r'', ClientViewSet) # all routers
 
 urlpatterns = [
 
-    path('', include(router_client.urls)),
 
     # path('', ClientViewSet.as_view({'get': 'list'})),
     # path('<int:pk>/', ClientViewSet.as_view({'get': 'retrieve'})),
@@ -34,6 +33,6 @@ urlpatterns = [
     # path('number/<int:pk>/', NumberViewSet.as_view({'get': 'retrieve'})),
     # path('number/update/<int:pk>/', NumberViewSet.as_view({'patch': 'update'})),
     # path('number/add/', NumberViewSet.as_view({'post': 'create'})),
-
+    path('', include(router_client.urls)),
 
 ]
