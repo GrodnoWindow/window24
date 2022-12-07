@@ -15,17 +15,23 @@ from config.pagination import CustomPagination
 from call.models import Call
 
 
-class ClientAPIView(APIView):
-    serializer_class = ClientPostSerializer
+class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.ListModelMixin,
+                    GenericViewSet):  # get, post , get<id>, put<id>, path<id>
 
-    def post(self, request):
+    queryset = Client.objects.all()
+    serializer_class = ClientPostSerializer
+    pagination_class = CustomPagination
+
+    def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = request.user
 
         client = Client.objects.create(
             name=request.data['name'],
-            category_select=request.data['category_select'],
             author=user.username,  # get current user
         )
         try:
@@ -53,23 +59,30 @@ class ClientAPIView(APIView):
                 client.complaints.add(complaint)
         except:
             pass
+
+        try:
+            for category_select in request.data['category_select']:
+                client.category_select.add(category_select)
+        except:
+            pass
         client.save()
 
         serializer = ClientSerializer(client)
         return Response({"data": serializer.data})
 
+    def retrieve(self, request, pk=None):
+        queryset = Client.objects.all()
+        address = get_object_or_404(queryset, pk=pk)
+        serializer = ClientSerializer(address)
+        return Response({"data": serializer.data})
 
-class ClientPatchAPIView(APIView):
-    serializer_class = ClientPostSerializer
-
-    def patch(self, request, pk):
+    def update(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = request.user
-
-        client = Client.objects.get(id=pk)
+        instance = self.get_object()
+        client = Client.objects.get(id=instance.pk)
         client.name = request.data['name']
-        client.category_select = request.data['category_select']
         client.author = user.username
         client.numbers.clear()
         client.addresses.clear()
@@ -102,102 +115,76 @@ class ClientPatchAPIView(APIView):
                 client.complaints.add(complaint)
         except:
             pass
+
+        try:
+            client.category_select = request.data['category_select']
+        except:
+            pass
         client.save()
 
         serializer = ClientSerializer(client)
         return Response({"data": serializer.data})
 
 
-class ClientViewSet(viewsets.ModelViewSet):
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
-    pagination_class = CustomPagination
-    http_method_names = ['get', 'patch']
+class NumberViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    mixins.ListModelMixin,
+                    GenericViewSet):  # get, post , get<id>, put<id>, path<id>
 
-    def list(self, request):
-        queryset = Client.objects.all()
-        serializer = ClientSerializer(queryset, many=True)
-        return Response({"data": serializer.data})
-
-    def retrieve(self, request, pk=None):
-        queryset = Client.objects.all()
-        client = get_object_or_404(queryset, pk=pk)
-        serializer = ClientSerializer(client)
-        return Response({"data": serializer.data})
-
-
-class AddressViewSet(viewsets.ModelViewSet):
-    queryset = Address.objects.all()
-    serializer_class = AddressSerializer
-    pagination_class = CustomPagination
-    http_method_names = ['get', 'patch', 'post']
-
-    def list(self, request):
-        queryset = Address.objects.all()
-        serializer = AddressSerializer(queryset, many=True)
-        return Response({"data": serializer.data})
-
-    def retrieve(self, request, pk=None):
-        queryset = Address.objects.all()
-        address = get_object_or_404(queryset, pk=pk)
-        serializer = AddressSerializer(address)
-        return Response({"data": serializer.data})
-
-    def create(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        address = Address.objects.create(
-            name=request.data['name']
-        )
-
-        address.save()
-        serializer = AddressSerializer(address)
-        return Response({"data": serializer.data})
-
-    def update(self, request, pk=None):
-        address = Address.objects.get(pk=pk)
-        address.name = request.data['name']
-        address.save()
-        serializer = AddressSerializer(address)
-        return Response({"data": serializer.data})
-
-
-class NumberViewSet(viewsets.ModelViewSet):
     queryset = Number.objects.all()
     serializer_class = NumberSerializer
     pagination_class = CustomPagination
-    http_method_names = ['get', 'patch', 'post']
 
-    def list(self, request):
-        queryset = Number.objects.all()
-        serializer = NumberSerializer(queryset, many=True)
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
         return Response({"data": serializer.data})
 
     def retrieve(self, request, pk=None):
         queryset = Number.objects.all()
-        address = get_object_or_404(queryset, pk=pk)
-        serializer = NumberSerializer(address)
+        number = get_object_or_404(queryset, pk=pk)
+        serializer = NumberSerializer(number)
         return Response({"data": serializer.data})
 
-    def create(self, request):
-        serializer = self.serializer_class(data=request.data)
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
-
-        number = Number.objects.create(
-            name=request.data['name'],
-            number=request.data['number']
-
-        )
-
-        number.save()
-        serializer = NumberSerializer(number)
+        self.perform_update(serializer)
         return Response({"data": serializer.data})
 
-    def update(self, request, pk=None):
-        number = Number.objects.get(pk=pk)
-        number.name = request.data['name']
-        number.number = request.data['number']
-        number.save()
-        serializer = NumberSerializer(number)
+
+class AddressViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
+                     mixins.RetrieveModelMixin,
+                     mixins.UpdateModelMixin,
+                     mixins.ListModelMixin,
+                     GenericViewSet):  # get, post , get<id>, put<id>, path<id>
+
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
+    pagination_class = CustomPagination
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({"data": serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = Address.objects.all()
+        address = get_object_or_404(queryset, pk=pk)
+        serializer = AddressSerializer(address)
+        return Response({"data": serializer.data})
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
         return Response({"data": serializer.data})

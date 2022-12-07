@@ -28,6 +28,7 @@ class ClientSerializer(serializers.ModelSerializer):
     calls = CallSerializer(many=True, read_only=False)
     miscalculation = MiscalculationSerializer(many=True, read_only=False)
     complaints = ComplaintSerializer(many=True, read_only=False)
+    category_select = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Client
@@ -49,7 +50,7 @@ class ClientPostSerializer(serializers.ModelSerializer):
     addresses = AddressSerializer(many=True, read_only=True)
     miscalculation = MiscalculationSerializer(many=True, read_only=True)
     complaints = ComplaintSerializer(many=True, read_only=True)
-    category_select = serializers.CharField(read_only=True)
+    category_select = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Client

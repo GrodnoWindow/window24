@@ -10,5 +10,4 @@ router.register(r'', ComplaintViewSet) # all routers
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('', ComplaintAPIList.as_view()),
 ]

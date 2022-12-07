@@ -1,5 +1,6 @@
 import requests
 from django.shortcuts import render
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
@@ -65,10 +66,24 @@ class CalculationLowTidesAPIView(APIView):
         return Response({'data': model_to_dict(low_tides_calc)})
 
 
-class CalculationConstructorAPIView(APIView):
+class ConstructorViewSet(viewsets.ModelViewSet):
+    queryset = Constructor.objects.all()
     serializer_class = ConstructorSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
 
-    def post(self, request):
+    def list(self, request):
+        queryset = Constructor.objects.all()
+        serializer = ConstructorSerializer(queryset, many=True)
+        return Response({"data": serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = Constructor.objects.all()
+        mail = get_object_or_404(queryset, pk=pk)
+        serializer = ConstructorSerializer(mail)
+        return Response({"data": serializer.data})
+
+    def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -125,22 +140,70 @@ class CalculationConstructorAPIView(APIView):
                 constructor.works.add(i)
         except:
             pass
-        # constructor.addresses.add(address_id)
-        # constructor.numbers.add(number_id)
+
         return Response({'data': request.data})
-        # return Response({'data': serializer.data})
 
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        constructor = Constructor.objects.get(id=instance.pk)
 
-# class WorksGenericAPIView(
-#     generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
-#     mixins.UpdateModelMixin, mixins.DestroyModelMixin
-# ):
-#     queryset = WorkCalc.objects.all()
-#     serializer_class = WorksCalcSerializer
-#     pagination_class = CustomPagination
-#
-#     def get(self, request, pk=None):
-#         if pk:
-#             return Response({'data': self.retrieve(request, pk).data})
-#
-#         return self.list(request)
+        constructor.is_active = request.data['is_active']
+        constructor.price_window = request.data["price_window"]
+        constructor.price_material = request.data["price_material"]
+        constructor.price_constructor = request.data["price_constructor"]
+        constructor.product_type = request.data["product_type"]
+        constructor.aggregate = request.data["aggregate"]
+        constructor.seal_outside = request.data["seal_outside"]
+        constructor.seal_rebate = request.data["seal_rebate"]
+        constructor.seal_internal = request.data["seal_internal"]
+        constructor.seal_color = request.data["seal_color"]
+        constructor.shpros = request.data["shpros"]
+        constructor.shtapik = request.data["shtapik"]
+        constructor.sash = request.data["sash"]
+        constructor.lamination_outside = request.data["lamination_outside"]
+        constructor.lamination_inside = request.data["lamination_inside"]
+        constructor.profile_weight = request.data["profile_weight"]
+        constructor.note = request.data["note"]
+        constructor.products_install = request.data["products_install"]
+        constructor.pvc_slopes = request.data["pvc_slopes"]
+        constructor.free_positions = request.data["free_positions"]
+        constructor.favorite_positions = request.data["favorite_positions"]
+        # windowsill=request.data["windowsill"],
+        constructor.visors = request.data["visors"]
+        constructor.flashing = request.data["flashing"]
+        constructor.flashing_metal = request.data["flashing_metal"]
+        constructor.platband = request.data["platband"]
+        constructor.extensions_to_profile60 = request.data["extensions_to_profile60"]
+        constructor.extensions_to_profile70 = request.data["extensions_to_profile70"]
+        constructor.bay_window_to_profile60 = request.data["bay_window_to_profile60"]
+        constructor.bay_window_to_profile70 = request.data["bay_window_to_profile70"]
+        constructor.connector_90g = request.data["connector_90g"]
+        constructor.accessories = request.data["accessories"]
+        constructor.handles = request.data["handles"]
+        constructor.locks = request.data["locks"]
+        constructor.straight_connectors = request.data["straight_connectors"]
+        constructor.supply_valve = request.data["supply_valve"]
+        constructor.window_calc = request.data["window_calc"]
+
+        constructor.windowsills_calc.clear()
+        constructor.lowtides_calc.clear()
+        constructor.works.clear()
+
+        try:
+            for i in request.data['windowsills_calc']:
+                constructor.windowsills_calc.add(i)
+        except:
+            pass
+        try:
+            for i in request.data['lowtides_calc']:
+                constructor.lowtides_calc.add(i)
+        except:
+            pass
+        try:
+            for i in request.data['works']:
+                constructor.works.add(i)
+        except:
+            pass
+
+        serializer = ConstructorSerializer(constructor)
+        return Response({"data": serializer.data})

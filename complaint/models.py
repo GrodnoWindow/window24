@@ -8,7 +8,7 @@ class Complaint(models.Model):
     content = models.CharField(max_length=255, verbose_name='Контент')
     status = models.CharField(max_length=255, verbose_name='Статус')
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
-    time_update = models.DateTimeField(auto_now_add=True, verbose_name='Время обновления')
+    time_update = models.DateTimeField(verbose_name='Время обновления')
     time_deadline = models.DateTimeField(verbose_name='Срок задачи')
     overdue = models.BooleanField(default=False, verbose_name='Просрочена')
     is_active = models.BooleanField(default=True, verbose_name='Активна')

@@ -5,7 +5,7 @@ from users.serializers import UserSerializer
 
 
 class ComplaintSerializer(serializers.ModelSerializer):
-    executor = UserSerializer(many=False, read_only=False)
+    time_create = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Complaint
