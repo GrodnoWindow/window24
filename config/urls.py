@@ -38,6 +38,7 @@ urlpatterns = [
     path('calculation/', include('calculation.urls')),
     path('webhook', include('webhook.urls')),
     path('correspondence', include('correspondence.urls')),
+    path('calls-table', include('calls_table.urls')),
     # path(r'django_rq/', include('django_rq.urls')),
 
     # path('client/',include('client.urls')),

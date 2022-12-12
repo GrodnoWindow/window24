@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'miscalculation',
     'complaint',
     'correspondence',
+    'calls_table',
 
 ]
 

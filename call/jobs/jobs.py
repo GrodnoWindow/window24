@@ -9,6 +9,8 @@ from client.models import Client, Number
 
 from client.utils import create_calls_record
 
+from calls_table.models import CallsTable
+
 # from client.models import Client
 
 # API_URL = "https://86.57.178.104:4021"
@@ -170,40 +172,40 @@ def parse_window24(data):
             id_call = item["id"].split(".")[0]  # add id only number and check record
             number_call = item["FROM"]["NUMBER"]
             status = item["STATUS"]
-            call = Call.objects.get(id_call=id_call)  # if not record call id in db (((((( filter )))))))
-            if not call:
+            try:
+                Call.objects.get(id_call=id_call)  # if not record call id in db (((((( filter )))))))
+            except Call.DoesNotExist:
                 if not (number_call == '14') and not (number_call == '15'):
                     try:
                         number = Number.objects.get(number=number_call)
                     except Number.DoesNotExist:
                         number = Number.objects.create(number=number_call, name='new client')
-                    print(number)
                     number_id = number.pk
-                    print(f'f ashdlhaskjdhasjkhdkjasd {number_id}')
-
                     try:
                         client = Client.objects.get(numbers=number)
                         client_id = client.id
-                        client_name = client.name
+                        # client_name = client.name
                     except Client.DoesNotExist:
                         client = Client.objects.create(author='system', name='new client')
                         client.numbers.add(number_id)
                         client_id = client.pk
-                        client_name = 'new client'
+                        # client_name = 'new client'
+                #
+                    call = Call.objects.create(id_call=id_call, number=number, datetime=datetime.datetime.now(),
+                                               call_type=status, client_id=client_id)
+                    client.calls.add(call.pk)  # TODO fix
 
-                    call = Call(id_call=id_call, number=number, datetime=datetime.datetime.now(),
-                                call_type=status, client_id=client_id, client_name=client_name)
-                    call.save()
-                    client.calls.add(call.pk) # TODO fix
                     calls = Call.objects.filter(number=number_call).values('id').order_by('-id')
                     ids_calls = calls.values_list('id', flat=True)
-                    for call_ in ids_calls:
-                        client.calls.add(call_)
 
-                    client.save()
+                    for call_id in ids_calls:
+                        client.calls.add(call_id)
 
-            else:
-                Call.objects.filter(id_call=id_call).update(call_type=status)
+                    calls_table = CallsTable.objects.create(client=client, call=call)
+                    calls_table.save()
+
+        # else:
+        #     Call.objects.filter(id_call=id_call).update(call_type=status)
 
 
 def parse_okna360(data):
