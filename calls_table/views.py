@@ -11,7 +11,7 @@ class CallsTableGenericAPIView(
     generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
     mixins.UpdateModelMixin, mixins.DestroyModelMixin
 ):
-    queryset = CallsTable.objects.all()
+    queryset = CallsTable.objects.all().order_by('-id')
     serializer_class = CallsTableSerializer
     pagination_class = CustomPagination
 
