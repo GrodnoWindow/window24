@@ -191,3 +191,36 @@ class AddressViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response({"data": serializer.data})
+
+
+class PrompterViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
+                      mixins.RetrieveModelMixin,
+                      mixins.UpdateModelMixin,
+                      mixins.ListModelMixin,
+                      GenericViewSet):  # get, post , get<id>, put<id>, path<id>
+
+    queryset = Prompter.objects.all()
+    serializer_class = PrompterSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({"data": serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = Prompter.objects.all()
+        prompter = get_object_or_404(queryset, pk=pk)
+        serializer = PrompterSerializer(prompter)
+        return Response({"data": serializer.data})
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response({"data": serializer.data})

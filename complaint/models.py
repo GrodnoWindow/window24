@@ -15,3 +15,7 @@ class Complaint(models.Model):
 
     def __str__(self):
         return self.content
+
+    class Meta:
+        verbose_name = 'Жалоба'
+        verbose_name_plural = 'Жалобы'

@@ -13,8 +13,8 @@ from calls_table.models import CallsTable
 
 # from client.models import Client
 
-# API_URL = "https://86.57.178.104:4021"
-API_URL = "https://192.168.1.209:4021"
+API_URL = "https://86.57.178.104:4021"
+# API_URL = "https://192.168.1.209:4021"
 MAIN_URL = API_URL + "/admin/api/jsonrpc/"
 LOGIN = "Ilya"
 PASSWORD = "bkmz1337"
@@ -176,6 +176,8 @@ def parse_window24(data):
                 Call.objects.get(id_call=id_call)  # if not record call id in db (((((( filter )))))))
             except Call.DoesNotExist:
                 if not (number_call == '14') and not (number_call == '15'):
+                    # CallsTable.objects.get(client=client, call=call)
+
                     try:
                         number = Number.objects.get(number=number_call)
                     except Number.DoesNotExist:

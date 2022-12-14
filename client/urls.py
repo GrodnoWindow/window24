@@ -9,8 +9,14 @@ router_number.register(r'number', NumberViewSet) # all routers
 router_address = routers.SimpleRouter()
 router_address.register(r'address', AddressViewSet) # all routers
 
+router_prompter = routers.SimpleRouter()
+router_prompter.register(r'prompter', PrompterViewSet) # all routers
+
 router_client = routers.SimpleRouter()
 router_client.register(r'', ClientViewSet) # all routers
+
+
+
 
 urlpatterns = [
 
@@ -28,6 +34,7 @@ urlpatterns = [
     # path('address/add/', AddressViewSet.as_view({'post': 'create'})),
 
     path('', include(router_number.urls)),
+    path('', include(router_prompter.urls)),
 
     # path('number/', NumberViewSet.as_view({'get': 'list'})),
     # path('number/<int:pk>/', NumberViewSet.as_view({'get': 'retrieve'})),
