@@ -10,6 +10,7 @@ class Miscalculation(models.Model):
     last_update_time = models.DateTimeField(blank=True)
     sum = models.FloatField(max_length=255, default=0.0)
     status = models.CharField(max_length=255, blank=True)
+    offer = models.BooleanField(max_length=255, blank=True)
 
     def __str__(self):
         return f'Просчет №{self.id} на сумму {self.sum}'
