@@ -12,7 +12,7 @@ class Call(models.Model):
     datetime = models.DateTimeField(blank=True)
     call_status = models.CharField(max_length=255, blank=True)
     call_type = models.CharField(max_length=255, blank=True)
-    client_id = models.IntegerField(max_length=255, blank=True)
+    client_id = models.IntegerField(blank=True)
     comment = models.CharField(max_length=255, blank=True)
     manager = models.CharField(max_length=255, blank=True)
 

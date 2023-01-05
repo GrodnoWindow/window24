@@ -4,6 +4,6 @@ from .views import *
 from rest_framework import routers
 
 urlpatterns = [
-    path('', index),
+    path('', Index),
     # path('', MiscalculationAPIList.as_view()),
 ]

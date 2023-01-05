@@ -4,5 +4,11 @@ from django.shortcuts import render
 # Create your views here.
 
 
-def index(request):
-    return HttpResponse("ez peasy")
+def Index(request):
+    # parserJson()
+    # ticketsInWork = inWork()
+    # ticketsInQueue = allInQueue()  # вся очередь
+    context = {
+        'ticketsInWork': 1,
+    }
+    return render(request, "measurer/index.html", context)
