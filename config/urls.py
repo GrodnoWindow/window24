@@ -36,7 +36,8 @@ urlpatterns = [
     path('call/', include('call.urls')),
     path('constructor/', include('constructor.urls')),
     path('calculation/', include('calculation.urls')),
-    path('correspondence', include('correspondence.urls')),
-    path('calls-table', include('calls_table.urls')),
+    path('correspondence/', include('correspondence.urls')),
+    path('calls-table/', include('calls_table.urls')),
+    path('measurer/', include('measurer.urls')),
 
 ]
