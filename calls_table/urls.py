@@ -12,7 +12,7 @@ from rest_framework import routers
 urlpatterns = [
     # path('', include(router.urls)),
     # path(r'active/', CallView.as_view()),
-    path(r'/', CallsTableGenericAPIView.as_view()),
+    path(r'', CallsTableGenericAPIView.as_view()),
     # path(r'<int:pk>/', CallsTableAPIView.as_view()),
     # path(r'all', CallAllView.as_view()),
     # path(r'', CallViewSet.as_view({'get':'list'})),
