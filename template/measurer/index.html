@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+  {% csrf_token %}
 <html lang="en">
 
 <head>
@@ -10,17 +11,14 @@
   <title>
     Замерщик
   </title>
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-  <!-- Nucleo Icons -->
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- CSS Files -->
-    <link href="{% static 'assets/css/argon-dashboard.css' %}" rel="stylesheet">
-  <link id="pagestyle" href="{% static 'assets/css/argon-dashboard.css?v=2.0.4' %}" rel="stylesheet" />
+    <link href="{% static 'argon-dashboard.css' %}" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 </head>
 
-<div class="min-height-300 bg-primary position-absolute w-100"></div>
+<div class="min-height-200 bg-primary position-absolute w-100"></div>
 <main class="main-content position-relative border-radius-lg ">
   <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
@@ -41,45 +39,69 @@
 
         </div>
         <form>
-          <p class="d-flex justify-content-start " style="padding: 20px">Выберите дату: <input type="date" name="calendar">
-            <input type="submit" class=" btn bg-gradient-secondary mx-2" value="Показать"></p>
+          <p class="d-flex justify-content-start " style="padding: 20px"> <input type="date" name="calendar" style="height: 40px;width:150px">
+            <input type="submit" class=" btn bg-gradient-secondary mx-2" style="width:200px"></p>
         </form>
       </div>
       <div class="container-fluid row">
 
 
-        <div class="col-xl-4 col-sm-6">
+
+          {% for el in measurements %}
+
+        <div class="col-xl-4 col-sm-6"  data-aos="fade-up" data-bs-toggle="modal"
+            data-bs-target="#modalMeasurement{{el.pk}}" >
           <div class="card">
             <div class="card-body p-3">
               <div class="row">
                 <div class="col-lg-12">
                   <div class="numbers">
                     <p class="text-sm mb-0 text-uppercase font-weight-bold"></p>
-                    <h6 class="font-weight-bolder mb-0">
-                      пл.Декабристов 1 кв 51
+                     <h4 class="mb-0">
+
+                      <span>   {{ el.client }}</span>
+
+                    </h4>
+                     <h6 class="mb-0">
+                      Адрес:
+                      <span>   {{ el.address }}</span>
+
+                    </h6>
+                      <h6 class="mb-0">
+                      Номер телефона:
+                      <span>   {{ el.number }}</span>
+                    </h6>
+
+                    <h6 class="mb-0">
+                      Дата замера:
+                      <span>   {{ el.date }}</span>
                     </h6>
                     <h6 class="mb-0">
-                      Замер назначен на:
-                      <span>14:00 </span>
-
+                      Время замера:
+                      <span>   {{ el.time }}</span>
                     </h6>
-
                     <h6>
                       Комментарий:
-                      <span>Не звонить в домофон</span>
+                      <span>   {{ el.comment }}</span>
                     </h6>
-                    <p class="mb-1">
-                      сумма просчета: <span class="text-success text-sm font-weight-bolder">750р</span>
-                    </p>
-                    <p class="mb-0">
-                      предворительная сумма: <span class="text-info text-sm font-weight-bolder">555р</span>
-                    </p>
                   </div>
                   <div class="row">
-                    <h6>
-                      статус замера:
-                      </h>
-                      <button type="button" class="btn bg-gradient-success btn-sm">Договор заключен</button>
+                        {% if el.status == "1" %}
+                          <button type="button" class="btn bg-gradient-primary btn-sm"> Первый статус </button>
+
+                          {% elif el.status == "2" %}
+                          <button type="button" class="btn bg-gradient-secondary btn-sm">  Второй статус </button>
+
+                          {% elif el.status == "3" %}
+                          <button type="button" class="btn bg-gradient-success btn-sm">  Третий статус </button>
+                          {% elif el.status == "4" %}
+                              <button type="button" class="btn bg-gradient-danger btn-sm">  Четвертый статус </button>
+                          {% elif el.status == "5" %}
+                              <button type="button" class="btn bg-gradient-warning btn-sm">  Пятый статус </button>
+                          {% elif el.status == "6" %}
+                              <button type="button" class="btn bg-gradient-info btn-sm">  Шестой статус </button>
+
+                        {% endif %}
 
                   </div>
 
@@ -89,214 +111,93 @@
             </div>
           </div>
         </div>
+        <div class="modal fade " id="modalMeasurement{{el.pk}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+             <form class="form" method="POST"> {% csrf_token %}
+          <div class=" modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
 
-        <div class="col-xl-4 col-sm-6">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-lg-12">
+                  <fieldset disabled>
+
+                      <h6>Замер №</h6>
+      <input type="text" id="disabledTextInput" value="{{ el.pk }}">
+
+
+  </fieldset>
+                    </div>
+              <div class="modal-body row">
+              <div class="col-lg-12">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold"></p>
-                    <h6 class="font-weight-bolder mb-0">
-                      пл.Декабристов 1 кв 51
-                    </h6>
-                    <h6 class="mb-0">
-                      Замер назначен на:
-                      <span>14:00 </span>
+                    <p class="text-sm mb-0 "></p>
 
-                    </h6>
+             <div class="row">
+            <input type="text"style="display:none" name="pk" value="{{ el.pk }}">
+            <h6 class="title-group">Имя клиента:</h6>
+             <input type="text" name="client" value="{{ el.client }}">
+             <h6 class="title-group">Номер телефона:</h6>
+             <input type="text" name="number" value="{{ el.number }}">
+              <h6 class="title-group">Адрес замера:</h6>
+             <input type="text" name="address" value="{{ el.address }}">
+             <h6 class="title-group">Дата замера:</h6>
+             <input type="date" name="calendarMeasurement" value="{{ el.date|date:'Y-m-d' }}" style="height: 40px">
+            <h6 class="title-group">Время замера:</h6>
+             <input type="text" name="time" value="{{ el.time }}">
+             <h6 class="title-group">Комментарий:</h6>
+              <input type="text" name="comment" value="{{ el.comment }}">
 
-                    <h6>
-                      Комментарий:
-                      <span>Не звонить на мобильный</span>
-                    </h6>
-                    <p class="mb-0">
-                      сумма просчета: <span class="text-success text-sm font-weight-bolder">1250р</span>
-                    </p>
-                    <p class="mb-0">
-                      предворительная сумма: <span class="text-info text-sm font-weight-bolder">1255р</span>
-                    </p>
+          </div>
+               <select class="form-select form-select-lg mt-3 mb-3" name="select"> <!--Supplement an id here instead of using 'name'-->
+  <option value="1">Первый статус</option>
+  <option value="2">Второй статус</option>
+  <option value="3">Трейтий статус</option>
+  <option value="4">Четвертый статус</option>
+  <option value="5">Пятый статус</option>
+  <option value="6">Шестой статус</option>
+</select>
+
                   </div>
-                  <div class="row">
-                    <h6>
-                      статус замера:
-                      </h>
-                      <button type="button" class="btn bg-gradient-warning btn-sm">Думает</button>
 
-                  </div>
 
                 </div>
 
               </div>
-            </div>
+          <div class="modal-footer">
+          <input type="submit" class="btn bg-gradient-secondary btn-sm m-2" value="Сохранить" data-bs-dismiss="modal"></p>
           </div>
+
         </div>
-
-        <div class="col-xl-4 col-sm-6">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold"></p>
-                    <h6 class="font-weight-bolder mb-0">
-                      пл.Декабристов 1 кв 51
-                    </h6>
-                    <h6 class="mb-0">
-                      Замер назначен на:
-                      <span>14:00 </span>
-
-                    </h6>
-                    <h6>
-                      Комментарий:
-                      <span></span>
-                    </h6>
-                    <p class="mb-0">
-                      сумма просчета: <span class="text-success text-sm font-weight-bolder">7520р</span>
-                    </p>
-                    <p class="mb-0">
-                      предворительная сумма: <span class="text-info text-sm font-weight-bolder">5525р</span>
-                    </p>
-                  </div>
-                  <div class="row">
-                    <h6>
-                      статус замера:
-                      </h>
-                      <button type="button" class="btn bg-gradient-danger btn-sm">Отказ до замера</button>
-
-                  </div>
-
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-
       </div>
+                             </form>
+
+    </div>
+       {% endfor %}
     </div>
   </div>
 
   </div>
 </main>
-<div class="fixed-plugin">
-  <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-    <i class="fa fa-cog py-2"> </i>
-  </a>
-  <div class="card shadow-lg">
-    <div class="card-header pb-0 pt-3 ">
-
-      <div class="float-end mt-4">
-        <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
-          <i class="fa fa-close"></i>
-        </button>
-      </div>
-    </div>
-    <hr class="horizontal dark my-1">
-    <div class="card-body pt-sm-3 pt-0 overflow-auto">
-         </div>
-  </div>
-</div>
-    <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
-  <script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/perfect-scrollbar.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/smooth-scrollbar.min.js' %}"></script>
-  <script src="{% static 'assets/js/plugins/chartjs.min.js' %}"></script>
-  <script>
-    var ctx1 = document.getElementById("chart-line").getContext("2d");
-
-    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-    new Chart(ctx1, {
-      type: "line",
-      data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-          label: "Mobile apps",
-          tension: 0.4,
-          borderWidth: 0,
-          pointRadius: 0,
-          borderColor: "#5e72e4",
-          backgroundColor: gradientStroke1,
-          borderWidth: 3,
-          fill: true,
-          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-          maxBarThickness: 6
-
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              padding: 10,
-              color: '#fbfbfb',
-              font: {
-                size: 11,
-                family: "Open Sans",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              color: '#ccc',
-              padding: 20,
-              font: {
-                size: 11,
-                family: "Open Sans",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-        },
-      },
-    });
-  </script>
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-  </script>
-
-  <script src="{% static 'assets/js/argon-dashboard.min.js?v=2.0.4' %}"></script>
-
-
 </html>
+
+<style>
+.title-group {
+margin-top: 5px;
+margin-bottom: 5px;
+}
+input 				{
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:450px;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+input:focus 		{ outline:none; }
+
+</style>
+<script>
+  $(function () {
+    $("#datetimepicker1").datetimepicker({
+      format: 'DD/MM/YYYY HH:mm',
+    });
+  });
+</script>
