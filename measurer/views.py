@@ -27,7 +27,8 @@ def index(request):
         date_measurement = request.POST.get('calendarMeasurement')
         comment = request.POST.get('comment')
         status = request.POST.get('select')
-        update_measurement(pk=pk, client=client,
+        update_measurement(request=request,
+                           pk=pk, client=client,
                            address=address,
                            number=number,
                            time=time,

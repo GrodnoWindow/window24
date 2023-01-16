@@ -84,22 +84,28 @@
                       Комментарий:
                       <span>   {{ el.comment }}</span>
                     </h6>
+                      <p style="font-size:12px"> Кто создал: {{ el.manager }} {{ el.time_create }} <br>
+                      Исполнитель: {{ el.executor }} <br>
+                      Обновлено последний раз: {{ el.who_updated }} {{ el.time_updated }} </p>
                   </div>
                   <div class="row">
                         {% if el.status == "1" %}
-                          <button type="button" class="btn bg-gradient-primary btn-sm"> Первый статус </button>
+                          <button type="button" class="btn bg-gradient-success btn-sm"> Договор </button>
 
                           {% elif el.status == "2" %}
-                          <button type="button" class="btn bg-gradient-secondary btn-sm">  Второй статус </button>
+                          <button type="button" class="btn bg-gradient-secondary btn-sm">  Думает </button>
 
                           {% elif el.status == "3" %}
-                          <button type="button" class="btn bg-gradient-success btn-sm">  Третий статус </button>
+                          <button type="button" class="btn bg-gradient-primary btn-sm">  Придет на офис </button>
                           {% elif el.status == "4" %}
-                              <button type="button" class="btn bg-gradient-danger btn-sm">  Четвертый статус </button>
+                          <button type="button" class="btn bg-gradient-info btn-sm">  Банковская рассрочка </button>
+
                           {% elif el.status == "5" %}
-                              <button type="button" class="btn bg-gradient-warning btn-sm">  Пятый статус </button>
+                            <button type="button" class="btn bg-gradient-warning btn-sm">  Отказ до замера </button>
+
                           {% elif el.status == "6" %}
-                              <button type="button" class="btn bg-gradient-info btn-sm">  Шестой статус </button>
+                            <button type="button" class="btn bg-gradient-danger btn-sm">  Отказ после замера </button>
+
 
                         {% endif %}
 
@@ -147,12 +153,12 @@
 
           </div>
                <select class="form-select form-select-lg mt-3 mb-3" name="select"> <!--Supplement an id here instead of using 'name'-->
-  <option value="1">Первый статус</option>
-  <option value="2">Второй статус</option>
-  <option value="3">Трейтий статус</option>
-  <option value="4">Четвертый статус</option>
-  <option value="5">Пятый статус</option>
-  <option value="6">Шестой статус</option>
+  <option value="1">Договор</option>
+  <option value="2">Думает</option>
+  <option value="3">Придет на офис</option>
+  <option value="4">Банковская рассрочка</option>
+  <option value="5">Отказ до замера</option>
+  <option value="6">Отказ после замера</option>
 </select>
 
                   </div>

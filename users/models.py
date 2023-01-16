@@ -13,15 +13,8 @@ class Role(models.Model):
 
 
 class User(AbstractUser):
-    # first_name = models.CharField(max_length=200)
-    # last_name = models.CharField(max_length=200)
-    # email = models.CharField(max_length=200, unique=True)
-    # password = models.CharField(max_length=200)
-    role = models.ForeignKey(Role, on_delete=models.SET_NULL, related_name='users', null=True)
-    # username = None
+    measurer = models.BooleanField(default=True, verbose_name='Статус замерщика')
 
-    # USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = []
 
 
     @property
