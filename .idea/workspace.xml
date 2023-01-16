@@ -29,20 +29,20 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "E:/window24/measurer"
+    "last_opened_file_path": "E:/window24/measurer/static"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\window24\measurer\static" />
+      <recent name="E:\window24\measurer\template" />
+      <recent name="E:\window24\template\measurer\static" />
       <recent name="E:\window24\measurer" />
       <recent name="E:\window24\template\static" />
-      <recent name="E:\window24\template\measurer" />
-      <recent name="E:\window24\assets" />
-      <recent name="E:\window24\measurer\static" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\window24\measurer\templates" />
       <recent name="E:\window24\template\measurer" />
+      <recent name="E:\window24\measurer\templates" />
       <recent name="E:\window24\measurer\assets\css" />
     </key>
   </component>
