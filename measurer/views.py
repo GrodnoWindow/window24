@@ -1,13 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from .utils import *
 # Create your views here.
 
 
-def Index(request):
-    # parserJson()
-    # ticketsInWork = inWork()
-    # ticketsInQueue = allInQueue()  # вся очередь
+def index(request):
+
     context = {
         'ticketsInWork': 1,
     }
