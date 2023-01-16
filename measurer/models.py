@@ -4,6 +4,17 @@ from client.models import Client
 from users.models import User
 
 
+class Agreements(models.Model):
+    image = models.ImageField(upload_to='Agreements/', blank=True, null=True)
+
+    def __str__(self):
+        return str(self.image)
+
+    class Meta:
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'
+
+
 class Measurement(models.Model):
     client = models.CharField(max_length=255, blank=True, verbose_name='Имя клиента')
     address = models.CharField(max_length=255, blank=True, verbose_name='Адрес замера')
@@ -18,6 +29,7 @@ class Measurement(models.Model):
     time_updated = models.DateTimeField(verbose_name='Время обновления', blank=True,)
     who_updated = models.CharField(max_length=255, null=True, verbose_name='Кем обновлено', blank=True)
     is_active = models.BooleanField(default=True, verbose_name='Активна')
+    agreements = models.CharField(max_length=255, verbose_name='Изображения', blank=True, null=True)
 
     def __str__(self):
         return f'{self.client} {self.address}'
