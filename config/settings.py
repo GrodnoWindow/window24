@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 
 
-
 LOGIN_REDIRECT_URL = "/measurer/"
 LOGOUT_REDIRECT_URL = "login"
 
@@ -232,6 +231,8 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
+CSRF_TRUSTED_ORIGINS = ['http://86.57.178.104:777']
+
 
 CORS_ALLOW_HEADERS = [
     "accept",

@@ -39,7 +39,7 @@ def update_measurement(request, pk, client, address, number, time, comment, date
     if not(executor == '0'):
         user = User.objects.get(pk=int(executor))
         measurement.executor = user
-        
+
     if file == None:
         pass
     else:
