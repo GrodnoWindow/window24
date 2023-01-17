@@ -18,21 +18,13 @@
             crossorigin="anonymous"></script>
 </head>
 
-<div class="min-height-200 bg-primary position-absolute w-100"></div>
-<main class="main-content position-relative border-radius-lg ">
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
-         data-scroll="false">
-        <div class="container-fluid py-1 px-3">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Window24</a>
-                    </li>
-                    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Замеры</li>
-                </ol>
-            </nav>
-        </div>
-    </nav>
 
+<div class="min-height-100 bg-primary position-absolute w-100"></div>
+<main class="main-content position-relative border-radius-lg ">
+    <h2>Привет, {{ user.first_name|default:'Гость' }}</h2>
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}">Нажми чтобы выйти</a>
     <div class="col-lg-12 mb-lg-0 mb-4 mt-5">
         <div class="card ">
             <div class="card-header pb-0 p-3">
@@ -172,8 +164,6 @@
                                     <div class="numbers">
                                         <p class="text-sm mb-0 "></p>
 
-
-                                        <div class="row">
                                             <input type="text" style="display:none" name="pk" value="{{ el.pk }}">
                                             <h6 class="title-group">Имя клиента:</h6>
                                             <input type="text" name="client" value="{{ el.client }}">
@@ -188,14 +178,23 @@
                                             <input type="text" name="time" value="{{ el.time }}">
                                             <h6 class="title-group">Комментарий:</h6>
                                             <input type="text" name="comment" value="{{ el.comment }}">
-                                             <h6 class="title-group">Окончательная сумма:</h6>
+                                            <h6 class="title-group">Окончательная сумма:</h6>
+
                                             <input type="text" name="final_amount" value="{{ el.final_amount }}">
+                                            <h6 class="title-group">Переназначить замер:</h6>
+                                            <select class="form-select form-select-lg" name="selectMeasurers">
+                                                 <option value="0">Выберите исполнителя</option>
+                                                {% for el in measurers %}
+                                                <option value="{{ el.pk }}">{{ el.first_name }} {{ el.last_name }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
                                             <fieldset disabled>
                                                 <h6 class="title-group">Прикрепленный файлы:</h6>
                                                 <input type="text" value="{{ el.agreements }}">
                                             </fieldset>
                                             {{ form.as_p }}
-                                        </div>
+
                                         <select class="form-select form-select-lg mt-3 mb-3" name="select">
                                             <!--Supplement an id here instead of using 'name'-->
                                             <option value="0">Активная заявка</option>
@@ -206,7 +205,6 @@
                                             <option value="5">Отказ до замера</option>
                                             <option value="6">Отказ после замера</option>
                                         </select>
-
 
                                     </div>
 
@@ -229,6 +227,10 @@
             </div>
         </div>
     </div>
+
+    {% else %}
+    <a href="{% url 'login' %}">Авторизироваться</a>
+    {% endif %}
 </main>
 </html>
 
@@ -252,22 +254,4 @@ input:focus 		{ outline:none; }
 
 
 
-
-
-
 </style>
-<script>
-  $(function () {
-    $("#datetimepicker1").datetimepicker({
-      format: 'DD/MM/YYYY HH:mm',
-    });
-  });
-
-
-
-
-
-
-
-
-</script>

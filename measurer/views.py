@@ -14,7 +14,7 @@ def index(request):
         date = request.GET.get('calendar')
         if date is None or date == "":
             date = datetime.now().date()
-        get_measurements(date)
+        # get_measurements(request,date)
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
         date = request.GET.get('calendar')
@@ -29,6 +29,7 @@ def index(request):
         comment = request.POST.get('comment')
         status = request.POST.get('select')
         final_amount = request.POST.get('final_amount')
+        executor = request.POST.get('selectMeasurers')
         try:
             file = request.FILES['image']
             update_measurement(request=request,
@@ -41,6 +42,7 @@ def index(request):
                                status=status,
                                final_amount=final_amount,
                                file=file,
+                               executor=executor,
                                )
         except:
             update_measurement(request=request,
@@ -52,6 +54,7 @@ def index(request):
                                comment=comment,
                                status=status,
                                final_amount=final_amount,
+                               executor=executor,
                                )
         if form.is_valid():
             form.save()
@@ -60,9 +63,10 @@ def index(request):
     agreements = Agreements.objects.all()
 
     context = {
-        'measurements': get_measurements(date),
+        'measurements': get_measurements(request,date),
         'form': form,
         'agreements': agreements,
+        'measurers': get_measurers(),
     }
     return render(request, 'measurer/index.html', context)
 

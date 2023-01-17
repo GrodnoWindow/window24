@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import exceptions, viewsets, status, generics, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -109,3 +110,29 @@ class ProfileChangePasswordAPIView(APIView):
         user.save()
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
+
+
+# Создаем здесь представления.
+def home(request):
+    return render(request,"users/home.html")
+
+
+# users/views.py
+
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
+
+
+# Создаем здесь представления.
+
+def home(request):
+    return render(request, "users/home.html")
+
+
+class SignUp(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"

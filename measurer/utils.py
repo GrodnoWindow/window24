@@ -8,20 +8,21 @@ from django.utils.datastructures import MultiValueDict
 from users.models import User
 from users.views import AuthenticatedUser
 
-def login_in():
-    user = User.objects.get(username='test1')
-    if user.password == 'тестовый пароль':
-        print('НУ ВСЕ ИЗИ ЕБАТЬss')
-    else:
-        print('вилы пизда')
+
+def get_measurers():
+    return User.objects.filter(measurer=True)
 
 
-def get_measurements(date):
-    return Measurement.objects.filter(date=date)
+def get_measurements(request, date):
+    user = request.user
+    if user.is_superuser:
+        return Measurement.objects.filter(date=date)
+    elif user.measurer:
+        return Measurement.objects.filter(date=date, executor=user)
 
 
-def update_measurement(request, pk, client, address, number, time, comment, date, status, final_amount, file=None):
-    login_in()
+def update_measurement(request, pk, client, address, number, time, comment, date,
+                       status, final_amount, executor, file=None,):
     user = request.user.first_name
     measurement = Measurement.objects.get(pk=pk)
     measurement.client = client
@@ -34,6 +35,11 @@ def update_measurement(request, pk, client, address, number, time, comment, date
     measurement.final_amount = final_amount
     measurement.time_updated = datetime.now()
     measurement.who_updated = user
+
+    if not(executor == '0'):
+        user = User.objects.get(pk=int(executor))
+        measurement.executor = user
+        
     if file == None:
         pass
     else:
