@@ -32,40 +32,44 @@ def index(request):
         executor = request.POST.get('selectMeasurers')
         try:
             file = request.FILES['image']
-            update_measurement(request=request,
-                               pk=pk, client=client,
-                               address=address,
-                               number=number,
-                               time=time,
-                               date=date_measurement,
-                               comment=comment,
-                               status=status,
-                               final_amount=final_amount,
-                               file=file,
-                               executor=executor,
-                               )
         except:
-            update_measurement(request=request,
-                               pk=pk, client=client,
-                               address=address,
-                               number=number,
-                               time=time,
-                               date=date_measurement,
-                               comment=comment,
-                               status=status,
-                               final_amount=final_amount,
-                               executor=executor,
-                               )
+            file = None
+
+        update_log(request=request,
+                   pk=pk, client=client,
+                   address=address,
+                   number=number,
+                   time=time,
+                   date=date_measurement,
+                   comment=comment,
+                   status=status,
+                   final_amount=final_amount,
+                   file=file,
+                   executor=executor, )
+
+        update_measurement(request=request,
+                           pk=pk, client=client,
+                           address=address,
+                           number=number,
+                           time=time,
+                           date=date_measurement,
+                           comment=comment,
+                           status=status,
+                           final_amount=final_amount,
+                           file=file,
+                           executor=executor,
+                           )
+
         if form.is_valid():
             form.save()
     else:
         form = ImageForm()
-    agreements = Agreements.objects.all()
+    # agreements = Agreements.objects.all()
 
     context = {
         'measurements': get_measurements(request,date),
         'form': form,
-        'agreements': agreements,
+        # 'agreements': agreements,
         'measurers': get_measurers(),
     }
     return render(request, 'measurer/index.html', context)
