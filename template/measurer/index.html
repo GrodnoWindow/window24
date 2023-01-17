@@ -89,6 +89,16 @@
                                                 Комментарий:
                                                 <span>   {{ el.comment }}</span>
                                             </h6>
+                                            <fieldset disabled>
+                                                <h6>
+                                                    Предварительная сумма:
+                                                    <span>   {{ el.preliminary_amount }}</span>
+                                                </h6>
+                                            </fieldset>
+                                            <h6>
+                                                Окончательная сумма:
+                                                <span>   {{ el.final_amount }}</span>
+                                            </h6>
                                             <p style="font-size:12px"> Кто создал: <span
                                                     style="font-size:14px;font-weight:800">{{ el.manager }} {{ el.time_create }} </span>
                                                 <br>
@@ -178,6 +188,8 @@
                                             <input type="text" name="time" value="{{ el.time }}">
                                             <h6 class="title-group">Комментарий:</h6>
                                             <input type="text" name="comment" value="{{ el.comment }}">
+                                             <h6 class="title-group">Окончательная сумма:</h6>
+                                            <input type="text" name="final_amount" value="{{ el.final_amount }}">
                                             <fieldset disabled>
                                                 <h6 class="title-group">Прикрепленный файлы:</h6>
                                                 <input type="text" value="{{ el.agreements }}">
@@ -241,6 +253,8 @@ input:focus 		{ outline:none; }
 
 
 
+
+
 </style>
 <script>
   $(function () {
@@ -248,6 +262,8 @@ input:focus 		{ outline:none; }
       format: 'DD/MM/YYYY HH:mm',
     });
   });
+
+
 
 
 

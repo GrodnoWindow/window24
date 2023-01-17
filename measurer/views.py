@@ -28,6 +28,7 @@ def index(request):
         date_measurement = request.POST.get('calendarMeasurement')
         comment = request.POST.get('comment')
         status = request.POST.get('select')
+        final_amount = request.POST.get('final_amount')
         try:
             file = request.FILES['image']
             update_measurement(request=request,
@@ -38,6 +39,7 @@ def index(request):
                                date=date_measurement,
                                comment=comment,
                                status=status,
+                               final_amount=final_amount,
                                file=file,
                                )
         except:
@@ -49,6 +51,7 @@ def index(request):
                                date=date_measurement,
                                comment=comment,
                                status=status,
+                               final_amount=final_amount,
                                )
         if form.is_valid():
             form.save()

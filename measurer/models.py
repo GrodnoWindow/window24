@@ -30,6 +30,9 @@ class Measurement(models.Model):
     who_updated = models.CharField(max_length=255, null=True, verbose_name='Кем обновлено', blank=True)
     is_active = models.BooleanField(default=True, verbose_name='Активна')
     agreements = models.CharField(max_length=255, verbose_name='Изображения', blank=True, null=True)
+    preliminary_amount = models.CharField(max_length=255, verbose_name='Предварительная сумма', blank=True, null=True)
+    final_amount = models.CharField(max_length=255, verbose_name='Окончательная сумма', blank=True, null=True)
+    logs = models.TextField(blank=True, null=True, verbose_name='Логи замера')
 
     def __str__(self):
         return f'{self.client} {self.address}'
