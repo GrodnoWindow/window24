@@ -160,63 +160,59 @@
                                 </fieldset>
                             </div>
                             <div class="modal-body row">
-                                <div class="col-lg-12">
-                                    <div class="numbers">
-                                        <p class="text-sm mb-0 "></p>
+                                <div class="col-sm-12">
 
-                                            <input type="text" style="display:none" name="pk" value="{{ el.pk }}">
-                                            <h6 class="title-group">Имя клиента:</h6>
-                                            <input type="text" name="client" value="{{ el.client }}">
-                                            <h6 class="title-group">Номер телефона:</h6>
-                                            <input type="text" name="number" value="{{ el.number }}">
-                                            <h6 class="title-group">Адрес замера:</h6>
-                                            <input type="text" name="address" value="{{ el.address }}">
-                                            <h6 class="title-group">Дата замера:</h6>
-                                            <input type="date" name="calendarMeasurement"
-                                                   value="{{ el.date|date:'Y-m-d' }}" style="height: 40px">
-                                            <h6 class="title-group">Время замера:</h6>
-                                            <input type="text" name="time" value="{{ el.time }}">
-                                            <h6 class="title-group">Комментарий:</h6>
-                                            <input type="text" name="comment" value="{{ el.comment }}">
-                                            <h6 class="title-group">Окончательная сумма:</h6>
+                                    <input type="text" style="display:none" name="pk" value="{{ el.pk }}">
+                                    <h6 class="title-group">Имя клиента:</h6>
+                                    <input type="text" name="client" value="{{ el.client }}">
+                                    <h6 class="title-group">Номер телефона:</h6>
+                                    <input type="text" name="number" value="{{ el.number }}">
+                                    <h6 class="title-group">Адрес замера:</h6>
+                                    <input type="text" name="address" value="{{ el.address }}">
+                                    <h6 class="title-group">Дата замера:</h6>
+                                    <input type="date" name="calendarMeasurement"
+                                           value="{{ el.date|date:'Y-m-d' }}" style="height: 40px">
+                                    <h6 class="title-group">Время замера:</h6>
+                                    <input type="text" name="time" value="{{ el.time }}">
+                                    <h6 class="title-group">Комментарий:</h6>
+                                    <input type="text" name="comment" value="{{ el.comment }}">
+                                    <h6 class="title-group">Окончательная сумма:</h6>
+                                    <input type="text" name="final_amount" value="{{ el.final_amount }}">
+                                    <h6 class="title-group">Переназначить замер:</h6>
+                                    <select class="form-select form-select-lg" name="selectMeasurers">
+                                        <option value="0">Выберите исполнителя</option>
+                                        {% for el in measurers %}
+                                        <option value="{{ el.pk }}">{{ el.first_name }} {{ el.last_name }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                    <fieldset disabled>
+                                        <h6 class="title-group">Прикрепленный файлы:</h6>
+                                        <input type="text" value="{{ el.agreements }}">
+                                    </fieldset>
+                                    {{ form.as_p }}
 
-                                            <input type="text" name="final_amount" value="{{ el.final_amount }}">
-                                            <h6 class="title-group">Переназначить замер:</h6>
-                                            <select class="form-select form-select-lg" name="selectMeasurers">
-                                                 <option value="0">Выберите исполнителя</option>
-                                                {% for el in measurers %}
-                                                <option value="{{ el.pk }}">{{ el.first_name }} {{ el.last_name }}
-                                                </option>
-                                                {% endfor %}
-                                            </select>
-                                            <fieldset disabled>
-                                                <h6 class="title-group">Прикрепленный файлы:</h6>
-                                                <input type="text" value="{{ el.agreements }}">
-                                            </fieldset>
-                                            {{ form.as_p }}
-
-                                        <select class="form-select form-select-lg mt-3 mb-3" name="select">
-                                            <!--Supplement an id here instead of using 'name'-->
-                                            <option value="0">Активная заявка</option>
-                                            <option value="1">Договор</option>
-                                            <option value="2">Думает</option>
-                                            <option value="3">Придет на офис</option>
-                                            <option value="4">Банковская рассрочка</option>
-                                            <option value="5">Отказ до замера</option>
-                                            <option value="6">Отказ после замера</option>
-                                        </select>
-
-                                    </div>
+                                    <select class="form-select form-select-lg mt-3 mb-3" name="select">
+                                        <!--Supplement an id here instead of using 'name'-->
+                                        <option value="0">Активная заявка</option>
+                                        <option value="1">Договор</option>
+                                        <option value="2">Думает</option>
+                                        <option value="3">Придет на офис</option>
+                                        <option value="4">Банковская рассрочка</option>
+                                        <option value="5">Отказ до замера</option>
+                                        <option value="6">Отказ после замера</option>
+                                    </select>
 
 
                                 </div>
 
                             </div>
 
-                            <div class="modal-footer">
-                                <input type="submit" class="btn btn-secondary"></p>
-                            </div>
 
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                <button type="submit" class="btn btn-primary">Сохранить </button>
+                            </div>
 
                         </div>
                     </div>
@@ -243,11 +239,12 @@ input 				{
   font-size:18px;
   padding:10px 10px 10px 5px;
   display:block;
-  width:450px;
+  width:100%;
   border:none;
   border-bottom:1px solid #757575;
 }
 input:focus 		{ outline:none; }
+
 
 
 
