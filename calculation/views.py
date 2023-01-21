@@ -88,7 +88,7 @@ class ConstructorViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
 
         constructor = Constructor.objects.create(
-            is_active=request.data['is_active'],
+            # is_active=request.data['is_active'],
             price_window=request.data["price_window"],
             price_material=request.data["price_material"],
             price_constructor=request.data["price_constructor"],
@@ -206,4 +206,129 @@ class ConstructorViewSet(viewsets.ModelViewSet):
             pass
 
         serializer = ConstructorSerializer(constructor)
+        return Response({"data": serializer.data})
+
+
+class DoorViewSet(viewsets.ModelViewSet):
+    queryset = Door.objects.all()
+    serializer_class = DoorSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
+
+    def list(self, request):
+        queryset = Door.objects.all()
+        serializer = DoorSerializer(queryset, many=True)
+        return Response({"data": serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = Door.objects.all()
+        door = get_object_or_404(queryset, pk=pk)
+        serializer = DoorSerializer(door)
+        return Response({"data": serializer.data})
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({"data": serializer.data})
+
+
+class LaminationViewSet(viewsets.ModelViewSet):
+    queryset = Lamination.objects.all()
+    serializer_class = LaminationSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
+
+    def list(self, request):
+        queryset = Lamination.objects.all()
+        serializer = LaminationSerializer(queryset, many=True)
+        return Response({"data": serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = Door.objects.all()
+        lamination = get_object_or_404(queryset, pk=pk)
+        serializer = LaminationSerializer(lamination)
+        return Response({"data": serializer.data})
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({"data": serializer.data})
+
+
+class ConnectionProfileViewSet(viewsets.ModelViewSet):
+    queryset = ConnectionProfile.objects.all()
+    serializer_class = ConnectionProfileSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
+
+    def list(self, request):
+        queryset = ConnectionProfile.objects.all()
+        serializer = ConnectionProfileSerializer(queryset, many=True)
+        return Response({"data": serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = ConnectionProfile.objects.all()
+        connection_profile = get_object_or_404(queryset, pk=pk)
+        serializer = ConnectionProfileSerializer(connection_profile)
+        return Response({"data": serializer.data})
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({"data": serializer.data})
+
+
+class AdditionalProfileViewSet(viewsets.ModelViewSet):
+    queryset = AdditionalProfile.objects.all()
+    serializer_class = AdditionalProfileSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
+
+    def list(self, request):
+        queryset = AdditionalProfile.objects.all()
+        serializer = AdditionalProfileSerializer(queryset, many=True)
+        return Response({"data": serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = AdditionalProfile.objects.all()
+        additional_profile = get_object_or_404(queryset, pk=pk)
+        serializer = AdditionalProfileSerializer(additional_profile)
+        return Response({"data": serializer.data})
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({"data": serializer.data})
+
+
+class SealantViewSet(viewsets.ModelViewSet):
+    queryset = Sealant.objects.all()
+    serializer_class = SealantSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
+
+    def list(self, request):
+        queryset = Sealant.objects.all()
+        serializer = SealantSerializer(queryset, many=True)
+        return Response({"data": serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = Sealant.objects.all()
+        sealant = get_object_or_404(queryset, pk=pk)
+        serializer = SealantSerializer(sealant)
+        return Response({"data": serializer.data})
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
         return Response({"data": serializer.data})

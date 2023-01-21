@@ -7,6 +7,6 @@ urlpatterns = [
     path('', index),
     # path('', MiscalculationAPIList.as_view()),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('home/', include('users.urls')),
+    # path('home/', include('users.urls')),
 
 ]

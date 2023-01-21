@@ -24,20 +24,20 @@ from drf_spectacular.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')), # Django
-    path('home/', include('users.urls')), # Django
+    path('api/', include('users.urls')), # Django
 
     path('api/shema/', SpectacularAPIView.as_view(), name='schema'),
     path('', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 
-    path('api/', include('users.urls')),
+    # path('api/', include('users.urls')),
     path('clients/', include('client.urls')),
     path('diary/', include('diary.urls')),
     path('miscalculation/', include('miscalculation.urls')),
     path('complaint/', include('complaint.urls')),
     path('call/', include('call.urls')),
-    path('constructor/', include('constructor.urls')),
-    path('calculation/', include('calculation.urls')),
+    path('', include('constructor.urls')),
+    path('', include('calculation.urls')),
     path('correspondence/', include('correspondence.urls')),
     path('calls-table/', include('calls_table.urls')),
     path('measurer/', include('measurer.urls')),

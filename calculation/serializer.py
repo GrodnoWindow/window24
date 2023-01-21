@@ -67,8 +67,32 @@ class ConstructorSerializer(serializers.ModelSerializer):
         model = Constructor
         fields = '__all__'
 
-# class WorksCalcSerializer(serializers.ModelSerializer):
-#
-#     class Meta:
-#         model = WorkCalc
-#         fields = '__all__'
+
+class DoorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Door
+        fields = '__all__'
+
+
+class LaminationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lamination
+        fields = '__all__'
+
+
+class ConnectionProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConnectionProfile
+        fields = '__all__'
+
+
+class AdditionalProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdditionalProfile
+        fields = '__all__'
+
+
+class SealantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sealant
+        fields = '__all__'

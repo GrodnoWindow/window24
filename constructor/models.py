@@ -21,11 +21,373 @@ class Profile(models.Model):
     # discount = models.FloatField(verbose_name="Скидка", blank=True, null=True)
 
     def __str__(self):
-        return f'№ {self.id} имя : {self.name}'
+        return f'№ {self.pk} имя : {self.name}'
 
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
+
+
+class ProductTypeDoor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Тип изделия", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Тип изделия'
+        verbose_name_plural = 'Тип изделия'
+
+
+class Opening(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Открывание", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Открывание'
+        verbose_name_plural = 'Открывания'
+
+
+class Lock(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Дверной замок", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Дверной замок'
+        verbose_name_plural = 'Дверные замки'
+
+
+class DoorHandles(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Дверная ручки", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Дверная ручка'
+        verbose_name_plural = 'Дверные ручки'
+
+
+class DoorHinges(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Дверные петли", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Дверные петли'
+        verbose_name_plural = 'Дверные петли'
+
+
+class Cylinder(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Цилиндр", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Цилиндр'
+        verbose_name_plural = 'Цилиндры'
+
+
+class DoorCloser(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Доводчик", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Доводчик'
+        verbose_name_plural = 'Доводчики'
+
+
+class OpeningLimiter(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Ограничитель открывания", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Ограничитель открывания'
+        verbose_name_plural = 'Ограничители открывания'
+
+
+class Door(models.Model):
+    product_type = models.ForeignKey(ProductTypeDoor, on_delete=models.SET_NULL, verbose_name="Тип изделия", blank=True,
+                                     null=True)
+    shtulp = models.BooleanField(default=False, verbose_name='Со штульпом', blank=True)
+    opening = models.ForeignKey(Opening, on_delete=models.SET_NULL, verbose_name="Открывание", blank=True, null=True)
+    lock = models.ForeignKey(Lock, on_delete=models.SET_NULL, verbose_name="Открывание", blank=True, null=True)
+    handle = models.ForeignKey(DoorHandles, on_delete=models.SET_NULL, verbose_name="Дверные ручки", blank=True,
+                               null=True)
+    door_hinges = models.ForeignKey(DoorHinges, on_delete=models.SET_NULL, verbose_name="Дверные петли", blank=True,
+                                    null=True)
+    cylinder = models.ForeignKey(Cylinder, on_delete=models.SET_NULL, verbose_name="Цилиндр", blank=True, null=True)
+    door_closer = models.ForeignKey(DoorCloser, on_delete=models.SET_NULL, verbose_name="Доводчик", blank=True,
+                                    null=True)
+    opening_limiter = models.ForeignKey(OpeningLimiter, on_delete=models.SET_NULL,
+                                        verbose_name="Ограничитель открывания", blank=True, null=True)
+
+    def __str__(self):
+        return f'№ {self.pk} {self.product_type}'
+
+    class Meta:
+        verbose_name = 'Дверь'
+        verbose_name_plural = 'Двери'
+
+
+class Article(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Артикуль", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Артикуль'
+        verbose_name_plural = 'Артикули'
+
+
+class ConnectionProfileName(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название соед.профиля", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Название соед.профиля'
+        verbose_name_plural = 'Название соед.профиля'
+
+
+class ColorInside(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Цвет внутри", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Цвет внутри'
+        verbose_name_plural = 'Цвета внутри'
+
+
+class ColorOutside(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Цвет снаружи", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Цвет снаружи'
+        verbose_name_plural = 'Цвета снаружи'
+
+
+class ConnectionProfile(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, verbose_name="Профиль", blank=True, null=True)
+    article = models.ForeignKey(Article, on_delete=models.SET_NULL, verbose_name="Артикуль", blank=True, null=True)
+    name = models.ForeignKey(ConnectionProfileName, on_delete=models.SET_NULL, verbose_name="Название соен.профиля",
+                             blank=True, null=True)
+    color_inside = models.ForeignKey(ColorInside, on_delete=models.SET_NULL, verbose_name="Цвет внутри", blank=True,
+                                     null=True)
+    color_outside = models.ForeignKey(ColorOutside, on_delete=models.SET_NULL, verbose_name="Цвет снаружи", blank=True,
+                                      null=True)
+    length = models.FloatField(default=0.0, verbose_name="Длина", blank=True, null=True)
+    price = models.FloatField(default=0.0, verbose_name="Цена", blank=True, null=True)
+
+    def __str__(self):
+        return f'№ {self.pk} {self.name}'
+
+    class Meta:
+        verbose_name = 'Соединительные профиля'
+        verbose_name_plural = 'Соединительные профиля'
+
+
+class ArticleAdditionalProfile(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Артикуль", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Артикуль доб. профиля'
+        verbose_name_plural = 'Артикуль доб. профиля'
+
+
+class AdditionalProfile(models.Model):
+    article = models.ForeignKey(ArticleAdditionalProfile, on_delete=models.SET_NULL, verbose_name="Артикуль",
+                                blank=True, null=True)
+    width = models.FloatField(default=0.0, verbose_name="Ширина", blank=True, null=True)
+    price = models.FloatField(default=0.0, verbose_name="Цена", blank=True, null=True)
+
+    def __str__(self):
+        return f'№ {self.pk} {self.article}'
+
+    class Meta:
+        verbose_name = 'Соединительные профиля'
+        verbose_name_plural = 'Соединительные профиля'
+
+
+class SealantColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Цвет уплотнителя", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Цвет уплотнитель'
+        verbose_name_plural = 'Цвет уплотнители'
+
+
+class SealantOutside(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Исполнение снаружи", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Исполнение снаружи уплотнителя'
+        verbose_name_plural = 'Исполнение снаружи уплотнителя'
+
+
+class SealantInside(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Исполнение внутри", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Исполнение внутри уплотнителя'
+        verbose_name_plural = 'Исполнение внутрии уплотнителя'
+
+
+class SealantShtapik(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Штапик", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Уплотнитель ( штапик )'
+        verbose_name_plural = 'Уплотнитель ( штапики )'
+
+
+class Sealant(models.Model):
+    color = models.ForeignKey(SealantColor, on_delete=models.SET_NULL, verbose_name="Цвет", blank=True, null=True)
+    sealant_inside = models.ForeignKey(SealantInside, on_delete=models.SET_NULL, verbose_name="Исполнение снаружи",
+                                       blank=True, null=True)
+    sealant_outside = models.ForeignKey(SealantOutside, on_delete=models.SET_NULL, verbose_name="Исполнение внутри",
+                                        blank=True, null=True)
+    sealant_shtapik = models.ForeignKey(SealantShtapik, on_delete=models.SET_NULL, verbose_name="Штапик",
+                                        blank=True, null=True)
+
+    def __str__(self):
+        return f'№ {self.pk} {self.color}'
+
+    class Meta:
+        verbose_name = 'Уплотнитель'
+        verbose_name_plural = 'Уплотнители'
+
+
+class TypeLamination(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Тип ламинации", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Тип ламинации'
+        verbose_name_plural = 'Типы ламинации'
+
+
+class TypeLamination2(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Вид ламинации", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Вид ламинации'
+        verbose_name_plural = 'Виды ламинации'
+
+
+class SealInternal(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Исполнение внутри", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Исполнение внутри'
+        verbose_name_plural = 'Исполнение внутри'
+
+
+class SealOutside(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Исполнение снаружи", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Исполнение снаружи'
+        verbose_name_plural = 'Исполнение снаружи'
+
+
+class SealBasic(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Исполнение основы детали", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Исполнение основы детали'
+        verbose_name_plural = 'Исполнение основы детали'
+
+
+class Lamination(models.Model):
+    type_lamination = models.ForeignKey(TypeLamination, on_delete=models.SET_NULL, verbose_name="Тип ламинации",
+                                        blank=True, null=True)
+    type_lamination1 = models.ForeignKey(TypeLamination2, on_delete=models.SET_NULL, verbose_name="Вид ламинации",
+                                         blank=True, null=True)
+    seal_internal = models.ForeignKey(SealInternal, on_delete=models.SET_NULL, verbose_name="Исполнение внутри",
+                                      blank=True, null=True)
+    seal_outside = models.ForeignKey(SealOutside, on_delete=models.SET_NULL, verbose_name="Исполнение снаружи",
+                                     blank=True, null=True)
+    seal_basic = models.ForeignKey(SealBasic, on_delete=models.SET_NULL, verbose_name="Исполнение основы детали",
+                                   blank=True, null=True)
+
+    def __str__(self):
+        return f'№ {self.pk} {self.type_lamination.name}'
+
+    class Meta:
+        verbose_name = 'Ламинация'
+        verbose_name_plural = 'Ламинации'
+
+
+# class Sealant(models.Model):
+#     color = models.CharField(max_length=255, verbose_name="Цвет", blank=True, null=True)
+#     execution_outside = models.CharField(max_length=255, verbose_name="Исполнение снаружи", blank=True, null=True)
+#     execution_inside = models.CharField(max_length=255, verbose_name="Исполнение внутри", blank=True, null=True)
+#     shtapik = models.CharField(max_length=255, verbose_name="Штапик", blank=True, null=True)
+#
+#     def __str__(self):
+#         return self.color
+#
+#     class Meta:
+#         verbose_name = 'Уплотнитель'
+#         verbose_name_plural = 'Уплотнители'
+
+
+class Shtapik(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Штапик", blank=True, null=True)
+
+    def __str__(self):
+        return f'№ {self.pk} имя : {self.name}'
+
+    class Meta:
+        verbose_name = 'Штапик'
+        verbose_name_plural = 'Штапики'
 
 
 class Fittings(models.Model):
@@ -53,15 +415,15 @@ class Aggregate(models.Model):
         verbose_name_plural = 'Заполнитель №1'
 
 
-class SealOutside(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Уплотнение снаружи", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Уплотнение снаружи'
-        verbose_name_plural = 'Уплотнение снаружи'
+# class SealOutside(models.Model):
+#     name = models.CharField(max_length=255, verbose_name="Уплотнение снаружи", blank=True, null=True)
+#
+#     def __str__(self):
+#         return self.name
+#
+#     class Meta:
+#         verbose_name = 'Уплотнение снаружи'
+#         verbose_name_plural = 'Уплотнение снаружи'
 
 
 class SealRebate(models.Model):
@@ -75,15 +437,15 @@ class SealRebate(models.Model):
         verbose_name_plural = 'Уплотнение притвора'
 
 
-class SealInternal(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Уплотнение внутренее", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Уплотнение внутренее'
-        verbose_name_plural = 'Уплотнение внутренее'
+# class SealInternal(models.Model):
+#     name = models.CharField(max_length=255, verbose_name="Уплотнение внутренее", blank=True, null=True)
+#
+#     def __str__(self):
+#         return self.name
+#
+#     class Meta:
+#         verbose_name = 'Уплотнение внутренее'
+#         verbose_name_plural = 'Уплотнение внутренее'
 
 
 class SealColor(models.Model):
@@ -108,15 +470,15 @@ class Shpros(models.Model):
         verbose_name_plural = 'Шпросы'
 
 
-class Shtapik(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Штапик", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Штапик'
-        verbose_name_plural = 'Штапики'
+# class Shtapik(models.Model):
+#     name = models.CharField(max_length=255, verbose_name="Штапик", blank=True, null=True)
+#
+#     def __str__(self):
+#         return self.name
+#
+#     class Meta:
+#         verbose_name = 'Штапик'
+#         verbose_name_plural = 'Штапики'
 
 
 class Sash(models.Model):
@@ -128,6 +490,17 @@ class Sash(models.Model):
     class Meta:
         verbose_name = 'Створка'
         verbose_name_plural = 'Створки'
+
+
+class Gorbylki(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Горбыльки", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Горбыльки'
+        verbose_name_plural = 'Горбыльки'
 
 
 class LaminationOutside(models.Model):
@@ -403,6 +776,17 @@ class Handles(models.Model):
         verbose_name_plural = 'Ручки'
 
 
+class OtherComplecation(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Прочее комплектующие", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Прочее комплектующие'
+        verbose_name_plural = 'Прочее комплектующие'
+
+
 class Locks(models.Model):
     name = models.CharField(max_length=255, verbose_name="Замок", blank=True, null=True)
 
@@ -441,7 +825,7 @@ class Works(models.Model):
     price = models.FloatField(max_length=255, default=0.0, verbose_name='Цена работы')
 
     def __str__(self):
-        return f' Работы № {self.id} {self.name} на сумму {self.price} BYN'
+        return f' Работы № {self.pk} {self.name} на сумму {self.price} BYN'
 
     class Meta:
         verbose_name = 'Просчет работы'

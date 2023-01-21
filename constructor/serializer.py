@@ -230,7 +230,7 @@ class AccessoriesSerializer(serializers.ModelSerializer):
 
 class HandlesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Handles
+        model = OtherComplecation
         fields = ['id', 'name']
 
 

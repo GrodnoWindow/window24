@@ -10,6 +10,6 @@ router_outgoing = SimpleRouter()
 router_outgoing.register(r'Outgoing', OutgoingMailViewSet, basename='outgoing')
 
 urlpatterns = [
-    path('/', include(router_incoming.urls)),
-    path('/', include(router_outgoing.urls)),
+    path('', include(router_incoming.urls)),
+    path('', include(router_outgoing.urls)),
 ]
