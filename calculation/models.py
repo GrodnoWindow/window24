@@ -1,9 +1,9 @@
 from django.db import models
 from constructor.models import Profile, Fittings, ProductType, Aggregate, SealOutside, SealRebate, SealInternal, \
-    SealColor, Shpros, Shtapik, Sash, LaminationOutside, LaminationInside, ProfileWeight, Note, SupplyValve, \
+    SealantColor, Shpros, Shtapik, Sash, LaminationOutside, LaminationInside, ProfileWeight, Note, SupplyValve, \
     ProductsInstall, PvcSlopes, FreePositions, FavoritePositions, Windowsill, WindowsillColor, WindowsillType, LowTides, \
     LowTidesType, Visors, Flashing, FlashingMetal, Platband, ExtensionsToProfile60, ExtensionsToProfile70, \
-    BayWindowToProfile60, BayWindowToProfile70, Connector90g, Accessories, OtherComplecation, Locks, StraightConnectors, \
+    BayWindowToProfile60, BayWindowToProfile70, Connector90g, Accessories, OtherComplectation, Locks, StraightConnectors, \
     Works, TypeLamination, Sealant, Lamination, Gorbylki, Handles, ConnectionProfile, AdditionalProfile, Sealant, Door
 
 
@@ -168,7 +168,7 @@ class Constructor(models.Model):
     connection_profile = models.ForeignKey(ConnectionProfile, on_delete=models.SET_NULL, verbose_name="Соединительные профиля", null=True, blank=True)
     additional_profile = models.ForeignKey(AdditionalProfile, on_delete=models.SET_NULL, verbose_name="Доборные профиля", null=True, blank=True)
     sealant = models.ForeignKey(Sealant, on_delete=models.SET_NULL, verbose_name="Уплотнитель", null=True, blank=True)
-    other_complectation = models.ForeignKey(OtherComplecation, on_delete=models.SET_NULL, verbose_name="Прочее комплектующие", null=True, blank=True)
+    other_complectation = models.ForeignKey(OtherComplectation, on_delete=models.SET_NULL, verbose_name="Прочее комплектующие", null=True, blank=True)
 
     # OTHER EQUIPMENT END
     # seal_outside = models.ForeignKey(SealOutside, on_delete=models.SET_NULL,

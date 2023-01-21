@@ -121,7 +121,7 @@ class Door(models.Model):
                                      null=True)
     shtulp = models.BooleanField(default=False, verbose_name='Со штульпом', blank=True)
     opening = models.ForeignKey(Opening, on_delete=models.SET_NULL, verbose_name="Открывание", blank=True, null=True)
-    lock = models.ForeignKey(Lock, on_delete=models.SET_NULL, verbose_name="Открывание", blank=True, null=True)
+    lock = models.ForeignKey(Lock, on_delete=models.SET_NULL, verbose_name="Замок", blank=True, null=True)
     handle = models.ForeignKey(DoorHandles, on_delete=models.SET_NULL, verbose_name="Дверные ручки", blank=True,
                                null=True)
     door_hinges = models.ForeignKey(DoorHinges, on_delete=models.SET_NULL, verbose_name="Дверные петли", blank=True,
@@ -228,16 +228,16 @@ class AdditionalProfile(models.Model):
         verbose_name = 'Соединительные профиля'
         verbose_name_plural = 'Соединительные профиля'
 
-
 class SealantColor(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Цвет уплотнителя", blank=True, null=True)
+    name = models.CharField(max_length=255, verbose_name="Цвет уплотнения", blank=True, null=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Цвет уплотнитель'
-        verbose_name_plural = 'Цвет уплотнители'
+        verbose_name = 'Цвет уплотнения'
+        verbose_name_plural = 'Цвет уплотнения'
+
 
 
 class SealantOutside(models.Model):
@@ -274,7 +274,7 @@ class SealantShtapik(models.Model):
 
 
 class Sealant(models.Model):
-    color = models.ForeignKey(SealantColor, on_delete=models.SET_NULL, verbose_name="Цвет", blank=True, null=True)
+    sealant_color = models.ForeignKey(SealantColor, on_delete=models.SET_NULL, verbose_name="Цвет уплотнителя", blank=True, null=True)
     sealant_inside = models.ForeignKey(SealantInside, on_delete=models.SET_NULL, verbose_name="Исполнение снаружи",
                                        blank=True, null=True)
     sealant_outside = models.ForeignKey(SealantOutside, on_delete=models.SET_NULL, verbose_name="Исполнение внутри",
@@ -448,15 +448,7 @@ class SealRebate(models.Model):
 #         verbose_name_plural = 'Уплотнение внутренее'
 
 
-class SealColor(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Цвет уплотнения", blank=True, null=True)
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Цвет уплотнения'
-        verbose_name_plural = 'Цвет уплотнения'
 
 
 class Shpros(models.Model):
@@ -776,7 +768,7 @@ class Handles(models.Model):
         verbose_name_plural = 'Ручки'
 
 
-class OtherComplecation(models.Model):
+class OtherComplectation(models.Model):
     name = models.CharField(max_length=255, verbose_name="Прочее комплектующие", blank=True, null=True)
 
     def __str__(self):

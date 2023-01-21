@@ -14,13 +14,18 @@ from .models import *
 from calculation.models import Constructor
 
 
-class ConstructorEquipmentAPIView(APIView):
+class EquipmentAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
         filters['product_type'] = ProductType.objects.all()
         filters['profile'] = Profile.objects.all()
         filters['aggregate'] = Aggregate.objects.all()
         filters['fittings'] = Fittings.objects.all()
+        filters['shtapik'] = Shtapik.objects.all()
+        filters['sash'] = Sash.objects.all()
+        # filters['gorbylki'] = Gorbylki.objects.all()
+        filters['handles'] = Handles.objects.all()
+        filters['other_complectation'] = OtherComplectation.objects.all()
 
         serializer = ConstructorSerializer(filters)
         return Response({
@@ -48,11 +53,256 @@ class ConstructorEquipmentAPIView(APIView):
                     'placeholder': 'Выберите фурнитуру',
                     'label': 'Фурнитура',
                     'data': serializer.data['fittings'],
+                },
+                {
+                    'name': 'shtapik',
+                    'placeholder': 'Выберите штапик',
+                    'label': 'Штапик',
+                    'data': serializer.data['shtapik'],
+                },
+                {
+                    'name': 'sash',
+                    'placeholder': 'Выберите створку',
+                    'label': 'Створка',
+                    'data': serializer.data['sash'],
+                },
+                {
+                    'name': 'gorbylki',
+                    'placeholder': 'Выберите горбыльки',
+                    'label': 'Горбыльки',
+                    # 'data': serializer.data['gorbylki'],
+                },
+                {
+                    'name': 'handles',
+                    'placeholder': 'Выберите ручки',
+                    'label': 'Ручка',
+                    'data': serializer.data['handles'],
+                },
+                {
+                    'name': 'other_complectation',
+                    'placeholder': 'Выберите доп. комплектацию',
+                    'label': 'Дополнительная комплектая',
+                    'data': serializer.data['other_complectation'],
                 }
 
             ]
         })
 
+
+class LaminationAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['type_lamination'] = TypeLamination.objects.all()
+        filters['type_lamination1'] = TypeLamination2.objects.all()
+        filters['seal_internal'] = SealInternal.objects.all()
+        filters['seal_outside'] = SealOutside.objects.all()
+        filters['seal_basic'] = SealBasic.objects.all()
+
+        serializer = ConstructorSerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'type_lamination',
+                    'placeholder': 'Выберите тип ламинации',
+                    'label': 'Тип ламинации',
+                    'data': serializer.data['type_lamination'],
+                },
+                {
+                    'name': 'type_lamination1',
+                    'placeholder': 'Выберите вид ламинации',
+                    'label': 'Вид ламинации',
+                    'data': serializer.data['type_lamination1'],
+                },
+                {
+                    'name': 'seal_internal',
+                    'placeholder': 'Выберите исполнение внутри',
+                    'label': 'Исполнение внутри',
+                    'data': serializer.data['seal_internal'],
+                },
+                {
+                    'name': 'seal_outside',
+                    'placeholder': 'Выберите исполнение снаружи',
+                    'label': 'Исполнение снаружи',
+                    'data': serializer.data['seal_outside'],
+                },
+                {
+                    'name': 'seal_basic',
+                    'placeholder': 'Выберите исполнение основы детали',
+                    'label': 'Исполнение основы детали',
+                    'data': serializer.data['seal_basic'],
+                },
+
+            ]
+        })
+
+
+class DoorAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['product_type'] = ProductTypeDoor.objects.all()
+        filters['opening'] = Opening.objects.all()
+        filters['lock'] = Lock.objects.all()
+        filters['handle'] = DoorHandles.objects.all()
+        filters['door_hinges'] = DoorHinges.objects.all()
+        filters['cylinder'] = Cylinder.objects.all()
+        filters['door_closer'] = DoorCloser.objects.all()
+        filters['opening_limiter'] = OpeningLimiter.objects.all()
+
+        serializer = ConstructorSerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'product_type',
+                    'placeholder': 'Выберите тип изделия',
+                    'label': 'Тип изделия',
+                    'data': serializer.data['product_type'],
+                },
+                {
+                    'name': 'opening',
+                    'placeholder': 'Выберите открывание',
+                    'label': 'Открывание',
+                    'data': serializer.data['opening'],
+                },
+                {
+                    'name': 'lock',
+                    'placeholder': 'Выберите замок',
+                    'label': 'Замок',
+                    'data': serializer.data['lock'],
+                },
+                {
+                    'name': 'handle',
+                    'placeholder': 'Выберите дверные ручки',
+                    'label': 'Дверные ручки',
+                    'data': serializer.data['handle'],
+                },
+                {
+                    'name': 'door_hinges',
+                    'placeholder': 'Выберите дверные петли',
+                    'label': 'Дверные петли',
+                    'data': serializer.data['door_hinges'],
+                },
+                {
+                    'name': 'cylinder',
+                    'placeholder': 'Выберите цилиндр',
+                    'label': 'Цилиндр',
+                    'data': serializer.data['cylinder'],
+                },
+                {
+                    'name': 'door_closer',
+                    'placeholder': 'Выберите доводчик',
+                    'label': 'Доводчик',
+                    'data': serializer.data['door_closer'],
+                },
+                {
+                    'name': 'opening_limiter',
+                    'placeholder': 'Выберите ограничитель открывания',
+                    'label': 'Ограничитель открывания',
+                    'data': serializer.data['opening_limiter'],
+                },
+
+            ]
+        })
+
+
+class ConnectionProfileAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['profile'] = Profile.objects.all()
+        filters['article'] = Article.objects.all()
+        filters['connection_profile_name'] = ConnectionProfileName.objects.all()
+        filters['color_inside'] = ColorInside.objects.all()
+        filters['color_outside'] = ColorOutside.objects.all()
+
+        serializer = ConstructorSerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'profile',
+                    'placeholder': 'Выберите профиль',
+                    'label': 'Профиль',
+                    'data': serializer.data['profile'],
+                },
+                {
+                    'name': 'article',
+                    'placeholder': 'Выберите артикуль',
+                    'label': 'Артикуль',
+                    'data': serializer.data['article'],
+                },
+                {
+                    'name': 'connection_profile_name',
+                    'placeholder': 'Выберите название',
+                    'label': 'Название',
+                    'data': serializer.data['connection_profile_name'],
+                },
+                {
+                    'name': 'color_inside',
+                    'placeholder': 'Выберите цвет внутри',
+                    'label': 'Цвет внутри',
+                    'data': serializer.data['color_inside'],
+                },
+                {
+                    'name': 'color_outside',
+                    'placeholder': 'Выберите цвет снаружи',
+                    'label': 'Цвет снаружи',
+                    'data': serializer.data['color_outside'],
+                },
+            ]
+        })
+
+class AdditionalProfileAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['article'] = ArticleAdditionalProfile.objects.all()
+
+        serializer = ConstructorSerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'article',
+                    'placeholder': 'Выберите Артикул',
+                    'label': 'Артикул',
+                    'data': serializer.data['article'],
+                },
+            ]
+        })
+
+class SealantAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['sealant_color'] = SealantColor.objects.all()
+        filters['sealant_inside'] = SealantInside.objects.all()
+        filters['sealant_outside'] = SealantOutside.objects.all()
+        filters['sealant_shtapik'] = SealantShtapik.objects.all()
+
+        serializer = ConstructorSerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'sealant_color',
+                    'placeholder': 'Выберите цвет',
+                    'label': 'цвет',
+                    'data': serializer.data['sealant_color'],
+                },
+                {
+                    'name': 'sealant_inside',
+                    'placeholder': 'Выберите исполнение снаружи',
+                    'label': 'Исполнение снаружи',
+                    'data': serializer.data['sealant_inside'],
+                },
+                {
+                    'name': 'sealant_outside',
+                    'placeholder': 'Выберите исполнение внутри',
+                    'label': 'Исполнение внутри',
+                    'data': serializer.data['sealant_outside'],
+                },
+                {
+                    'name': 'sealant_shtapik',
+                    'placeholder': 'Выберите штапик',
+                    'label': 'Штапик',
+                    'data': serializer.data['sealant_shtapik'],
+                },
+            ]
+        })
 
 class ConstructorLowTidesAPIView(APIView):
     def get(self, request, *args, **kwargs):
