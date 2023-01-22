@@ -40,6 +40,8 @@ def calc_windowsill(windowsill_id, width, length, count, markups_type):
     windowsill_markups = Windowsill_Markups.objects.get(windowsill=windowsill_id)
     price_input_windowsill = windowsill.price_input
 
+    in_percent = None
+    markup = None
     if markups_type == 0:
         in_percent = windowsill_markups.markups_diler_in_percent
         markup = windowsill_markups.markups_diler

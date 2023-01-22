@@ -9,6 +9,14 @@ from .models import *
 #     fields = ['', 'price', 'discount']
 
 
+admin.site.register(ProductTypeDoor)
+admin.site.register(Opening)
+admin.site.register(Lock)
+admin.site.register(DoorHandles)
+admin.site.register(DoorHinges)
+admin.site.register(Cylinder)
+admin.site.register(DoorCloser)
+admin.site.register(OpeningLimiter)
 # admin.site.register(Constructor)
 admin.site.register(Profile)
 admin.site.register(Fittings)
