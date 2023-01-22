@@ -225,8 +225,8 @@ class AdditionalProfile(models.Model):
         return f'№ {self.pk} {self.article}'
 
     class Meta:
-        verbose_name = 'Соединительные профиля'
-        verbose_name_plural = 'Соединительные профиля'
+        verbose_name = 'Доборный профиль'
+        verbose_name_plural = 'Доборные профиля'
 
 class SealantColor(models.Model):
     name = models.CharField(max_length=255, verbose_name="Цвет уплотнения", blank=True, null=True)
