@@ -14,18 +14,13 @@ from .models import *
 from calculation.models import Constructor
 
 
-class EquipmentAPIView(APIView):
+class EquipmentMainAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
         filters['product_type'] = ProductType.objects.all()
         filters['profile'] = Profile.objects.all()
         filters['aggregate'] = Aggregate.objects.all()
         filters['fittings'] = Fittings.objects.all()
-        filters['shtapik'] = Shtapik.objects.all()
-        filters['sash'] = Sash.objects.all()
-        # filters['gorbylki'] = Gorbylki.objects.all()
-        filters['handles'] = Handles.objects.all()
-        filters['other_complectation'] = OtherComplectation.objects.all()
 
         serializer = ConstructorSerializer(filters)
         return Response({
@@ -54,6 +49,23 @@ class EquipmentAPIView(APIView):
                     'label': 'Фурнитура',
                     'data': serializer.data['fittings'],
                 },
+
+            ]
+        })
+
+
+class EquipmentExtraAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['shtapik'] = Shtapik.objects.all()
+        filters['sash'] = Sash.objects.all()
+        filters['gorbylki'] = Gorbylki.objects.all()
+        filters['handles'] = Handles.objects.all()
+        filters['other_complectation'] = OtherComplectation.objects.all()
+
+        serializer = ConstructorSerializer(filters)
+        return Response({
+            'data': [
                 {
                     'name': 'shtapik',
                     'placeholder': 'Выберите штапик',
@@ -70,7 +82,7 @@ class EquipmentAPIView(APIView):
                     'name': 'gorbylki',
                     'placeholder': 'Выберите горбыльки',
                     'label': 'Горбыльки',
-                    # 'data': serializer.data['gorbylki'],
+                    'data': serializer.data['gorbylki'],
                 },
                 {
                     'name': 'handles',
@@ -249,6 +261,7 @@ class ConnectionProfileAPIView(APIView):
             ]
         })
 
+
 class AdditionalProfileAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
@@ -265,6 +278,7 @@ class AdditionalProfileAPIView(APIView):
                 },
             ]
         })
+
 
 class SealantAPIView(APIView):
     def get(self, request, *args, **kwargs):
@@ -303,6 +317,7 @@ class SealantAPIView(APIView):
                 },
             ]
         })
+
 
 class ConstructorLowTidesAPIView(APIView):
     def get(self, request, *args, **kwargs):
