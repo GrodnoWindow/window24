@@ -23,11 +23,13 @@ class WindowsillCalcSerializer(serializers.ModelSerializer):
     width = serializers.IntegerField(max_value=None, min_value=None)
     length = serializers.IntegerField(max_value=None, min_value=None)
     count = serializers.IntegerField(max_value=None, min_value=None)
+    plug = serializers.IntegerField(max_value=None, min_value=None)
+    connector = serializers.IntegerField(max_value=None, min_value=None)
     markups_type = serializers.IntegerField(max_value=None, min_value=None)
 
     class Meta:
         model = WindowsillCalc
-        fields = 'windowsill_id', 'width', 'length', 'count', 'markups_type'
+        fields = 'windowsill_id', 'width', 'length', 'count', 'plug', 'connector', 'markups_type'
 
 
 class LowTidesCalcSerializer(serializers.ModelSerializer):

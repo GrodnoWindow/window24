@@ -228,6 +228,7 @@ class AdditionalProfile(models.Model):
         verbose_name = 'Доборный профиль'
         verbose_name_plural = 'Доборные профиля'
 
+
 class SealantColor(models.Model):
     name = models.CharField(max_length=255, verbose_name="Цвет уплотнения", blank=True, null=True)
 
@@ -237,7 +238,6 @@ class SealantColor(models.Model):
     class Meta:
         verbose_name = 'Цвет уплотнения'
         verbose_name_plural = 'Цвет уплотнения'
-
 
 
 class SealantOutside(models.Model):
@@ -274,7 +274,8 @@ class SealantShtapik(models.Model):
 
 
 class Sealant(models.Model):
-    sealant_color = models.ForeignKey(SealantColor, on_delete=models.SET_NULL, verbose_name="Цвет уплотнителя", blank=True, null=True)
+    sealant_color = models.ForeignKey(SealantColor, on_delete=models.SET_NULL, verbose_name="Цвет уплотнителя",
+                                      blank=True, null=True)
     sealant_inside = models.ForeignKey(SealantInside, on_delete=models.SET_NULL, verbose_name="Исполнение снаружи",
                                        blank=True, null=True)
     sealant_outside = models.ForeignKey(SealantOutside, on_delete=models.SET_NULL, verbose_name="Исполнение внутри",
@@ -446,9 +447,6 @@ class SealRebate(models.Model):
 #     class Meta:
 #         verbose_name = 'Уплотнение внутренее'
 #         verbose_name_plural = 'Уплотнение внутренее'
-
-
-
 
 
 class Shpros(models.Model):
@@ -634,6 +632,111 @@ class LowTides(models.Model):
     class Meta:
         verbose_name = 'Отлив'
         verbose_name_plural = 'Отливы'
+
+
+class FlashingType(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Тип нащельника", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Тип нащельника'
+        verbose_name_plural = 'Типы нащельников'
+
+
+class FlashingColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Цвет нащельника", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Цвет нащельника'
+        verbose_name_plural = 'Цвета нащельников'
+
+
+class Flashing(models.Model):
+    type = models.ForeignKey(FlashingType, on_delete=models.CASCADE, blank=True, verbose_name='Тип нащельника')
+    color = models.ForeignKey(FlashingColor, on_delete=models.CASCADE, blank=True, verbose_name='Цвет нащельника')
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.id} {self.type}'
+
+    class Meta:
+        verbose_name = 'Нащельник'
+        verbose_name_plural = 'Нащельники'
+
+
+class CasingType(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Тип наличника", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Тип наличника'
+        verbose_name_plural = 'Типы наличников'
+
+
+class CasingColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Цвет наличника", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Цвет наличника'
+        verbose_name_plural = 'Цвета наличников'
+
+
+class Casing(models.Model):
+    type = models.ForeignKey(FlashingType, on_delete=models.CASCADE, blank=True, verbose_name='Тип наличника')
+    color = models.ForeignKey(FlashingColor, on_delete=models.CASCADE, blank=True, verbose_name='Цвет наличников')
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.id} {self.type} {self.color}'
+
+    class Meta:
+        verbose_name = 'Наличник'
+        verbose_name_plural = 'Наличники'
+
+class VisorsType(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Тип козырька", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Тип козырька'
+        verbose_name_plural = 'Типы козырьков'
+
+
+class VisorsColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Цвет козырька", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Цвет козырька'
+        verbose_name_plural = 'Цвета козырьков'
+
+
+class Visors(models.Model):
+    sweep = models.CharField(max_length=255, verbose_name='Развертка', blank=True, null=True)
+    type = models.ForeignKey(FlashingType, on_delete=models.CASCADE, blank=True, verbose_name='Тип козырька')
+    color = models.ForeignKey(FlashingColor, on_delete=models.CASCADE, blank=True, verbose_name='Цвет козырька')
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.id} {self.type} {self.color}'
+
+    class Meta:
+        verbose_name = 'Козырек'
+        verbose_name_plural = 'Козырьки'
 
 
 class FavoritePositions(models.Model):

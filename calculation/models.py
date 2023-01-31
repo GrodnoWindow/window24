@@ -69,7 +69,7 @@ class LowTides_Markups(models.Model):
     markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
 
     def __str__(self):
-        return f' Отлив # {self.lowtides.id} название: {self.lowtides.name}, тип: {self.lowtides.type}, цена закупки: {self.lowtides.price_input} ,' \
+        return f' Отлив № {self.lowtides.pk} название: {self.lowtides.name}, тип: {self.lowtides.type}, цена закупки: {self.lowtides.price_input} ,' \
                f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
                f' наценка ( розница ): {self.markups_diler} , в процентах : {self.markups_retail_in_percent}'
         # return f'# {self.id} цвет: {self.color}, тип: {self.type}, цена закупки: {self.price_input}'
@@ -80,6 +80,63 @@ class LowTides_Markups(models.Model):
 
 
 # _______________________________ CALCULATION MODELS _______________________________
+class FlashingCalc(models.Model):
+    flashing_id = models.IntegerField(default=0.0, verbose_name="№ Нащельника", blank=True, null=True)
+
+    markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
+    width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
+    length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
+    count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
+    linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
+
+    price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
+
+    def __str__(self):
+        return f' Нащельник № {self.pk} длинна {self.length} / ширина {self.width} = {self.price_output} BYN'
+
+    class Meta:
+        verbose_name = 'Просчет нащельника'
+        verbose_name_plural = 'Просчеты нащельников'
+
+
+class CasingCalc(models.Model):
+    casing_id = models.IntegerField(default=0.0, verbose_name="№ Наличник", blank=True, null=True)
+
+    markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
+    width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
+    length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
+    count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
+    linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
+
+    price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
+
+    def __str__(self):
+        return f' Наличник № {self.pk} длинна {self.length} / ширина {self.width} = {self.price_output} BYN'
+
+    class Meta:
+        verbose_name = 'Просчет наличника'
+        verbose_name_plural = 'Просчеты наличников'
+
+
+# class VisorsCalc(models.Model):
+#     visor_id = models.IntegerField(default=0.0, verbose_name="№ Козырька", blank=True, null=True)
+#
+#     markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
+#     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
+#     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
+#     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
+#     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
+#
+#     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
+#
+#     def __str__(self):
+#         return f' Наличник № {self.pk} длинна {self.length} / ширина {self.width} = {self.price_output} BYN'
+#
+#     class Meta:
+#         verbose_name = 'Просчет наличника'
+#         verbose_name_plural = 'Просчеты наличников'
+
+
 class LowTidesCalc(models.Model):
     low_tides_id = models.IntegerField(default=0.0, verbose_name="№ Отлив", blank=True, null=True)
 
@@ -87,6 +144,9 @@ class LowTidesCalc(models.Model):
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='количество')
+    square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
+    linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
+
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='цена')
 
     def __str__(self):
@@ -100,11 +160,19 @@ class LowTidesCalc(models.Model):
 class WindowsillCalc(models.Model):
     windowsill_id = models.IntegerField(default=0.0, verbose_name="№ Подоконник", blank=True, null=True)
 
-    markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
-    width = models.FloatField(max_length=255, default=0.0, verbose_name='ширина')
-    length = models.FloatField(max_length=255, default=0.0, verbose_name='длинна')
-    count = models.FloatField(max_length=255, default=0.0, verbose_name='количество')
-    price_output = models.FloatField(max_length=255, default=0.0, verbose_name='цена')
+    plug = models.IntegerField(default=0, verbose_name='Заглушка', blank=True, null=True)
+    connector = models.IntegerField(default=0, verbose_name='Соединитель', blank=True, null=True)
+
+    markups_type = models.CharField(max_length=255, verbose_name='Наценка')
+    width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
+    length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
+    count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
+    square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
+    linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
+
+
+    price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
+
 
     def __str__(self):
         return f' Подоконник № {self.id}  на сумму {self.price_output} BYN'
