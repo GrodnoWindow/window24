@@ -3,8 +3,10 @@ from constructor.models import Profile, Fittings, ProductType, Aggregate, SealOu
     SealantColor, Shpros, Shtapik, Sash, LaminationOutside, LaminationInside, ProfileWeight, Note, SupplyValve, \
     ProductsInstall, PvcSlopes, FreePositions, FavoritePositions, Windowsill, WindowsillColor, WindowsillType, LowTides, \
     LowTidesType, Visors, Flashing, FlashingMetal, Platband, ExtensionsToProfile60, ExtensionsToProfile70, \
-    BayWindowToProfile60, BayWindowToProfile70, Connector90g, Accessories, OtherComplectation, Locks, StraightConnectors, \
-    Works, TypeLamination, Sealant, Lamination, Gorbylki, Handles, ConnectionProfile, AdditionalProfile, Sealant, Door
+    BayWindowToProfile60, BayWindowToProfile70, Connector90g, Accessories, OtherComplectation, Locks, \
+    StraightConnectors, \
+    Works, TypeLamination, Sealant, Lamination, Gorbylki, Handles, ConnectionProfile, AdditionalProfile, Sealant, Door, \
+    Casing, Flashing, Visors
 
 
 class Markups(models.Model):
@@ -79,6 +81,69 @@ class LowTides_Markups(models.Model):
         verbose_name_plural = 'Наценка на отливы'
 
 
+class Flashing_Markups(models.Model):
+    flashing = models.ForeignKey(Flashing, verbose_name="Нащельник", blank=True, null=True,
+                                 on_delete=models.CASCADE)
+
+    markups_diler = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка диллерская')
+    markups_diler_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( диллер )')
+
+    markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
+    markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
+
+    def __str__(self):
+        return f' Нащельник № {self.flashing.pk} название: {self.flashing} , цена закупки: {self.flashing.price_input} ,' \
+               f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
+               f' наценка ( розница ): {self.markups_diler} , в процентах : {self.markups_retail_in_percent}'
+        # return f'# {self.id} цвет: {self.color}, тип: {self.type}, цена закупки: {self.price_input}'
+
+    class Meta:
+        verbose_name = 'Наценка на нащельник'
+        verbose_name_plural = 'Наценка на нащельники'
+
+
+class Casing_Markups(models.Model):
+    casing = models.ForeignKey(Casing, verbose_name="Наличник", blank=True, null=True,
+                               on_delete=models.CASCADE)
+
+    markups_diler = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка диллерская')
+    markups_diler_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( диллер )')
+
+    markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
+    markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
+
+    def __str__(self):
+        return f' Наличник № {self.casing.pk} название: {self.casing}, цена закупки: {self.casing.price_input} ,' \
+               f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
+               f' наценка ( розница ): {self.markups_diler} , в процентах : {self.markups_retail_in_percent}'
+        # return f'# {self.id} цвет: {self.color}, тип: {self.type}, цена закупки: {self.price_input}'
+
+    class Meta:
+        verbose_name = 'Наценка на наличник'
+        verbose_name_plural = 'Наценка на наличники'
+
+
+class Visors_Markups(models.Model):
+    visors = models.ForeignKey(Visors, verbose_name="Козырек", blank=True, null=True,
+                               on_delete=models.CASCADE)
+
+    markups_diler = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка диллерская')
+    markups_diler_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( диллер )')
+
+    markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
+    markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
+
+    def __str__(self):
+        return f' Козырек № {self.visors.pk} название: {self.visors}, цена закупки: {self.visors.price_input} ,' \
+               f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
+               f' наценка ( розница ): {self.markups_diler} , в процентах : {self.markups_retail_in_percent}'
+        # return f'# {self.id} цвет: {self.color}, тип: {self.type}, цена закупки: {self.price_input}'
+
+    class Meta:
+        verbose_name = 'Наценка на козырек'
+        verbose_name_plural = 'Наценка на козырьки'
+
+
 # _______________________________ CALCULATION MODELS _______________________________
 class FlashingCalc(models.Model):
     flashing_id = models.IntegerField(default=0.0, verbose_name="№ Нащельника", blank=True, null=True)
@@ -88,6 +153,7 @@ class FlashingCalc(models.Model):
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
+    square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
 
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
 
@@ -107,6 +173,7 @@ class CasingCalc(models.Model):
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
+    square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
 
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
 
@@ -119,13 +186,14 @@ class CasingCalc(models.Model):
 
 
 class VisorsCalc(models.Model):
-    visor_id = models.IntegerField(default=0.0, verbose_name="№ Козырька", blank=True, null=True)
+    visors_id = models.IntegerField(default=0.0, verbose_name="№ Козырька", blank=True, null=True)
 
     markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
+    square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
 
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
 
@@ -144,8 +212,8 @@ class LowTidesCalc(models.Model):
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='количество')
-    square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
+    square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
 
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='цена')
 
@@ -170,9 +238,7 @@ class WindowsillCalc(models.Model):
     square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
 
-
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
-
 
     def __str__(self):
         return f' Подоконник № {self.id}  на сумму {self.price_output} BYN'
@@ -227,16 +293,20 @@ class Constructor(models.Model):
     aggregate = models.ForeignKey(Aggregate, on_delete=models.SET_NULL, verbose_name="Заполнитель",
                                   null=True, blank=True)
     # EQUIPMENT END
-    lamination = models.ForeignKey(Lamination, on_delete=models.SET_NULL, verbose_name="Ламинация", null=True, blank=True)
+    lamination = models.ForeignKey(Lamination, on_delete=models.SET_NULL, verbose_name="Ламинация", null=True,
+                                   blank=True)
 
     shtapik = models.ForeignKey(Shtapik, on_delete=models.SET_NULL, verbose_name="Штапик", null=True, blank=True)
     sash = models.ForeignKey(Sash, on_delete=models.SET_NULL, verbose_name="Створка", null=True, blank=True)
     gorbylki = models.ForeignKey(Gorbylki, on_delete=models.SET_NULL, verbose_name="Горбыльки", null=True, blank=True)
     handles = models.ForeignKey(Handles, on_delete=models.SET_NULL, verbose_name="Ручки", null=True, blank=True)
-    connection_profile = models.ForeignKey(ConnectionProfile, on_delete=models.SET_NULL, verbose_name="Соединительные профиля", null=True, blank=True)
-    additional_profile = models.ForeignKey(AdditionalProfile, on_delete=models.SET_NULL, verbose_name="Доборные профиля", null=True, blank=True)
+    connection_profile = models.ForeignKey(ConnectionProfile, on_delete=models.SET_NULL,
+                                           verbose_name="Соединительные профиля", null=True, blank=True)
+    additional_profile = models.ForeignKey(AdditionalProfile, on_delete=models.SET_NULL,
+                                           verbose_name="Доборные профиля", null=True, blank=True)
     sealant = models.ForeignKey(Sealant, on_delete=models.SET_NULL, verbose_name="Уплотнитель", null=True, blank=True)
-    other_complectation = models.ForeignKey(OtherComplectation, on_delete=models.SET_NULL, verbose_name="Прочее комплектующие", null=True, blank=True)
+    other_complectation = models.ForeignKey(OtherComplectation, on_delete=models.SET_NULL,
+                                            verbose_name="Прочее комплектующие", null=True, blank=True)
 
     # OTHER EQUIPMENT END
     # seal_outside = models.ForeignKey(SealOutside, on_delete=models.SET_NULL,

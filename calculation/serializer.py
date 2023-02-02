@@ -44,6 +44,42 @@ class LowTidesCalcSerializer(serializers.ModelSerializer):
         fields = 'low_tides_id', 'width', 'length', 'count', 'markups_type'
 
 
+class FlashingCalcSerializer(serializers.ModelSerializer):
+    flashing_id = serializers.IntegerField(max_value=None, min_value=None)
+    width = serializers.IntegerField(max_value=None, min_value=None)
+    length = serializers.IntegerField(max_value=None, min_value=None)
+    count = serializers.IntegerField(max_value=None, min_value=None)
+    markups_type = serializers.IntegerField(max_value=None, min_value=None)
+
+    class Meta:
+        model = FlashingCalc
+        fields = 'flashing_id', 'width', 'length', 'count', 'markups_type'
+
+
+class CasingCalcSerializer(serializers.ModelSerializer):
+    casing_id = serializers.IntegerField(max_value=None, min_value=None)
+    width = serializers.IntegerField(max_value=None, min_value=None)
+    length = serializers.IntegerField(max_value=None, min_value=None)
+    count = serializers.IntegerField(max_value=None, min_value=None)
+    markups_type = serializers.IntegerField(max_value=None, min_value=None)
+
+    class Meta:
+        model = CasingCalc
+        fields = 'casing_id', 'width', 'length', 'count', 'markups_type'
+
+
+class VisorsCalcSerializer(serializers.ModelSerializer):
+    visors_id = serializers.IntegerField(max_value=None, min_value=None)
+    width = serializers.IntegerField(max_value=None, min_value=None)
+    length = serializers.IntegerField(max_value=None, min_value=None)
+    count = serializers.IntegerField(max_value=None, min_value=None)
+    markups_type = serializers.IntegerField(max_value=None, min_value=None)
+
+    class Meta:
+        model = VisorsCalc
+        fields = 'visors_id', 'width', 'length', 'count', 'markups_type'
+
+
 class WindowCalcSerializer(serializers.ModelSerializer):
     window = WindowSerializer(read_only=False)
     price_input = serializers.IntegerField(max_value=None, min_value=None, read_only=True)

@@ -197,6 +197,7 @@ class VisorsColorSerializer(serializers.ModelSerializer):
         model = VisorsColor
         fields = '__all__'
 
+
 class VisorsSerializer(serializers.ModelSerializer):
     color = VisorsColorSerializer(many=False, read_only=False)
     type = VisorsTypeSerializer(many=False, read_only=False)

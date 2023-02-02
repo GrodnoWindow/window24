@@ -81,7 +81,7 @@ def calc_low_tides(low_tides_id, width, length, count, markups_type):
 
     price_input_low_tides = low_tides.price_input
 
-    width = width + 55 # + 55 мм
+    width = width + 55  # + 55 мм
     if markups_type == 0:
         in_percent = low_tides_markup.markups_diler_in_percent
         markup = low_tides_markup.markups_diler
@@ -116,20 +116,19 @@ def calc_low_tides(low_tides_id, width, length, count, markups_type):
     return low_tides_calc
 
 
-def calc_(low_tides_id, width, length, count, markups_type):
-    low_tides = LowTides.objects.get(id=low_tides_id)
-    low_tides_markup = LowTides_Markups.objects.get(lowtides=low_tides_id)
+def calc_flashing(flashing_id, width, length, count, markups_type):
+    flashing = Flashing.objects.get(id=flashing_id)
+    flashing_markup = Flashing_Markups.objects.get(flashing=flashing_id)
 
-    price_input_low_tides = low_tides.price_input
+    price_input_low_tides = flashing.price_input
 
-    width = width + 55 # + 55 мм
     if markups_type == 0:
-        in_percent = low_tides_markup.markups_diler_in_percent
-        markup = low_tides_markup.markups_diler
+        in_percent = flashing_markup.markups_diler_in_percent
+        markup = flashing_markup.markups_diler
         markups_name = 'Диллерская'
     elif markups_type == 1:
-        in_percent = low_tides_markup.markups_retail_in_percent
-        markup = low_tides_markup.markups_retail
+        in_percent = flashing_markup.markups_retail_in_percent
+        markup = flashing_markup.markups_retail
         markups_name = 'Розничная'
 
     if in_percent:
@@ -148,10 +147,90 @@ def calc_(low_tides_id, width, length, count, markups_type):
 
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
-    low_tides_calc = LowTidesCalc.objects.create(low_tides_id=low_tides.id, width=width, length=length,
-                                                 count=count,
-                                                 price_output=sum, markups_type=markups_name,
-                                                 square_meter=square_meter,
-                                                 linear_meter=linear_meter)
+    flahsing_calc = FlashingCalc.objects.create(flashing_id=flashing.id, width=width, length=length,
+                                                count=count,
+                                                price_output=sum, markups_type=markups_name,
+                                                square_meter=square_meter,
+                                                linear_meter=linear_meter)
 
-    return low_tides_calc
+    return flahsing_calc
+
+
+def calc_casing(casing_id, width, length, count, markups_type):
+    casing = Casing.objects.get(id=casing_id)
+    casing_markup = Casing_Markups.objects.get(casing=casing_id)
+
+    price_input_low_tides = casing.price_input
+
+    if markups_type == 0:
+        in_percent = casing_markup.markups_diler_in_percent
+        markup = casing_markup.markups_diler
+        markups_name = 'Диллерская'
+    elif markups_type == 1:
+        in_percent = casing_markup.markups_retail_in_percent
+        markup = casing_markup.markups_retail
+        markups_name = 'Розничная'
+
+    if in_percent:
+        price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
+    else:
+        price_low_tides = price_input_low_tides + markup
+
+    sum = price_low_tides * ((width * length) / 1000000)
+    square_meter = (width * length) / 1000000
+    linear_meter = width
+
+    if count > 0:
+        sum = sum * count
+        square_meter = square_meter * count
+        linear_meter = linear_meter * count
+
+    sum = round(sum, 2)
+    square_meter = round(square_meter, 2)
+    casing_calc = CasingCalc.objects.create(casing_id=casing.id, width=width, length=length,
+                                            count=count,
+                                            price_output=sum, markups_type=markups_name,
+                                            square_meter=square_meter,
+                                            linear_meter=linear_meter)
+
+    return casing_calc
+
+
+def calc_visors(visors_id, width, length, count, markups_type):
+    visors = Visors.objects.get(id=visors_id)
+    visors_markup = Visors_Markups.objects.get(casing=visors_id)
+
+    price_input_low_tides = visors.price_input
+
+    if markups_type == 0:
+        in_percent = visors_markup.markups_diler_in_percent
+        markup = visors_markup.markups_diler
+        markups_name = 'Диллерская'
+    elif markups_type == 1:
+        in_percent = visors_markup.markups_retail_in_percent
+        markup = visors_markup.markups_retail
+        markups_name = 'Розничная'
+
+    if in_percent:
+        price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
+    else:
+        price_low_tides = price_input_low_tides + markup
+
+    sum = price_low_tides * ((width * length) / 1000000)
+    square_meter = (width * length) / 1000000
+    linear_meter = width
+
+    if count > 0:
+        sum = sum * count
+        square_meter = square_meter * count
+        linear_meter = linear_meter * count
+
+    sum = round(sum, 2)
+    square_meter = round(square_meter, 2)
+    visors_calc = VisorsCalc.objects.create(visors_id=visors.id, width=width, length=length,
+                                            count=count,
+                                            price_output=sum, markups_type=markups_name,
+                                            square_meter=square_meter,
+                                            linear_meter=linear_meter)
+
+    return visors_calc

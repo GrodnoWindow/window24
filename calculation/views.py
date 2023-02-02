@@ -66,6 +66,60 @@ class CalculationLowTidesAPIView(APIView):
         return Response({'data': model_to_dict(low_tides_calc)})
 
 
+class CalculationFlashingAPIView(APIView):
+    serializer_class = FlashingCalcSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        flashing_id = request.data['flashing_id']
+        width = request.data['width']
+        length = request.data['length']
+        count = request.data['count']
+        markups_type = request.data['markups_type']
+
+        flashing_calc = calc_flashing(flashing_id=flashing_id, width=width,
+                                      length=length, count=count, markups_type=markups_type)
+
+        return Response({'data': model_to_dict(flashing_calc)})
+
+
+class CalculationCasingAPIView(APIView):
+    serializer_class = CasingCalcSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        casing_id = request.data['casing_id']
+        width = request.data['width']
+        length = request.data['length']
+        count = request.data['count']
+        markups_type = request.data['markups_type']
+
+        casing_calc = calc_casing(casing_id=casing_id, width=width,
+                                  length=length, count=count, markups_type=markups_type)
+
+        return Response({'data': model_to_dict(casing_calc)})
+
+
+class CalculationVisorsAPIView(APIView):
+    serializer_class = VisorsCalcSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        visors_id = request.data['visors_id']
+        width = request.data['width']
+        length = request.data['length']
+        count = request.data['count']
+        markups_type = request.data['markups_type']
+
+        visors_calc = calc_visors(visors_id=visors_id, width=width,
+                                  length=length, count=count, markups_type=markups_type)
+
+        return Response({'data': model_to_dict(visors_calc)})
+
+
 class ConstructorViewSet(viewsets.ModelViewSet):
     queryset = Constructor.objects.all()
     serializer_class = ConstructorSerializer
