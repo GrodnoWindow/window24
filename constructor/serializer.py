@@ -186,13 +186,42 @@ class LowTidesSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'type']
 
 
+class VisorsTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VisorsType
+        fields = '__all__'
+
+
+class VisorsColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VisorsColor
+        fields = '__all__'
+
 class VisorsSerializer(serializers.ModelSerializer):
+    color = VisorsColorSerializer(many=False, read_only=False)
+    type = VisorsTypeSerializer(many=False, read_only=False)
+
     class Meta:
         model = Visors
         fields = '__all__'
 
 
+class FlashingColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FlashingColor
+        fields = '__all__'
+
+
+class FlashingTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FlashingType
+        fields = '__all__'
+
+
 class FlashingSerializer(serializers.ModelSerializer):
+    color = FlashingColorSerializer(many=False, read_only=False)
+    type = FlashingTypeSerializer(many=False, read_only=False)
+
     class Meta:
         model = Flashing
         fields = '__all__'
@@ -270,7 +299,22 @@ class SupplyValveSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
+class CasingColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CasingColor
+        fields = '__all__'
+
+
+class CasingTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CasingType
+        fields = '__all__'
+
+
 class CasingSerializer(serializers.ModelSerializer):
+    color = CasingColorSerializer(many=False, read_only=False)
+    type = CasingTypeSerializer(many=False, read_only=False)
+
     class Meta:
         model = Casing
         fields = '__all__'
