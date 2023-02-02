@@ -8,7 +8,7 @@ from complaint.models import Complaint
 class Prompter(models.Model):
     category_select = models.IntegerField(blank=True, null=True, verbose_name="Категория выбора")
     main_statements = models.CharField(max_length=255, blank=True, verbose_name="Основные высказывания")
-    type_home = models.IntegerField(blank=True, null=True, verbose_name="Тип дома")
+    type_home = models.CharField(max_length=255, blank=True, null=True, verbose_name="Тип дома")
     built_from_other = models.CharField(max_length=255, blank=True, null=True, verbose_name="Из чего построен")
     sun_heating = models.BooleanField(default=False, blank=True, verbose_name='Летом солнце нагревает')
     weak_light = models.BooleanField(default=False, blank=True,  verbose_name='Мало света ')

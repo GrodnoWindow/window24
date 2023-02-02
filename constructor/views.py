@@ -827,6 +827,50 @@ class ConstructorExtraMaterialAPIView(APIView):
             ]
         })
 
+class MaterialsAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['windowsill'] = Windowsill.objects.all()
+        filters['low_tides'] = LowTides.objects.all()
+        filters['flashing'] = Flashing.objects.all()
+        filters['casing'] = Casing.objects.all()
+        filters['visors'] = Visors.objects.all()
+
+        serializer = ConstructorSerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'windowsill',
+                    'placeholder': 'Выберите подоконник',
+                    'label': 'Подоконник',
+                    'data': serializer.data['windowsill'],
+                },
+                {
+                    'name': 'low_tides',
+                    'placeholder': 'Выберите отливы',
+                    'label': 'Отливы',
+                    'data': serializer.data['low_tides'],
+                },
+                {
+                    'name': 'flashing',
+                    'placeholder': 'Выберите нащельник',
+                    'label': 'Нащельники',
+                    'data': serializer.data['flashing'],
+                },
+                {
+                    'name': 'casing',
+                    'placeholder': 'Выберите наличник',
+                    'label': 'Наличник',
+                    'data': serializer.data['casing'],
+                },
+                {
+                    'name': 'visors',
+                    'placeholder': 'Выберите козырек',
+                    'label': 'Козырьки',
+                    'data': serializer.data['visors'],
+                },
+            ]
+        })
 
 class WorksAPIView(APIView):
     def get(self, request, *args, **kwargs):
@@ -844,3 +888,6 @@ class WorksAPIView(APIView):
 
             ]
         })
+
+
+

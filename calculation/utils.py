@@ -114,3 +114,44 @@ def calc_low_tides(low_tides_id, width, length, count, markups_type):
                                                  linear_meter=linear_meter)
 
     return low_tides_calc
+
+
+def calc_(low_tides_id, width, length, count, markups_type):
+    low_tides = LowTides.objects.get(id=low_tides_id)
+    low_tides_markup = LowTides_Markups.objects.get(lowtides=low_tides_id)
+
+    price_input_low_tides = low_tides.price_input
+
+    width = width + 55 # + 55 мм
+    if markups_type == 0:
+        in_percent = low_tides_markup.markups_diler_in_percent
+        markup = low_tides_markup.markups_diler
+        markups_name = 'Диллерская'
+    elif markups_type == 1:
+        in_percent = low_tides_markup.markups_retail_in_percent
+        markup = low_tides_markup.markups_retail
+        markups_name = 'Розничная'
+
+    if in_percent:
+        price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
+    else:
+        price_low_tides = price_input_low_tides + markup
+
+    sum = price_low_tides * ((width * length) / 1000000)
+    square_meter = (width * length) / 1000000
+    linear_meter = width
+
+    if count > 0:
+        sum = sum * count
+        square_meter = square_meter * count
+        linear_meter = linear_meter * count
+
+    sum = round(sum, 2)
+    square_meter = round(square_meter, 2)
+    low_tides_calc = LowTidesCalc.objects.create(low_tides_id=low_tides.id, width=width, length=length,
+                                                 count=count,
+                                                 price_output=sum, markups_type=markups_name,
+                                                 square_meter=square_meter,
+                                                 linear_meter=linear_meter)
+
+    return low_tides_calc

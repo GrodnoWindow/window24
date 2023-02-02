@@ -189,13 +189,13 @@ class LowTidesSerializer(serializers.ModelSerializer):
 class VisorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visors
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class FlashingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flashing
-        fields = ['id', 'name']
+        fields = '__all__'
 
 
 class FlashingMetalSerializer(serializers.ModelSerializer):
@@ -268,6 +268,12 @@ class SupplyValveSerializer(serializers.ModelSerializer):
     class Meta:
         model = SupplyValve
         fields = ['id', 'name']
+
+
+class CasingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Casing
+        fields = '__all__'
 
 
 class WorksSerializer(serializers.ModelSerializer):
@@ -406,7 +412,7 @@ class ConstructorSerializer(serializers.Serializer):
     handles = HandlesSerializer(read_only=True, many=True)
     locks = LocksSerializer(read_only=True, many=True)
     straight_connectors = StraightConnectorsSerializer(read_only=True, many=True)
-    supply_valve = SupplyValveSerializer(read_only=True, many=True)
+    supply_valve = CasingSerializer(read_only=True, many=True)
     works = WorksSerializer(read_only=True, many=True)
     other_complectation = OtherComplectationSerializer(read_only=True, many=True)
     gorbylki = GorbylkiSerializer(read_only=True, many=True)
@@ -428,3 +434,5 @@ class ConstructorSerializer(serializers.Serializer):
     sealant_inside = SealantInsideSerializer(read_only=True, many=True)
     sealant_outside = SealantOutsideSerializer(read_only=True, many=True)
     sealant_shtapik = SealantShtapikSerializer(read_only=True, many=True)
+    windowsill_type = WindowsillTypeSerializer(read_only=True, many=True)
+    casing = CasingSerializer(read_only=True, many=True)

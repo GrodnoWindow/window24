@@ -657,12 +657,12 @@ class FlashingColor(models.Model):
 
 
 class Flashing(models.Model):
-    type = models.ForeignKey(FlashingType, on_delete=models.CASCADE, blank=True, verbose_name='Тип нащельника')
-    color = models.ForeignKey(FlashingColor, on_delete=models.CASCADE, blank=True, verbose_name='Цвет нащельника')
+    type = models.ForeignKey(FlashingType, on_delete=models.CASCADE, blank=True, verbose_name='Тип нащельника', null=True)
+    color = models.ForeignKey(FlashingColor, on_delete=models.CASCADE, blank=True, verbose_name='Цвет нащельника', null=True)
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
     def __str__(self):
-        return f'{self.id} {self.type}'
+        return f'{self.pk} {self.type}'
 
     class Meta:
         verbose_name = 'Нащельник'
@@ -692,8 +692,8 @@ class CasingColor(models.Model):
 
 
 class Casing(models.Model):
-    type = models.ForeignKey(FlashingType, on_delete=models.CASCADE, blank=True, verbose_name='Тип наличника')
-    color = models.ForeignKey(FlashingColor, on_delete=models.CASCADE, blank=True, verbose_name='Цвет наличников')
+    type = models.ForeignKey(CasingType, on_delete=models.CASCADE, blank=True, verbose_name='Тип наличника')
+    color = models.ForeignKey(CasingColor, on_delete=models.CASCADE, blank=True, verbose_name='Цвет наличников')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
     def __str__(self):
@@ -727,8 +727,8 @@ class VisorsColor(models.Model):
 
 class Visors(models.Model):
     sweep = models.CharField(max_length=255, verbose_name='Развертка', blank=True, null=True)
-    type = models.ForeignKey(FlashingType, on_delete=models.CASCADE, blank=True, verbose_name='Тип козырька')
-    color = models.ForeignKey(FlashingColor, on_delete=models.CASCADE, blank=True, verbose_name='Цвет козырька')
+    type = models.ForeignKey(VisorsType, on_delete=models.CASCADE, blank=True, verbose_name='Тип козырька')
+    color = models.ForeignKey(VisorsColor, on_delete=models.CASCADE, blank=True, verbose_name='Цвет козырька')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
     def __str__(self):
@@ -750,26 +750,26 @@ class FavoritePositions(models.Model):
         verbose_name_plural = 'Избранные позиции'
 
 
-class Visors(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Козырьки", blank=True, null=True)
+# class Visors(models.Model):
+#     name = models.CharField(max_length=255, verbose_name="Козырьки", blank=True, null=True)
+#
+#     def __str__(self):
+#         return self.name
+#
+#     class Meta:
+#         verbose_name = 'Козырьки'
+#         verbose_name_plural = 'Козырьки'
 
-    def __str__(self):
-        return self.name
 
-    class Meta:
-        verbose_name = 'Козырьки'
-        verbose_name_plural = 'Козырьки'
-
-
-class Flashing(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Нащельник", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Нащельник'
-        verbose_name_plural = 'Нащельник'
+# class Flashing(models.Model):
+#     name = models.CharField(max_length=255, verbose_name="Нащельник", blank=True, null=True)
+#
+#     def __str__(self):
+#         return self.name
+#
+#     class Meta:
+#         verbose_name = 'Нащельник'
+#         verbose_name_plural = 'Нащельник'
 
 
 class FlashingMetal(models.Model):

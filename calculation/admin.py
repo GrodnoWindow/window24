@@ -9,4 +9,6 @@ admin.site.register(LowTides_Markups)
 admin.site.register(WindowsCalc)
 admin.site.register(LowTidesCalc)
 admin.site.register(Constructor)
+admin.site.register(FlashingCalc)
+admin.site.register(CasingCalc)
 
