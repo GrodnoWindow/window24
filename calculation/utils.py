@@ -56,7 +56,7 @@ def calc_windowsill(windowsill_id, width, length, count, markups_type):
 
     sum = price_windowsill * ((width * length) / 1000000)
     square_meter = (width * length) / 1000000
-    linear_meter = width
+    linear_meter = width / 1000
 
     if count > 0:
         sum = sum * count
@@ -98,7 +98,8 @@ def calc_low_tides(low_tides_id, width, length, count, markups_type):
 
     sum = price_low_tides * ((width * length) / 1000000)
     square_meter = (width * length) / 1000000
-    linear_meter = width
+    linear_meter = width / 1000
+
 
     if count > 0:
         sum = sum * count
@@ -138,7 +139,8 @@ def calc_flashing(flashing_id, width, length, count, markups_type):
 
     sum = price_low_tides * ((width * length) / 1000000)
     square_meter = (width * length) / 1000000
-    linear_meter = width
+    linear_meter = width / 1000
+
 
     if count > 0:
         sum = sum * count
@@ -218,7 +220,7 @@ def calc_visors(visors_id, width, length, count, markups_type):
 
     sum = price_low_tides * ((width * length) / 1000000)
     square_meter = (width * length) / 1000000
-    linear_meter = width
+    linear_meter = width / 1000
 
     if count > 0:
         sum = sum * count
