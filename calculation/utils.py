@@ -39,7 +39,8 @@ def calc_windowsill(windowsill_id, width, length, count, markups_type):
     windowsill = Windowsill.objects.get(id=windowsill_id)
     windowsill_markups = Windowsill_Markups.objects.get(windowsill=windowsill_id)
     price_input_windowsill = windowsill.price_input
-
+    in_percent = False
+    markup = 0.0
     if markups_type == 0:
         in_percent = windowsill_markups.markups_diler_in_percent
         markup = windowsill_markups.markups_diler
@@ -65,6 +66,7 @@ def calc_windowsill(windowsill_id, width, length, count, markups_type):
 
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
+    linear_meter = round(linear_meter, 2)
 
     windowsill_calc = WindowsillCalc.objects.create(windowsill_id=windowsill.id, width=width, length=length,
                                                     count=count,
@@ -108,6 +110,8 @@ def calc_low_tides(low_tides_id, width, length, count, markups_type):
 
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
+    linear_meter = round(linear_meter, 2)
+
     low_tides_calc = LowTidesCalc.objects.create(low_tides_id=low_tides.id, width=width, length=length,
                                                  count=count,
                                                  price_output=sum, markups_type=markups_name,
@@ -149,6 +153,8 @@ def calc_flashing(flashing_id, width, length, count, markups_type):
 
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
+    linear_meter = round(linear_meter, 2)
+
     flahsing_calc = FlashingCalc.objects.create(flashing_id=flashing.id, width=width, length=length,
                                                 count=count,
                                                 price_output=sum, markups_type=markups_name,
@@ -189,6 +195,8 @@ def calc_casing(casing_id, width, length, count, markups_type):
 
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
+    linear_meter = round(linear_meter, 2)
+
     casing_calc = CasingCalc.objects.create(casing_id=casing.id, width=width, length=length,
                                             count=count,
                                             price_output=sum, markups_type=markups_name,
@@ -229,6 +237,8 @@ def calc_visors(visors_id, width, length, count, markups_type):
 
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
+    linear_meter = round(linear_meter, 2)
+
     visors_calc = VisorsCalc.objects.create(visors_id=visors.id, width=width, length=length,
                                             count=count,
                                             price_output=sum, markups_type=markups_name,
