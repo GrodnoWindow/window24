@@ -1,8 +1,8 @@
 from django.db import models
 from constructor.models import Profile, Fittings, ProductType, Aggregate, SealOutside, SealRebate, SealInternal, \
     SealantColor, Shpros, Shtapik, Sash, LaminationOutside, LaminationInside, ProfileWeight, Note, SupplyValve, \
-    ProductsInstall, PvcSlopes, FreePositions, FavoritePositions, Windowsill, WindowsillColor, WindowsillType, LowTides, \
-    LowTidesType, Visors, Flashing, FlashingMetal, Platband, ExtensionsToProfile60, ExtensionsToProfile70, \
+    ProductsInstall, PvcSlopes, FreePositions, Windowsill, LowTides, \
+    Visors, Flashing, FlashingMetal, Platband, ExtensionsToProfile60, ExtensionsToProfile70, \
     BayWindowToProfile60, BayWindowToProfile70, Connector90g, Accessories, OtherComplectation, Locks, \
     StraightConnectors, \
     Works, TypeLamination, Sealant, Lamination, Gorbylki, Handles, ConnectionProfile, AdditionalProfile, Sealant, Door, \
@@ -50,7 +50,7 @@ class Windowsill_Markups(models.Model):
     markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
 
     def __str__(self):
-        return f' Подоконник # {self.windowsill.id} цвет: {self.windowsill.color}, тип: {self.windowsill.type}, цена закупки: {self.windowsill.price_input} ,' \
+        return f' Подоконник # {self.windowsill.id} название {self.windowsill.name}, цена закупки: {self.windowsill.price_input} ,' \
                f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
                f' наценка ( розница ): {self.markups_diler} , в процентах : {self.markups_retail_in_percent}'
         # return f'# {self.id} цвет: {self.color}, тип: {self.type}, цена закупки: {self.price_input}'
@@ -71,7 +71,7 @@ class LowTides_Markups(models.Model):
     markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
 
     def __str__(self):
-        return f' Отлив № {self.lowtides.pk} название: {self.lowtides.name}, тип: {self.lowtides.type}, цена закупки: {self.lowtides.price_input} ,' \
+        return f' Отлив № {self.lowtides.pk} название: {self.lowtides.name}, цена закупки: {self.lowtides.price_input} ,' \
                f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
                f' наценка ( розница ): {self.markups_diler} , в процентах : {self.markups_retail_in_percent}'
         # return f'# {self.id} цвет: {self.color}, тип: {self.type}, цена закупки: {self.price_input}'

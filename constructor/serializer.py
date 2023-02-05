@@ -129,31 +129,15 @@ class FreePositionsSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class FavoritePositionsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FavoritePositions
-        fields = ['id', 'name']
 
 
-class WindowsillColorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = WindowsillColor
-        fields = ['id', 'name']
-
-
-class WindowsillTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = WindowsillType
-        fields = ['id', 'name']
 
 
 class WindowsillSerializer(serializers.ModelSerializer):
-    color = WindowsillColorSerializer(many=False, read_only=False)
-    type = WindowsillTypeSerializer(many=False, read_only=False)
 
     class Meta:
         model = Windowsill
-        fields = ['id', 'color', 'type']
+        fields = '__all__'
 
 
 # class WindowsillDankeKomfortSerializer(serializers.ModelSerializer):
@@ -172,57 +156,26 @@ class WindowsillSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = WindowsillDankePremium
 #         fields = ['id', 'name']
-class LowTidesTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = LowTidesType
-        fields = '__all__'
 
 
 class LowTidesSerializer(serializers.ModelSerializer):
-    type = LowTidesTypeSerializer(many=False, read_only=False)
 
     class Meta:
         model = LowTides
-        fields = ['id', 'name', 'type']
-
-
-class VisorsTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = VisorsType
         fields = '__all__'
 
 
-class VisorsColorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = VisorsColor
-        fields = '__all__'
+
 
 
 class VisorsSerializer(serializers.ModelSerializer):
-    color = VisorsColorSerializer(many=False, read_only=False)
-    type = VisorsTypeSerializer(many=False, read_only=False)
 
     class Meta:
         model = Visors
         fields = '__all__'
 
 
-class FlashingColorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FlashingColor
-        fields = '__all__'
-
-
-class FlashingTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FlashingType
-        fields = '__all__'
-
-
 class FlashingSerializer(serializers.ModelSerializer):
-    color = FlashingColorSerializer(many=False, read_only=False)
-    type = FlashingTypeSerializer(many=False, read_only=False)
-
     class Meta:
         model = Flashing
         fields = '__all__'
@@ -300,22 +253,7 @@ class SupplyValveSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class CasingColorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CasingColor
-        fields = '__all__'
-
-
-class CasingTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CasingType
-        fields = '__all__'
-
-
 class CasingSerializer(serializers.ModelSerializer):
-    color = CasingColorSerializer(many=False, read_only=False)
-    type = CasingTypeSerializer(many=False, read_only=False)
-
     class Meta:
         model = Casing
         fields = '__all__'
@@ -441,7 +379,6 @@ class ConstructorSerializer(serializers.Serializer):
     products_install = ProductsInstallSerializer(read_only=True, many=True)
     pvc_slopes = PvcSlopesSerializer(read_only=True, many=True)
     free_positions = FreePositionsSerializer(read_only=True, many=True)
-    favorite_positions = FavoritePositionsSerializer(read_only=True, many=True)
     windowsill = WindowsillSerializer(read_only=True, many=True)
     low_tides = LowTidesSerializer(read_only=True, many=True)
     visors = VisorsSerializer(read_only=True, many=True)
@@ -479,5 +416,4 @@ class ConstructorSerializer(serializers.Serializer):
     sealant_inside = SealantInsideSerializer(read_only=True, many=True)
     sealant_outside = SealantOutsideSerializer(read_only=True, many=True)
     sealant_shtapik = SealantShtapikSerializer(read_only=True, many=True)
-    windowsill_type = WindowsillTypeSerializer(read_only=True, many=True)
     casing = CasingSerializer(read_only=True, many=True)
