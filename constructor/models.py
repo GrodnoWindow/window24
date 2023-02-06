@@ -666,7 +666,7 @@ class Flashing(models.Model):
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
     def __str__(self):
-        return f'{self.pk} {self.type}'
+        return f'{self.pk} {self.name}'
 
     class Meta:
         verbose_name = 'Нащельник'
@@ -736,7 +736,7 @@ class Visors(models.Model):
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
     def __str__(self):
-        return f'{self.id} {self.type} {self.color}'
+        return f'{self.id} {self.sweep} {self.name}'
 
     class Meta:
         verbose_name = 'Козырек'
