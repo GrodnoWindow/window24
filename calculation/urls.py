@@ -27,7 +27,6 @@ urlpatterns = [
 
     path('', include(router_constructor.urls)),
 
-    # path('constructor/', CalculationConstructorAPIView.as_view()),
     path('calculation/window/', CalculationWindowAPIView.as_view()),
     path('calculation/windowsill/', CalculationWindowsillAPIView.as_view()),
     path('calculation/low-tides/', CalculationLowTidesAPIView.as_view()),
@@ -39,9 +38,6 @@ urlpatterns = [
     path('equipment/', include(router_connection_profile.urls)),
     path('equipment/', include(router_additional_profile.urls)),
     path('equipment/', include(router_sealant.urls)),
-
-    # path('works/', WorksGenericAPIView.as_view()),
-
 
 
 ]

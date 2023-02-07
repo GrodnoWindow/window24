@@ -286,13 +286,14 @@ class WindowsCalc(models.Model):
 
 
 class Constructor(models.Model):
-    # is_active = models.BooleanField(verbose_name="Активно", default=True)
+    # EQUIPMENT
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, verbose_name="Тип изделия",
                                      null=True, blank=True)
     door = models.ForeignKey(Door, on_delete=models.SET_NULL, verbose_name='Двери', null=True, blank=True)
     aggregate = models.ForeignKey(Aggregate, on_delete=models.SET_NULL, verbose_name="Заполнитель",
                                   null=True, blank=True)
     # EQUIPMENT END
+    # MATERIALS
     lamination = models.ForeignKey(Lamination, on_delete=models.SET_NULL, verbose_name="Ламинация", null=True,
                                    blank=True)
 
@@ -308,82 +309,16 @@ class Constructor(models.Model):
     other_complectation = models.ForeignKey(OtherComplectation, on_delete=models.SET_NULL,
                                             verbose_name="Прочее комплектующие", null=True, blank=True)
 
-    # OTHER EQUIPMENT END
-    # seal_outside = models.ForeignKey(SealOutside, on_delete=models.SET_NULL,
-    #                                  verbose_name="Уплотнение снаружи", null=True, blank=True)
-    # seal_rebate = models.ForeignKey(SealRebate, on_delete=models.SET_NULL,
-    #                                 verbose_name="Уплотнение притвора", null=True, blank=True)
-    # seal_internal = models.ForeignKey(SealInternal, on_delete=models.SET_NULL,
-    #                                   verbose_name="Уплотнение внутренее", null=True, blank=True)
-    # seal_color = models.ForeignKey(SealColor, on_delete=models.SET_NULL, verbose_name="Цвет уплотнения", null=True,
-    #                                blank=True)
-    # shpros = models.ForeignKey(Shpros, on_delete=models.SET_NULL, verbose_name="Шпрос", null=True,
-    #                            blank=True)
-    # shtapik = models.ForeignKey(Shtapik, on_delete=models.SET_NULL, verbose_name="Шталик", null=True,
-    #                             blank=True)
-    # sash = models.ForeignKey(Sash, on_delete=models.SET_NULL, verbose_name="Створка", null=True,
-    #                          blank=True)
-    # lamination_outside = models.ForeignKey(LaminationOutside, on_delete=models.SET_NULL,
-    #                                        verbose_name="Ламинация снаружи", null=True, blank=True)
-    # lamination_inside = models.ForeignKey(LaminationInside, on_delete=models.SET_NULL,
-    #                                       verbose_name="Ланиманция внутри", null=True, blank=True)
-    # profile_weight = models.ForeignKey(ProfileWeight, on_delete=models.SET_NULL,
-    #                                    verbose_name="Масса профиля", null=True, blank=True)
-    # note = models.ForeignKey(Note, on_delete=models.SET_NULL, verbose_name="Примечание", null=True,
-    #                          blank=True)
-    # products_install = models.ForeignKey(ProductsInstall, on_delete=models.SET_NULL,
-    #                                      verbose_name="Монтаж изделий", null=True, blank=True)
-    # pvc_slopes = models.ForeignKey(PvcSlopes, on_delete=models.SET_NULL, verbose_name="Откосы ПВХ",
-    #                                null=True, blank=True)
-    # free_positions = models.ForeignKey(FreePositions, on_delete=models.SET_NULL,
-    #                                    verbose_name="Бесплатные позиции", null=True, blank=True)
-    # favorite_positions = models.ForeignKey(FavoritePositions, on_delete=models.SET_NULL,
-    #                                        verbose_name="Избранные позиции", null=True, blank=True)
-    # # windowsill = models.ForeignKey(Windowsill, on_delete=models.SET_NULL, verbose_name="Подоконники",
-    # #                                null=True, blank=True)
-    # visors = models.ForeignKey(Visors, on_delete=models.SET_NULL, verbose_name="Козырьки", null=True,
-    #                            blank=True)
-    # flashing = models.ForeignKey(Flashing, on_delete=models.SET_NULL, verbose_name="Нащельник",
-    #                              null=True, blank=True)
-    # flashing_metal = models.ForeignKey(FlashingMetal, on_delete=models.SET_NULL,
-    #                                    verbose_name="Нащельник Металл", null=True, blank=True)
-    # platband = models.ForeignKey(Platband, on_delete=models.SET_NULL, verbose_name="Наличник",
-    #                              null=True, blank=True)
-    # extensions_to_profile60 = models.ForeignKey(ExtensionsToProfile60, on_delete=models.SET_NULL,
-    #                                             verbose_name="Доборы к профилю 60мм", null=True, blank=True)
-    # extensions_to_profile70 = models.ForeignKey(ExtensionsToProfile70,
-    #                                             on_delete=models.SET_NULL,
-    #                                             verbose_name="Доборы к профилю 70мм", null=True, blank=True)
-    # bay_window_to_profile60 = models.ForeignKey(BayWindowToProfile60, on_delete=models.SET_NULL,
-    #                                             verbose_name="Эркер к профилю 60мм", null=True, blank=True)
-    # bay_window_to_profile70 = models.ForeignKey(BayWindowToProfile70,
-    #                                             on_delete=models.SET_NULL,
-    #                                             verbose_name="Эркер к профилю 70мм", null=True, blank=True)
-    # connector_90g = models.ForeignKey(Connector90g, on_delete=models.SET_NULL,
-    #                                   verbose_name="Соединитель 90гр", null=True, blank=True)
-    # accessories = models.ForeignKey(Accessories, on_delete=models.SET_NULL,
-    #                                 verbose_name="Комлпектующие", null=True, blank=True)
-    # handles = models.ForeignKey(Handles, on_delete=models.SET_NULL,
-    #                             verbose_name="Ручка", null=True, blank=True)
-    # locks = models.ForeignKey(Locks, on_delete=models.SET_NULL,
-    #                           verbose_name="Замок", null=True, blank=True)
-    # straight_connectors = models.ForeignKey(StraightConnectors, on_delete=models.SET_NULL,
-    #                                         verbose_name="Прямые соединители", null=True, blank=True)
-    # supply_valve = models.ForeignKey(SupplyValve, on_delete=models.SET_NULL,
-    #                                  verbose_name="Приточный клапан", null=True, blank=True)
-    # price_input = models.FloatField(max_length=255, default=0.0, blank=True, null=True, verbose_name='Входная цена')
-    # price_window = models.FloatField(default=0.0, verbose_name='Цена окно ( с наценкой )', max_length=255, null=True,
-    #                                  blank=True)
-
-    # price_material = models.FloatField(default=0.0, verbose_name='Цена материалов ( с наценкой )', max_length=255,
-    #                                    null=True,
-    #                                    blank=True)
     price_constructor = models.FloatField(default=0.0, verbose_name='Цена всего просчета', max_length=255, null=True,
                                           blank=True)
+    # MATERIALS END
     window_calc = models.ForeignKey(WindowsCalc, on_delete=models.SET_NULL, verbose_name="Просчет окна", null=True,
                                     blank=True)
     windowsills_calc = models.ManyToManyField(WindowsillCalc, verbose_name="Просчеты подоконников", blank=True)
     lowtides_calc = models.ManyToManyField(LowTidesCalc, verbose_name="Просчеты отливов", blank=True)
+    flashing_calc = models.ManyToManyField(FlashingCalc, verbose_name="Просчеты нащельников", blank=True)
+    visors_calc = models.ManyToManyField(VisorsCalc, verbose_name="Просчеты козырьков", blank=True)
+    casing_calc = models.ManyToManyField(CasingCalc, verbose_name="Просчеты наличников", blank=True)
     works = models.ManyToManyField(Works, verbose_name='Работы', blank=True)
 
     def __str__(self):

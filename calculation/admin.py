@@ -10,6 +10,7 @@ admin.site.register(LowTidesCalc)
 admin.site.register(Constructor)
 admin.site.register(FlashingCalc)
 admin.site.register(CasingCalc)
+admin.site.register(VisorsCalc)
 
 # markups
 admin.site.register(Windowsill_Markups)

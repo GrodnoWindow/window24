@@ -140,48 +140,40 @@ class ConstructorViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-
         constructor = Constructor.objects.create(
-            # is_active=request.data['is_active'],
-            price_window=request.data["price_window"],
-            price_material=request.data["price_material"],
-            price_constructor=request.data["price_constructor"],
-            product_type=request.data["product_type"],
-            aggregate=request.data["aggregate"],
-            seal_outside=request.data["seal_outside"],
-            seal_rebate=request.data["seal_rebate"],
-            seal_internal=request.data["seal_internal"],
-            seal_color=request.data["seal_color"],
-            shpros=request.data["shpros"],
-            shtapik=request.data["shtapik"],
-            sash=request.data["sash"],
-            lamination_outside=request.data["lamination_outside"],
-            lamination_inside=request.data["lamination_inside"],
-            profile_weight=request.data["profile_weight"],
-            note=request.data["note"],
-            products_install=request.data["products_install"],
-            pvc_slopes=request.data["pvc_slopes"],
-            free_positions=request.data["free_positions"],
-            favorite_positions=request.data["favorite_positions"],
-            # windowsill=request.data["windowsill"],
-            visors=request.data["visors"],
-            flashing=request.data["flashing"],
-            flashing_metal=request.data["flashing_metal"],
-            platband=request.data["platband"],
-            extensions_to_profile60=request.data["extensions_to_profile60"],
-            extensions_to_profile70=request.data["extensions_to_profile70"],
-            bay_window_to_profile60=request.data["bay_window_to_profile60"],
-            bay_window_to_profile70=request.data["bay_window_to_profile70"],
-            connector_90g=request.data["connector_90g"],
-            accessories=request.data["accessories"],
-            handles=request.data["handles"],
-            locks=request.data["locks"],
-            straight_connectors=request.data["straight_connectors"],
-            supply_valve=request.data["supply_valve"],
-            window_calc=request.data["window_calc"], )
+            product_type=request.data['product_type'],
+            door=request.data['door'],
+            aggregate=request.data['aggregate'],
+            lamination=request.data['lamination'],
+            shtapik=request.data['shtapik'],
+            sash=request.data['sash'],
+            gorbylki=request.data['gorbylki'],
+            handles=request.data['handles'],
+            connection_profile=request.data['connection_profile'],
+            additional_profile=request.data['additional_profile'],
+            sealant=request.data['sealant'],
+            other_complectation=request.data['other_complectation'],
+            price_constructor=request.data['price_constructor'],
+
+            )
         try:
             for i in request.data['windowsills_calc']:
                 constructor.windowsills_calc.add(i)
+        except:
+            pass
+        try:
+            for i in request.data['casing_calc']:
+                constructor.casing_calc.add(i)
+        except:
+            pass
+        try:
+            for i in request.data['flashing_calc']:
+                constructor.flashing_calc.add(i)
+        except:
+            pass
+        try:
+            for i in request.data['visors_calc']:
+                constructor.visors_calc.add(i)
         except:
             pass
         try:
