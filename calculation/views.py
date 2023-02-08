@@ -10,6 +10,7 @@ from .serializer import *
 from .utils import *
 from django.forms import model_to_dict
 from config.pagination import CustomPagination
+from constructor.models import *
 
 
 class CalculationWindowAPIView(APIView):
@@ -142,22 +143,71 @@ class ConstructorViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        constructor = Constructor.objects.create(
-            product_type=request.data['product_type'],
-            door=request.data['door'],
-            aggregate=request.data['aggregate'],
-            lamination=request.data['lamination'],
-            shtapik=request.data['shtapik'],
-            sash=request.data['sash'],
-            gorbylki=request.data['gorbylki'],
-            handles=request.data['handles'],
-            connection_profile=request.data['connection_profile'],
-            additional_profile=request.data['additional_profile'],
-            sealant=request.data['sealant'],
-            other_complectation=request.data['other_complectation'],
-            price_constructor=request.data['price_constructor'],
+        constructor = Constructor.objects.create()
 
-            )
+        # product_type = ProductType.objects.get(pk=request.data['product_type']),
+        # constructor.product_type = ProductType.objects.get(id=request.data['product_type'])
+        try:
+            constructor.product_type = ProductType.objects.get(pk=request.data['product_type'])
+        except:
+            pass
+
+        try:
+            constructor.door = Door.objects.get(pk=request.data['door'])
+        except:
+            pass
+
+        try:
+            constructor.aggregate = Aggregate.objects.get(pk=request.data['aggregate'])
+        except:
+            pass
+
+        try:
+            constructor.lamination = Lamination.objects.get(pk=request.data['lamination'])
+        except:
+            pass
+
+        try:
+            constructor.shtapik = Shtapik.objects.get(pk=request.data['shtapik'])
+        except:
+            pass
+
+        try:
+            constructor.sash = Sash.objects.get(pk=request.data['sash'])
+        except:
+            pass
+
+        try:
+            constructor.gorbylki = Gorbylki.objects.get(pk=request.data['gorbylki'])
+        except:
+            pass
+
+        try:
+            constructor.handles = Handles.objects.get(pk=request.data['handles'])
+        except:
+            pass
+
+        try:
+            constructor.connection_profile = ConnectionProfile.objects.get(pk=request.data['connection_profile'])
+        except:
+            pass
+
+        try:
+            constructor.additional_profile = AdditionalProfile.objects.get(pk=request.data['additional_profile'])
+        except:
+            pass
+
+        try:
+            constructor.other_complectation = OtherComplectation.objects.get(pk=request.data['other_complectation'])
+        except:
+            pass
+
+        try:
+            constructor.price_constructor = request.data['price_constructor']
+        except:
+            pass
+
+
         try:
             for i in request.data['windowsills_calc']:
                 constructor.windowsills_calc.add(i)
@@ -188,8 +238,9 @@ class ConstructorViewSet(viewsets.ModelViewSet):
                 constructor.works.add(i)
         except:
             pass
-
-        return Response({'data': request.data})
+        constructor.save()
+        serializer = ConstructorSerializer(constructor)
+        return Response({'data': serializer.data})
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()

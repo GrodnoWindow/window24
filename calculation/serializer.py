@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from constructor.serializer import WorksSerializer
-
+from constructor.serializer import *
 
 class ExchangeRatesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -103,6 +103,7 @@ class WindowCalcSerializer(serializers.ModelSerializer):
 
 class ConstructorSerializer(serializers.ModelSerializer):
     # works = WorksSerializer(many=True, required=False)
+    # product_type = ProductTypeSerializer(read_only=False, required=False)
 
     class Meta:
         model = Constructor
