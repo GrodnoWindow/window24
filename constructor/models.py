@@ -15,7 +15,11 @@ class ProductType(models.Model):
 
 
 class Profile(models.Model):
+    TYPE = [(0, 'Прямой'),
+            (1, 'Фигурный')]
     name = models.CharField(max_length=255, verbose_name="Профиль", blank=True, null=True)
+    type = models.PositiveSmallIntegerField(('type'), choices=TYPE, blank=True, null=True)
+
     provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
 
     # price = models.FloatField(verbose_name="Цена", blank=True, null=True)
@@ -26,7 +30,7 @@ class Profile(models.Model):
 
     class Meta:
         verbose_name = 'Профиль'
-        verbose_name_plural = 'Профили'
+        verbose_name_plural = 'Профиля'
 
 
 class ProductTypeDoor(models.Model):

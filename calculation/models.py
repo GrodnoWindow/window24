@@ -49,6 +49,15 @@ class Windowsill_Markups(models.Model):
     markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
     markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
 
+    markups_3 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №3')
+    markups_3_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №3 )')
+
+    markups_4 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №4')
+    markups_4_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №4 )')
+
+    markups_5 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №5')
+    markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
+
     def __str__(self):
         return f' Подоконник # {self.windowsill.id} название {self.windowsill.name}, цена закупки: {self.windowsill.price_input} ,' \
                f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
@@ -69,6 +78,16 @@ class LowTides_Markups(models.Model):
 
     markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
     markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
+
+    markups_3 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №3')
+    markups_3_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №3 )')
+
+    markups_4 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №4')
+    markups_4_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №4 )')
+
+    markups_5 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №5')
+    markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
+
 
     def __str__(self):
         return f' Отлив № {self.lowtides.pk} название: {self.lowtides.name}, цена закупки: {self.lowtides.price_input} ,' \
@@ -91,6 +110,15 @@ class Flashing_Markups(models.Model):
     markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
     markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
 
+    markups_3 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №3')
+    markups_3_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №3 )')
+
+    markups_4 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №4')
+    markups_4_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №4 )')
+
+    markups_5 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №5')
+    markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
+
     def __str__(self):
         return f' Нащельник № {self.flashing.pk} название: {self.flashing} , цена закупки: {self.flashing.price_input} ,' \
                f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
@@ -112,6 +140,16 @@ class Casing_Markups(models.Model):
     markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
     markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
 
+    markups_3 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №3')
+    markups_3_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №3 )')
+
+    markups_4 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №4')
+    markups_4_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №4 )')
+
+    markups_5 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №5')
+    markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
+
+
     def __str__(self):
         return f' Наличник № {self.casing.pk} название: {self.casing}, цена закупки: {self.casing.price_input} ,' \
                f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
@@ -132,6 +170,16 @@ class Visors_Markups(models.Model):
 
     markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
     markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
+
+    markups_3 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №3')
+    markups_3_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №3 )')
+
+    markups_4 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №4')
+    markups_4_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №4 )')
+
+    markups_5 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №5')
+    markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
+
 
     def __str__(self):
         return f' Козырек № {self.visors.pk} название: {self.visors}, цена закупки: {self.visors.price_input} ,' \
@@ -253,12 +301,23 @@ class WindowDiscountMarkups(models.Model):
     fittings_id = models.ForeignKey(Fittings, verbose_name="Фурнитура", blank=True, null=True, on_delete=models.CASCADE)
     discount = models.FloatField(max_length=255, default=0.0, verbose_name='Значение')
 
-    markups = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка')
-    markups_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах')
+    markups_diler = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка диллерская')
+    markups_diler_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( диллер )')
+
+    markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
+    markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
+
+    markups_3 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №3')
+    markups_3_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №3 )')
+
+    markups_4 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №4')
+    markups_4_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №4 )')
+
+    markups_5 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №5')
+    markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
 
     def __str__(self):
         return f'Профиль : {self.profile_id.name} + Фурнитура: скидка {self.fittings_id.name} = {self.discount} %,' \
-               f' Наценка : {self.markups}, В процентах: {self.markups_in_percent}'
 
     class Meta:
         verbose_name = 'Скидка/Наценка на окно'
@@ -274,6 +333,8 @@ class WindowsCalc(models.Model):
     price_input = models.FloatField(max_length=255, default=0.0, verbose_name='Входная цена')
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Выходная цена ( с наценкой )')
 
+    markup_type = models.IntegerField(blank=True, null=True, verbose_name='Тип наценки')
+    markup_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название наценки')
     markup_value = models.FloatField(max_length=255, default=0.0, verbose_name='Значение наценки')
     markup_percent = models.BooleanField(default=True, verbose_name='Наценка в процентах')
 

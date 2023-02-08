@@ -12,10 +12,11 @@ class ExchangeRatesSerializer(serializers.ModelSerializer):
 class WindowSerializer(serializers.ModelSerializer):
     price_input = serializers.FloatField(max_value=None, min_value=None)
     currency_name = serializers.CharField(max_length=255, read_only=False)
+    markup_type = serializers.IntegerField(min_value=0,max_value=4, read_only=False)
 
     class Meta:
         model = WindowDiscountMarkups
-        fields = 'profile_id', 'fittings_id', 'price_input', 'currency_name',
+        fields = 'profile_id', 'fittings_id', 'price_input', 'markup_type', 'currency_name',
 
 
 class WindowsillCalcSerializer(serializers.ModelSerializer):
@@ -92,6 +93,8 @@ class WindowCalcSerializer(serializers.ModelSerializer):
 
     markup_value = serializers.FloatField(max_value=None, min_value=None, read_only=True)
     markup_percent = serializers.FloatField(max_value=None, min_value=None, read_only=True)
+    markup_name = serializers.CharField(read_only=True)
+    markup_type = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = WindowsCalc

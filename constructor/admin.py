@@ -50,6 +50,7 @@ admin.site.register(ProfileWeight)
 admin.site.register(Note)
 admin.site.register(SupplyValve)
 
+
 # EXTRAWORKS
 admin.site.register(ProductsInstall)
 admin.site.register(PvcSlopes)

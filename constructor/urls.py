@@ -12,5 +12,6 @@ urlpatterns = [
     path('category/equipment/additional-profile/', AdditionalProfileAPIView.as_view()),
     path('category/equipment/sealant/', SealantAPIView.as_view()),
     path('category/materials/', MaterialsAPIView.as_view()),
+    path('category/works/', WorksAPIView.as_view()),
 
 ]

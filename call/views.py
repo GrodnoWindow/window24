@@ -39,7 +39,7 @@ class CallAPIView(generics.ListAPIView):  # all requests get,put,patch ...
     def patch(self, request, *args, **kwargs):
         pk = kwargs.get('pk', None)
         if not pk:
-            return Response({'error': 'Method PUT not allowed'})
+            return Response({'error': 'Method PATCH not allowed'})
 
         try:
             instance = Call.objects.get(pk=pk)

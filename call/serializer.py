@@ -5,8 +5,6 @@ from .models import Call
 
 
 class CallSerializer(serializers.ModelSerializer):
-    # id_client = ClientSerializer(read_only=True)
-
     class Meta:
         model = Call
         fields = '__all__'

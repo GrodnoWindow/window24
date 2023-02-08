@@ -12,12 +12,10 @@ from config.pagination import CustomPagination
 
 
 class ComplaintViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
-                          mixins.RetrieveModelMixin,
-                          mixins.UpdateModelMixin,
-                          mixins.ListModelMixin,
-                          GenericViewSet):
-
-
+                       mixins.RetrieveModelMixin,
+                       mixins.UpdateModelMixin,
+                       mixins.ListModelMixin,
+                       GenericViewSet):
     queryset = Complaint.objects.all()
     serializer_class = ComplaintSerializer
     pagination_class = CustomPagination

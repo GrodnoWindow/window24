@@ -2,7 +2,7 @@ from constructor.models import Windowsill, LowTides
 from .models import *
 
 
-def calc_window_disc(profile_id, fittings_id, currency, price):
+def calc_window_disc(profile_id, fittings_id,markup_type, currency, price):
     exchange_rates = ExchangeRates.objects.get(name=currency)
     try:
         window = WindowDiscountMarkups.objects.get(profile_id=profile_id, fittings_id=fittings_id)
@@ -14,8 +14,28 @@ def calc_window_disc(profile_id, fittings_id, currency, price):
         window_input_price = exchange_rates.value * float(price)  # price in BYN
         discount = 0.0
 
-    in_percent = window.markups_in_percent
-    markup = window.markups
+    if markup_type == 0:
+        in_percent = window.markups_diler_in_percent
+        markup = window.markups_diler
+        markup_name = 'Диллерская'
+    elif markup_type == 1:
+        in_percent = window.markups_retail_in_percent
+        markup = window.markups_retail
+        markup_name = 'Розничная'
+    elif markup_type == 2:
+        in_percent = window.markups_3_in_percent
+        markup = window.markups_3
+        markup_name = 'Наценка №3'
+    elif markup_type == 3:
+        in_percent = window.markups_4_in_percent
+        markup = window.markups_4
+        markup_name = 'Наценка №4'
+    elif markup_type == 4:
+        in_percent = window.markups_5_in_percent
+        markup = window.markups_5
+        markup_name = 'Наценка №5'
+
+
     if in_percent:
         window_price_with_markup = window_input_price + (window_input_price / 100 * markup)  # + MARKUP
     else:
@@ -29,8 +49,10 @@ def calc_window_disc(profile_id, fittings_id, currency, price):
                                              currency_name=exchange_rates.name,
                                              currency_value=exchange_rates.value,
                                              price_output=window_price_with_markup,
+                                             markup_type=markup_type,
                                              markup_percent=in_percent,
-                                             markup_value=markup)
+                                             markup_value=markup,
+                                             markup_name=markup_name)
 
     return window_calc
 
@@ -49,6 +71,21 @@ def calc_windowsill(windowsill_id, width, length, count, markups_type):
         in_percent = windowsill_markups.markups_retail_in_percent
         markup = windowsill_markups.markups_retail
         markups_name = 'Розничная'
+
+    elif markups_type == 2:
+        in_percent = windowsill_markups.markups_3_in_percent
+        markup = windowsill_markups.markups_3
+        markups_name = 'Наценка №3'
+
+    elif markups_type == 3:
+        in_percent = windowsill_markups.markups_4_in_percent
+        markup = windowsill_markups.markups_4
+        markups_name = 'Наценка №4'
+
+    elif markups_type == 4:
+        in_percent = windowsill_markups.markups_5_in_percent
+        markup = windowsill_markups.markups_5
+        markups_name = 'Наценка №5'
 
     if in_percent:
         price_windowsill = price_input_windowsill + (price_input_windowsill / 100 * markup)  # MARKUP
@@ -93,6 +130,21 @@ def calc_low_tides(low_tides_id, width, length, count, markups_type):
         markup = low_tides_markup.markups_retail
         markups_name = 'Розничная'
 
+    elif markups_type == 2:
+        in_percent = low_tides_markup.markups_3_in_percent
+        markup = low_tides_markup.markups_3
+        markups_name = 'Наценка №3'
+
+    elif markups_type == 3:
+        in_percent = low_tides_markup.markups_4_in_percent
+        markup = low_tides_markup.markups_4
+        markups_name = 'Наценка №4'
+
+    elif markups_type == 4:
+        in_percent = low_tides_markup.markups_5_in_percent
+        markup = low_tides_markup.markups_5
+        markups_name = 'Наценка №5'
+
     if in_percent:
         price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
     else:
@@ -135,7 +187,20 @@ def calc_flashing(flashing_id, width, length, count, markups_type):
         in_percent = flashing_markup.markups_retail_in_percent
         markup = flashing_markup.markups_retail
         markups_name = 'Розничная'
+    elif markups_type == 2:
+        in_percent = flashing_markup.markups_3_in_percent
+        markup = flashing_markup.markups_3
+        markups_name = 'Наценка №3'
 
+    elif markups_type == 3:
+        in_percent = flashing_markup.markups_4_in_percent
+        markup = flashing_markup.markups_4
+        markups_name = 'Наценка №4'
+
+    elif markups_type == 4:
+        in_percent = flashing_markup.markups_5_in_percent
+        markup = flashing_markup.markups_5
+        markups_name = 'Наценка №5'
     if in_percent:
         price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
     else:
@@ -178,6 +243,18 @@ def calc_casing(casing_id, width, length, count, markups_type):
         in_percent = casing_markup.markups_retail_in_percent
         markup = casing_markup.markups_retail
         markups_name = 'Розничная'
+    elif markups_type == 2:
+        in_percent = casing_markup.markups_3_in_percent
+        markup = casing_markup.markups_3
+        markups_name = 'Наценка №3'
+    elif markups_type == 3:
+        in_percent = casing_markup.markups_4_in_percent
+        markup = casing_markup.markups_4
+        markups_name = 'Наценка №4'
+    elif markups_type == 4:
+        in_percent = casing_markup.markups_5_in_percent
+        markup = casing_markup.markups_5
+        markups_name = 'Наценка №5'
 
     if in_percent:
         price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
@@ -220,7 +297,18 @@ def calc_visors(visors_id, width, length, count, markups_type):
         in_percent = visors_markup.markups_retail_in_percent
         markup = visors_markup.markups_retail
         markups_name = 'Розничная'
-
+    elif markups_type == 2:
+        in_percent = visors_markup.markups_3_in_percent
+        markup = visors_markup.markups_3
+        markups_name = 'Наценка №3'
+    elif markups_type == 3:
+        in_percent = visors_markup.markups_4_in_percent
+        markup = visors_markup.markups_4
+        markups_name = 'Наценка №4'
+    elif markups_type == 4:
+        in_percent = visors_markup.markups_5_in_percent
+        markup = visors_markup.markups_5
+        markups_name = 'Наценка №5'
     if in_percent:
         price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
     else:
