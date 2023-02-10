@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'correspondence',
     'calls_table',
     'measurer',
+    'new_call',
 
 ]
 

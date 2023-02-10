@@ -13,9 +13,3 @@ class CallsTableSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class OutGoingCallSerializer(serializers.ModelSerializer):
-
-
-    class Meta:
-        model = OutgoingCalls
-        fields = '__all__'

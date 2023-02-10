@@ -175,7 +175,7 @@ def parse_okna360(data):
                 call = Call_Okna(id_call=id_call)
                 call.save()
                 number = item["FROM"]["NUMBER"]
-                if not (number == '14') and not (number == '15'):
+                if not (number == '1') and not (number == '2'):
                     response = requests.post(
                         f'https://okna360-crm.ru/ERPOKNA360/AddNewCalls.php?key=d41d8cd98f00b204e9800998ecf8427e&PhoneClient={number}')
                     # print(response)
@@ -193,7 +193,7 @@ def parse_window24(data):
             status = item["STATUS"]
             check_call = Call.objects.filter(id_call=id_call)  # if not record call id in database
             if not check_call:
-                if not (number_call == '14') and not (number_call == '15'):
+                if not (number_call == '1') and not (number_call == '2'):
                     # CallsTable.objects.get(client=client, call=call)
                     try:
                         number = Number.objects.get(number=number_call)

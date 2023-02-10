@@ -827,6 +827,7 @@ class ConstructorExtraMaterialAPIView(APIView):
             ]
         })
 
+
 class MaterialsAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
@@ -872,10 +873,10 @@ class MaterialsAPIView(APIView):
             ]
         })
 
+
 class WorksAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        filters = {}
-        filters['works'] = Works.objects.all()
+        filters = {'works': Works.objects.all()}
         serializer = ConstructorSerializer(filters)
         return Response({
             'data': [
@@ -888,6 +889,3 @@ class WorksAPIView(APIView):
 
             ]
         })
-
-
-
