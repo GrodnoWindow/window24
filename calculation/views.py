@@ -245,52 +245,85 @@ class ConstructorViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
         constructor = Constructor.objects.get(id=instance.pk)
+        try:
+            constructor.product_type = ProductType.objects.get(pk=request.data['product_type'])
+        except:
+            pass
 
-        constructor.is_active = request.data['is_active']
-        constructor.price_window = request.data["price_window"]
-        constructor.price_material = request.data["price_material"]
-        constructor.price_constructor = request.data["price_constructor"]
-        constructor.product_type = request.data["product_type"]
-        constructor.aggregate = request.data["aggregate"]
-        constructor.seal_outside = request.data["seal_outside"]
-        constructor.seal_rebate = request.data["seal_rebate"]
-        constructor.seal_internal = request.data["seal_internal"]
-        constructor.seal_color = request.data["seal_color"]
-        constructor.shpros = request.data["shpros"]
-        constructor.shtapik = request.data["shtapik"]
-        constructor.sash = request.data["sash"]
-        constructor.lamination_outside = request.data["lamination_outside"]
-        constructor.lamination_inside = request.data["lamination_inside"]
-        constructor.profile_weight = request.data["profile_weight"]
-        constructor.note = request.data["note"]
-        constructor.products_install = request.data["products_install"]
-        constructor.pvc_slopes = request.data["pvc_slopes"]
-        constructor.free_positions = request.data["free_positions"]
-        constructor.favorite_positions = request.data["favorite_positions"]
-        # windowsill=request.data["windowsill"],
-        constructor.visors = request.data["visors"]
-        constructor.flashing = request.data["flashing"]
-        constructor.flashing_metal = request.data["flashing_metal"]
-        constructor.platband = request.data["platband"]
-        constructor.extensions_to_profile60 = request.data["extensions_to_profile60"]
-        constructor.extensions_to_profile70 = request.data["extensions_to_profile70"]
-        constructor.bay_window_to_profile60 = request.data["bay_window_to_profile60"]
-        constructor.bay_window_to_profile70 = request.data["bay_window_to_profile70"]
-        constructor.connector_90g = request.data["connector_90g"]
-        constructor.accessories = request.data["accessories"]
-        constructor.handles = request.data["handles"]
-        constructor.locks = request.data["locks"]
-        constructor.straight_connectors = request.data["straight_connectors"]
-        constructor.supply_valve = request.data["supply_valve"]
-        constructor.window_calc = request.data["window_calc"]
+        try:
+            constructor.door = Door.objects.get(pk=request.data['door'])
+        except:
+            pass
 
-        constructor.windowsills_calc.clear()
-        constructor.lowtides_calc.clear()
-        constructor.works.clear()
+        try:
+            constructor.aggregate = Aggregate.objects.get(pk=request.data['aggregate'])
+        except:
+            pass
+
+        try:
+            constructor.lamination = Lamination.objects.get(pk=request.data['lamination'])
+        except:
+            pass
+
+        try:
+            constructor.shtapik = Shtapik.objects.get(pk=request.data['shtapik'])
+        except:
+            pass
+
+        try:
+            constructor.sash = Sash.objects.get(pk=request.data['sash'])
+        except:
+            pass
+
+        try:
+            constructor.gorbylki = Gorbylki.objects.get(pk=request.data['gorbylki'])
+        except:
+            pass
+
+        try:
+            constructor.handles = Handles.objects.get(pk=request.data['handles'])
+        except:
+            pass
+
+        try:
+            constructor.connection_profile = ConnectionProfile.objects.get(pk=request.data['connection_profile'])
+        except:
+            pass
+
+        try:
+            constructor.additional_profile = AdditionalProfile.objects.get(pk=request.data['additional_profile'])
+        except:
+            pass
+
+        try:
+            constructor.other_complectation = OtherComplectation.objects.get(pk=request.data['other_complectation'])
+        except:
+            pass
+
+        try:
+            constructor.price_constructor = request.data['price_constructor']
+        except:
+            pass
+
 
         try:
             for i in request.data['windowsills_calc']:
                 constructor.windowsills_calc.add(i)
+        except:
+            pass
+        try:
+            for i in request.data['casing_calc']:
+                constructor.casing_calc.add(i)
+        except:
+            pass
+        try:
+            for i in request.data['flashing_calc']:
+                constructor.flashing_calc.add(i)
+        except:
+            pass
+        try:
+            for i in request.data['visors_calc']:
+                constructor.visors_calc.add(i)
         except:
             pass
         try:
@@ -303,6 +336,7 @@ class ConstructorViewSet(viewsets.ModelViewSet):
                 constructor.works.add(i)
         except:
             pass
+        constructor.save()
 
         serializer = ConstructorSerializer(constructor)
         return Response({"data": serializer.data})

@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 def update_exchange_rate(name, value):
     try:
+        value = round(value, 4)
         exchange_rate = ExchangeRates.objects.get(name=name)
         auto = exchange_rate.auto
         if auto:

@@ -62,7 +62,6 @@ class Windowsill_Markups(models.Model):
         return f' Подоконник # {self.windowsill.id} название {self.windowsill.name}, цена закупки: {self.windowsill.price_input} ,' \
                f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
                f' наценка ( розница ): {self.markups_diler} , в процентах : {self.markups_retail_in_percent}'
-        # return f'# {self.id} цвет: {self.color}, тип: {self.type}, цена закупки: {self.price_input}'
 
     class Meta:
         verbose_name = 'Наценка на подоконник'
@@ -87,7 +86,6 @@ class LowTides_Markups(models.Model):
 
     markups_5 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №5')
     markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
-
 
     def __str__(self):
         return f' Отлив № {self.lowtides.pk} название: {self.lowtides.name}, цена закупки: {self.lowtides.price_input} ,' \
@@ -149,7 +147,6 @@ class Casing_Markups(models.Model):
     markups_5 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №5')
     markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
 
-
     def __str__(self):
         return f' Наличник № {self.casing.pk} название: {self.casing}, цена закупки: {self.casing.price_input} ,' \
                f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
@@ -180,7 +177,6 @@ class Visors_Markups(models.Model):
     markups_5 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №5')
     markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
 
-
     def __str__(self):
         return f' Козырек № {self.visors.pk} название: {self.visors}, цена закупки: {self.visors.price_input} ,' \
                f' наценка ( дилер ): {self.markups_diler} , в процентах : {self.markups_diler_in_percent} , ' \
@@ -190,6 +186,21 @@ class Visors_Markups(models.Model):
     class Meta:
         verbose_name = 'Наценка на козырек'
         verbose_name_plural = 'Наценка на козырьки'
+
+
+class Works_Markups(models.Model):
+    work = models.ForeignKey(Works, verbose_name="Работа", blank=True, null=True,
+                             on_delete=models.CASCADE)
+
+    markup = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка на работу')
+
+    def __str__(self):
+        return f' Работа № {self.work.id} название {self.work.name}' \
+               f' наценка : {self.markup} '
+
+    class Meta:
+        verbose_name = 'Наценка на подоконник'
+        verbose_name_plural = 'Наценка на подоконники'
 
 
 # _______________________________ CALCULATION MODELS _______________________________
@@ -317,7 +328,7 @@ class WindowDiscountMarkups(models.Model):
     markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
 
     def __str__(self):
-        return f'Профиль : {self.profile_id.name} + Фурнитура: скидка {self.fittings_id.name} = {self.discount} %,' \
+        return f'Профиль : {self.profile_id.name} + Фурнитура: скидка {self.fittings_id.name} = {self.discount} %,'
 
     class Meta:
         verbose_name = 'Скидка/Наценка на окно'

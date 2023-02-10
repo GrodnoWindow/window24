@@ -6,6 +6,12 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 
 
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
+
+
 from config.pagination import CustomPagination
 # from utils.authentication import JWTAuthenticationApp
 from django.contrib.auth.models import Permission, Group
@@ -119,12 +125,6 @@ def home(request):
 
 
 # users/views.py
-
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView
-
 
 # Создаем здесь представления.
 

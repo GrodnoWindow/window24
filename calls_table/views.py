@@ -1,10 +1,12 @@
 
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
 from config.pagination import CustomPagination
 from .models import *
 from rest_framework import generics, viewsets, mixins
 from .serializer import *
+import requests
 
 
 class CallsTableGenericAPIView(
@@ -45,3 +47,22 @@ class CallsTableAPIView(generics.ListAPIView):  # all requests get,put,patch ...
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'data': serializer.data})
+
+
+class OutgoingCallViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
+                          GenericViewSet):  # get, post , get<id>, put<id>, path<id>
+
+    queryset = OutgoingCalls.objects.all()
+    serializer_class = OutGoingCallSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        phone = request.data['phone'].replace('+375', '80')
+        num_phone = request.data['number']
+        if num_phone == 1:
+            response = requests.post(f'http://admin:hjvxbr228@192.168.1.229/servlet?key=number={phone}')
+        elif num_phone == 2:
+            response = requests.post(f'http://admin:hjvxbr228@192.168.1.223/servlet?key=number={phone}')
+            print(response)
+        return Response({"data": response})

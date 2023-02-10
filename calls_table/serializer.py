@@ -11,3 +11,11 @@ class CallsTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = CallsTable
         fields = '__all__'
+
+
+class OutGoingCallSerializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = OutgoingCalls
+        fields = '__all__'
