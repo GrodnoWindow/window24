@@ -24,7 +24,7 @@ class CalculationWindowAPIView(APIView):
         fittings_id = request.data['window']['fittings_id']
         currency = request.data['window']['currency_name']
         price_input = request.data['window']['price_input']
-        markup_type = request.data['window']['markup_type']
+        markup_type = request.data['window']['markups_type']
         window_calc = calc_window_disc(profile_id=profile_id, fittings_id=fittings_id,markup_type=markup_type,
                                        currency=currency,
                                        price=price_input)

@@ -192,7 +192,7 @@ class Works_Markups(models.Model):
     work = models.ForeignKey(Works, verbose_name="Работа", blank=True, null=True,
                              on_delete=models.CASCADE)
 
-    markup = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка на работу')
+    markups = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка на работу')
 
     def __str__(self):
         return f' Работа № {self.work.id} название {self.work.name}' \
@@ -344,10 +344,10 @@ class WindowsCalc(models.Model):
     price_input = models.FloatField(max_length=255, default=0.0, verbose_name='Входная цена')
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Выходная цена ( с наценкой )')
 
-    markup_type = models.IntegerField(blank=True, null=True, verbose_name='Тип наценки')
-    markup_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название наценки')
-    markup_value = models.FloatField(max_length=255, default=0.0, verbose_name='Значение наценки')
-    markup_percent = models.BooleanField(default=True, verbose_name='Наценка в процентах')
+    markups_type = models.IntegerField(blank=True, null=True, verbose_name='Тип наценки')
+    markups_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название наценки')
+    markups_value = models.FloatField(max_length=255, default=0.0, verbose_name='Значение наценки')
+    markups_percent = models.BooleanField(default=True, verbose_name='Наценка в процентах')
 
     def __str__(self):
         return f' Просчет окна № {self.pk} на сумму {self.price_output} BYN'

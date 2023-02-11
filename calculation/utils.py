@@ -17,23 +17,23 @@ def calc_window_disc(profile_id, fittings_id,markup_type, currency, price):
     if markup_type == 0:
         in_percent = window.markups_diler_in_percent
         markup = window.markups_diler
-        markup_name = 'Диллерская'
+        markups_name = 'Диллерская'
     elif markup_type == 1:
         in_percent = window.markups_retail_in_percent
         markup = window.markups_retail
-        markup_name = 'Розничная'
+        markups_name = 'Розничная'
     elif markup_type == 2:
         in_percent = window.markups_3_in_percent
         markup = window.markups_3
-        markup_name = 'Наценка №3'
+        markups_name = 'Наценка №3'
     elif markup_type == 3:
         in_percent = window.markups_4_in_percent
         markup = window.markups_4
-        markup_name = 'Наценка №4'
+        markups_name = 'Наценка №4'
     elif markup_type == 4:
         in_percent = window.markups_5_in_percent
         markup = window.markups_5
-        markup_name = 'Наценка №5'
+        markups_name = 'Наценка №5'
 
 
     if in_percent:
@@ -49,10 +49,10 @@ def calc_window_disc(profile_id, fittings_id,markup_type, currency, price):
                                              currency_name=exchange_rates.name,
                                              currency_value=exchange_rates.value,
                                              price_output=window_price_with_markup,
-                                             markup_type=markup_type,
-                                             markup_percent=in_percent,
-                                             markup_value=markup,
-                                             markup_name=markup_name)
+                                             markups_type=markup_type,
+                                             markups_percent=in_percent,
+                                             markups_value=markup,
+                                             markups_name=markups_name)
 
     return window_calc
 
