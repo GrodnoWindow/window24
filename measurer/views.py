@@ -1,12 +1,6 @@
-from datetime import datetime
-
-from django.http import HttpResponse
 from django.shortcuts import render
 from .utils import *
 from .forms import *
-
-
-# Create your views here.
 
 
 def index(request):
@@ -14,7 +8,6 @@ def index(request):
         date = request.GET.get('calendar')
         if date is None or date == "":
             date = datetime.now().date()
-        # get_measurements(request,date)
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
         date = request.GET.get('calendar')
@@ -64,13 +57,15 @@ def index(request):
             form.save()
     else:
         form = ImageForm()
-    # agreements = Agreements.objects.all()
-
+    # if request.POST.get('check_measurement'):
+    #     request.session.clear()
+    #     print('ez blyat')
     context = {
-        'measurements': get_measurements(request,date),
+        'curr_measurements': get_measurements(request, date),
         'form': form,
         # 'agreements': agreements,
         'measurers': get_measurers(),
+        'calendar': get_calendar(),
+        'all_measurements': get_all_measurements(request),
     }
     return render(request, 'measurer/index.html', context)
-

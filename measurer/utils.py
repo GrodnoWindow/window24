@@ -1,12 +1,33 @@
 from datetime import datetime
-
-from rest_framework.permissions import IsAuthenticated
-
-from .models import Measurement
 from .models import *
-from django.utils.datastructures import MultiValueDict
 from users.models import User
-from users.views import AuthenticatedUser
+import calendar
+
+
+def get_calendar():
+    month = datetime.today().month
+    year = datetime.today().year
+
+    all_dates = []
+    temp_calendar = calendar.Calendar()
+    for date in temp_calendar.itermonthdays3(year, month):
+        all_dates.append(datetime(date[0], date[1], date[2]))
+
+    return all_dates
+
+
+def get_all_measurements(request):
+    curr_calendar = get_calendar()
+    all_measurements = []
+    for date in curr_calendar:
+        measurement = get_measurements(request, date)
+        date = date.strftime("%d.%m")
+        if not measurement:
+            all_measurements.append(date)
+        else:
+            all_measurements.append(f'{date} Замер(а)  {measurement.count()}')
+
+    return all_measurements
 
 
 def get_measurers():
@@ -22,7 +43,7 @@ def get_measurements(request, date):
 
 
 def update_measurement(request, pk, client, address, number, time, comment, date,
-                       status, final_amount, executor, file=None, ):
+                       status, final_amount, executor, file=None):
     user = request.user.first_name
     measurement = Measurement.objects.get(pk=pk)
     measurement.client = client
@@ -40,7 +61,7 @@ def update_measurement(request, pk, client, address, number, time, comment, date
         user = User.objects.get(pk=int(executor))
         measurement.executor = user
 
-    if file == None:
+    if file is None:
         pass
     else:
         measurement.agreements = file
@@ -74,7 +95,7 @@ def update_log(request, pk, client, address, number, time, comment, date,
             user = User.objects.get(pk=int(executor))
             measurement.logs = measurement.logs + f'Пользователь: "{request.user.username}" {dt} изменил исполнителя с "{measurement.executor}" на "{user.first_name} {user.last_name}";'
     if not (measurement.agreements == file):
-        if not (file == None):
+        if not (file is None):
             measurement.logs = measurement.logs + f'Пользователь: "{request.user.username}" {dt} изменил файл с "{measurement.agreements}" на "{file}";'
 
     measurement.save()
