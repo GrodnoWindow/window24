@@ -39,11 +39,12 @@ class LowTidesCalcSerializer(serializers.ModelSerializer):
     width = serializers.IntegerField(max_value=None, min_value=None)
     length = serializers.IntegerField(max_value=None, min_value=None)
     count = serializers.IntegerField(max_value=None, min_value=None)
+    plug = serializers.IntegerField(max_value=None, min_value=None)
     markups_type = serializers.IntegerField(max_value=None, min_value=None)
 
     class Meta:
         model = LowTidesCalc
-        fields = 'low_tides_id', 'width', 'length', 'count', 'markups_type'
+        fields = 'low_tides_id', 'width', 'length', 'count','plug', 'markups_type'
 
 
 class FlashingCalcSerializer(serializers.ModelSerializer):

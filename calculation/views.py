@@ -58,12 +58,13 @@ class CalculationLowTidesAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         low_tides_id = request.data['low_tides_id']
+        plug = request.data['plug']
         width = request.data['width']
         length = request.data['length']
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        low_tides_calc = calc_low_tides(low_tides_id=low_tides_id, width=width,
+        low_tides_calc = calc_low_tides(low_tides_id=low_tides_id, width=width,plug=plug,
                                         length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(low_tides_calc)})

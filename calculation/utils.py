@@ -113,7 +113,7 @@ def calc_windowsill(windowsill_id, width, length, count, markups_type):
     return windowsill_calc
 
 
-def calc_low_tides(low_tides_id, width, length, count, markups_type):
+def calc_low_tides(low_tides_id, width, length, count, markups_type,plug):
     low_tides = LowTides.objects.get(id=low_tides_id)
     low_tides_markup = LowTidesMarkups.objects.get(lowtides=low_tides_id)
 
@@ -164,7 +164,7 @@ def calc_low_tides(low_tides_id, width, length, count, markups_type):
 
     low_tides_calc = LowTidesCalc.objects.create(low_tides_id=low_tides.id, width=width, length=length,
                                                  count=count,
-                                                 price_output=sum, markups_type=markups_name,
+                                                 price_output=sum, markups_type=markups_name,plug=plug,
                                                  square_meter=square_meter,
                                                  linear_meter=linear_meter)
 
