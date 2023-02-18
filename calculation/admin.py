@@ -3,18 +3,28 @@ from .models import *
 
 admin.site.register(WindowDiscountMarkups)
 admin.site.register(ExchangeRates)
-admin.site.register(WindowsillCalc)
-
+# Calc
 admin.site.register(WindowsCalc)
 admin.site.register(LowTidesCalc)
+admin.site.register(WindowsillCalc)
 admin.site.register(Constructor)
 admin.site.register(FlashingCalc)
-admin.site.register(CasingCalc)
+admin.site.register(SlopesOfMetalCalc)
 admin.site.register(VisorsCalc)
-
+admin.site.register(InternalSlopeCalc)
+admin.site.register(MountingMaterialsCalc)
+# Mounting
+admin.site.register(LowTidesInstallation)
+admin.site.register(WindowsillInstallation)
+admin.site.register(FlashingInstallation)
+admin.site.register(SlopesOfMetalInstallation)
+admin.site.register(VisorsInstallation)
+admin.site.register(InternalSlopeInstallation)
 # markups
-admin.site.register(Windowsill_Markups)
-admin.site.register(LowTides_Markups)
-admin.site.register(Casing_Markups)
-admin.site.register(Flashing_Markups)
-admin.site.register(Visors_Markups)
+admin.site.register(WindowsillMarkups)
+admin.site.register(LowTidesMarkups)
+admin.site.register(CasingMarkups)
+admin.site.register(FlashingMarkups)
+admin.site.register(VisorsMarkups)
+admin.site.register(SlopesOfMetalMarkups)
+admin.site.register(InternalSlopeMarkups)

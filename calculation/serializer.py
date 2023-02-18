@@ -3,6 +3,7 @@ from .models import *
 from constructor.serializer import WorksSerializer
 from constructor.serializer import *
 
+
 class ExchangeRatesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExchangeRates
@@ -12,7 +13,7 @@ class ExchangeRatesSerializer(serializers.ModelSerializer):
 class WindowSerializer(serializers.ModelSerializer):
     price_input = serializers.FloatField(max_value=None, min_value=None)
     currency_name = serializers.CharField(max_length=255, read_only=False)
-    markups_type = serializers.IntegerField(min_value=0,max_value=4, read_only=False)
+    markups_type = serializers.IntegerField(min_value=0, max_value=4, read_only=False)
 
     class Meta:
         model = WindowDiscountMarkups
@@ -65,7 +66,7 @@ class CasingCalcSerializer(serializers.ModelSerializer):
     markups_type = serializers.IntegerField(max_value=None, min_value=None)
 
     class Meta:
-        model = CasingCalc
+        model = SlopesOfMetalCalc
         fields = 'casing_id', 'width', 'length', 'count', 'markups_type'
 
 
@@ -80,6 +81,29 @@ class VisorsCalcSerializer(serializers.ModelSerializer):
         model = VisorsCalc
         fields = 'visors_id', 'width', 'length', 'count', 'markups_type'
 
+
+class SlopesOfMetalCalcSerializer(serializers.ModelSerializer):
+    slopes_of_metal_id = serializers.IntegerField(max_value=None, min_value=None)
+    width = serializers.IntegerField(max_value=None, min_value=None)
+    length = serializers.IntegerField(max_value=None, min_value=None)
+    count = serializers.IntegerField(max_value=None, min_value=None)
+    markups_type = serializers.IntegerField(max_value=None, min_value=None)
+
+    class Meta:
+        model = SlopesOfMetal
+        fields = 'slopes_of_metal_id', 'width', 'length', 'count', 'markups_type'
+
+
+class InternalSlopeCalcSerializer(serializers.ModelSerializer):
+    internal_slope_id = serializers.IntegerField(max_value=None, min_value=None)
+    width = serializers.IntegerField(max_value=None, min_value=None)
+    length = serializers.IntegerField(max_value=None, min_value=None)
+    count = serializers.IntegerField(max_value=None, min_value=None)
+    markups_type = serializers.IntegerField(max_value=None, min_value=None)
+
+    class Meta:
+        model = InternalSlope
+        fields = 'internal_slope_id', 'width', 'length', 'count', 'markups_type'
 
 class WindowCalcSerializer(serializers.ModelSerializer):
     window = WindowSerializer(read_only=False)

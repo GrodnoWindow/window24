@@ -33,6 +33,8 @@ urlpatterns = [
     path('calculation/flashing/', CalculationFlashingAPIView.as_view()),
     path('calculation/casing/', CalculationCasingAPIView.as_view()),
     path('calculation/visors/', CalculationVisorsAPIView.as_view()),
+    path('calculation/slopes-of-metal/', CalculationSlopesOfMetalAPIView.as_view()),
+    path('calculation/internal-slope/', CalculationInternalSlopeAPIView.as_view()),
     path('equipment/', include(router_door.urls)),
     path('equipment/', include(router_lamination.urls)),
     path('equipment/', include(router_connection_profile.urls)),

@@ -123,16 +123,6 @@ class PvcSlopesSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class FreePositionsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FreePositions
-        fields = ['id', 'name']
-
-
-
-
-
-
 class WindowsillSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -140,33 +130,11 @@ class WindowsillSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# class WindowsillDankeKomfortSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = WindowsillDankeKomfort
-#         fields = ['id', 'name']
-#
-#
-# class WindowsillDankeStandartSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = WindowsillDankeStandart
-#         fields = ['id', 'name']
-#
-#
-# class WindowsillDankePremiumSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = WindowsillDankePremium
-#         fields = ['id', 'name']
-
-
 class LowTidesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LowTides
         fields = '__all__'
-
-
-
-
 
 class VisorsSerializer(serializers.ModelSerializer):
 
@@ -179,54 +147,6 @@ class FlashingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Flashing
         fields = '__all__'
-
-
-class FlashingMetalSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FlashingMetal
-        fields = ['id', 'name']
-
-
-class PlatbandSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Platband
-        fields = ['id', 'name']
-
-
-class ExtensionsToProfile60Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = ExtensionsToProfile70
-        fields = ['id', 'name']
-
-
-class ExtensionsToProfile70Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = ExtensionsToProfile70
-        fields = ['id', 'name']
-
-
-class BayWindowToProfile60Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = BayWindowToProfile60
-        fields = ['id', 'name']
-
-
-class BayWindowToProfile70Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = BayWindowToProfile70
-        fields = ['id', 'name']
-
-
-class Connector90gSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Connector90g
-        fields = ['id', 'name']
-
-
-class AccessoriesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Accessories
-        fields = ['id', 'name']
 
 
 class HandlesSerializer(serializers.ModelSerializer):
@@ -378,19 +298,10 @@ class ConstructorSerializer(serializers.Serializer):
     note = NoteSerializer(read_only=True, many=True)
     products_install = ProductsInstallSerializer(read_only=True, many=True)
     pvc_slopes = PvcSlopesSerializer(read_only=True, many=True)
-    free_positions = FreePositionsSerializer(read_only=True, many=True)
     windowsill = WindowsillSerializer(read_only=True, many=True)
     low_tides = LowTidesSerializer(read_only=True, many=True)
     visors = VisorsSerializer(read_only=True, many=True)
     flashing = FlashingSerializer(read_only=True, many=True)
-    flashing_metal = FlashingMetalSerializer(read_only=True, many=True)
-    platband = PlatbandSerializer(read_only=True, many=True)
-    extensions_to_profile60 = ExtensionsToProfile60Serializer(read_only=True, many=True)
-    extensions_to_profile70 = ExtensionsToProfile70Serializer(read_only=True, many=True)
-    bay_window_to_profile60 = BayWindowToProfile60Serializer(read_only=True, many=True)
-    bay_window_to_profile70 = BayWindowToProfile70Serializer(read_only=True, many=True)
-    connector_90g = Connector90gSerializer(read_only=True, many=True)
-    accessories = AccessoriesSerializer(read_only=True, many=True)
     handles = HandlesSerializer(read_only=True, many=True)
     locks = LocksSerializer(read_only=True, many=True)
     straight_connectors = StraightConnectorsSerializer(read_only=True, many=True)

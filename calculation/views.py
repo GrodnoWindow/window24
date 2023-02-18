@@ -25,7 +25,7 @@ class CalculationWindowAPIView(APIView):
         currency = request.data['window']['currency_name']
         price_input = request.data['window']['price_input']
         markup_type = request.data['window']['markups_type']
-        window_calc = calc_window_disc(profile_id=profile_id, fittings_id=fittings_id,markup_type=markup_type,
+        window_calc = calc_window_disc(profile_id=profile_id, fittings_id=fittings_id, markup_type=markup_type,
                                        currency=currency,
                                        price=price_input)
 
@@ -123,6 +123,42 @@ class CalculationVisorsAPIView(APIView):
         return Response({'data': model_to_dict(visors_calc)})
 
 
+class CalculationSlopesOfMetalAPIView(APIView):
+    serializer_class = SlopesOfMetalCalcSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        slopes_of_metal_id = request.data['slopes_of_metal_id']
+        width = request.data['width']
+        length = request.data['length']
+        count = request.data['count']
+        markups_type = request.data['markups_type']
+
+        slopes_of_metal_calc = calc_slopes_of_metal(slopes_of_metal_id=slopes_of_metal_id, width=width,
+                                                    length=length, count=count, markups_type=markups_type)
+
+        return Response({'data': model_to_dict(slopes_of_metal_calc)})
+
+
+class CalculationInternalSlopeAPIView(APIView):
+    serializer_class = InternalSlopeCalcSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        internal_slope_id = request.data['internal_slope_id']
+        width = request.data['width']
+        length = request.data['length']
+        count = request.data['count']
+        markups_type = request.data['markups_type']
+
+        internal_slope = calc_internal_slope(internal_slope_id=internal_slope_id, width=width,
+                                             length=length, count=count, markups_type=markups_type)
+
+        return Response({'data': model_to_dict(internal_slope)})
+
+
 class ConstructorViewSet(viewsets.ModelViewSet):
     queryset = Constructor.objects.all()
     serializer_class = ConstructorSerializer
@@ -206,7 +242,6 @@ class ConstructorViewSet(viewsets.ModelViewSet):
             constructor.price_constructor = request.data['price_constructor']
         except:
             pass
-
 
         try:
             for i in request.data['windowsills_calc']:
@@ -304,7 +339,6 @@ class ConstructorViewSet(viewsets.ModelViewSet):
             constructor.price_constructor = request.data['price_constructor']
         except:
             pass
-
 
         try:
             for i in request.data['windowsills_calc']:

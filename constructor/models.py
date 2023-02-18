@@ -582,6 +582,8 @@ class FreePositions(models.Model):
 
 class Windowsill(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название подоконника", blank=True, null=True)
+    type = models.CharField(max_length=255, verbose_name='Тип подоконника', blank=True, null=True)
+    color = models.CharField(max_length=255, verbose_name='Цвет подоконника', blank=True, null=True)
     provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
@@ -595,7 +597,8 @@ class Windowsill(models.Model):
 
 class LowTides(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название отлива", blank=True, null=True)
-    type = models.CharField(max_length=255, blank=True,null=True, verbose_name='Тип отлива')
+    color = models.CharField(max_length=255, verbose_name='Цвет отлива', blank=True, null=True)
+
     provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
@@ -609,6 +612,7 @@ class LowTides(models.Model):
 
 class Flashing(models.Model):
     name = models.CharField(max_length=255, blank=True,null=True, verbose_name='Название нащельника')
+    color = models.CharField(max_length=255, verbose_name='Цвет нащельника', blank=True, null=True)
     provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
@@ -622,6 +626,7 @@ class Flashing(models.Model):
 
 class Casing(models.Model):
     name = models.CharField(max_length=255, blank=True,null=True, verbose_name='Название наличника')
+    color = models.CharField(max_length=255, verbose_name='Цвет наличника', blank=True, null=True)
     provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
@@ -634,106 +639,60 @@ class Casing(models.Model):
 
 
 class Visors(models.Model):
-    sweep = models.CharField(max_length=255, verbose_name='Развертка', blank=True, null=True)
-    name = models.CharField(max_length=255, verbose_name="Козырек", blank=True, null=True)
+    name = models.CharField(max_length=255, verbose_name='Развертка', blank=True, null=True)
+    color = models.CharField(max_length=255, verbose_name='Цвет козырька', blank=True, null=True)
     provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
     def __str__(self):
-        return f'{self.id} {self.sweep} {self.name}'
+        return f'{self.id} {self.name} {self.color}'
 
     class Meta:
         verbose_name = 'Козырек'
         verbose_name_plural = 'Козырьки'
 
 
-class FlashingMetal(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Нащельник Металл", blank=True, null=True)
+class SlopesOfMetal(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип откосов из металла')
+    color = models.CharField(max_length=255, verbose_name='Цвет откосов из металла', blank=True, null=True)
+    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Нащельник Металл'
-        verbose_name_plural = 'Нащельник Металл'
+        verbose_name = 'Откосы из металла'
+        verbose_name_plural = 'откосы из металла'
 
-
-class Platband(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Наличник", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Наличник'
-        verbose_name_plural = 'Наличник'
-
-
-class ExtensionsToProfile60(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Доборы к профилю 60мм", blank=True, null=True)
+class InternalSlope(models.Model):
+    type = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип внутренних откосов')
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Наименование внутренних откосов')
+    color = models.CharField(max_length=255, verbose_name='Цвет внутренних', blank=True, null=True)
+    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Доборы к профилю 60мм'
-        verbose_name_plural = 'Доборы к профилю 60мм'
+        verbose_name = 'Внутренние откосы'
+        verbose_name_plural = 'Внутренние откосы'
 
 
-class ExtensionsToProfile70(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Доборы к профилю 70мм", blank=True, null=True)
+class MountingMaterials(models.Model):
+    type = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип монтажных материалов')
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Наименование монтажных материалов')
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Доборы к профилю 70мм'
-        verbose_name_plural = 'Доборы к профилю 70мм'
-
-
-class BayWindowToProfile60(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Эркер к профилю 60мм", blank=True, null=True)
+    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Эркер к профилю 60мм'
-        verbose_name_plural = 'Эркер к профилю 60мм'
-
-
-class BayWindowToProfile70(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Эркер к профилю 70мм", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Эркер к профилю 70мм'
-        verbose_name_plural = 'Эркер к профилю 70мм'
-
-
-class Connector90g(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Соединитель 90гр", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Соединитель 90гр'
-        verbose_name_plural = 'Соединитель 90гр'
-
-
-class Accessories(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Комлпектующие", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Комлпектующие'
-        verbose_name_plural = 'Комлпектующие'
-
+        verbose_name = 'Монтажные материалы'
+        verbose_name_plural = 'Монтажные материалы'
 
 class Handles(models.Model):
     name = models.CharField(max_length=255, verbose_name="Ручка", blank=True, null=True)
