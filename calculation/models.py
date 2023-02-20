@@ -2,7 +2,7 @@ from django.db import models
 from constructor.models import Profile, Fittings, ProductType, Aggregate, \
     Shtapik, Sash, Windowsill, LowTides, OtherComplectation, SlopesOfMetal, InternalSlope, \
     Works, Lamination, Gorbylki, Handles, ConnectionProfile, AdditionalProfile, Sealant, Door, \
-    Casing, Flashing, Visors
+    Casing, Flashing, Visors, WindowsillColor
 
 
 class Markups(models.Model):
@@ -256,8 +256,9 @@ class FlashingInstallation(models.Model):
 class FlashingCalc(models.Model):
     flashing_id = models.IntegerField(default=0.0, verbose_name="№ Нащельника", blank=True, null=True)
 
-    installation = models.ForeignKey(FlashingInstallation, on_delete=models.SET_NULL, verbose_name='Установка',
-                                     blank=True, null=True)
+    installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
+    color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
+
     markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
@@ -290,8 +291,10 @@ class CasingInstallation(models.Model):
 class CasingCalc(models.Model):
     casing_id = models.IntegerField(default=0.0, verbose_name="№ Наличник", blank=True, null=True)
 
-    installation = models.ForeignKey(CasingInstallation, on_delete=models.SET_NULL, verbose_name='Установка',
-                                     blank=True, null=True)
+    installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
+    color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
+
+
     markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
     fastening = models.CharField(max_length=255, verbose_name='Крепление', blank=True, null=True)
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
@@ -325,8 +328,10 @@ class VisorsInstallation(models.Model):
 class VisorsCalc(models.Model):
     visors_id = models.IntegerField(default=0.0, verbose_name="№ Козырька", blank=True, null=True)
 
-    installation = models.ForeignKey(VisorsInstallation, on_delete=models.SET_NULL, verbose_name='Установка',
-                                     blank=True, null=True)
+    installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
+    color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
+
+
     markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
@@ -359,8 +364,10 @@ class LowTidesInstallation(models.Model):
 class LowTidesCalc(models.Model):
     low_tides_id = models.IntegerField(default=0.0, verbose_name="№ Отлив", blank=True, null=True)
 
-    installation = models.ForeignKey(LowTidesInstallation, on_delete=models.SET_NULL, verbose_name='Установка',
-                                     blank=True, null=True)
+    installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
+    color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
+
+
     plug = models.IntegerField(default=0, verbose_name='Заглушка', blank=True, null=True)
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
@@ -394,11 +401,11 @@ class WindowsillInstallation(models.Model):
 class WindowsillCalc(models.Model):
     windowsill_id = models.IntegerField(default=0.0, verbose_name="№ Подоконник", blank=True, null=True)
 
-    installation = models.ForeignKey(WindowsillInstallation, on_delete=models.SET_NULL, verbose_name='Установка',
-                                     blank=True, null=True)
+    installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
+    color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
+
     plug = models.IntegerField(default=0, verbose_name='Заглушка', blank=True, null=True)
     connector = models.IntegerField(default=0, verbose_name='Соединитель', blank=True, null=True)
-
     markups_type = models.CharField(max_length=255, verbose_name='Наценка')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
@@ -431,8 +438,9 @@ class SlopesOfMetalInstallation(models.Model):
 class SlopesOfMetalCalc(models.Model):
     slopes_of_metal_id = models.IntegerField(default=0.0, verbose_name="№ Откоса из металла", blank=True, null=True)
 
-    installation = models.ForeignKey(SlopesOfMetalInstallation, on_delete=models.SET_NULL, verbose_name='Установка',
-                                     blank=True, null=True)
+    installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
+    color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
+
     markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
@@ -465,8 +473,9 @@ class InternalSlopeInstallation(models.Model):
 class InternalSlopeCalc(models.Model):
     internal_slope_id = models.IntegerField(default=0.0, verbose_name="№ Внутренние откосов", blank=True, null=True)
 
-    installation = models.ForeignKey(InternalSlopeInstallation, on_delete=models.SET_NULL, verbose_name='Установка',
-                                     blank=True, null=True)
+    installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
+    color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
+
     markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')

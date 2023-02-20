@@ -832,6 +832,7 @@ class MaterialsAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
         filters['windowsill'] = Windowsill.objects.all()
+        filters['windowsill_color'] = WindowsillColor.objects.all()
         filters['low_tides'] = LowTides.objects.all()
         filters['flashing'] = Flashing.objects.all()
         filters['casing'] = Casing.objects.all()
@@ -845,6 +846,12 @@ class MaterialsAPIView(APIView):
                     'placeholder': 'Выберите подоконник',
                     'label': 'Подоконник',
                     'data': serializer.data['windowsill'],
+                },
+                {
+                    'name': 'windowsill_color',
+                    'placeholder': 'Выберите цвет подоконника',
+                    'label': 'Подоконника',
+                    'value': serializer.data['windowsill_color'],
                 },
                 {
                     'name': 'low_tides',

@@ -22,6 +22,8 @@ class WindowSerializer(serializers.ModelSerializer):
 
 class WindowsillCalcSerializer(serializers.ModelSerializer):
     windowsill_id = serializers.IntegerField(max_value=None, min_value=None)
+    installation_id = serializers.IntegerField(max_value=None, min_value=None)
+    color_id = serializers.IntegerField(max_value=None, min_value=None)
     width = serializers.IntegerField(max_value=None, min_value=None)
     length = serializers.IntegerField(max_value=None, min_value=None)
     count = serializers.IntegerField(max_value=None, min_value=None)
@@ -31,7 +33,7 @@ class WindowsillCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WindowsillCalc
-        fields = 'windowsill_id', 'width', 'length', 'count', 'plug', 'connector', 'markups_type'
+        fields = 'windowsill_id','installation_id', 'color_id', 'width', 'length', 'count', 'plug', 'connector', 'markups_type'
 
 
 class LowTidesCalcSerializer(serializers.ModelSerializer):

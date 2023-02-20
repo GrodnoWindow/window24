@@ -124,20 +124,18 @@ class PvcSlopesSerializer(serializers.ModelSerializer):
 
 
 class WindowsillSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Windowsill
         fields = '__all__'
 
 
 class LowTidesSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = LowTides
         fields = '__all__'
 
-class VisorsSerializer(serializers.ModelSerializer):
 
+class VisorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visors
         fields = '__all__'
@@ -176,6 +174,12 @@ class SupplyValveSerializer(serializers.ModelSerializer):
 class CasingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Casing
+        fields = '__all__'
+
+
+class WindowsillColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WindowsillColor
         fields = '__all__'
 
 
@@ -328,3 +332,4 @@ class ConstructorSerializer(serializers.Serializer):
     sealant_outside = SealantOutsideSerializer(read_only=True, many=True)
     sealant_shtapik = SealantShtapikSerializer(read_only=True, many=True)
     casing = CasingSerializer(read_only=True, many=True)
+    windowsill_color = WindowsillColorSerializer(read_only=True, many=True)

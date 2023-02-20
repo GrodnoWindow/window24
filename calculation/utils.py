@@ -56,7 +56,7 @@ def calc_window_disc(profile_id, fittings_id, markup_type, currency, price):
     return window_calc
 
 
-def calc_windowsill(windowsill_id, width, length, count, markups_type):
+def calc_windowsill(windowsill_id,installation_id,color_id, width, length, count, markups_type):
     windowsill = Windowsill.objects.get(id=windowsill_id)
     windowsill_markups = WindowsillMarkups.objects.get(windowsill=windowsill_id)
     price_input_windowsill = windowsill.price_input
@@ -108,7 +108,8 @@ def calc_windowsill(windowsill_id, width, length, count, markups_type):
                                                     count=count,
                                                     price_output=sum, markups_type=markups_name,
                                                     square_meter=square_meter,
-                                                    linear_meter=linear_meter)
+                                                    linear_meter=linear_meter,
+                                                    installation_id=installation_id,color_id=color_id)
 
     return windowsill_calc
 

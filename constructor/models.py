@@ -579,11 +579,20 @@ class FreePositions(models.Model):
 
 
 # _______________________________ EXTRAMATERIAL MODEL _______________________________
+class WindowsillColor(models.Model):
+    name = models.CharField(max_length=255,blank=True,null=True,verbose_name='Цвет')
 
+    def __str__(self):
+        return f'# {self.pk} Название цвета: {self.name}'
+
+    class Meta:
+        verbose_name = 'Цвет подоконник'
+        verbose_name_plural = 'Цвет подоконников'
 class Windowsill(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название подоконника", blank=True, null=True)
     type = models.CharField(max_length=255, verbose_name='Тип подоконника', blank=True, null=True)
-    color = models.CharField(max_length=255, verbose_name='Цвет подоконника', blank=True, null=True)
+    # color = models.CharField(max_length=255, verbose_name='Цвет подоконника', blank=True, null=True)
+    color = models.ForeignKey(WindowsillColor,on_delete=models.SET_NULL,verbose_name='Цвет подоконника', blank=True, null=True)
     provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 

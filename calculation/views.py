@@ -43,9 +43,11 @@ class CalculationWindowsillAPIView(APIView):
         print(windowsill_id)
         width = request.data['width']
         length = request.data['length']
+        installation_id = request.data['installation_id']
+        color_id = request.data['color_id']
         count = request.data['count']
         markups_type = request.data['markups_type']
-        windowsill_calc = calc_windowsill(windowsill_id=windowsill_id, width=width,
+        windowsill_calc = calc_windowsill(windowsill_id=windowsill_id, width=width,color_id=color_id,installation_id=installation_id,
                                           length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(windowsill_calc)})
