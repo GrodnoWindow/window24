@@ -177,12 +177,6 @@ class CasingSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class WindowsillColorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = WindowsillColor
-        fields = '__all__'
-
-
 class WorksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Works
@@ -332,4 +326,3 @@ class ConstructorSerializer(serializers.Serializer):
     sealant_outside = SealantOutsideSerializer(read_only=True, many=True)
     sealant_shtapik = SealantShtapikSerializer(read_only=True, many=True)
     casing = CasingSerializer(read_only=True, many=True)
-    windowsill_color = WindowsillColorSerializer(read_only=True, many=True)

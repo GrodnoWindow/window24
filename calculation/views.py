@@ -60,13 +60,15 @@ class CalculationLowTidesAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         low_tides_id = request.data['low_tides_id']
+        installation_id = request.data['installation_id']
+        color_id = request.data['color_id']
         plug = request.data['plug']
         width = request.data['width']
         length = request.data['length']
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        low_tides_calc = calc_low_tides(low_tides_id=low_tides_id, width=width,plug=plug,
+        low_tides_calc = calc_low_tides(low_tides_id=low_tides_id, width=width,plug=plug,color_id=color_id,installation_id=installation_id,
                                         length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(low_tides_calc)})
@@ -79,12 +81,14 @@ class CalculationFlashingAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         flashing_id = request.data['flashing_id']
+        installation_id = request.data['installation_id']
+        color_id = request.data['color_id']
         width = request.data['width']
         length = request.data['length']
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        flashing_calc = calc_flashing(flashing_id=flashing_id, width=width,
+        flashing_calc = calc_flashing(flashing_id=flashing_id, width=width,color_id=color_id,installation_id=installation_id,
                                       length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(flashing_calc)})
@@ -97,13 +101,16 @@ class CalculationCasingAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         casing_id = request.data['casing_id']
+        installation_id = request.data['installation_id']
+        fastening_id = request.data['fastening_id']
+        color_id = request.data['color_id']
         width = request.data['width']
         length = request.data['length']
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        casing_calc = calc_casing(casing_id=casing_id, width=width,
-                                  length=length, count=count, markups_type=markups_type)
+        casing_calc = calc_casing(casing_id=casing_id, width=width,color_id=color_id,installation_id=installation_id,
+                                  fastening_id=fastening_id,length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(casing_calc)})
 
@@ -115,12 +122,14 @@ class CalculationVisorsAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         visors_id = request.data['visors_id']
+        installation_id = request.data['installation_id']
+        color_id = request.data['color_id']
         width = request.data['width']
         length = request.data['length']
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        visors_calc = calc_visors(visors_id=visors_id, width=width,
+        visors_calc = calc_visors(visors_id=visors_id, width=width,color_id=color_id,installation_id=installation_id,
                                   length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(visors_calc)})
@@ -133,12 +142,14 @@ class CalculationSlopesOfMetalAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         slopes_of_metal_id = request.data['slopes_of_metal_id']
+        installation_id = request.data['installation_id']
+        color_id = request.data['color_id']
         width = request.data['width']
         length = request.data['length']
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        slopes_of_metal_calc = calc_slopes_of_metal(slopes_of_metal_id=slopes_of_metal_id, width=width,
+        slopes_of_metal_calc = calc_slopes_of_metal(slopes_of_metal_id=slopes_of_metal_id, width=width,color_id=color_id,installation_id=installation_id,
                                                     length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(slopes_of_metal_calc)})
@@ -151,12 +162,14 @@ class CalculationInternalSlopeAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         internal_slope_id = request.data['internal_slope_id']
+        installation_id = request.data['installation_id']
+        color_id = request.data['color_id']
         width = request.data['width']
         length = request.data['length']
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        internal_slope = calc_internal_slope(internal_slope_id=internal_slope_id, width=width,
+        internal_slope = calc_internal_slope(internal_slope_id=internal_slope_id, width=width,color_id=color_id,installation_id=installation_id,
                                              length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(internal_slope)})

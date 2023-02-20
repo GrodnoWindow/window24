@@ -114,7 +114,7 @@ def calc_windowsill(windowsill_id,installation_id,color_id, width, length, count
     return windowsill_calc
 
 
-def calc_low_tides(low_tides_id, width, length, count, markups_type,plug):
+def calc_low_tides(low_tides_id,installation_id,color_id, width, length, count, markups_type,plug):
     low_tides = LowTides.objects.get(id=low_tides_id)
     low_tides_markup = LowTidesMarkups.objects.get(lowtides=low_tides_id)
 
@@ -167,12 +167,13 @@ def calc_low_tides(low_tides_id, width, length, count, markups_type,plug):
                                                  count=count,
                                                  price_output=sum, markups_type=markups_name,plug=plug,
                                                  square_meter=square_meter,
-                                                 linear_meter=linear_meter)
+                                                 linear_meter=linear_meter,
+                                                 installation_id=installation_id,color_id=color_id)
 
     return low_tides_calc
 
 
-def calc_flashing(flashing_id, width, length, count, markups_type):
+def calc_flashing(flashing_id,installation_id,color_id, width, length, count, markups_type):
     flashing = Flashing.objects.get(id=flashing_id)
     flashing_markup = FlashingMarkups.objects.get(flashing=flashing_id)
 
@@ -222,12 +223,13 @@ def calc_flashing(flashing_id, width, length, count, markups_type):
                                                 count=count,
                                                 price_output=sum, markups_type=markups_name,
                                                 square_meter=square_meter,
-                                                linear_meter=linear_meter)
+                                                linear_meter=linear_meter,
+                                                installation_id=installation_id,color_id=color_id)
 
     return flahsing_calc
 
 
-def calc_casing(casing_id, width, length, count, markups_type):
+def calc_casing(casing_id,installation_id,color_id,fastening_id, width, length, count, markups_type):
     casing = Casing.objects.get(id=casing_id)
     casing_markup = CasingMarkups.objects.get(casing=casing_id)
 
@@ -272,18 +274,20 @@ def calc_casing(casing_id, width, length, count, markups_type):
     square_meter = round(square_meter, 2)
     linear_meter = round(linear_meter, 2)
 
-    casing_calc = SlopesOfMetalCalc.objects.create(casing_id=casing.id, width=width, length=length,
+    casing_calc = CasingCalc.objects.create(casing_id=casing_id, width=width, length=length,
                                                    count=count,
                                                    price_output=sum, markups_type=markups_name,
                                                    square_meter=square_meter,
-                                                   linear_meter=linear_meter)
+                                            fastening_id=fastening_id,
+                                                   linear_meter=linear_meter,
+                                                   installation_id=installation_id,color_id=color_id)
 
     return casing_calc
 
 
-def calc_visors(visors_id, width, length, count, markups_type):
+def calc_visors(visors_id, installation_id, color_id, width, length, count, markups_type):
     visors = Visors.objects.get(id=visors_id)
-    visors_markup = VisorsMarkups.objects.get(casing=visors_id)
+    visors_markup = VisorsMarkups.objects.get(visors=visors_id)
 
     price_input_low_tides = visors.price_input
 
@@ -325,16 +329,17 @@ def calc_visors(visors_id, width, length, count, markups_type):
     square_meter = round(square_meter, 2)
     linear_meter = round(linear_meter, 2)
 
-    visors_calc = VisorsCalc.objects.create(visors_id=visors.id, width=width, length=length,
+    visors_calc = VisorsCalc.objects.create(visors_id=visors_id, width=width, length=length,
                                             count=count,
                                             price_output=sum, markups_type=markups_name,
                                             square_meter=square_meter,
-                                            linear_meter=linear_meter)
+                                            linear_meter=linear_meter,
+                                            installation_id=installation_id,color_id=color_id)
 
     return visors_calc
 
 
-def calc_slopes_of_metal(slopes_of_metal_id, width, length, count, markups_type):
+def calc_slopes_of_metal(slopes_of_metal_id,installation_id,color_id, width, length, count, markups_type):
     slopes_of_metal = SlopesOfMetal.objects.get(id=slopes_of_metal_id)
     slopes_of_metal_markup = SlopesOfMetalMarkups.objects.get(slopes_of_metal=slopes_of_metal)
 
@@ -383,12 +388,13 @@ def calc_slopes_of_metal(slopes_of_metal_id, width, length, count, markups_type)
                                                             count=count,
                                                             price_output=sum, markups_type=markups_name,
                                                             square_meter=square_meter,
-                                                            linear_meter=linear_meter)
+                                                            linear_meter=linear_meter,
+                                                            installation_id=installation_id,color_id=color_id)
 
     return slopes_of_metal_calc
 
 
-def calc_internal_slope(internal_slope_id, width, length, count, markups_type):
+def calc_internal_slope(internal_slope_id,installation_id,color_id, width, length, count, markups_type):
     internal_slope = InternalSlope.objects.get(id=internal_slope_id)
     internal_slope_markup = InternalSlopeMarkups.objects.get(internal_slope=internal_slope)
 
@@ -436,6 +442,7 @@ def calc_internal_slope(internal_slope_id, width, length, count, markups_type):
                                                           count=count,
                                                           price_output=sum, markups_type=markups_name,
                                                           square_meter=square_meter,
-                                                          linear_meter=linear_meter)
+                                                          linear_meter=linear_meter,
+                                                          installation_id=installation_id,color_id=color_id)
 
     return internal_slop_calc

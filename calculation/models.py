@@ -2,7 +2,7 @@ from django.db import models
 from constructor.models import Profile, Fittings, ProductType, Aggregate, \
     Shtapik, Sash, Windowsill, LowTides, OtherComplectation, SlopesOfMetal, InternalSlope, \
     Works, Lamination, Gorbylki, Handles, ConnectionProfile, AdditionalProfile, Sealant, Door, \
-    Casing, Flashing, Visors, WindowsillColor
+    Casing, Flashing, Visors
 
 
 class Markups(models.Model):
@@ -84,7 +84,6 @@ class LowTidesMarkups(models.Model):
     def __str__(self):
         return f' Отлив № {self.lowtides.pk} название: {self.lowtides.name}, цена закупки: {self.lowtides.price_input} ,'
 
-
     class Meta:
         verbose_name = 'Наценка на отлив'
         verbose_name_plural = 'Наценка на отливы'
@@ -165,6 +164,7 @@ class VisorsMarkups(models.Model):
 
     def __str__(self):
         return f' Козырек № {self.visors.pk} название: {self.visors}, цена закупки: {self.visors.price_input} ,'
+
     class Meta:
         verbose_name = 'Наценка на козырек'
         verbose_name_plural = 'Наценка на козырьки'
@@ -293,10 +293,9 @@ class CasingCalc(models.Model):
 
     installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
     color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
-
+    fastening_id = models.CharField(max_length=255, verbose_name='Крепление', blank=True, null=True)
 
     markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
-    fastening = models.CharField(max_length=255, verbose_name='Крепление', blank=True, null=True)
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
@@ -331,7 +330,6 @@ class VisorsCalc(models.Model):
     installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
     color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
 
-
     markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
@@ -345,8 +343,8 @@ class VisorsCalc(models.Model):
         return f' Наличник № {self.pk} длинна {self.length} / ширина {self.width} = {self.price_output} BYN'
 
     class Meta:
-        verbose_name = 'Просчет наличника'
-        verbose_name_plural = 'Просчеты наличников'
+        verbose_name = 'Просчет козырька'
+        verbose_name_plural = 'Просчеты козырьков'
 
 
 class LowTidesInstallation(models.Model):
@@ -366,7 +364,6 @@ class LowTidesCalc(models.Model):
 
     installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
     color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
-
 
     plug = models.IntegerField(default=0, verbose_name='Заглушка', blank=True, null=True)
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
@@ -441,7 +438,7 @@ class SlopesOfMetalCalc(models.Model):
     installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
     color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
 
-    markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
+    markups_type = models.CharField(max_length=255, verbose_name='Наценка')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')

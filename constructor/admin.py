@@ -61,7 +61,6 @@ admin.site.register(FreePositions)
 # admin.site.register(FavoritePositions)
 
 admin.site.register(Windowsill)
-admin.site.register(WindowsillColor)
 admin.site.register(Flashing)
 admin.site.register(Visors)
 admin.site.register(Casing)
