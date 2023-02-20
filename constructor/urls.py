@@ -11,7 +11,14 @@ urlpatterns = [
     path('category/equipment/connection-profile/', ConnectionProfileAPIView.as_view()),
     path('category/equipment/additional-profile/', AdditionalProfileAPIView.as_view()),
     path('category/equipment/sealant/', SealantAPIView.as_view()),
-    path('category/materials/', MaterialsAPIView.as_view()),
+    path('category/materials/windowsill/', WindowsillAPIView.as_view()),
+    path('category/materials/casing/', CasingAPIView.as_view()),
+    path('category/materials/flashing/', FlashingAPIView.as_view()),
+    path('category/materials/internal-slope/', InternalSlopeAPIView.as_view()),
+    path('category/materials/low-tides/', LowTidesAPIView.as_view()),
+    path('category/materials/slopes-of-metal/', SlopesOfMetalAPIView.as_view()),
+    path('category/materials/visors/', VisorsAPIView.as_view()),
+    path('category/materials/mounting-materials/', MountingMaterialsAPIView.as_view()),
     path('category/works/', WorksAPIView.as_view()),
 
 ]

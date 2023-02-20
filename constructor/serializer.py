@@ -123,9 +123,33 @@ class PvcSlopesSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
+class WindowsillColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WindowsillColor
+        fields = '__all__'
+
+
+class WindowsillInstallationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WindowsillInstallation
+        fields = '__all__'
+
+
 class WindowsillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Windowsill
+        fields = '__all__'
+
+
+class LowTidesColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LowTidesColor
+        fields = '__all__'
+
+
+class LowTidesInstallationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LowTidesInstallation
         fields = '__all__'
 
 
@@ -135,9 +159,63 @@ class LowTidesSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class VisorsColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VisorsColor
+        fields = '__all__'
+
+
+class VisorsInstallationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VisorsInstallation
+        fields = '__all__'
+
+
 class VisorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visors
+        fields = '__all__'
+
+
+class SlopesOfMetalColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SlopesOfMetalColor
+        fields = '__all__'
+
+
+class SlopesOfMetalInstallationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SlopesOfMetalInstallation
+        fields = '__all__'
+
+
+class SlopesOfMetalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SlopesOfMetal
+        fields = '__all__'
+
+
+class MountingMaterialsNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MountingMaterialsName
+        fields = '__all__'
+
+
+class MountingMaterialsTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MountingMaterialsType
+        fields = '__all__'
+
+
+class FlashingColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FlashingColor
+        fields = '__all__'
+
+
+class FlashingInstallationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FlashingInstallation
         fields = '__all__'
 
 
@@ -171,9 +249,45 @@ class SupplyValveSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
+class CasingColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CasingColor
+        fields = '__all__'
+
+
+class CasingFasteningSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CasingFastening
+        fields = '__all__'
+
+
+class CasingInstallationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CasingInstallation
+        fields = '__all__'
+
+
 class CasingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Casing
+        fields = '__all__'
+
+
+class InternalSlopeColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InternalSlope
+        fields = '__all__'
+
+
+class InternalSlopeInstallationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InternalSlopeInstallation
+        fields = '__all__'
+
+
+class InternalSlopeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InternalSlope
         fields = '__all__'
 
 
@@ -296,10 +410,6 @@ class ConstructorSerializer(serializers.Serializer):
     note = NoteSerializer(read_only=True, many=True)
     products_install = ProductsInstallSerializer(read_only=True, many=True)
     pvc_slopes = PvcSlopesSerializer(read_only=True, many=True)
-    windowsill = WindowsillSerializer(read_only=True, many=True)
-    low_tides = LowTidesSerializer(read_only=True, many=True)
-    visors = VisorsSerializer(read_only=True, many=True)
-    flashing = FlashingSerializer(read_only=True, many=True)
     handles = HandlesSerializer(read_only=True, many=True)
     locks = LocksSerializer(read_only=True, many=True)
     straight_connectors = StraightConnectorsSerializer(read_only=True, many=True)
@@ -325,4 +435,27 @@ class ConstructorSerializer(serializers.Serializer):
     sealant_inside = SealantInsideSerializer(read_only=True, many=True)
     sealant_outside = SealantOutsideSerializer(read_only=True, many=True)
     sealant_shtapik = SealantShtapikSerializer(read_only=True, many=True)
+    windowsill_color = WindowsillColorSerializer(read_only=True, many=True)
+    windowsill_installation = WindowsillInstallationSerializer(read_only=True, many=True)
+    windowsill = WindowsillSerializer(read_only=True, many=True)
+    casing_fastening = CasingFasteningSerializer(read_only=True, many=True)
+    casing_color = CasingColorSerializer(read_only=True, many=True)
+    casing_installation = CasingInstallationSerializer(read_only=True, many=True)
     casing = CasingSerializer(read_only=True, many=True)
+    flashing_color = FlashingColorSerializer(read_only=True, many=True)
+    flashing_installation = FlashingInstallationSerializer(read_only=True, many=True)
+    flashing = FlashingSerializer(read_only=True, many=True)
+    internal_slope_color = InternalSlopeColorSerializer(read_only=True, many=True)
+    internal_slope_installation = InternalSlopeInstallationSerializer(read_only=True, many=True)
+    internal_slope = InternalSlopeSerializer(read_only=True, many=True)
+    low_tides_color = LowTidesColorSerializer(read_only=True, many=True)
+    low_tides_installation = LowTidesInstallationSerializer(read_only=True, many=True)
+    low_tides = LowTidesSerializer(read_only=True, many=True)
+    visors_color = VisorsColorSerializer(read_only=True, many=True)
+    visors_installation = VisorsInstallationSerializer(read_only=True, many=True)
+    visors = VisorsSerializer(read_only=True, many=True)
+    slopes_of_metal_color = SlopesOfMetalColorSerializer(read_only=True, many=True)
+    slopes_of_metal_installation = SlopesOfMetalInstallationSerializer(read_only=True, many=True)
+    slopes_of_metal = SlopesOfMetalSerializer(read_only=True, many=True)
+    mounting_materials_type = MountingMaterialsTypeSerializer(read_only=True, many=True)
+    mounting_materials_name = MountingMaterialsNameSerializer(read_only=True, many=True)

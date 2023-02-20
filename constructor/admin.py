@@ -67,7 +67,6 @@ admin.site.register(Casing)
 admin.site.register(LowTides)
 admin.site.register(SlopesOfMetal)
 admin.site.register(InternalSlope)
-admin.site.register(MountingMaterials)
 
 
 admin.site.register(Works)

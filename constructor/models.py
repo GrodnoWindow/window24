@@ -579,7 +579,27 @@ class FreePositions(models.Model):
 
 
 # _______________________________ EXTRAMATERIAL MODEL _______________________________
+class WindowsillInstallation(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
+    price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
 
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
+
+    class Meta:
+        verbose_name = 'Монтаж подоконника'
+        verbose_name_plural = 'Монтажи подоконников'
+
+
+class WindowsillColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет подоконника'
+        verbose_name_plural = 'Цвета подоконников'
 
 
 class Windowsill(models.Model):
@@ -596,6 +616,29 @@ class Windowsill(models.Model):
         verbose_name_plural = 'Подоконники'
 
 
+class LowTidesInstallation(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
+    price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
+
+    class Meta:
+        verbose_name = 'Монтаж отлива'
+        verbose_name_plural = 'Монтажи отливов'
+
+
+class LowTidesColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет отлива'
+        verbose_name_plural = 'Цвета отливов'
+
+
 class LowTides(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название отлива", blank=True, null=True)
 
@@ -605,10 +648,32 @@ class LowTides(models.Model):
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
 
-
     class Meta:
         verbose_name = 'Отлив'
         verbose_name_plural = 'Отливы'
+
+
+class FlashingInstallation(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
+    price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
+
+    class Meta:
+        verbose_name = 'Монтаж нащельника'
+        verbose_name_plural = 'Монтажи нащельников'
+
+
+class FlashingColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет нащельника'
+        verbose_name_plural = 'Цвета нащельников'
 
 
 class Flashing(models.Model):
@@ -624,6 +689,40 @@ class Flashing(models.Model):
         verbose_name_plural = 'Нащельники'
 
 
+class CasingFastening(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название крепление", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}'
+
+    class Meta:
+        verbose_name = 'Крепление наличника'
+        verbose_name_plural = 'Крепления наличников'
+
+
+class CasingInstallation(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
+    price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
+
+    class Meta:
+        verbose_name = 'Монтаж наличника'
+        verbose_name_plural = 'Монтажи наличников'
+
+
+class CasingColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет наличника'
+        verbose_name_plural = 'Цвета наличников'
+
+
 class Casing(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название наличника')
     provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
@@ -637,8 +736,31 @@ class Casing(models.Model):
         verbose_name_plural = 'Наличники'
 
 
+class VisorsInstallation(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
+    price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
+
+    class Meta:
+        verbose_name = 'Монтаж козырька'
+        verbose_name_plural = 'Монтажи козырьков'
+
+
+class VisorsColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет козырька'
+        verbose_name_plural = 'Цвета козырьков'
+
+
 class Visors(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Развертка', blank=True, null=True)
+    name = models.CharField(max_length=255, verbose_name='Развертка козырька', blank=True, null=True)
     provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
@@ -648,6 +770,29 @@ class Visors(models.Model):
     class Meta:
         verbose_name = 'Козырек'
         verbose_name_plural = 'Козырьки'
+
+
+class SlopesOfMetalInstallation(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
+    price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
+
+    class Meta:
+        verbose_name = 'Монтаж откосов из металла'
+        verbose_name_plural = 'Монтажи откосов из металла'
+
+
+class SlopesOfMetalColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет откосов из металла'
+        verbose_name_plural = 'Цвета откосов из металла'
 
 
 class SlopesOfMetal(models.Model):
@@ -661,6 +806,29 @@ class SlopesOfMetal(models.Model):
     class Meta:
         verbose_name = 'Откосы из металла'
         verbose_name_plural = 'откосы из металла'
+
+
+class InternalSlopeInstallation(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
+    price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
+
+    class Meta:
+        verbose_name = 'Монтаж внутренних откосов'
+        verbose_name_plural = 'Монтажи внутренних откосов'
+
+
+class InternalSlopeColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет внутренних откосов'
+        verbose_name_plural = 'Цвета внутренних откосов'
 
 
 class InternalSlope(models.Model):
@@ -677,19 +845,29 @@ class InternalSlope(models.Model):
         verbose_name_plural = 'Внутренние откосы'
 
 
-class MountingMaterials(models.Model):
-    type = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип монтажных материалов')
+class MountingMaterialsName(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Наименование монтажных материалов')
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}'
+
+    class Meta:
+        verbose_name = 'Монтажные материалы'
+        verbose_name_plural = 'Монтажные материалы'
+
+
+class MountingMaterialsType(models.Model):
+    type = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип монтажных материалов')
 
     provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
 
     def __str__(self):
-        return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
+        return f'# {self.pk} Название: {self.type}, цена закупки: {self.price_input}'
 
     class Meta:
-        verbose_name = 'Монтажные материалы'
-        verbose_name_plural = 'Монтажные материалы'
+        verbose_name = 'Тип монтажного материала'
+        verbose_name_plural = 'Типы монтажных материалов'
 
 
 class Handles(models.Model):
