@@ -172,13 +172,11 @@ def parse_window24(data):
             id_call = item["id"].split(".")[0]  # add id only number and check record
             check_call = CallWindow.objects.filter(id_call=id_call)  # if not record call id in db
             if not check_call:
-                call = CallOkna(id_call=id_call)
-                call.save()
                 number_call = item["FROM"]["NUMBER"]
                 status = item["STATUS"]
                 if not (number_call == '1') and not (number_call == '2'):
-                    call = CallWindow.objects.create(id_call=id_call)
-                    call.save()
+                    # call = CallWindow.objects.create(id_call=id_call)
+                    # call.save()
                     try:
                         number = Number.objects.get(number=number_call)
                     except Number.DoesNotExist:
@@ -196,6 +194,7 @@ def parse_window24(data):
                     #
                     call = CallWindow.objects.create(id_call=id_call, number=number, datetime=datetime.datetime.now(),
                                                call_type=status, client_id=client_id)
+                    call.save()
                     client.calls.add(call.pk)  # TODO fix
 
                     calls = CallWindow.objects.filter(number=number_call).values('id').order_by('-id')
