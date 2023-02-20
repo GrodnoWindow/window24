@@ -4,10 +4,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
-from .serializer import CallSerializer
+from .serializer import CallWindowSerializer
 from config.pagination import CustomPagination
-from .models import Call
-from .serializer import CallSerializer
+from .models import CallWindow
+from .serializer import CallWindowSerializer
 from rest_framework import generics, viewsets, mixins
 from client.models import Client
 
@@ -16,8 +16,8 @@ class CallGenericAPIView(
     generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
     mixins.UpdateModelMixin, mixins.DestroyModelMixin
 ):
-    queryset = Call.objects.all().values().order_by('-datetime')
-    serializer_class = CallSerializer
+    queryset = CallWindow.objects.all().values().order_by('-datetime')
+    serializer_class = CallWindowSerializer
     pagination_class = CustomPagination
 
     def get(self, request, pk=None):
@@ -28,13 +28,13 @@ class CallGenericAPIView(
 
 
 class CallAPIView(generics.ListAPIView):  # all requests get,put,patch ...
-    queryset = Call.objects.all()
-    serializer_class = CallSerializer
+    queryset = CallWindow.objects.all()
+    serializer_class = CallWindowSerializer
 
     def get(self, request, **kwargs):
         pk = kwargs.get('pk', None)
         w = Call.objects.get(pk=pk)
-        return Response({"data": CallSerializer(w).data})
+        return Response({"data": CallWindowSerializer(w).data})
 
     def patch(self, request, *args, **kwargs):
         pk = kwargs.get('pk', None)
@@ -46,7 +46,7 @@ class CallAPIView(generics.ListAPIView):  # all requests get,put,patch ...
         except:
             return Response({'error': 'Object does not exists'})
 
-        serializer = CallSerializer(data=request.data, instance=instance)
+        serializer = CallWindowSerializer(data=request.data, instance=instance)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'data': serializer.data})

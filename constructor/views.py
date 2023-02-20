@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 
 from config.pagination import CustomPagination
 from rest_framework import views
-from call.models import Call
+from call.models import CallWindow
 from client.models import Client
 from .models import *
 from calculation.models import Constructor

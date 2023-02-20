@@ -1,6 +1,6 @@
 from django.db import models
 
-from call.models import Call
+from call.models import CallWindow
 from miscalculation.models import Miscalculation
 from complaint.models import Complaint
 
@@ -58,7 +58,7 @@ class Client(models.Model):
     prompter = models.ManyToManyField(Prompter, blank=True)
     time_created = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
-    calls = models.ManyToManyField(Call, blank=True)
+    calls = models.ManyToManyField(CallWindow, blank=True)
     miscalculation = models.ManyToManyField(Miscalculation, verbose_name="Просчеты", blank=True)
     complaints = models.ManyToManyField(Complaint, verbose_name="Жалобы", blank=True)
 

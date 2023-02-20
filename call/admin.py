@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Call
+from .models import CallWindow
 
 
-admin.site.register(Call)
+admin.site.register(CallWindow)

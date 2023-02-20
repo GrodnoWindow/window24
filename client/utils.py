@@ -1,4 +1,4 @@
-from call.models import Call
+from call.models import CallWindow
 from client.models import Client, Number, Address
 
 

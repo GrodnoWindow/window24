@@ -1,8 +1,8 @@
 from rest_framework import serializers, status
 
-from call.models import Call
+from call.models import CallWindow
 from .models import Client, Number, Address, Prompter
-from call.serializer import CallSerializer
+from call.serializer import CallWindowSerializer
 from miscalculation.serializer import MiscalculationSerializer
 from complaint.serializer import ComplaintSerializer
 
@@ -32,7 +32,7 @@ class ClientSerializer(serializers.ModelSerializer):
     numbers = NumberSerializer(many=True, read_only=False)
     addresses = AddressSerializer(many=True, read_only=False)
     prompter = PrompterSerializer(many=True, read_only=False)
-    calls = CallSerializer(many=True, read_only=False)
+    calls = CallWindowSerializer(many=True, read_only=False)
     miscalculation = MiscalculationSerializer(many=True, read_only=False)
     complaints = ComplaintSerializer(many=True, read_only=False)
     category_select = serializers.IntegerField(read_only=True)
@@ -52,7 +52,7 @@ class ClientPostSerializer(serializers.ModelSerializer):
     name = serializers.CharField(read_only=False)
     is_active = serializers.BooleanField(read_only=True)
     author = serializers.CharField(read_only=True)
-    calls = CallSerializer(many=True, read_only=True)
+    calls = CallWindowSerializer(many=True, read_only=True)
     numbers = NumberSerializer(many=True, read_only=True)
     addresses = AddressSerializer(many=True, read_only=True)
     prompter = PrompterSerializer(many=True, read_only=True)

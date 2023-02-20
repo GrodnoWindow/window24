@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from .utils import *
 from config.pagination import CustomPagination
 
-from call.models import Call
+from call.models import CallWindow
 
 
 class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet

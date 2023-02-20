@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import Call
+from .models import CallWindow
 
 # from client.serializer import ClientSerializer
 
 
-class CallSerializer(serializers.ModelSerializer):
+class CallWindowSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Call
+        model = CallWindow
         fields = '__all__'

@@ -3,7 +3,7 @@ import datetime
 import requests, csv
 import time
 
-from call.models import Call, Call_Okna
+from call.models import CallWindow, CallOkna, CallOkna, CallWindow
 
 from client.models import Client, Number
 
@@ -164,37 +164,21 @@ def get_calls():
     return get_calls_request.json()["result"]
 
 
-def parse_okna360(data):
+def parse_window24(data):
     if not data['calls']:
-        pass
+        CallWindow.objects.filter(call_type='0').update(call_type='2')
     else:
         for item in data['calls']:
             id_call = item["id"].split(".")[0]  # add id only number and check record
-            check_call = Call_Okna.objects.filter(id_call=id_call)  # if not record call id in db
+            check_call = CallWindow.objects.filter(id_call=id_call)  # if not record call id in db
             if not check_call:
-                call = Call_Okna(id_call=id_call)
+                call = CallOkna(id_call=id_call)
                 call.save()
-                number = item["FROM"]["NUMBER"]
-                if not (number == '1') and not (number == '2'):
-                    response = requests.post(
-                        f'https://okna360-crm.ru/ERPOKNA360/AddNewCalls.php?key=d41d8cd98f00b204e9800998ecf8427e&PhoneClient={number}')
-                    # print(response)
-
-
-def parse_window24(data):
-    if not data["calls"]:
-        Call.objects.filter(call_type='0').update(call_type='2')
-        print('ЗВОНКА НЕТ')
-    else:
-        print("ЗВОНОК ЕСТЬ")
-        for item in data["calls"]:
-            id_call = item["id"].split(".")[0]  # add id only number and check record
-            number_call = item["FROM"]["NUMBER"]
-            status = item["STATUS"]
-            check_call = Call.objects.filter(id_call=id_call)  # if not record call id in database
-            if not check_call:
+                number_call = item["FROM"]["NUMBER"]
+                status = item["STATUS"]
                 if not (number_call == '1') and not (number_call == '2'):
-                    # CallsTable.objects.get(client=client, call=call)
+                    call = CallWindow.objects.create(id_call=id_call)
+                    call.save()
                     try:
                         number = Number.objects.get(number=number_call)
                     except Number.DoesNotExist:
@@ -210,11 +194,11 @@ def parse_window24(data):
                         client_id = client.pk
                         # client_name = 'new client'
                     #
-                    call = Call.objects.create(id_call=id_call, number=number, datetime=datetime.datetime.now(),
+                    call = CallWindow.objects.create(id_call=id_call, number=number, datetime=datetime.datetime.now(),
                                                call_type=status, client_id=client_id)
                     client.calls.add(call.pk)  # TODO fix
 
-                    calls = Call.objects.filter(number=number_call).values('id').order_by('-id')
+                    calls = CallWindow.objects.filter(number=number_call).values('id').order_by('-id')
                     ids_calls = calls.values_list('id', flat=True)
 
                     for call_id in ids_calls:
@@ -222,11 +206,70 @@ def parse_window24(data):
 
                     calls_table = CallsTable.objects.create(client=client, call=call)
                     calls_table.save()
-                    time.sleep(1)
+
+
+# def parse_window24(data): OLD VERSION
+#     if not data["calls"]:
+#         Call.objects.filter(call_type='0').update(call_type='2')
+#         print('ЗВОНКА НЕТ')
+#     else:
+#         print("ЗВОНОК ЕСТЬ")
+#         for item in data["calls"]:
+#             id_call = item["id"].split(".")[0]  # add id only number and check record
+#             number_call = item["FROM"]["NUMBER"]
+#             status = item["STATUS"]
+#             check_call = Call.objects.filter(id_call=id_call)  # if not record call id in database
+#             if not check_call:
+#                 if not (number_call == '1') and not (number_call == '2'):
+#                     # CallsTable.objects.get(client=client, call=call)
+#                     try:
+#                         number = Number.objects.get(number=number_call)
+#                     except Number.DoesNotExist:
+#                         number = Number.objects.create(number=number_call, name='new client')
+#                     number_id = number.pk
+#                     try:
+#                         client = Client.objects.get(numbers=number)
+#                         client_id = client.id
+#                         # client_name = client.name
+#                     except Client.DoesNotExist:
+#                         client = Client.objects.create(author='system', name='new client')
+#                         client.numbers.add(number_id)
+#                         client_id = client.pk
+#                         # client_name = 'new client'
+#                     #
+#                     call = Call.objects.create(id_call=id_call, number=number, datetime=datetime.datetime.now(),
+#                                                call_type=status, client_id=client_id)
+#                     client.calls.add(call.pk)  # TODO fix
+#
+#                     calls = Call.objects.filter(number=number_call).values('id').order_by('-id')
+#                     ids_calls = calls.values_list('id', flat=True)
+#
+#                     for call_id in ids_calls:
+#                         client.calls.add(call_id)
+#
+#                     calls_table = CallsTable.objects.create(client=client, call=call)
+#                     calls_table.save()
+#                     time.sleep(1)
 
         # else:
         #     Call.objects.filter(id_call=id_call).update(call_type=status)
 
+
+def parse_okna360(data):
+    if not data['calls']:
+        pass
+    else:
+        for item in data['calls']:
+            id_call = item["id"].split(".")[0]  # add id only number and check record
+            check_call = CallOkna.objects.filter(id_call=id_call)  # if not record call id in db
+            if not check_call:
+                call = CallOkna(id_call=id_call)
+                call.save()
+                number = item["FROM"]["NUMBER"]
+                if not (number == '1') and not (number == '2'):
+                    response = requests.post(
+                        f'https://okna360-crm.ru/ERPOKNA360/AddNewCalls.php?key=d41d8cd98f00b204e9800998ecf8427e&PhoneClient={number}')
+                    # print(response)
 
 def parse_active_calls():
     data = get_calls()
