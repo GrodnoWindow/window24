@@ -165,8 +165,7 @@ def get_calls():
 
 
 def save_call_in_table(client, call):
-
-    client.calls.add(call.pk)  # TODO fix
+    # client.calls.add(call.pk)  # TODO fix
 
     calls = CallWindow.objects.filter(number=call.number).values('id').order_by('-id')
     ids_calls = calls.values_list('id', flat=True)
@@ -192,6 +191,7 @@ def parse_window24(data):
                     call = CallWindow.objects.create(id_call=id_call, number=number_call,
                                                      datetime=datetime.datetime.now(),
                                                      call_type=status)
+                    call.save()
 
                     try:
                         number = Number.objects.get(number=number_call)
@@ -204,8 +204,6 @@ def parse_window24(data):
                     except Client.DoesNotExist:
                         client = Client.objects.create(author='system', name='new client')
                         client.numbers.add(number_id)
-
-                    call.save()
 
                     save_call_in_table(client=client, call=call)
 
