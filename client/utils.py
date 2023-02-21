@@ -14,7 +14,7 @@ def create_number_record(number,name):
 
 def create_calls_record(number_id):
     number = Number.objects.get(id=number_id)
-    calls = Call.objects.filter(number=number).values('id').order_by('-id')
+    calls = CallWindow.objects.filter(number=number).values('id').order_by('-id')
     ids = calls.values_list('id', flat=True)
     return ids
 

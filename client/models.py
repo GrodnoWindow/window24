@@ -40,7 +40,7 @@ class Number(models.Model):
     name = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return self.number
+        return f'{self.number} {self.name}'
 
 
 class Address(models.Model):
@@ -63,4 +63,4 @@ class Client(models.Model):
     complaints = models.ManyToManyField(Complaint, verbose_name="Жалобы", blank=True)
 
     def __str__(self):
-        return self.name
+        return f' {self.name} {self.numbers}'

@@ -34,10 +34,6 @@ def parse_csv_file():
             number_call = row[1]
             datetime_call = datetime.strptime(row[0], '%Y-%m-%d %H:%M:%S')
             status = 2
-            call = CallWindow.objects.create(id_call=id_call, number=number_call,
-                                             datetime=datetime_call,
-                                             call_type=status)
-            call.save()
 
             try:
                 number = Number.objects.get(number=number_call)
@@ -51,8 +47,14 @@ def parse_csv_file():
                 client = Client.objects.create(author='system', name='new client')
                 client.numbers.add(number_id)
 
+            call = CallWindow.objects.create(id_call=id_call, number=number_call,
+                                             datetime=datetime_call,
+                                             call_type=status, client_id=client.pk)
+            call.save()
+
             save_call_in_table(client=client, call=call)
 
 
 def save_all_calls():
-    parse_csv_file()
+    pass
+    # parse_csv_file()

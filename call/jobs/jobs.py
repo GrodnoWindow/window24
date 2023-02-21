@@ -192,7 +192,6 @@ def parse_window24(data):
                                                      datetime=datetime.datetime.now(),
                                                      call_type=status)
                     call.save()
-
                     try:
                         number = Number.objects.get(number=number_call)
                         number_id = number.pk

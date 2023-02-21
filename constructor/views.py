@@ -850,13 +850,13 @@ class WindowsillAPIView(APIView):
                     'name': 'windowsill_color',
                     'placeholder': 'Выберите цвет подоконника',
                     'label': 'Цвет подоконника',
-                    'value': serializer.data['windowsill_color'],
+                    'options': serializer.data['windowsill_color'],
                 },
                 {
                     'name': 'windowsill_installation',
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж подоконника',
-                    'value': serializer.data['windowsill_installation'],
+                    'options': serializer.data['windowsill_installation'],
                 }
             ]
         })
@@ -883,19 +883,19 @@ class CasingAPIView(APIView):
                     'name': 'casing_color',
                     'placeholder': 'Выберите цвет наличника',
                     'label': 'Цвет наличника',
-                    'value': serializer.data['casing_color'],
+                    'options': serializer.data['casing_color'],
                 },
                 {
                     'name': 'casing_installation',
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж наличника',
-                    'value': serializer.data['casing_installation'],
+                    'options': serializer.data['casing_installation'],
                 },
                 {
                     'name': 'casing_fastening',
                     'placeholder': 'Выберите крепление',
                     'label': 'Крепление',
-                    'value': serializer.data['casing_fastening'],
+                    'options': serializer.data['casing_fastening'],
                 }
             ]
         })
@@ -921,13 +921,13 @@ class FlashingAPIView(APIView):
                     'name': 'flashing_color',
                     'placeholder': 'Выберите цвет нащельника',
                     'label': 'Цвет нащельника',
-                    'value': serializer.data['flashing_color'],
+                    'options': serializer.data['flashing_color'],
                 },
                 {
                     'name': 'flashing_installation',
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж нащельника',
-                    'value': serializer.data['flashing_installation'],
+                    'options': serializer.data['flashing_installation'],
                 }
             ]
         })
@@ -953,13 +953,13 @@ class InternalSlopeAPIView(APIView):
                     'name': 'internal_slope_color',
                     'placeholder': 'Выберите цвет внутреннего откоса',
                     'label': 'Цвет внутренних откосов',
-                    'value': serializer.data['internal_slope_color'],
+                    'options': serializer.data['internal_slope_color'],
                 },
                 {
                     'name': 'internal_slope_installation',
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж внутренних откосов',
-                    'value': serializer.data['internal_slope_installation'],
+                    'options': serializer.data['internal_slope_installation'],
                 }
             ]
         })
@@ -984,13 +984,13 @@ class LowTidesAPIView(APIView):
                     'name': 'low_tides_color',
                     'placeholder': 'Выберите цвет отлива',
                     'label': 'Цвет отлива',
-                    'value': serializer.data['low_tides_color'],
+                    'options': serializer.data['low_tides_color'],
                 },
                 {
                     'name': 'low_tides_installation',
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж отлива',
-                    'value': serializer.data['low_tides_installation'],
+                    'options': serializer.data['low_tides_installation'],
                 }
             ]
         })
@@ -1015,13 +1015,13 @@ class VisorsAPIView(APIView):
                     'name': 'visors_color',
                     'placeholder': 'Выберите цвет козырька',
                     'label': 'Цвет козырька',
-                    'value': serializer.data['visors_color'],
+                    'options': serializer.data['visors_color'],
                 },
                 {
                     'name': 'visors_installation',
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж козырька',
-                    'value': serializer.data['visors_installation'],
+                    'options': serializer.data['visors_installation'],
                 }
             ]
         })
@@ -1047,13 +1047,13 @@ class SlopesOfMetalAPIView(APIView):
                     'name': 'slope_of_metal_color',
                     'placeholder': 'Выберите цвет откосов из металла',
                     'label': 'Цвет откосов из металла',
-                    'value': serializer.data['slopes_of_metal_color'],
+                    'options': serializer.data['slopes_of_metal_color'],
                 },
                 {
                     'name': 'slope_of_metal_installation',
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж откосов из металла',
-                    'value': serializer.data['slopes_of_metal_installation'],
+                    'options': serializer.data['slopes_of_metal_installation'],
                 }
             ]
         })
@@ -1077,7 +1077,7 @@ class MountingMaterialsAPIView(APIView):
                     'name': 'mounting_materials_name',
                     'placeholder': 'Выберите наименование монтажного материала',
                     'label': 'Наименование монтажного материала',
-                    'value': serializer.data['mounting_materials_name'],
+                    'options': serializer.data['mounting_materials_name'],
                 }
             ]
         })

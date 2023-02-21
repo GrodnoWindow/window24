@@ -11,7 +11,6 @@ class CallWindow(models.Model):
     datetime = models.DateTimeField(blank=True, null=True)
     call_status = models.CharField(max_length=255, blank=True, null=True)
     call_type = models.CharField(max_length=255, blank=True, null=True)
-    client_id = models.IntegerField(blank=True, null=True)
     comment = models.CharField(max_length=255, blank=True, null=True)
     manager = models.CharField(max_length=255, blank=True, null=True)
 
