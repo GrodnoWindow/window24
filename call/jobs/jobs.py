@@ -164,6 +164,20 @@ def get_calls():
     return get_calls_request.json()["result"]
 
 
+def save_call_in_table(client, call):
+
+    client.calls.add(call.pk)  # TODO fix
+
+    calls = CallWindow.objects.filter(number=call.number).values('id').order_by('-id')
+    ids_calls = calls.values_list('id', flat=True)
+
+    for call_id in ids_calls:
+        client.calls.add(call_id)
+
+    calls_table = CallsTable.objects.create(client=client, call=call)
+    calls_table.save()
+
+
 def parse_window24(data):
     if not data['calls']:
         CallWindow.objects.filter(call_type='0').update(call_type='2')
@@ -175,41 +189,30 @@ def parse_window24(data):
                 number_call = item["FROM"]["NUMBER"]
                 status = item["STATUS"]
                 if not (number_call == '1') and not (number_call == '2'):
-                    # call = CallWindow.objects.create(id_call=id_call)
-                    # call.save()
+                    call = CallWindow.objects.create(id_call=id_call, number=number_call,
+                                                     datetime=datetime.datetime.now(),
+                                                     call_type=status)
+
                     try:
                         number = Number.objects.get(number=number_call)
+                        number_id = number.pk
                     except Number.DoesNotExist:
                         number = Number.objects.create(number=number_call, name='new client')
-                    number_id = number.pk
+                        number_id = number.pk
                     try:
                         client = Client.objects.get(numbers=number)
-                        client_id = client.id
-                        # client_name = client.name
                     except Client.DoesNotExist:
                         client = Client.objects.create(author='system', name='new client')
                         client.numbers.add(number_id)
-                        client_id = client.pk
-                        # client_name = 'new client'
-                    #
-                    call = CallWindow.objects.create(id_call=id_call, number=number, datetime=datetime.datetime.now(),
-                                               call_type=status, client_id=client_id)
+
                     call.save()
-                    client.calls.add(call.pk)  # TODO fix
 
-                    calls = CallWindow.objects.filter(number=number_call).values('id').order_by('-id')
-                    ids_calls = calls.values_list('id', flat=True)
-
-                    for call_id in ids_calls:
-                        client.calls.add(call_id)
-
-                    calls_table = CallsTable.objects.create(client=client, call=call)
-                    calls_table.save()
+                    save_call_in_table(client=client, call=call)
 
 
-# def parse_window24(data): OLD VERSION
+# def parse_window24(data):
 #     if not data["calls"]:
-#         Call.objects.filter(call_type='0').update(call_type='2')
+#         CallWindow.objects.filter(call_type='0').update(call_type='2')
 #         print('ЗВОНКА НЕТ')
 #     else:
 #         print("ЗВОНОК ЕСТЬ")
@@ -250,8 +253,8 @@ def parse_window24(data):
 #                     calls_table.save()
 #                     time.sleep(1)
 
-        # else:
-        #     Call.objects.filter(id_call=id_call).update(call_type=status)
+# else:
+#     Call.objects.filter(id_call=id_call).update(call_type=status)
 
 
 def parse_okna360(data):
@@ -269,6 +272,7 @@ def parse_okna360(data):
                     response = requests.post(
                         f'https://okna360-crm.ru/ERPOKNA360/AddNewCalls.php?key=d41d8cd98f00b204e9800998ecf8427e&PhoneClient={number}')
                     # print(response)
+
 
 def parse_active_calls():
     data = get_calls()
