@@ -33,7 +33,7 @@ class CallAPIView(generics.ListAPIView):  # all requests get,put,patch ...
 
     def get(self, request, **kwargs):
         pk = kwargs.get('pk', None)
-        w = Call.objects.get(pk=pk)
+        w = CallWindow.objects.get(pk=pk)
         return Response({"data": CallWindowSerializer(w).data})
 
     def patch(self, request, *args, **kwargs):
@@ -42,7 +42,7 @@ class CallAPIView(generics.ListAPIView):  # all requests get,put,patch ...
             return Response({'error': 'Method PATCH not allowed'})
 
         try:
-            instance = Call.objects.get(pk=pk)
+            instance = CallWindow.objects.get(pk=pk)
         except:
             return Response({'error': 'Object does not exists'})
 
