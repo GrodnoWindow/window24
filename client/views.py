@@ -73,8 +73,8 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
 
     def retrieve(self, request, pk=None):
         queryset = Client.objects.all()
-        address = get_object_or_404(queryset, pk=pk)
-        serializer = ClientSerializer(address)
+        client = get_object_or_404(queryset, pk=pk)
+        serializer = ClientSerializer(client)
         return Response({"data": serializer.data})
 
     def update(self, request, *args, **kwargs):
@@ -87,15 +87,15 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         client.author = user.username
         client.numbers.clear()
         client.addresses.clear()
-        client.calls.clear()
+        # client.calls.clear()
         client.miscalculation.clear()
         client.complaints.clear()
         try:
-            for number in request.data['numbers']:
-                client.numbers.add(number)
-                calls = create_calls_record(number)
-                for call in calls:
-                    client.calls.add(call)
+            number_id = request.data['numbers']
+            client.numbers.add(number_id)
+            calls = create_calls_record(number_id)
+            for call in calls:
+                client.calls.add(call)
         except:
             pass
 

@@ -828,8 +828,6 @@ class ConstructorExtraMaterialAPIView(APIView):
         })
 
 
-
-
 class WindowsillAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
@@ -964,6 +962,7 @@ class InternalSlopeAPIView(APIView):
             ]
         })
 
+
 class LowTidesAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
@@ -994,6 +993,7 @@ class LowTidesAPIView(APIView):
                 }
             ]
         })
+
 
 class VisorsAPIView(APIView):
     def get(self, request, *args, **kwargs):
@@ -1057,6 +1057,7 @@ class SlopesOfMetalAPIView(APIView):
                 }
             ]
         })
+
 
 class MountingMaterialsAPIView(APIView):
     def get(self, request, *args, **kwargs):
