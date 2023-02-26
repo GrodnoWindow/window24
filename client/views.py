@@ -80,25 +80,22 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
     def update(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = request.user
         instance = self.get_object()
         client = Client.objects.get(id=instance.pk)
-        client.name = request.data['name']
-        client.author = user.username
-        client.numbers.clear()
-        client.addresses.clear()
-        # client.calls.clear()
-        client.miscalculation.clear()
-        client.complaints.clear()
+
         try:
-            number_id = request.data['numbers']
-            client.numbers.add(number_id)
-            calls = create_calls_record(number_id)
-            for call in calls:
-                client.calls.add(call)
+            client.name = request.data['name']
         except:
             pass
 
+        try:
+            for number_id in request.data['numbers']:
+                client.numbers.add(number_id)
+                calls = create_calls_record(number_id)
+                for call in calls:
+                    client.calls.add(call)
+        except:
+            pass
         try:
             for address in request.data['addresses']:
                 client.addresses.add(address)
@@ -106,17 +103,26 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
             pass
 
         try:
-            for miscalculation in request.data['miscalculation']:
-                client.miscalculation.add(miscalculation)
+            for prompter in request.data['prompter']:
+                client.prompter.add(prompter)
         except:
             pass
 
         try:
-            for complaint in request.data['complaints']:
-                client.complaints.add(complaint)
+            for calls in request.data['calls']:
+                client.calls.add(calls)
         except:
             pass
-
+        try:
+            for miscalculation in request.data['miscalculation']:
+                client.miscalculation.add(miscalculation)
+        except:
+            pass
+        try:
+            for complaints in request.data['complaints']:
+                client.complaints.add(complaints)
+        except:
+            pass
         try:
             client.category_select = request.data['category_select']
         except:
