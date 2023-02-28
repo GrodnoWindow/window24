@@ -176,15 +176,15 @@ def save_call_in_table(client, call):
     calls_table = CallsTable.objects.create(client=client, call=call)
     calls_table.save()
 
-
 def parse_window24(data):
     if not data['calls']:
         CallWindow.objects.filter(call_type='0').update(call_type='2')
     else:
         for item in data['calls']:
             id_call = item["id"].split(".")[0]  # add id only number and check record
-            check_call = CallWindow.objects.filter(id_call=id_call)  # if not record call id in db
-            if not check_call:
+            try:
+                call = CallWindow.objects.get(id_call=id_call) # if not record call id in db
+            except CallWindow.DoesNotExist:
                 number_call = item["FROM"]["NUMBER"]
                 status = item["STATUS"]
                 if not (number_call == '1') and not (number_call == '2'):
