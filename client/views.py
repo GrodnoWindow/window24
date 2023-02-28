@@ -21,7 +21,7 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
                     mixins.ListModelMixin,
                     GenericViewSet):  # get, post , get<id>, put<id>, path<id>
 
-    queryset = Client.objects.all()
+    queryset = Client.objects.all().order_by('-id')
     serializer_class = ClientPostSerializer
     pagination_class = CustomPagination
     http_method_names = ['get', 'patch', 'post']
