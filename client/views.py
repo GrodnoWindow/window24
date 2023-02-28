@@ -72,7 +72,7 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         return Response({"data": serializer.data})
 
     def retrieve(self, request, pk=None):
-        queryset = Client.objects.all()
+        queryset = Client.objects.all().order_by('-id')
         client = get_object_or_404(queryset, pk=pk)
         serializer = ClientSerializer(client)
         return Response({"data": serializer.data})
