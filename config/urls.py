@@ -42,5 +42,6 @@ urlpatterns = [
     path('calls-table/', include('calls_table.urls')),
     path('measurer/', include('measurer.urls')),
     path('new-call/', include('new_call.urls')),
+    path('startup/', include('measurer_window.urls')),
 
 ]

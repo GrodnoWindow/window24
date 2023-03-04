@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'drf_spectacular',
     'corsheaders',
+
     'users',
     'client',
     'diary',
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
     'calls_table',
     'measurer',
     'new_call',
+    'measurer_window',
 
 ]
 
