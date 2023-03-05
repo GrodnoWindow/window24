@@ -74,7 +74,7 @@ def index(request):
         'calendar': get_calendar(),
         'all_measurements': get_all_measurements(request),
     }
-    return render(request, 'measurer/index.html', context)
+    return render(request, 'measurer/order_detail.html', context)
 
 
 class MeasurementViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
