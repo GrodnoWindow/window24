@@ -109,6 +109,17 @@ class LowTidesComplectCalc(models.Model):
         verbose_name_plural = 'Просчеты комплектующих отливов'
 
 
+class Status(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Статус', blank=True, null=True)
+
+    def __str__(self):
+        return f' № {self.pk} {self.name}'
+
+    class Meta:
+        verbose_name = 'Статус'
+        verbose_name_plural = 'Статусы'
+
+
 class Order(models.Model):
     STATUS = [
         {0, 'Активная заявка'},
@@ -119,14 +130,14 @@ class Order(models.Model):
         {5, 'Отказ до замера'},
         {6, 'Отказ после замера'}
     ]
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Замерщик')
     address = models.CharField(max_length=255, blank=True, null=True, verbose_name='Адрес')
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Имя заказчика')
     phone = models.CharField(max_length=255, blank=True, null=True, verbose_name='Номер телефона')
     date = models.DateField(verbose_name='Дата замера')
     sum_in_byn = models.FloatField(default=0.0, verbose_name='Сумма просчета BYN')
     sum_in_currency = models.FloatField(default=0.0, verbose_name='Сумма просчета в EUR/USD')
-    status = models.PositiveSmallIntegerField(("Статус"), choices=STATUS, blank=True, null=True, default=0)
+    status = models.ForeignKey(Status, on_delete=models.SET_NULL, verbose_name='статус', null=True, blank=True)
     windowsill_calc = models.ManyToManyField(WindowsillCalc, blank=True, verbose_name='Просчеты подоконников')
 
     class Meta:

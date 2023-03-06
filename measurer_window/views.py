@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView
-
+from .forms import *
 from .models import *
 from .utils import *
 
@@ -10,38 +10,6 @@ from .utils import *
 class OrderDetailView(DetailView):
     model = Order
     context_object_name = "order"
-
-
-def home(request):
-    user = User.objects.get(username=request.user.username)
-    if request.method == "GET":
-        try:
-            id_order = request.GET.get('id_order')
-            order = Order.objects.get(pk=id_order)
-            order.delete()
-        except:
-            pass
-    if request.method == 'POST':
-        address = request.POST.get('address')
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        date = request.POST.get('date')
-        new_order = Order.objects.create(user=user, address=address, name=name, phone=phone, date=date)
-        new_order.save()
-
-        context = {
-            'order': new_order,
-
-        }
-        return render(request, 'measurer_window/order_detail.html', context)
-
-    orders = Order.objects.filter(user=user)
-
-    context = {
-        'test': 'test',
-        'orders': orders,
-    }
-    return render(request, 'measurer_window/home.html', context)
 
 
 def update_order(request, pk):
@@ -100,6 +68,7 @@ def delete_windowsill_complect_calc(request):
     windowsill_complect_calc = WindowsillComplectCalc.objects.get(pk=id_windowsill_complect_calc)
     windowsill_complect_calc.delete()
 
+
 def delete_low_tides_calc(request):
     id_low_tides_calc = request.GET.get('id_low_tides_calc')
     low_tides_calc = LowTidesCalc.objects.get(pk=id_low_tides_calc)
@@ -110,6 +79,7 @@ def delete_low_tides_complect_calc(request):
     id_low_tides_complect_calc = request.GET.get('id_low_tides_complect_calc')
     low_tides_complect_calc = LowTidesComplectCalc.objects.get(pk=id_low_tides_complect_calc)
     low_tides_complect_calc.delete()
+
 
 def order(request, pk):
     if request.method == "GET":
@@ -132,27 +102,34 @@ def order(request, pk):
             print('пытался удалить low_tides_complect_calc')
 
     if request.method == 'POST':
-        try:
-            create_windowsill_calc(request, pk)
-        except:
-            print('пытался создать windowsill')
-        try:
-            create_windowsill_complect_calc()
-        except:
-            print('пытался создать windowsill complect')
+        form_order = OrderForm(request.POST)
+        if form_order.is_valid():
+            order = form_order.save()
+            order.save()
+            # return render(request, 'measurer_window/order_detail.html', context)
+            return redirect('order', pk=order.pk)
 
-        try:
-            create_low_tides_calc(request, pk)
-        except:
-            print('пытался создать lowtides')
-        try:
-            create_windowsill_complect_calc(request,pk)
-        except:
-            print('пытался создать low_tides complect')
-        try:
-            update_order(request, pk)
-        except:
-            print('пытался обновить статус')
+        # try:
+        #     create_windowsill_calc(request, pk)
+        # except:
+        #     print('пытался создать windowsill')
+        # try:
+        #     create_windowsill_complect_calc()
+        # except:
+        #     print('пытался создать windowsill complect')
+        #
+        # try:
+        #     create_low_tides_calc(request, pk)
+        # except:
+        #     print('пытался создать lowtides')
+        # try:
+        #     create_windowsill_complect_calc(request,pk)
+        # except:
+        #     print('пытался создать low_tides complect')
+        # try:
+        #     update_order(request, pk)
+        # except:
+        #     print('пытался обновить статус')
 
     calc_order(order_id=pk)
     order = Order.objects.get(pk=pk)
@@ -167,8 +144,20 @@ def order(request, pk):
     low_tides_calc = LowTidesCalc.objects.filter(order_id=pk).order_by('-id')
     low_tides_complect_calc = LowTidesComplectCalc.objects.filter(order_id=pk).order_by('-id')
 
+    form_order = OrderForm(initial={
+        'address': order.address,
+        'name': order.name,
+        'phone': order.phone,
+        'date': order.date,
+        'status': order.status,
 
+    })
+
+    # form_order.fields['status'].choices = list1
     context = {
+        'form_order': form_order,
+
+
         'order': order,
 
         'windowsill': windowsill,
@@ -184,3 +173,33 @@ def order(request, pk):
 
     }
     return render(request, 'measurer_window/order_detail.html', context)
+
+
+def home(request):
+    user = User.objects.get(username=request.user.username)
+    if request.method == "GET":
+        try:
+            id_order = request.GET.get('id_order')
+            order = Order.objects.get(pk=id_order)
+            order.delete()
+        except:
+            pass
+    if request.method == 'POST':
+        form_order = OrderForm(request.POST)
+        if form_order.is_valid():
+            order = form_order.save()
+            order.user = user
+            order.save()
+            context = {
+                'order': order,
+            }
+            # return render(request, 'measurer_window/order_detail.html', context)
+            return redirect('order', pk=order.pk)
+
+    orders = Order.objects.filter(user=user).order_by('-pk')
+    form_order = OrderForm(initial={'phone': "+375"})
+    context = {
+        'form_order': form_order,
+        'orders': orders,
+    }
+    return render(request, 'measurer_window/home.html', context)

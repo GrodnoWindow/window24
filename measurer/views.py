@@ -6,9 +6,8 @@ from rest_framework.viewsets import GenericViewSet
 
 from config.pagination import CustomPagination
 from .utils import *
-from .forms import *
 from .serializer import *
-
+from .forms import *
 def index(request):
     if request.method == "GET":
         date = request.GET.get('calendar')

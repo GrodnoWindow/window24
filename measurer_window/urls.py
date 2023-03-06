@@ -7,7 +7,7 @@ from rest_framework import routers
 urlpatterns = [
     path('', home),
     # path('<int:pk>/', OrderDetailView.as_view(), name="order_list"),
-    path('<int:pk>/', order),
+    path('<int:pk>/', order, name='order'),
 
     # path('', MiscalculationAPIList.as_view()),
 
