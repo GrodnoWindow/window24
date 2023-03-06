@@ -5,6 +5,8 @@ def calc_windowsill(order_id, windowsill_id, width, length, count):
     windowsill = Windowsill.objects.get(id=windowsill_id)
     price_in_byn = windowsill.price_in_byn
     price_in_currency = windowsill.price_in_currency
+    if price_in_currency is None:
+        price_in_currency = 0.0
     width = float(width)
     length = float(length)
     count = int(count)
@@ -41,6 +43,8 @@ def calc_windowsill_complect(order_id, windowsill_id, windowsill_count):
     windowsill = Windowsill.objects.get(id=windowsill_id)
     price_in_byn = windowsill.price_in_byn
     price_in_currency = windowsill.price_in_currency
+    if price_in_currency is None:
+        price_in_currency = 0.0
     count = int(windowsill_count)
 
     if count > 0:
@@ -63,6 +67,8 @@ def calc_low_tides(order_id, low_tides_id, width, length, count):
     low_tides = LowTides.objects.get(id=low_tides_id)
     price_in_byn = low_tides.price_in_byn
     price_in_currency = low_tides.price_in_currency
+    if price_in_currency is None:
+        price_in_currency = 0.0
     width = float(width)
     length = float(length)
     count = int(count)
@@ -99,6 +105,8 @@ def calc_low_tides_complect(order_id, low_tides, low_tides_count):
     low_tides = LowTides.objects.get(id=low_tides)
     price_in_byn = low_tides.price_in_byn
     price_in_currency = low_tides.price_in_currency
+    if price_in_currency is None:
+        price_in_currency = 0.0
     count = int(low_tides_count)
 
     if count > 0:

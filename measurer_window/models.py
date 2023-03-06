@@ -12,7 +12,7 @@ class Windowsill(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
     price_in_currency = models.FloatField(blank=True, null=True, verbose_name=' Цена EUR/USD')
     price_in_byn = models.FloatField(blank=True, null=True, verbose_name='Цена BYN')
-    unit = models.PositiveSmallIntegerField(("Единица измерения"), choices=UNIT)
+    unit = models.PositiveSmallIntegerField(("Единица измерения"), choices=UNIT, default=1)
 
     def __str__(self):
         return f' Название: {self.name} {self.price_in_currency} EUR/USD {self.price_in_byn} BYN'
