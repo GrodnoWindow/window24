@@ -141,7 +141,7 @@ def calc_order(order_id):
     for el in low_tides_complect_calc:
         sum_byn = sum_byn + el.price_in_byn
         sum_currency = sum_currency + el.price_in_currency
-        
+
     order.sum_in_byn = round(sum_byn, 2)
     order.sum_in_currency = round(sum_currency, 2)
     order.save()
