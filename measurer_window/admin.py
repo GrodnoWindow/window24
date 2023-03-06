@@ -4,4 +4,11 @@ from .models import *
 
 
 admin.site.register(Windowsill)
+admin.site.register(WindowsillCalc)
+admin.site.register(WindowsillComplectCalc)
+
+admin.site.register(LowTides)
+admin.site.register(LowTidesCalc)
+admin.site.register(LowTidesComplectCalc)
+
 admin.site.register(Order)
