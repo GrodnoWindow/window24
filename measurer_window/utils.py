@@ -1,13 +1,13 @@
 from .models import *
 
 
-def calc_windowsill(order_id, windowsill_id, width, length, count):
-    windowsill = Windowsill.objects.get(id=windowsill_id)
+def calc_windowsill(order_id, windowsill, windowsill_width, length, count):
     price_in_byn = windowsill.price_in_byn
     price_in_currency = windowsill.price_in_currency
     if price_in_currency is None:
         price_in_currency = 0.0
-    width = float(width)
+
+    width = float(windowsill_width.name)
     length = float(length)
     count = int(count)
     sum_byn = price_in_byn * ((width * length) / 1000000)
@@ -28,7 +28,7 @@ def calc_windowsill(order_id, windowsill_id, width, length, count):
     linear_meter = round(linear_meter, 2)
     windowsill_calc = WindowsillCalc.objects.create(order_id=order_id,
                                                     windowsill=windowsill,
-                                                    width=width,
+                                                    windowsill_width=windowsill_width,
                                                     length=length,
                                                     count=count,
                                                     price_in_byn=sum_byn,
@@ -39,13 +39,12 @@ def calc_windowsill(order_id, windowsill_id, width, length, count):
     return windowsill_calc
 
 
-def calc_windowsill_complect(order_id, windowsill_id, windowsill_count):
-    windowsill = Windowsill.objects.get(id=windowsill_id)
+def calc_windowsill_complect(order_id, windowsill,count):
     price_in_byn = windowsill.price_in_byn
     price_in_currency = windowsill.price_in_currency
     if price_in_currency is None:
         price_in_currency = 0.0
-    count = int(windowsill_count)
+    count = int(count)
 
     if count > 0:
         sum_byn = price_in_byn * count

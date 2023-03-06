@@ -102,34 +102,31 @@ def order(request, pk):
             print('пытался удалить low_tides_complect_calc')
 
     if request.method == 'POST':
+
+        form_windowsill_calc = WindowsillCalcForm(request.POST)
+        if form_windowsill_calc.is_valid():
+            windowsill = form_windowsill_calc.cleaned_data.get("windowsill")
+            length = form_windowsill_calc.cleaned_data.get("length")
+            windowsill_width = form_windowsill_calc.cleaned_data.get("width")
+            count = form_windowsill_calc.cleaned_data.get("count")
+            calc_windowsill(order_id=pk, windowsill=windowsill, windowsill_width=windowsill_width, length=length,
+                            count=count)
+            return redirect('order', pk=pk)
+
+        form_windowsill_complect_calc = WindowsillComplectCalcForm(request.POST)
+        if form_windowsill_complect_calc.is_valid():
+            windowsill = form_windowsill_complect_calc.cleaned_data.get("windowsill")
+            count = form_windowsill_complect_calc.cleaned_data.get("count")
+            calc_windowsill_complect(order_id=pk, windowsill=windowsill, count=count)
+            return redirect('order', pk=pk)
+
+        return redirect('order', pk=pk)
         form_order = OrderForm(request.POST)
         if form_order.is_valid():
             order = form_order.save()
             order.save()
-            # return render(request, 'measurer_window/order_detail.html', context)
-            return redirect('order', pk=order.pk)
+            return redirect('order', pk=pk)
 
-        # try:
-        #     create_windowsill_calc(request, pk)
-        # except:
-        #     print('пытался создать windowsill')
-        # try:
-        #     create_windowsill_complect_calc()
-        # except:
-        #     print('пытался создать windowsill complect')
-        #
-        # try:
-        #     create_low_tides_calc(request, pk)
-        # except:
-        #     print('пытался создать lowtides')
-        # try:
-        #     create_windowsill_complect_calc(request,pk)
-        # except:
-        #     print('пытался создать low_tides complect')
-        # try:
-        #     update_order(request, pk)
-        # except:
-        #     print('пытался обновить статус')
 
     calc_order(order_id=pk)
     order = Order.objects.get(pk=pk)
@@ -152,11 +149,13 @@ def order(request, pk):
         'status': order.status,
 
     })
+    form_windowsill_calc = WindowsillCalcForm()
+    form_windowsill_complect_calc = WindowsillComplectCalcForm()
 
-    # form_order.fields['status'].choices = list1
     context = {
         'form_order': form_order,
-
+        'form_windowsill_calc': form_windowsill_calc,
+        'form_windowsill_complect_calc': form_windowsill_complect_calc,
 
         'order': order,
 
@@ -184,6 +183,7 @@ def home(request):
             order.delete()
         except:
             pass
+
     if request.method == 'POST':
         form_order = OrderForm(request.POST)
         if form_order.is_valid():

@@ -3,16 +3,44 @@ from users.models import User
 from client.models import Client
 from users.models import User
 
+class Status(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Статус', blank=True, null=True)
+
+    def __str__(self):
+        return f' № {self.pk} {self.name}'
+
+    class Meta:
+        verbose_name = 'Статус'
+        verbose_name_plural = 'Статусы'
+
+
+class Unit(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Единица измерия', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Единица измерения'
+        verbose_name_plural = 'Единица измерения'
+
+
+class WindowsillWidth(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Полка подоконника', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Полка подоконника'
+        verbose_name_plural = 'Полки подоконников'
+
 
 class Windowsill(models.Model):
-    UNIT = [
-        {1, 'м2'},
-        {2, 'шт'}
-    ]
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
     price_in_currency = models.FloatField(blank=True, null=True, verbose_name=' Цена EUR/USD')
     price_in_byn = models.FloatField(blank=True, null=True, verbose_name='Цена BYN')
-    unit = models.PositiveSmallIntegerField(("Единица измерения"), choices=UNIT, default=1)
+    unit = models.ForeignKey(Unit, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Единица измерения')
 
     def __str__(self):
         return f' Название: {self.name} {self.price_in_currency} EUR/USD {self.price_in_byn} BYN'
@@ -25,7 +53,7 @@ class Windowsill(models.Model):
 class WindowsillCalc(models.Model):
     order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
     windowsill = models.ForeignKey(Windowsill, models.SET_NULL, verbose_name='Подоконник', blank=True, null=True)
-    width = models.IntegerField(default=0, verbose_name='Ширина')
+    windowsill_width = models.ForeignKey(WindowsillWidth, models.SET_NULL, verbose_name='Полка подоконник', blank=True, null=True)
     length = models.IntegerField(default=0, verbose_name='Длинна')
     count = models.IntegerField(default=0, verbose_name='Количество')
     square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
@@ -58,14 +86,10 @@ class WindowsillComplectCalc(models.Model):
 
 
 class LowTides(models.Model):
-    UNIT = [
-        {1, 'м2'},
-        {2, 'шт'}
-    ]
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
     price_in_currency = models.FloatField(blank=True, null=True, verbose_name=' Цена EUR/USD')
     price_in_byn = models.FloatField(blank=True, null=True, verbose_name='Цена BYN')
-    unit = models.PositiveSmallIntegerField(("Единица измерения"), choices=UNIT)
+    unit = models.ForeignKey(Unit, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Единица измерения')
 
     def __str__(self):
         return f' Название: {self.name} {self.price_in_currency} EUR/USD {self.price_in_byn} BYN'
@@ -107,17 +131,6 @@ class LowTidesComplectCalc(models.Model):
     class Meta:
         verbose_name = 'Просчет комплектующих отливов'
         verbose_name_plural = 'Просчеты комплектующих отливов'
-
-
-class Status(models.Model):
-    name = models.CharField(max_length=100, verbose_name='Статус', blank=True, null=True)
-
-    def __str__(self):
-        return f' № {self.pk} {self.name}'
-
-    class Meta:
-        verbose_name = 'Статус'
-        verbose_name_plural = 'Статусы'
 
 
 class Order(models.Model):
