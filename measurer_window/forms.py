@@ -102,3 +102,55 @@ class WindowsillComplectCalcForm(ModelForm):
             }),
 
         }
+
+
+class LowTidesCalcForm(ModelForm):
+    low_tides = ModelChoiceField(
+        queryset=LowTides.objects.filter(unit=1), empty_label="Выберите отлив", label='Отливы',
+        widget=MySelect(attrs={
+            'name': 'Отлив',
+            'class': 'form-control mb-2',
+            'placeholder': 'Отлив',
+        })
+    )
+
+    class Meta:
+        model = LowTidesCalc
+        fields = ['low_tides', 'width', 'length', 'count']
+        widgets = {
+            'length': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Длина'
+            }),
+            'width': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Ширина'
+            }),
+            'count': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество'
+            }),
+
+        }
+
+
+class LowTidesComplectCalcForm(ModelForm):
+    low_tides = ModelChoiceField(
+        queryset=LowTides.objects.filter(unit=2), empty_label="Выберите комплектующие", label='Комплектующие',
+        widget=MySelect(attrs={
+            'name': 'Комплектующие',
+            'class': 'form-control mb-2',
+            'placeholder': 'Подоконник',
+        })
+    )
+
+    class Meta:
+        model = LowTidesComplectCalc
+        fields = ['low_tides', 'count']
+        widgets = {
+            'count': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество'
+            }),
+
+        }

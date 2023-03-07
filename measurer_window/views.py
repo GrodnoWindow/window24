@@ -26,37 +26,6 @@ def update_order(request, pk):
     order.status = status
     order.save()
 
-
-def create_windowsill_calc(request, pk):
-    id_windowsill = request.POST.get('id_windowsill')
-    windowsill_length = request.POST.get('windowsill_length')
-    windowsill_width = request.POST.get('windowsill_width')
-    windowsill_count = request.POST.get('windowsill_count')
-    calc_windowsill(order_id=pk, windowsill_id=id_windowsill, width=windowsill_width, length=windowsill_length,
-                    count=windowsill_count)
-
-
-def create_windowsill_complect_calc(request, pk):
-    id_low_tides = request.POST.get('id_low_tides_complect')
-    low_tides_count = request.POST.get('low_tides_count')
-    calc_low_tides_complect(order_id=pk, low_tides=id_low_tides, low_tides_count=low_tides_count)
-
-
-def create_low_tides_calc(request, pk):
-    low_tides = request.POST.get('id_low_tides')
-    low_tides_length = request.POST.get('low_tides_length')
-    low_tides_width = request.POST.get('low_tides_width')
-    low_tides_count = request.POST.get('low_tides_count')
-    calc_low_tides(order_id=pk, low_tides_id=low_tides, width=low_tides_width, length=low_tides_length,
-                   count=low_tides_count)
-
-
-def create_low_tides_complect_calc(request, pk):
-    id_low_tides = request.POST.get('id_low_tides_complect')
-    low_tides_count = request.POST.get('low_tides_count')
-    calc_low_tides_complect(order_id=pk, low_tides=id_low_tides, low_tides_count=low_tides_count)
-
-
 def delete_windowsill_calc(request):
     id_windowsill_calc = request.GET.get('id_windowsill_calc')
     windowsill_calc = WindowsillCalc.objects.get(pk=id_windowsill_calc)
@@ -120,7 +89,23 @@ def order(request, pk):
             calc_windowsill_complect(order_id=pk, windowsill=windowsill, count=count)
             return redirect('order', pk=pk)
 
-        return redirect('order', pk=pk)
+        form_low_tides_calc = LowTidesCalcForm(request.POST)
+        if form_low_tides_calc.is_valid():
+            low_tides = form_low_tides_calc.cleaned_data.get("low_tides")
+            length = form_low_tides_calc.cleaned_data.get("length")
+            width = form_low_tides_calc.cleaned_data.get("width")
+            count = form_low_tides_calc.cleaned_data.get("count")
+            calc_low_tides(order_id=pk, low_tides=low_tides, width=width, length=length,
+                           count=count)
+            return redirect('order', pk=pk)
+
+        form_low_tides_complect_calc = LowTidesComplectCalcForm(request.POST)
+        if form_low_tides_complect_calc.is_valid():
+            low_tides = form_low_tides_complect_calc.cleaned_data.get("low_tides")
+            count = form_low_tides_complect_calc.cleaned_data.get("count")
+            calc_low_tides_complect(order_id=pk, low_tides=low_tides, count=count)
+            return redirect('order', pk=pk)
+
         form_order = OrderForm(request.POST)
         if form_order.is_valid():
             order = form_order.save()
@@ -131,15 +116,9 @@ def order(request, pk):
     calc_order(order_id=pk)
     order = Order.objects.get(pk=pk)
 
-    windowsill = Windowsill.objects.filter(unit=1).order_by('-id')
-    windowsill_complect = Windowsill.objects.filter(unit=2).order_by('-id')
     windowsill_calc = WindowsillCalc.objects.filter(order_id=pk).order_by('-id')
-    windowsill_complect_calc = WindowsillComplectCalc.objects.filter(order_id=pk).order_by('-id')
 
-    low_tides = LowTides.objects.filter(unit=1).order_by('-id')
-    low_tides_complect = LowTides.objects.filter(unit=2).order_by('-id')
     low_tides_calc = LowTidesCalc.objects.filter(order_id=pk).order_by('-id')
-    low_tides_complect_calc = LowTidesComplectCalc.objects.filter(order_id=pk).order_by('-id')
 
     form_order = OrderForm(initial={
         'address': order.address,
@@ -149,26 +128,33 @@ def order(request, pk):
         'status': order.status,
 
     })
-    form_windowsill_calc = WindowsillCalcForm()
-    form_windowsill_complect_calc = WindowsillComplectCalcForm()
+    form_windowsill_calc = WindowsillCalcForm(initial={'count': 1})
+    form_windowsill_complect_calc = WindowsillComplectCalcForm(initial={'count': 1})
+    windowsill_complect_calc = WindowsillComplectCalc.objects.filter(order_id=pk)
+
+    form_low_tides_calc = LowTidesCalcForm(initial={'count': 1})
+    form_low_tides_complect_calc = LowTidesComplectCalcForm(initial={'count': 1})
+    low_tides_complect_calc = LowTidesComplectCalc.objects.filter(order_id=pk)
 
     context = {
-        'form_order': form_order,
-        'form_windowsill_calc': form_windowsill_calc,
-        'form_windowsill_complect_calc': form_windowsill_complect_calc,
-
         'order': order,
 
-        'windowsill': windowsill,
-        'windowsill_complect': windowsill_complect,
+        'form_order': form_order,
+
+        'form_windowsill_calc': form_windowsill_calc,
+        'form_windowsill_complect_calc': form_windowsill_complect_calc,
+        'windowsill_calc': windowsill_calc,
         'windowsill_complect_calc': windowsill_complect_calc,
 
-        'lowtides': low_tides,
-        'low_tides_complect': low_tides_complect,
+        'form_low_tides_calc': form_low_tides_calc,
+        'form_low_tides_complect_calc': form_low_tides_complect_calc,
+        'low_tides_calc': low_tides_calc,
         'low_tides_complect_calc': low_tides_complect_calc,
 
-        'windowsill_calc': windowsill_calc,
-        'low_tides_calc': low_tides_calc,
+        #
+        # 'lowtides': low_tides,
+        # 'low_tides_complect': low_tides_complect,
+
 
     }
     return render(request, 'measurer_window/order_detail.html', context)

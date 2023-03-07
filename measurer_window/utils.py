@@ -62,13 +62,13 @@ def calc_windowsill_complect(order_id, windowsill,count):
     return windowsill_calc
 
 
-def calc_low_tides(order_id, low_tides_id, width, length, count):
-    low_tides = LowTides.objects.get(id=low_tides_id)
+def calc_low_tides(order_id, low_tides, width, length, count):
     price_in_byn = low_tides.price_in_byn
     price_in_currency = low_tides.price_in_currency
     if price_in_currency is None:
         price_in_currency = 0.0
     width = float(width)
+    width = width + 55.0  # + 55 мм
     length = float(length)
     count = int(count)
     sum_byn = price_in_byn * ((width * length) / 1000000)
@@ -100,13 +100,12 @@ def calc_low_tides(order_id, low_tides_id, width, length, count):
     return low_tides_calc
 
 
-def calc_low_tides_complect(order_id, low_tides, low_tides_count):
-    low_tides = LowTides.objects.get(id=low_tides)
+def calc_low_tides_complect(order_id, low_tides, count):
     price_in_byn = low_tides.price_in_byn
     price_in_currency = low_tides.price_in_currency
     if price_in_currency is None:
         price_in_currency = 0.0
-    count = int(low_tides_count)
+    count = int(count)
 
     if count > 0:
         sum_byn = price_in_byn * count

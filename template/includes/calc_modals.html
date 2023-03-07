@@ -1,0 +1,245 @@
+<div class="modal fade" id="selectModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Окно выбора позиции</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <button class="btn bg-gradient-primary mb-2 col-12"
+                        data-bs-target="#selectWindowsillModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Подоконники и комплектующие
+                </button>
+                <button class="btn bg-gradient-primary mb-2 col-12"
+                        data-bs-target="#selectLowTidesModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Отливы и комплектующие
+                </button>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="selectWindowsillModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel2">Подоконники и комплектующие</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body row">
+                <button class="btn bg-gradient-primary mb-0 col-6" data-bs-target="#windowsillModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Подоконники
+                    <i
+                            class="fas fa-plus"></i>
+                </button>
+                <button class="btn bg-gradient-primary mb-0 col-6"
+                        data-bs-target="#windowsillComplectModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Комплектующие
+                    <i
+                            class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#selectModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="windowsillModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModaWindowsill"> Подоконники</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_windowsill_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#selectWindowsillModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="windowsillComplectModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModaWindowsill">Комплектующие к подоконникам</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_windowsill_complect_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#selectWindowsillModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="selectLowTidesModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Отливы и комплектующие</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body row">
+                <button class="btn bg-gradient-primary mb-0 col-6" data-bs-target="#lowTidesModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Отливы
+                    <i
+                            class="fas fa-plus"></i>
+                </button>
+                <button class="btn bg-gradient-primary mb-0 col-6"
+                        data-bs-target="#lowTidesComplectModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Комплектующие
+                    <i
+                            class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#selectModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="lowTidesModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Отливы</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_low_tides_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#selectLowTidesModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="lowTidesComplectModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Комплектующие к отливам</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                  <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_low_tides_complect_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#selectLowTideslModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
