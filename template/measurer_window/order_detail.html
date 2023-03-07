@@ -39,6 +39,7 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <link href="{% static 'soft-ui-dashboard.css' %}" rel="stylesheet">
+<!--    <link href="{% static 'argon-dashboard.css' %}" rel="stylesheet">-->
 
 </head>
 
@@ -165,7 +166,7 @@
                                     <div class="card-body pt-0 p-3 text-center">
                                         <hr class="horizontal dark my-3">
                                         <h5 class="mb-0">Замер на сумму
-                                            {{ order.sum_in_byn }} BYN {{ order.sum_in_currency }}
+                                            {{ order.sum_byn }} BYN {{ order.sum_currency }}
                                             EUR/USD</h5>
                                     </div>
 
@@ -231,7 +232,7 @@
                                                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Материалы</p>
                                                 <h5 class="font-weight-bolder mb-0">
 
-                                                    323 BYN
+                                                    {{ order.sum_materials_byn }} BYN {{ order.sum_materials_currency | default:'0' }} $
                                                     <!--                      <span class="text-success text-sm font-weight-bolder">+3%</span>-->
                                                 </h5>
                                             </div>
@@ -253,7 +254,7 @@
                                             <div class="numbers">
                                                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Работы</p>
                                                 <h5 class="font-weight-bolder mb-0">
-                                                    540 BYN
+                                                    20 BYN
                                                     <!--                      <span class="text-danger text-sm font-weight-bolder">-2%</span>-->
                                                 </h5>
                                             </div>

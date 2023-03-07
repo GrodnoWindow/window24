@@ -26,6 +26,7 @@ def update_order(request, pk):
     order.status = status
     order.save()
 
+
 def delete_windowsill_calc(request):
     id_windowsill_calc = request.GET.get('id_windowsill_calc')
     windowsill_calc = WindowsillCalc.objects.get(pk=id_windowsill_calc)
@@ -51,25 +52,51 @@ def delete_low_tides_complect_calc(request):
 
 
 def order(request, pk):
+    user = User.objects.get(username=request.user.username)
+
     if request.method == "GET":
         try:
-            delete_windowsill_calc(request)
+            WindowsillCalc.objects.get(pk=request.GET.get('id_windowsill_calc')).delete()
         except:
-            print('пытался удалить windowsill_calc')
+            pass
         try:
-            delete_windowsill_complect_calc(request)
+            WindowsillComplectCalc.objects.get(pk=request.GET.get('id_windowsill_complect_calc')).delete()
         except:
-            print('пытался удалить windowsill_complect_calc')
+            pass
+        try:
+            LowTidesCalc.objects.get(pk=request.GET.get('id_low_tides_calc')).delete()
+        except:
+            pass
+        try:
+            LowTidesComplectCalc.objects.get(pk=request.GET.get('id_low_tides_complect_calc')).delete()
+        except:
+            pass
+        try:
+            VisorsCalc.objects.get(pk=request.GET.get('id_visors_calc')).delete()
+        except:
+            pass
+        try:
+            FlashingCalc.objects.get(pk=request.GET.get('id_flashing_calc')).delete()
 
-        try:
-            delete_low_tides_calc(request)
         except:
-            print('пытался удалить low_tides_calc')
+            pass
         try:
-            delete_low_tides_complect_calc(request)
-        except:
-            print('пытался удалить low_tides_complect_calc')
+            CasingCalc.objects.get(pk=request.GET.get('id_casing_calc')).delete()
 
+        except:
+            pass
+        try:
+            SlopesOfMetalCalc.objects.get(pk=request.GET.get('id_slopes_of_metal_calc')).delete()
+        except:
+            pass
+        try:
+            InternalSlopesCalc.objects.get(pk=request.GET.get('id_internal_slopes_calc')).delete()
+        except:
+            pass
+        try:
+            MountingMaterialsCalc.objects.get(pk=request.GET.get('id_mounting_materials_calc')).delete()
+        except:
+            pass
     if request.method == 'POST':
 
         form_windowsill_calc = WindowsillCalcForm(request.POST)
@@ -106,19 +133,82 @@ def order(request, pk):
             calc_low_tides_complect(order_id=pk, low_tides=low_tides, count=count)
             return redirect('order', pk=pk)
 
+        form_visors_calc = VisorsCalcForm(request.POST)
+        if form_visors_calc.is_valid():
+            visors = form_visors_calc.cleaned_data.get("visors")
+            length = form_visors_calc.cleaned_data.get("length")
+            width = form_visors_calc.cleaned_data.get("width")
+            count = form_visors_calc.cleaned_data.get("count")
+            calc_visors(order_id=pk, visors=visors, width=width, length=length,
+                        count=count)
+            return redirect('order', pk=pk)
+
+        form_flashing_calc = FlashingCalcForm(request.POST)
+        if form_flashing_calc.is_valid():
+            flashing = form_flashing_calc.cleaned_data.get("flashing")
+            length = form_flashing_calc.cleaned_data.get("length")
+            width = form_flashing_calc.cleaned_data.get("width")
+            count = form_flashing_calc.cleaned_data.get("count")
+            calc_flashing(order_id=pk, flashing=flashing, width=width, length=length,
+                          count=count)
+            return redirect('order', pk=pk)
+
+        form_casing_calc = CasingCalcForm(request.POST)
+        if form_casing_calc.is_valid():
+            casing = form_casing_calc.cleaned_data.get("casing")
+            length = form_casing_calc.cleaned_data.get("length")
+            width = form_casing_calc.cleaned_data.get("width")
+            count = form_casing_calc.cleaned_data.get("count")
+            calc_casing(order_id=pk, casing=casing, width=width, length=length,
+                        count=count)
+            return redirect('order', pk=pk)
+
+        form_slopes_of_metal_calc = SlopesOfMetalCalcForm(request.POST)
+        if form_slopes_of_metal_calc.is_valid():
+            slopes_of_metal = form_slopes_of_metal_calc.cleaned_data.get("slopes_of_metal")
+            length = form_slopes_of_metal_calc.cleaned_data.get("length")
+            width = form_slopes_of_metal_calc.cleaned_data.get("width")
+            count = form_slopes_of_metal_calc.cleaned_data.get("count")
+            calc_slopes_of_metal(order_id=pk, slopes_of_metal=slopes_of_metal, width=width, length=length,
+                                 count=count)
+            return redirect('order', pk=pk)
+
+        form_internal_slopes_calc = InternalSlopesCalcForm(request.POST)
+        if form_internal_slopes_calc.is_valid():
+            internal_slopes = form_internal_slopes_calc.cleaned_data.get("internal_slopes")
+            length = form_internal_slopes_calc.cleaned_data.get("length")
+            width = form_internal_slopes_calc.cleaned_data.get("width")
+            count = form_internal_slopes_calc.cleaned_data.get("count")
+            calc_internal_slopes(order_id=pk, internal_slopes=internal_slopes, width=width, length=length,
+                                 count=count)
+            return redirect('order', pk=pk)
+
+        form_mounting_materials_calc = MountingMaterialsCalcForm(request.POST)
+        if form_mounting_materials_calc.is_valid():
+            mounting_materials = form_mounting_materials_calc.cleaned_data.get("mounting_materials")
+            count = form_mounting_materials_calc.cleaned_data.get("count")
+            calc_mounting_materials(order_id=pk, mounting_materials=mounting_materials,
+                                    count=count)
+            return redirect('order', pk=pk)
         form_order = OrderForm(request.POST)
         if form_order.is_valid():
             order = form_order.save()
+            order.user = user
             order.save()
-            return redirect('order', pk=pk)
-
+            return redirect('order', pk=order.pk)
 
     calc_order(order_id=pk)
     order = Order.objects.get(pk=pk)
 
     windowsill_calc = WindowsillCalc.objects.filter(order_id=pk).order_by('-id')
-
     low_tides_calc = LowTidesCalc.objects.filter(order_id=pk).order_by('-id')
+    visors_calc = VisorsCalc.objects.filter(order_id=pk).order_by('-id')
+    flashing_calc = FlashingCalc.objects.filter(order_id=pk).order_by('-id')
+    casing_calc = CasingCalc.objects.filter(order_id=pk).order_by('-id')
+    slopes_of_metal_calc = SlopesOfMetalCalc.objects.filter(order_id=pk).order_by('-id')
+    internal_slopes_calc = InternalSlopesCalc.objects.filter(order_id=pk).order_by('-id')
+    mounting_materials_calc = MountingMaterialsCalc.objects.filter(order_id=pk).order_by('-id')
+
 
     form_order = OrderForm(initial={
         'address': order.address,
@@ -136,6 +226,18 @@ def order(request, pk):
     form_low_tides_complect_calc = LowTidesComplectCalcForm(initial={'count': 1})
     low_tides_complect_calc = LowTidesComplectCalc.objects.filter(order_id=pk)
 
+    form_visors_calc = VisorsCalcForm(initial={'count': 1})
+
+    form_flashing_calc = FlashingCalcForm(initial={'count': 1})
+
+    form_casing_calc = CasingCalcForm(initial={'count': 1})
+
+    form_slopes_of_metal_calc = SlopesOfMetalCalcForm(initial={'count': 1})
+
+    form_internal_slopes_calc = InternalSlopesCalcForm(initial={'count': 1})
+
+    form_mounting_materials_calc = MountingMaterialsCalcForm(initial={'count': 1})
+
     context = {
         'order': order,
 
@@ -151,10 +253,27 @@ def order(request, pk):
         'low_tides_calc': low_tides_calc,
         'low_tides_complect_calc': low_tides_complect_calc,
 
+        'form_visors_calc': form_visors_calc,
+        'visors_calc': visors_calc,
+
+        'form_flashing_calc': form_flashing_calc,
+        'flashing_calc': flashing_calc,
+
+        'form_casing_calc': form_casing_calc,
+        'casing_calc': casing_calc,
+
+        'form_slopes_of_metal_calc': form_slopes_of_metal_calc,
+        'slopes_of_metal_calc': slopes_of_metal_calc,
+
+        'form_internal_slopes_calc': form_internal_slopes_calc,
+        'internal_slopes_calc': internal_slopes_calc,
+
+        'form_mounting_materials_calc': form_mounting_materials_calc,
+        'mounting_materials_calc': mounting_materials_calc,
+
         #
         # 'lowtides': low_tides,
         # 'low_tides_complect': low_tides_complect,
-
 
     }
     return render(request, 'measurer_window/order_detail.html', context)
@@ -176,10 +295,6 @@ def home(request):
             order = form_order.save()
             order.user = user
             order.save()
-            context = {
-                'order': order,
-            }
-            # return render(request, 'measurer_window/order_detail.html', context)
             return redirect('order', pk=order.pk)
 
     orders = Order.objects.filter(user=user).order_by('-pk')

@@ -154,3 +154,176 @@ class LowTidesComplectCalcForm(ModelForm):
             }),
 
         }
+
+
+class VisorsCalcForm(ModelForm):
+    visors = ModelChoiceField(
+        queryset=Visors.objects.all(), empty_label="Выберите козырек", label='Козырек',
+        widget=MySelect(attrs={
+            'name': 'Козырек',
+            'class': 'form-control mb-2',
+            'placeholder': 'Козырек',
+        })
+    )
+
+    class Meta:
+        model = VisorsCalc
+        fields = ['visors', 'width', 'length', 'count']
+        widgets = {
+            'length': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Длина'
+            }),
+            'width': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Ширина'
+            }),
+            'count': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество'
+            }),
+
+        }
+
+
+class FlashingCalcForm(ModelForm):
+    flashing = ModelChoiceField(
+        queryset=Flashing.objects.all(), empty_label="Выберите нащельник", label='Нащельник',
+        widget=MySelect(attrs={
+            'name': 'Нащельник',
+            'class': 'form-control mb-2',
+            'placeholder': 'Нащельник',
+        })
+    )
+
+    class Meta:
+        model = VisorsCalc
+        fields = ['flashing', 'width', 'length', 'count']
+        widgets = {
+            'length': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Длина'
+            }),
+            'width': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Ширина'
+            }),
+            'count': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество'
+            }),
+
+        }
+
+
+class CasingCalcForm(ModelForm):
+    casing = ModelChoiceField(
+        queryset=Casing.objects.all(), empty_label="Выберите наличник", label='Наличники',
+        widget=MySelect(attrs={
+            'name': 'Наличники',
+            'class': 'form-control mb-2',
+            'placeholder': 'Наличники',
+        })
+    )
+
+    class Meta:
+        model = CasingCalc
+        fields = ['casing', 'width', 'length', 'count']
+        widgets = {
+            'length': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Длина'
+            }),
+            'width': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Ширина'
+            }),
+            'count': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество'
+            }),
+
+        }
+
+
+class SlopesOfMetalCalcForm(ModelForm):
+    slopes_of_metal = ModelChoiceField(
+        queryset=SlopesOfMetal.objects.all(), empty_label="Выберите откос из металла", label='Откос из металла',
+        widget=MySelect(attrs={
+            'name': 'Откос из металла',
+            'class': 'form-control mb-2',
+            'placeholder': 'Откос из металла',
+        })
+    )
+
+    class Meta:
+        model = SlopesOfMetalCalc
+        fields = ['slopes_of_metal', 'width', 'length', 'count']
+        widgets = {
+            'length': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Длина'
+            }),
+            'width': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Ширина'
+            }),
+            'count': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество'
+            }),
+
+        }
+
+
+class InternalSlopesCalcForm(ModelForm):
+    internal_slopes = ModelChoiceField(
+        queryset=InternalSlopes.objects.all(), empty_label="Выберите откосы", label='Откосы',
+        widget=MySelect(attrs={
+            'name': 'Откосы',
+            'class': 'form-control mb-2',
+            'placeholder': 'откосы',
+        })
+    )
+
+    class Meta:
+        model = InternalSlopesCalc
+        fields = ['internal_slopes', 'width', 'length', 'count']
+        widgets = {
+            'length': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Длина'
+            }),
+            'width': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Ширина'
+            }),
+            'count': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество'
+            }),
+
+        }
+
+
+class MountingMaterialsCalcForm(ModelForm):
+    mounting_materials = ModelChoiceField(
+        queryset=MountingMaterials.objects.all(), empty_label="Выберите монтажные материалы",
+        label='Монтажные материалы',
+        widget=MySelect(attrs={
+            'name': 'Монтажые материалы',
+            'class': 'form-control mb-2',
+            'placeholder': 'Монтажные материалы',
+        })
+    )
+
+    class Meta:
+        model = MountingMaterialsCalc
+        fields = ['mounting_materials', 'count']
+        widgets = {
+            'count': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество'
+            }),
+
+        }

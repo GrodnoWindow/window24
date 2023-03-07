@@ -2,15 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="157e8c57-b7d6-4564-ab9c-d233cf82ba22" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/measurer_window/static/argon-dashboard.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/measurer_window/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/measurer_window/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/measurer_window/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/measurer_window/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/measurer_window/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/measurer_window/migrations/0002_status_unit_windowsillwidth_lowtidescalc_low_tides_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/measurer_window/migrations/0003_alter_windowsillcalc_width.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/measurer_window/migrations/0004_rename_width_windowsillcalc_windowsill_width.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/measurer_window/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/measurer_window/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/measurer_window/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/measurer_window/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/measurer_window/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/measurer_window/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/includes/calc_modals.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/includes/calc_modals.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/includes/materials_modals.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/includes/materials_modals.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/measurer_window/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/measurer_window/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template/measurer_window/order_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/measurer_window/order_detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,13 +45,13 @@
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/window_website&quot;
+    &quot;last_opened_file_path&quot;: &quot;E:/window24/measurer_window/static&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\window24\template\measurer_window" />
       <recent name="E:\window24\measurer_window\static" />
+      <recent name="E:\window24\template\measurer_window" />
       <recent name="E:\window24\measurer_window" />
       <recent name="E:\window24\static" />
       <recent name="E:\window24" />

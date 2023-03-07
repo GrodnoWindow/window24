@@ -15,4 +15,24 @@ admin.site.register(LowTides)
 admin.site.register(LowTidesCalc)
 admin.site.register(LowTidesComplectCalc)
 
+admin.site.register(Visors)
+admin.site.register(VisorsCalc)
+
+
+admin.site.register(Flashing)
+admin.site.register(FlashingCalc)
+
+
+admin.site.register(Casing)
+admin.site.register(CasingCalc)
+
+admin.site.register(SlopesOfMetal)
+admin.site.register(SlopesOfMetalCalc)
+
+admin.site.register(InternalSlopes)
+admin.site.register(InternalSlopesCalc)
+
+admin.site.register(MountingMaterials)
+admin.site.register(MountingMaterialsCalc)
+
 admin.site.register(Order)

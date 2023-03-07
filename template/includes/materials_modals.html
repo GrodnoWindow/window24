@@ -18,7 +18,32 @@
                         data-bs-toggle="modal" data-bs-dismiss="modal">Отливы и комплектующие
                 </button>
 
+                <button class="btn bg-gradient-primary mb-2 col-12"
+                        data-bs-target="#visorsCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Козырьки
+                </button>
 
+                  <button class="btn bg-gradient-primary mb-2 col-12"
+                        data-bs-target="#flashingCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Нащельники
+                </button>
+                <button class="btn bg-gradient-primary mb-2 col-12"
+                        data-bs-target="#casingCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Наличники
+                </button>
+                <button class="btn bg-gradient-primary mb-2 col-12"
+                        data-bs-target="#slopesOfMetalCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Откосы из металла
+                </button>
+
+                <button class="btn bg-gradient-primary mb-2 col-12"
+                        data-bs-target="#internalSlopesCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Внутренние откосы
+                </button>
+                  <button class="btn bg-gradient-primary mb-2 col-12"
+                        data-bs-target="#mountingMaterialsCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Монтажные материалы
+                </button>
             </div>
             <div class="modal-footer">
 
@@ -207,3 +232,368 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="visorsCalcModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">козырьки</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                {% for el in visors_calc %}
+                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                    <div class="d-flex flex-column">
+                        <h6 class="mb-3 text-sm">{{ el.visors.name }}</h6>
+                        <span class="mb-2 text-xs">Ширина: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.width }}</span></span>
+                        <span class="mb-2 text-xs">Длина: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.length }}</span></span>
+                        <span class="mb-2 text-xs">Количество: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.count }}</span></span>
+                        <span class="mb-2 text-xs">В метрах квадратных: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.square_meter }}</span></span>
+                        <span class="mb-2 text-xs">В метрах погонных: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.linear_meter }}</span></span>
+                        <span class="mb-2 text-xs">Цена BYN: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_byn }}</span></span>
+                        <span class="mb-2 text-xs">Цена EUR/USD: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_currency }}</span></span>
+                    </div>
+                    <div class="ms-auto text-end">
+                        <form method="get" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <input type="text" class="form-control mt-2 mb-2"
+                                   placeholder="id_visors_calc"
+                                   name="id_visors_calc" value="{{ el.pk }}" style="display:none">
+                            <button class="btn btn-link text-danger text-gradient px-3 mb-0"
+                                    href="javascript:;" type="submit"><i
+                                    class="far fa-trash-alt me-2"></i>Удалить
+                            </button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="flashingCalcModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Нащельники</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                {% for el in flashing_calc %}
+                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                    <div class="d-flex flex-column">
+                        <h6 class="mb-3 text-sm">{{ el.flashing.name }}</h6>
+                        <span class="mb-2 text-xs">Ширина: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.width }}</span></span>
+                        <span class="mb-2 text-xs">Длина: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.length }}</span></span>
+                        <span class="mb-2 text-xs">Количество: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.count }}</span></span>
+                        <span class="mb-2 text-xs">В метрах квадратных: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.square_meter }}</span></span>
+                        <span class="mb-2 text-xs">В метрах погонных: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.linear_meter }}</span></span>
+                        <span class="mb-2 text-xs">Цена BYN: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_byn }}</span></span>
+                        <span class="mb-2 text-xs">Цена EUR/USD: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_currency }}</span></span>
+                    </div>
+                    <div class="ms-auto text-end">
+                        <form method="get" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <input type="text" class="form-control mt-2 mb-2"
+                                   placeholder="id_flashing_calc"
+                                   name="id_flashing_calc" value="{{ el.pk }}" style="display:none">
+                            <button class="btn btn-link text-danger text-gradient px-3 mb-0"
+                                    href="javascript:;" type="submit"><i
+                                    class="far fa-trash-alt me-2"></i>Удалить
+                            </button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="casingCalcModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Наличники</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                {% for el in casing_calc %}
+                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                    <div class="d-flex flex-column">
+                        <h6 class="mb-3 text-sm">{{ el.casing.name }}</h6>
+                        <span class="mb-2 text-xs">Ширина: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.width }}</span></span>
+                        <span class="mb-2 text-xs">Длина: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.length }}</span></span>
+                        <span class="mb-2 text-xs">Количество: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.count }}</span></span>
+                        <span class="mb-2 text-xs">В метрах квадратных: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.square_meter }}</span></span>
+                        <span class="mb-2 text-xs">В метрах погонных: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.linear_meter }}</span></span>
+                        <span class="mb-2 text-xs">Цена BYN: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_byn }}</span></span>
+                        <span class="mb-2 text-xs">Цена EUR/USD: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_currency }}</span></span>
+                    </div>
+                    <div class="ms-auto text-end">
+                        <form method="get" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <input type="text" class="form-control mt-2 mb-2"
+                                   placeholder="id_visors_calc"
+                                   name="id_casing_calc" value="{{ el.pk }}" style="display:none">
+                            <button class="btn btn-link text-danger text-gradient px-3 mb-0"
+                                    href="javascript:;" type="submit"><i
+                                    class="far fa-trash-alt me-2"></i>Удалить
+                            </button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="slopesOfMetalCalcModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Откосы из металла</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                {% for el in slopes_of_metal_calc %}
+                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                    <div class="d-flex flex-column">
+                        <h6 class="mb-3 text-sm">{{ el.slopes_of_metal.name }}</h6>
+                        <span class="mb-2 text-xs">Ширина: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.width }}</span></span>
+                        <span class="mb-2 text-xs">Длина: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.length }}</span></span>
+                        <span class="mb-2 text-xs">Количество: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.count }}</span></span>
+                        <span class="mb-2 text-xs">В метрах квадратных: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.square_meter }}</span></span>
+                        <span class="mb-2 text-xs">В метрах погонных: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.linear_meter }}</span></span>
+                        <span class="mb-2 text-xs">Цена BYN: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_byn }}</span></span>
+                        <span class="mb-2 text-xs">Цена EUR/USD: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_currency }}</span></span>
+                    </div>
+                    <div class="ms-auto text-end">
+                        <form method="get" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <input type="text" class="form-control mt-2 mb-2"
+                                   placeholder="id_slopes_of_metal_calc"
+                                   name="id_slopes_of_metal_calc" value="{{ el.pk }}" style="display:none">
+                            <button class="btn btn-link text-danger text-gradient px-3 mb-0"
+                                    href="javascript:;" type="submit"><i
+                                    class="far fa-trash-alt me-2"></i>Удалить
+                            </button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="internalSlopesCalcModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Внутренние откосы</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                {% for el in internal_slopes_calc %}
+                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                    <div class="d-flex flex-column">
+                        <h6 class="mb-3 text-sm">{{ el.internal_slopes.name }}</h6>
+                        <span class="mb-2 text-xs">Ширина: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.width }}</span></span>
+                        <span class="mb-2 text-xs">Длина: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.length }}</span></span>
+                        <span class="mb-2 text-xs">Количество: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.count }}</span></span>
+                        <span class="mb-2 text-xs">В метрах квадратных: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.square_meter }}</span></span>
+                        <span class="mb-2 text-xs">В метрах погонных: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.linear_meter }}</span></span>
+                        <span class="mb-2 text-xs">Цена BYN: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_byn }}</span></span>
+                        <span class="mb-2 text-xs">Цена EUR/USD: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_currency }}</span></span>
+                    </div>
+                    <div class="ms-auto text-end">
+                        <form method="get" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <input type="text" class="form-control mt-2 mb-2"
+                                   placeholder="id_internal_slopes_calc"
+                                   name="id_internal_slopes_calc" value="{{ el.pk }}" style="display:none">
+                            <button class="btn btn-link text-danger text-gradient px-3 mb-0"
+                                    href="javascript:;" type="submit"><i
+                                    class="far fa-trash-alt me-2"></i>Удалить
+                            </button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mountingMaterialsCalcModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Внутренние откосы</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                {% for el in mounting_materials_calc %}
+                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                    <div class="d-flex flex-column">
+                        <h6 class="mb-3 text-sm">{{ el.mounting_materials.name }}</h6>
+                        <span class="mb-2 text-xs">Количество: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.count }}</span></span>
+                        <span class="mb-2 text-xs">Цена BYN: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_byn }}</span></span>
+                        <span class="mb-2 text-xs">Цена EUR/USD: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_currency }}</span></span>
+                    </div>
+                    <div class="ms-auto text-end">
+                        <form method="get" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <input type="text" class="form-control mt-2 mb-2"
+                                   placeholder="id_mounting_materials_calc"
+                                   name="id_mounting_materials_calc" value="{{ el.pk }}" style="display:none">
+                            <button class="btn btn-link text-danger text-gradient px-3 mb-0"
+                                    href="javascript:;" type="submit"><i
+                                    class="far fa-trash-alt me-2"></i>Удалить
+                            </button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
