@@ -328,72 +328,118 @@ def calc_mounting_materials(order_id, mounting_materials, count):
     sum_currency = round(sum_currency, 2)
 
     mounting_materials_calc = MountingMaterialsCalc.objects.create(order_id=order_id,
-                                                                mounting_materials=mounting_materials,
-                                                                count=count,
-                                                                price_in_byn=sum_byn,
-                                                                price_in_currency=sum_currency)
+                                                                   mounting_materials=mounting_materials,
+                                                                   count=count,
+                                                                   price_in_byn=sum_byn,
+                                                                   price_in_currency=sum_currency)
 
     return mounting_materials_calc
 
 
-def calc_order(order_id):
-    order = Order.objects.get(pk=order_id)
+def calc_works(order_id, works, count):
+    price_in_byn = works.price_in_byn
+    price_in_currency = works.price_in_currency
+    if price_in_currency is None:
+        price_in_currency = 0.0
 
+    count = int(count)
+    sum_byn = price_in_byn
+    sum_currency = price_in_currency
+
+    if count > 0:
+        sum_byn = sum_byn * count
+        sum_currency = sum_currency * count
+
+    sum_byn = round(sum_byn, 2)
+    sum_currency = round(sum_currency, 2)
+
+    works_calc = WorksCalc.objects.create(order_id=order_id,
+                                          works=works,
+                                          count=count,
+                                          price_in_byn=sum_byn,
+                                          price_in_currency=sum_currency)
+
+    return works_calc
+
+
+def calc_materials(order):
     sum_byn = 0.0
     sum_currency = 0.0
 
-    windowsill_calc = WindowsillCalc.objects.filter(order_id=order_id)
+    windowsill_calc = WindowsillCalc.objects.filter(order_id=order.pk)
     for el in windowsill_calc:
         sum_byn = sum_byn + el.price_in_byn
         sum_currency = sum_currency + el.price_in_currency
 
-    windowsill_complect_calc = WindowsillComplectCalc.objects.filter(order_id=order_id)
+    windowsill_complect_calc = WindowsillComplectCalc.objects.filter(order_id=order.pk)
     for el in windowsill_complect_calc:
         sum_byn = sum_byn + el.price_in_byn
         sum_currency = sum_currency + el.price_in_currency
 
-    low_tides_calc = LowTidesCalc.objects.filter(order_id=order_id)
+    low_tides_calc = LowTidesCalc.objects.filter(order_id=order.pk)
     for el in low_tides_calc:
         sum_byn = sum_byn + el.price_in_byn
         sum_currency = sum_currency + el.price_in_currency
 
-    low_tides_complect_calc = LowTidesComplectCalc.objects.filter(order_id=order_id)
+    low_tides_complect_calc = LowTidesComplectCalc.objects.filter(order_id=order.pk)
     for el in low_tides_complect_calc:
         sum_byn = sum_byn + el.price_in_byn
         sum_currency = sum_currency + el.price_in_currency
 
-    visors_calc = VisorsCalc.objects.filter(order_id=order_id)
+    visors_calc = VisorsCalc.objects.filter(order_id=order.pk)
     for el in visors_calc:
         sum_byn = sum_byn + el.price_in_byn
         sum_currency = sum_currency + el.price_in_currency
 
-    flashing_calc = FlashingCalc.objects.filter(order_id=order_id)
+    flashing_calc = FlashingCalc.objects.filter(order_id=order.pk)
     for el in flashing_calc:
         sum_byn = sum_byn + el.price_in_byn
         sum_currency = sum_currency + el.price_in_currency
 
-    casing_calc = CasingCalc.objects.filter(order_id=order_id)
+    casing_calc = CasingCalc.objects.filter(order_id=order.pk)
     for el in casing_calc:
         sum_byn = sum_byn + el.price_in_byn
         sum_currency = sum_currency + el.price_in_currency
 
-    slopes_of_metal_calc = SlopesOfMetalCalc.objects.filter(order_id=order_id)
+    slopes_of_metal_calc = SlopesOfMetalCalc.objects.filter(order_id=order.pk)
     for el in slopes_of_metal_calc:
         sum_byn = sum_byn + el.price_in_byn
         sum_currency = sum_currency + el.price_in_currency
 
-    internal_slopes_calc = InternalSlopesCalc.objects.filter(order_id=order_id)
+    internal_slopes_calc = InternalSlopesCalc.objects.filter(order_id=order.pk)
     for el in internal_slopes_calc:
         sum_byn = sum_byn + el.price_in_byn
         sum_currency = sum_currency + el.price_in_currency
 
-    mounting_materials_calc = MountingMaterialsCalc.objects.filter(order_id=order_id)
+    mounting_materials_calc = MountingMaterialsCalc.objects.filter(order_id=order.pk)
     for el in mounting_materials_calc:
         sum_byn = sum_byn + el.price_in_byn
         sum_currency = sum_currency + el.price_in_currency
 
     order.sum_materials_byn = round(sum_byn, 2)
     order.sum_materials_currency = round(sum_currency, 2)
-    order.sum_byn = round(sum_byn, 2)
-    order.sum_currency = round(sum_currency, 2)
+
+
+def calc_order_works(order):
+    sum_byn = 0.0
+    sum_currency = 0.0
+
+    works_calc = WorksCalc.objects.filter(order_id=order.pk)
+    for el in works_calc:
+        sum_byn = sum_byn + el.price_in_byn
+        sum_currency = sum_currency + el.price_in_currency
+
+    order.sum_works_byn = round(sum_byn, 2)
+    order.sum_works_currency = round(sum_currency, 2)
+    order.save()
+
+
+def calc_order(order_id):
+    order = Order.objects.get(pk=order_id)
+
+    calc_materials(order)
+    calc_order_works(order)
+
+    order.sum_byn = round(order.sum_materials_byn + order.sum_works_byn, 2)
+    order.sum_currency = round(order.sum_materials_currency + order.sum_works_currency, 2)
     order.save()

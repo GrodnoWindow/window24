@@ -35,4 +35,7 @@ admin.site.register(InternalSlopesCalc)
 admin.site.register(MountingMaterials)
 admin.site.register(MountingMaterialsCalc)
 
+admin.site.register(Works)
+admin.site.register(WorksCalc)
+
 admin.site.register(Order)

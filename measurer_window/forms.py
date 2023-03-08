@@ -327,3 +327,26 @@ class MountingMaterialsCalcForm(ModelForm):
             }),
 
         }
+
+
+class WorksCalcForm(ModelForm):
+    works = ModelChoiceField(
+        queryset=Works.objects.all(), empty_label="Выберите работу",
+        label='Работы',
+        widget=MySelect(attrs={
+            'name': 'Работы',
+            'class': 'form-control mb-2',
+            'placeholder': 'Работы',
+        })
+    )
+
+    class Meta:
+        model = WorksCalc
+        fields = ['works', 'count']
+        widgets = {
+            'count': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество'
+            }),
+
+        }

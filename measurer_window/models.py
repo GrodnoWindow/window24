@@ -80,7 +80,7 @@ class WindowsillComplectCalc(models.Model):
     price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')
 
     def __str__(self):
-        return f' Номер замера {self.order_id} Подоконник {self.windowsill}  на сумму {self.price_in_byn} BYN'
+        return f' Номер замера {self.order_id} комплектующие подоконника {self.windowsill}  на сумму {self.price_in_byn} BYN'
 
     class Meta:
         verbose_name = 'Просчет комплектующих подоконников'
@@ -113,7 +113,7 @@ class LowTidesCalc(models.Model):
     price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')
 
     def __str__(self):
-        return f' Номер замера {self.order_id} Подоконник {self.low_tides}  на сумму {self.price_in_byn} BYN'
+        return f' Номер замера {self.order_id} отлив {self.low_tides}  на сумму {self.price_in_byn} BYN'
 
     class Meta:
         verbose_name = 'Просчет отлива'
@@ -128,7 +128,7 @@ class LowTidesComplectCalc(models.Model):
     price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')
 
     def __str__(self):
-        return f' Номер замера {self.order_id} Подоконник {self.low_tides}  на сумму {self.price_in_byn} BYN'
+        return f' Номер замера {self.order_id} комплектующие отлива {self.low_tides}  на сумму {self.price_in_byn} BYN'
 
     class Meta:
         verbose_name = 'Просчет комплектующих отливов'
@@ -224,7 +224,7 @@ class CasingCalc(models.Model):
     price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')
 
     def __str__(self):
-        return f' Номер замера {self.order_id} козырек {self.casing}  на сумму {self.price_in_byn} BYN'
+        return f' Номер замера {self.order_id} наличник {self.casing}  на сумму {self.price_in_byn} BYN'
 
     class Meta:
         verbose_name = 'Просчет наличника'
@@ -290,7 +290,7 @@ class InternalSlopesCalc(models.Model):
     price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')
 
     def __str__(self):
-        return f' Номер замера {self.order_id} козырек {self.internal_slopes}  на сумму {self.price_in_byn} BYN'
+        return f' Номер замера {self.order_id} внутренний откос {self.internal_slopes}  на сумму {self.price_in_byn} BYN'
 
     class Meta:
         verbose_name = 'Просчет внутренних откосов'
@@ -320,11 +320,41 @@ class MountingMaterialsCalc(models.Model):
     price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')
 
     def __str__(self):
-        return f' Номер замера {self.order_id} козырек {self.mounting_materials}  на сумму {self.price_in_byn} BYN'
+        return f' Номер замера {self.order_id} монтажный материал {self.mounting_materials}  на сумму {self.price_in_byn} BYN'
 
     class Meta:
         verbose_name = 'Просчет монтажных материалов'
         verbose_name_plural = 'Просчеты внутренних монтажных материалов'
+
+class Works(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
+    price_in_currency = models.FloatField(blank=True, null=True, verbose_name='Цена EUR/USD')
+    price_in_byn = models.FloatField(blank=True, null=True, verbose_name='Цена BYN')
+
+    def __str__(self):
+        return f' Название: {self.name} {self.price_in_currency} EUR/USD {self.price_in_byn} BYN'
+
+    class Meta:
+        verbose_name = 'Работа'
+        verbose_name_plural = 'Работы'
+
+
+class WorksCalc(models.Model):
+    order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
+    works = models.ForeignKey(Works, models.SET_NULL, verbose_name='Работа',
+                                           blank=True,
+                                           null=True)
+    count = models.IntegerField(default=0, verbose_name='Количество')
+    price_in_byn = models.FloatField(max_length=255, default=0.0, verbose_name='Цена BYN')
+    price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')
+
+    def __str__(self):
+        return f' Номер замера {self.order_id} работа {self.works}  на сумму {self.price_in_byn} BYN'
+
+    class Meta:
+        verbose_name = 'Просчет работы'
+        verbose_name_plural = 'Просчеты работ'
+
 
 
 class Order(models.Model):
@@ -332,7 +362,7 @@ class Order(models.Model):
         {0, 'Активная заявка'},
         {1, 'Договор заключен'},
         {2, 'Думает'},
-        {3, 'Придет на офис'},
+        {3, 'Придет в офис'},
         {4, 'Банковская рассрочка'},
         {5, 'Отказ до замера'},
         {6, 'Отказ после замера'}
@@ -344,6 +374,8 @@ class Order(models.Model):
     date = models.DateField(verbose_name='Дата замера')
     sum_materials_byn = models.FloatField(default=0.0, verbose_name='Сумма материалов в BYN')
     sum_materials_currency = models.FloatField(default=0.0, verbose_name='Сумма материалов в валюте')
+    sum_works_byn = models.FloatField(default=0.0, verbose_name='Сумма работ в BYN')
+    sum_works_currency = models.FloatField(default=0.0, verbose_name='Сумма работ в валюте')
     sum_byn = models.FloatField(default=0.0, verbose_name='Сумма просчета BYN')
     sum_currency = models.FloatField(default=0.0, verbose_name='Сумма просчета в EUR/USD')
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, verbose_name='статус', null=True, blank=True)
