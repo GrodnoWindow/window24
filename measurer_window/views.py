@@ -26,32 +26,8 @@ def update_order(request, pk):
     order.status = status
     order.save()
 
-
-def delete_windowsill_calc(request):
-    id_windowsill_calc = request.GET.get('id_windowsill_calc')
-    windowsill_calc = WindowsillCalc.objects.get(pk=id_windowsill_calc)
-    windowsill_calc.delete()
-
-
-def delete_windowsill_complect_calc(request):
-    id_windowsill_complect_calc = request.GET.get('id_windowsill_complect_calc')
-    windowsill_complect_calc = WindowsillComplectCalc.objects.get(pk=id_windowsill_complect_calc)
-    windowsill_complect_calc.delete()
-
-
-def delete_low_tides_calc(request):
-    id_low_tides_calc = request.GET.get('id_low_tides_calc')
-    low_tides_calc = LowTidesCalc.objects.get(pk=id_low_tides_calc)
-    low_tides_calc.delete()
-
-
-def delete_low_tides_complect_calc(request):
-    id_low_tides_complect_calc = request.GET.get('id_low_tides_complect_calc')
-    low_tides_complect_calc = LowTidesComplectCalc.objects.get(pk=id_low_tides_complect_calc)
-    low_tides_complect_calc.delete()
-
-
-def order(request, pk):
+def order(request, pk,form):
+    print(form)
     user = User.objects.get(username=request.user.username)
 
     if request.method == "GET":
@@ -111,14 +87,14 @@ def order(request, pk):
             count = form_windowsill_calc.cleaned_data.get("count")
             calc_windowsill(order_id=pk, windowsill=windowsill, windowsill_width=windowsill_width, length=length,
                             count=count)
-            return redirect('order', pk=pk)
+            return redirect('order', pk=pk,form='windowsill_calc')
 
         form_windowsill_complect_calc = WindowsillComplectCalcForm(request.POST)
         if form_windowsill_complect_calc.is_valid():
             windowsill = form_windowsill_complect_calc.cleaned_data.get("windowsill")
             count = form_windowsill_complect_calc.cleaned_data.get("count")
             calc_windowsill_complect(order_id=pk, windowsill=windowsill, count=count)
-            return redirect('order', pk=pk)
+            return redirect('order', pk=pk,form='windowsill_calc')
 
         form_low_tides_calc = LowTidesCalcForm(request.POST)
         if form_low_tides_calc.is_valid():
@@ -128,14 +104,14 @@ def order(request, pk):
             count = form_low_tides_calc.cleaned_data.get("count")
             calc_low_tides(order_id=pk, low_tides=low_tides, width=width, length=length,
                            count=count)
-            return redirect('order', pk=pk)
+            return redirect('order', pk=pk,form='low_tides_calc')
 
         form_low_tides_complect_calc = LowTidesComplectCalcForm(request.POST)
         if form_low_tides_complect_calc.is_valid():
             low_tides = form_low_tides_complect_calc.cleaned_data.get("low_tides")
             count = form_low_tides_complect_calc.cleaned_data.get("count")
             calc_low_tides_complect(order_id=pk, low_tides=low_tides, count=count)
-            return redirect('order', pk=pk)
+            return redirect('order', pk=pk,form='low_tides_calc')
 
         form_visors_calc = VisorsCalcForm(request.POST)
         if form_visors_calc.is_valid():
@@ -145,7 +121,7 @@ def order(request, pk):
             count = form_visors_calc.cleaned_data.get("count")
             calc_visors(order_id=pk, visors=visors, width=width, length=length,
                         count=count)
-            return redirect('order', pk=pk)
+            return redirect('order', pk=pk, form='visors_calc')
 
         form_flashing_calc = FlashingCalcForm(request.POST)
         if form_flashing_calc.is_valid():
@@ -155,7 +131,7 @@ def order(request, pk):
             count = form_flashing_calc.cleaned_data.get("count")
             calc_flashing(order_id=pk, flashing=flashing, width=width, length=length,
                           count=count)
-            return redirect('order', pk=pk)
+            return redirect('order', pk=pk, form='flashing_calc')
 
         form_casing_calc = CasingCalcForm(request.POST)
         if form_casing_calc.is_valid():
@@ -165,7 +141,7 @@ def order(request, pk):
             count = form_casing_calc.cleaned_data.get("count")
             calc_casing(order_id=pk, casing=casing, width=width, length=length,
                         count=count)
-            return redirect('order', pk=pk)
+            return redirect('order', pk=pk, form='casing_calc')
 
         form_slopes_of_metal_calc = SlopesOfMetalCalcForm(request.POST)
         if form_slopes_of_metal_calc.is_valid():
@@ -175,7 +151,7 @@ def order(request, pk):
             count = form_slopes_of_metal_calc.cleaned_data.get("count")
             calc_slopes_of_metal(order_id=pk, slopes_of_metal=slopes_of_metal, width=width, length=length,
                                  count=count)
-            return redirect('order', pk=pk)
+            return redirect('order', pk=pk, form='slopes_of_metal_calc')
 
         form_internal_slopes_calc = InternalSlopesCalcForm(request.POST)
         if form_internal_slopes_calc.is_valid():
@@ -185,7 +161,7 @@ def order(request, pk):
             count = form_internal_slopes_calc.cleaned_data.get("count")
             calc_internal_slopes(order_id=pk, internal_slopes=internal_slopes, width=width, length=length,
                                  count=count)
-            return redirect('order', pk=pk)
+            return redirect('order', pk=pk, form='internal_slopes_calc')
 
         form_mounting_materials_calc = MountingMaterialsCalcForm(request.POST)
         if form_mounting_materials_calc.is_valid():
@@ -193,7 +169,7 @@ def order(request, pk):
             count = form_mounting_materials_calc.cleaned_data.get("count")
             calc_mounting_materials(order_id=pk, mounting_materials=mounting_materials,
                                     count=count)
-            return redirect('order', pk=pk)
+            return redirect('order', pk=pk, form='mounting_materials_calc')
 
         form_works_calc = WorksCalcForm(request.POST)
         if form_works_calc.is_valid():
@@ -201,7 +177,7 @@ def order(request, pk):
             count = form_works_calc.cleaned_data.get("count")
             calc_works(order_id=pk, works=works,
                        count=count)
-            return redirect('order', pk=pk)
+            return redirect('order', pk=pk, form='works_calc')
         form_order = OrderForm(request.POST)
         if form_order.is_valid():
             order = form_order.save()
@@ -230,7 +206,7 @@ def order(request, pk):
         'status': order.status,
 
     })
-    form_windowsill_calc = WindowsillCalcForm(initial={'count': 1})
+    form_windowsill_calc = WindowsillCalcForm(initial={'count': 1, 'color': 1, 'windowsill': 1})
     form_windowsill_complect_calc = WindowsillComplectCalcForm(initial={'count': 1})
     windowsill_complect_calc = WindowsillComplectCalc.objects.filter(order_id=pk)
 
@@ -253,6 +229,7 @@ def order(request, pk):
     form_works_calc = WorksCalcForm(initial={'count': 1})
 
     context = {
+        'form': form,
         'order': order,
 
         'form_order': form_order,
@@ -288,9 +265,15 @@ def order(request, pk):
         'form_works_calc': form_works_calc,
         'works_calc': works_calc,
 
+
     }
     return render(request, 'measurer_window/order_detail.html', context)
 
+
+  # def get(self, request, slug):
+  #      # Use slug as you want
+  #      # books = models.Book.objects.all()
+  #      return render(request, 'measurer_window/order_detail.html', {'books': 'asd'})
 
 def home(request):
     user = User.objects.get(username=request.user.username)
@@ -308,7 +291,7 @@ def home(request):
             order = form_order.save()
             order.user = user
             order.save()
-            return redirect('order', pk=order.pk)
+            return redirect('order', pk=order.pk,form=None)
 
     orders = Order.objects.filter(user=user).order_by('-pk')
     form_order = OrderForm(initial={'phone': "+375"})

@@ -40,7 +40,7 @@ urlpatterns = [
     path('', include('calculation.urls')),
     path('correspondence/', include('correspondence.urls')),
     path('calls-table/', include('calls_table.urls')),
-    path('measurer/', include('measurer.urls')),
+    path('measurer/', include('measurer_window.urls')),
     path('new-call/', include('new_call.urls')),
     path('r2d2/', include('measurer_window.urls')),
 

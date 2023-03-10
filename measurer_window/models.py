@@ -37,6 +37,17 @@ class WindowsillWidth(models.Model):
         verbose_name_plural = 'Полки подоконников'
 
 
+class WindowsillColor(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Цвет подоконника', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Цвет подоконника'
+        verbose_name_plural = 'Цвета подоконников'
+
+
 class Windowsill(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
     price_in_currency = models.FloatField(blank=True, null=True, verbose_name=' Цена EUR/USD')
@@ -55,6 +66,8 @@ class WindowsillCalc(models.Model):
     order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
     windowsill = models.ForeignKey(Windowsill, models.SET_NULL, verbose_name='Подоконник', blank=True, null=True)
     windowsill_width = models.ForeignKey(WindowsillWidth, models.SET_NULL, verbose_name='Полка подоконник', blank=True,
+                                         null=True)
+    windowsill_color = models.ForeignKey(WindowsillColor, models.SET_NULL, verbose_name='Цвет подоконника', blank=True,
                                          null=True)
     length = models.IntegerField(default=0, verbose_name='Длинна')
     count = models.IntegerField(default=0, verbose_name='Количество')
@@ -326,6 +339,7 @@ class MountingMaterialsCalc(models.Model):
         verbose_name = 'Просчет монтажных материалов'
         verbose_name_plural = 'Просчеты внутренних монтажных материалов'
 
+
 class Works(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
     price_in_currency = models.FloatField(blank=True, null=True, verbose_name='Цена EUR/USD')
@@ -342,8 +356,8 @@ class Works(models.Model):
 class WorksCalc(models.Model):
     order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
     works = models.ForeignKey(Works, models.SET_NULL, verbose_name='Работа',
-                                           blank=True,
-                                           null=True)
+                              blank=True,
+                              null=True)
     count = models.IntegerField(default=0, verbose_name='Количество')
     price_in_byn = models.FloatField(max_length=255, default=0.0, verbose_name='Цена BYN')
     price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')
@@ -354,7 +368,6 @@ class WorksCalc(models.Model):
     class Meta:
         verbose_name = 'Просчет работы'
         verbose_name_plural = 'Просчеты работ'
-
 
 
 class Order(models.Model):

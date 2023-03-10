@@ -9,38 +9,38 @@
             </div>
 
             <div class="modal-body">
-                <button class="btn bg-gradient-primary mb-2 col-12"
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 m-2"
                         data-bs-target="#windowsillCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Подоконники и комплектующие
                 </button>
-                <button class="btn bg-gradient-primary mb-2 col-12"
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 m-2"
                         data-bs-target="#lowTidesCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Отливы и комплектующие
                 </button>
 
-                <button class="btn bg-gradient-primary mb-2 col-12"
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 m-2"
                         data-bs-target="#visorsCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Козырьки
                 </button>
 
-                <button class="btn bg-gradient-primary mb-2 col-12"
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 m-2"
                         data-bs-target="#flashingCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Нащельники
                 </button>
-                <button class="btn bg-gradient-primary mb-2 col-12"
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 m-2"
                         data-bs-target="#casingCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Наличники
                 </button>
-                <button class="btn bg-gradient-primary mb-2 col-12"
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 m-2"
                         data-bs-target="#slopesOfMetalCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Откосы из металла
                 </button>
 
-                <button class="btn bg-gradient-primary mb-2 col-12"
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 m-2"
                         data-bs-target="#internalSlopesCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Внутренние откосы
                 </button>
-                <button class="btn bg-gradient-primary mb-2 col-12"
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 m-2"
                         data-bs-target="#mountingMaterialsCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Монтажные материалы
                 </button>
@@ -70,6 +70,10 @@
             </div>
 
             <div class="modal-body">
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 mb-2"
+                        data-bs-target="#selectWindowsillModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal"> Добавить подоконники и комплектующие
+                </button>
                 {% for el in windowsill_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
@@ -135,7 +139,7 @@
             </div>
             <div class="modal-footer">
 
-                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                <button class="btn btn-primary" data-bs-target="#materialsCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Назад
                 </button>
                 <button class="btn btn-dark"
@@ -159,6 +163,10 @@
             </div>
 
             <div class="modal-body">
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 mb-2"
+                        data-bs-target="#selectLowTidesModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Добавить отливы и комплектующие
+                </button>
                 {% for el in low_tides_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
@@ -224,7 +232,7 @@
             </div>
             <div class="modal-footer">
 
-                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                <button class="btn btn-primary" data-bs-target="#materialsCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Назад
                 </button>
                 <button class="btn btn-dark"
@@ -248,6 +256,10 @@
             </div>
 
             <div class="modal-body">
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 mb-2"
+                        data-bs-target="#visorsModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Добавить козырьки
+                </button>
                 {% for el in visors_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
@@ -286,7 +298,7 @@
             </div>
             <div class="modal-footer">
 
-                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                <button class="btn btn-primary" data-bs-target="#materialsCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Назад
                 </button>
                 <button class="btn btn-dark"
@@ -310,6 +322,10 @@
             </div>
 
             <div class="modal-body">
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 mb-2"
+                        data-bs-target="#flashingModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Добавить нащельники
+                </button>
                 {% for el in flashing_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
@@ -348,7 +364,7 @@
             </div>
             <div class="modal-footer">
 
-                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                <button class="btn btn-primary" data-bs-target="#materialsCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Назад
                 </button>
                 <button class="btn btn-dark"
@@ -372,6 +388,11 @@
             </div>
 
             <div class="modal-body">
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 mb-2"
+                        data-bs-target="#casingModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Добавить наличники
+                </button>
+
                 {% for el in casing_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
@@ -410,7 +431,7 @@
             </div>
             <div class="modal-footer">
 
-                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                <button class="btn btn-primary" data-bs-target="#materialsCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Назад
                 </button>
                 <button class="btn btn-dark"
@@ -434,6 +455,10 @@
             </div>
 
             <div class="modal-body">
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 mb-2"
+                        data-bs-target="#slopesOfMetalModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Добавить откосы из металла
+                </button>
                 {% for el in slopes_of_metal_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
@@ -472,7 +497,7 @@
             </div>
             <div class="modal-footer">
 
-                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                <button class="btn btn-primary" data-bs-target="#materialsCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Назад
                 </button>
                 <button class="btn btn-dark"
@@ -490,12 +515,16 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Внутренние откосы</h5>
+                <h5 class="modal-title">Добавить внутренние откосы</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 mb-2"
+                        data-bs-target="#internalSlopesModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Добавить внутренние откосы
+                </button>
                 {% for el in internal_slopes_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
@@ -534,7 +563,7 @@
             </div>
             <div class="modal-footer">
 
-                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                <button class="btn btn-primary" data-bs-target="#materialsCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Назад
                 </button>
                 <button class="btn btn-dark"
@@ -558,6 +587,10 @@
             </div>
 
             <div class="modal-body">
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 mb-2"
+                        data-bs-target="#mountingMaterialsModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Добавить монтажные материалы
+                </button>
                 {% for el in mounting_materials_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
@@ -588,7 +621,7 @@
             </div>
             <div class="modal-footer">
 
-                <button class="btn btn-primary" data-bs-target="#materialsModal"
+                <button class="btn btn-primary" data-bs-target="#materialsCalcModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Назад
                 </button>
                 <button class="btn btn-dark"

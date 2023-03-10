@@ -4,10 +4,11 @@ from .models import *
 
 
 admin.site.register(Status)
-admin.site.register(WindowsillWidth)
 admin.site.register(Unit)
 
 admin.site.register(Windowsill)
+admin.site.register(WindowsillWidth)
+admin.site.register(WindowsillColor)
 admin.site.register(WindowsillCalc)
 admin.site.register(WindowsillComplectCalc)
 

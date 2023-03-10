@@ -4,7 +4,6 @@ from .models import *
 from django.forms import ModelForm, TextInput, DateTimeInput, ChoiceField, ModelChoiceField, DateField, NumberInput
 from django import forms
 
-
 class MySelect(forms.Select):
     def render_option(self, selected_choices, option_value, option_label):
         return u'<option whatever>...</option>'
@@ -66,9 +65,18 @@ class WindowsillCalcForm(ModelForm):
         })
     )
 
+    color = ModelChoiceField(
+        queryset=WindowsillColor.objects.all(), empty_label="Выберите цвет подоконника", label='Цвет подоконник',
+        widget=MySelect(attrs={
+            'name': 'Цвет подоконника',
+            'class': 'form-control mb-2',
+            'placeholder': 'Цвета подоконник',
+        })
+    )
+
     class Meta:
         model = WindowsillCalc
-        fields = ['windowsill', 'width', 'length', 'count']
+        fields = ['windowsill', 'color', 'width', 'length', 'count']
         widgets = {
             'length': TextInput(attrs={
                 'class': 'form-control mb-2',

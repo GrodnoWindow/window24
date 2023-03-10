@@ -14,9 +14,11 @@
 -->
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="ru">
 
 <head>
+      <link rel="icon" type="image/png" href="{% static '/assets/fav.PNG' %}">
+
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -38,8 +40,65 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
-    <link href="{% static 'soft-ui-dashboard.css' %}" rel="stylesheet">
-<!--    <link href="{% static 'argon-dashboard.css' %}" rel="stylesheet">-->
+    <!--    <link href="{% static 'soft-ui-dashboard.css' %}" rel="stylesheet">-->
+    <link href="{% static 'argon-dashboard.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+    {% if form == "windowsill_calc" %}
+
+    $(document).ready(function(){
+        $("#windowsillCalcModal").modal('show');
+    });
+
+    {% elif form == "low_tides_calc" %}
+
+    $(document).ready(function(){
+        $("#lowTidesCalcModal").modal('show');
+    });
+    {% elif form == "visors_calc" %}
+
+    $(document).ready(function(){
+        $("#visorsCalcModal").modal('show');
+    });
+
+    {% elif form == "flashing_calc" %}
+
+    $(document).ready(function(){
+        $("#flashingCalcModal").modal('show');
+    });
+    {% elif form == "casing_calc" %}
+
+    $(document).ready(function(){
+        $("#casingCalcModal").modal('show');
+    });
+
+    {% elif form == "slopes_of_metal_calc" %}
+
+    $(document).ready(function(){
+        $("#slopesOfMetalCalcModal").modal('show');
+    });
+
+    {% elif form == "internal_slopes_calc" %}
+
+    $(document).ready(function(){
+        $("#internalSlopesCalcModal").modal('show');
+    });
+
+    {% elif form == "mounting_materials_calc" %}
+
+    $(document).ready(function(){
+        $("#mountingMaterialsCalcModal").modal('show');
+    });
+
+    {% elif form == "works_calc" %}
+
+    $(document).ready(function(){
+        $("#worksModal").modal('show');
+    });
+
+    {% endif %}
+
+    </script>
 
 </head>
 
@@ -67,7 +126,10 @@
                                 {{ user.first_name |default:'Гость' }} {{ user.last_name}}
                             </h5>
                             <h6>Замерщик</h6>
+     {% if user.is_authenticated %}
+                        <a href="/accounts/login/"> Выйти </a>
 
+      {% endif %}
                         </div>
                     </div>
                 </div>
@@ -336,58 +398,77 @@
         </div>
     </div>
     <div class="modal fade" id="positionAddModal" aria-hidden="true"
-     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Добавление позиции</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
+         aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Добавление позиции</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
 
-            <div class="modal-body">
+                <div class="modal-body">
 
-                <button class="btn bg-gradient-primary mb-2 col-12"
-                        data-bs-target="#productsCalcModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">Изделия
-                </button>
-                <button class="btn bg-gradient-primary mb-2 col-12"
-                        data-bs-target="#selectMaterialsModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">Материалы
-                </button>
-                <button class="btn bg-gradient-primary mb-2 col-12"
-                        data-bs-target="#worksCalcModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">Работы
-                </button>
-
-
-            </div>
-            <div class="modal-footer">
-
-                <button class="btn btn-dark"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
-                </button>
+                    <button class="btn bg-gradient-primary mb-2 col-12"
+                            data-bs-target="#productsCalcModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Изделия
+                    </button>
+                    <button class="btn bg-gradient-primary mb-2 col-12"
+                            data-bs-target="#selectMaterialsModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Материалы
+                    </button>
+                    <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 m-2"
+                            data-bs-target="#worksCalcModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Работы
+                    </button>
 
 
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-dark"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                    </button>
+
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     {% include 'includes/materials_modals.html' %}
     {% include 'includes/works_modals.html' %}
     {% include 'includes/calc_modals.html' %}
 
+
     <!-- Github buttons -->
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <!--<script src="{% static 'js/soft-ui-dashboard.min.js?v=1.0.7' %}"></script>-->
+    <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.<span class="badge">By <a
+                            href="https://webdevrahul007.w3spaces.com/"></a>Rahul jangid</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
     document.getElementById('datePicker').valueAsDate = new Date();
 
-
-
-
+$(document).ready(function(){
+    $("#myModal").modal('show');
+});
 
 
 

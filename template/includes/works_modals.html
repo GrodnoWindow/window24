@@ -9,9 +9,10 @@
             </div>
 
             <div class="modal-body">
-
-                {% if works_calc|length %}
-
+                <button type="button" class="btn btn-outline-primary btn-xl mb-0 col-lg-12 mb-2"
+                        data-bs-target="#worksCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Добавить работу
+                </button>
                 {% for el in works_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
@@ -36,13 +37,6 @@
                     </div>
                 </li>
                 {% endfor %}
-
-                {% else %}
-
-                <button type="button" class="btn btn-outline-primary btn-sm mb-0 col-lg-12" data-bs-target="#worksCalcModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">Добавить работу
-                </button>
-                {% endif %}
 
 
             </div>
@@ -79,7 +73,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-
+                <button class="btn btn-primary" data-bs-target="#worksModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
                 <button class="btn btn-dark"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
                 </button>
