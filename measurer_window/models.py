@@ -62,6 +62,32 @@ class Windowsill(models.Model):
         verbose_name_plural = 'Подоконники'
 
 
+class WindowsillPlug(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
+    price_in_currency = models.FloatField(blank=True, null=True, verbose_name=' Цена EUR/USD')
+    price_in_byn = models.FloatField(blank=True, null=True, verbose_name='Цена BYN')
+
+    def __str__(self):
+        return f' Название: {self.name} {self.price_in_currency} EUR/USD {self.price_in_byn} BYN'
+
+    class Meta:
+        verbose_name = 'Заглушка подоконника'
+        verbose_name_plural = 'Заглушки подоконников'
+
+
+class WindowsillConnection(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
+    price_in_currency = models.FloatField(blank=True, null=True, verbose_name=' Цена EUR/USD')
+    price_in_byn = models.FloatField(blank=True, null=True, verbose_name='Цена BYN')
+
+    def __str__(self):
+        return f' Название: {self.name} {self.price_in_currency} EUR/USD {self.price_in_byn} BYN'
+
+    class Meta:
+        verbose_name = 'Соединитель подоконника'
+        verbose_name_plural = 'Соединители подоконников'
+
+
 class WindowsillCalc(models.Model):
     order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
     windowsill = models.ForeignKey(Windowsill, models.SET_NULL, verbose_name='Подоконник', blank=True, null=True)
@@ -69,15 +95,35 @@ class WindowsillCalc(models.Model):
                                          null=True)
     windowsill_color = models.ForeignKey(WindowsillColor, models.SET_NULL, verbose_name='Цвет подоконника', blank=True,
                                          null=True)
+    windowsill_plug = models.ForeignKey(WindowsillPlug, models.SET_NULL, verbose_name='Заглушка подоконника',
+                                        blank=True,
+                                        null=True)
+    windowsill_plug_count = models.IntegerField(default=0, blank=True, null=True, verbose_name='Количество заглушек')
+    windowsill_connection = models.ForeignKey(WindowsillConnection, models.SET_NULL,
+                                              verbose_name='Соединитель подоконника', blank=True,
+                                              null=True)
+    windowsill_connection_count = models.IntegerField(default=0, blank=True, null=True,
+                                                      verbose_name='Количество соединителей')
+
     length = models.IntegerField(default=0, verbose_name='Длинна')
     count = models.IntegerField(default=0, verbose_name='Количество')
-    square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
-    linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
-    price_in_byn = models.FloatField(max_length=255, default=0.0, verbose_name='Цена BYN')
-    price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')
+    square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных', blank=True, null=True)
+    linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных', blank=True, null=True)
+
+    sum_plug_byn = models.FloatField(max_length=255, default=0.0, verbose_name='Цена заглушек в BYN', blank=True, null=True)
+    sum_plug_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена заглушек в EUR/USD', blank=True, null=True)
+
+    sum_connection_byn = models.FloatField(max_length=255, default=0.0, verbose_name='Цена соединитеей в BYN', blank=True, null=True)
+    sum_connection_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена соединителей в EUR/USD', blank=True, null=True)
+
+    sum_windowsill_byn = models.FloatField(max_length=255, default=0.0, verbose_name='Цена подоконника в BYN', blank=True, null=True)
+    sum_windowsill_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена подоконника в EUR/USD', blank=True, null=True)
+
+    sum_in_byn = models.FloatField(max_length=255, default=0.0, verbose_name='Цена BYN', blank=True, null=True)
+    sum_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD', blank=True, null=True)
 
     def __str__(self):
-        return f' Номер замера {self.order_id} Подоконник {self.windowsill}  на сумму {self.price_in_byn} BYN'
+        return f' Номер замера {self.order_id} Подоконник {self.windowsill}  на сумму {self.sum_in_byn} BYN'
 
     class Meta:
         verbose_name = 'Просчет подоконника'

@@ -53,7 +53,7 @@ class WindowsillCalcForm(ModelForm):
             'name': 'Подоконник',
             'class': 'form-control mb-2',
             'placeholder': 'Подоконник',
-        })
+        }), required=False, blank=True
     )
 
     width = ModelChoiceField(
@@ -62,22 +62,48 @@ class WindowsillCalcForm(ModelForm):
             'name': 'Полка подоконник',
             'class': 'form-control mb-2',
             'placeholder': 'Полка подоконник',
-        })
+        }), required=False, blank=True
     )
 
-    color = ModelChoiceField(
+    windowsill_color = ModelChoiceField(
         queryset=WindowsillColor.objects.all(), empty_label="Выберите цвет подоконника", label='Цвет подоконник',
         widget=MySelect(attrs={
             'name': 'Цвет подоконника',
             'class': 'form-control mb-2',
             'placeholder': 'Цвета подоконник',
-        })
+        }), required=False, blank=True
+    )
+
+    windowsill_plug = ModelChoiceField(
+        queryset=WindowsillPlug.objects.all(), empty_label="Выберите заглушку", label='Заглушка',
+        widget=MySelect(attrs={
+            'name': 'Заглушка',
+            'class': 'form-control mb-2',
+            'placeholder': 'Заглушка',
+        }), required=False, blank=True
+    )
+
+    windowsill_connection = ModelChoiceField(
+        queryset=WindowsillConnection.objects.all(), empty_label="Выберите соединитель", label='Соединитель',
+        widget=MySelect(attrs={
+            'name': 'Соединитель',
+            'class': 'form-control mb-2',
+            'placeholder': 'Соединитель',
+        }), required=False, blank=True
     )
 
     class Meta:
         model = WindowsillCalc
-        fields = ['windowsill', 'color', 'width', 'length', 'count']
+        fields = ['windowsill', 'windowsill_color', 'width', 'length','windowsill_plug','windowsill_plug_count','windowsill_connection','windowsill_connection_count',  'count']
         widgets = {
+            'windowsill_plug_count': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество заглушек'
+            }),
+            'windowsill_connection_count': TextInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество соединителей'
+            }),
             'length': TextInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Длина'

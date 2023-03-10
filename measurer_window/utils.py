@@ -1,23 +1,40 @@
 from .models import *
 
 
-def calc_windowsill(order_id, windowsill, windowsill_width, length, count):
-    price_in_byn = windowsill.price_in_byn
-    price_in_currency = windowsill.price_in_currency
-    if price_in_currency is None:
-        price_in_currency = 0.0
+def calc_windowsill(order_id, windowsill,windowsill_color, windowsill_width, windowsill_plug, windowsill_plug_count,
+                    windowsill_connection, windowsill_connection_count, length, count):
+    sum_byn = 0.0
+    sum_currency = 0.0
 
-    width = float(windowsill_width.name)
-    length = float(length)
-    count = int(count)
-    sum_byn = price_in_byn * ((width * length) / 1000000)
-    sum_currency = price_in_currency * ((width * length) / 1000000)
-    square_meter = (width * length) / 1000000
-    linear_meter = width / 1000
+    if not (windowsill_plug is None) and (windowsill_plug_count > 0):
+        sum_plug_byn = windowsill_plug.price_in_byn * windowsill_plug_count
+        sum_plug_currency = windowsill_plug.price_in_currency * windowsill_plug_count
+    else:
+        sum_plug_byn = 0.0
+        sum_plug_currency = 0.0
 
+    if not (windowsill_connection is None) and (windowsill_connection_count > 0):
+        sum_connection_byn = windowsill_connection.price_in_byn * windowsill_connection_count
+        sum_connection_currency = windowsill_connection.price_in_currency * windowsill_connection_count
+    else:
+        sum_connection_byn = 0.0
+        sum_connection_currency = 0.0
+
+    # count = int(count)
+
+    try:
+        sum_windowsill_byn = windowsill.price_in_byn * ((float(windowsill_width.name) * length) / 1000000)
+        sum_windowsill_currency = windowsill.price_in_currency * ((float(windowsill_width.name) * length) / 1000000)
+        square_meter = (float(windowsill_width.name) * length) / 1000000
+        linear_meter = length / 1000
+    except:
+        sum_windowsill_byn = 0.0
+        sum_windowsill_currency = 0.0
+        square_meter = 0
+        linear_meter = 0
     if count > 0:
-        sum_byn = sum_byn * count
-        sum_currency = sum_currency * count
+        sum_byn = (sum_windowsill_byn + sum_plug_byn + sum_connection_byn) * count
+        sum_currency = (sum_windowsill_currency + sum_plug_currency + sum_connection_currency) * count
         square_meter = square_meter * count
         linear_meter = linear_meter * count
 
@@ -28,13 +45,24 @@ def calc_windowsill(order_id, windowsill, windowsill_width, length, count):
     linear_meter = round(linear_meter, 2)
     windowsill_calc = WindowsillCalc.objects.create(order_id=order_id,
                                                     windowsill=windowsill,
+                                                    windowsill_color=windowsill_color,
                                                     windowsill_width=windowsill_width,
+                                                    windowsill_plug=windowsill_plug,
+                                                    sum_plug_byn=sum_plug_byn,
+                                                    sum_plug_currency=sum_plug_currency,
+                                                    sum_windowsill_byn=sum_windowsill_byn,
+                                                    sum_windowsill_currency=sum_windowsill_currency,
+                                                    sum_connection_byn=sum_connection_currency,
+                                                    sum_connection_currency=sum_connection_currency,
+                                                    windowsill_plug_count=windowsill_plug_count,
+                                                    windowsill_connection=windowsill_connection,
+                                                    windowsill_connection_count=windowsill_connection_count,
                                                     length=length,
                                                     count=count,
-                                                    price_in_byn=sum_byn,
-                                                    price_in_currency=sum_currency,
                                                     square_meter=square_meter,
-                                                    linear_meter=linear_meter)
+                                                    linear_meter=linear_meter,
+                                                    sum_in_byn=sum_byn,
+                                                    sum_in_currency=sum_currency)
 
     return windowsill_calc
 
@@ -368,8 +396,8 @@ def calc_materials(order):
 
     windowsill_calc = WindowsillCalc.objects.filter(order_id=order.pk)
     for el in windowsill_calc:
-        sum_byn = sum_byn + el.price_in_byn
-        sum_currency = sum_currency + el.price_in_currency
+        sum_byn = sum_byn + el.sum_in_byn
+        sum_currency = sum_currency + el.sum_in_currency
 
     windowsill_complect_calc = WindowsillComplectCalc.objects.filter(order_id=order.pk)
     for el in windowsill_complect_calc:

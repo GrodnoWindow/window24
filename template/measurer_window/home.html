@@ -22,7 +22,7 @@
     <title>
         R2D2
     </title>
-      <link rel="icon" type="image/png" href="{% static '/assets/fav.PNG' %}">
+      <link rel="icon" type="image/png" href="{% static '/assets/fav.png' %}">
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
     <!-- Nucleo Icons -->
@@ -430,7 +430,8 @@
                         </h5>
                         <h6>Замерщик</h6>
                   {% if user.is_authenticated %}
-                        <a href="/accounts/login/"> Выйти </a>
+                                                        <a href="{% url 'logout' %}">Нажми чтобы выйти</a>
+
 
       {% endif %}
                     </div>
@@ -544,19 +545,19 @@
                                     <p class="text-xs font-weight-bold mb-0">{{ order.name }}</p>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    {% if order.status == 0 %}
+                                    {% if order.status.pk == 0 %}
                                     <span class="badge badge-sm bg-gradient-light">Активная заявка</span>
-                                    {% elif order.status == 1 %}
+                                    {% elif order.status.pk == 1 %}
                                     <span class="badge badge-sm bg-gradient-success">Договор заключен</span>
-                                    {% elif order.status == 2 %}
+                                    {% elif order.status.pk == 2 %}
                                     <span class="badge badge-sm bg-gradient-secondary">Думает</span>
-                                    {% elif order.status == 3 %}
+                                    {% elif order.status.pk == 3 %}
                                     <span class="badge badge-sm bg-gradient-primary">Придет в офис</span>
-                                    {% elif order.status == 4 %}
+                                    {% elif order.status.pk == 4 %}
                                     <span class="badge badge-sm bg-gradient-info">Банковская рассрочка</span>
-                                    {% elif order.status == 5 %}
+                                    {% elif order.status.pk == 5 %}
                                     <span class="badge badge-sm bg-gradient-warning">Отказ до замера</span>
-                                    {% elif order.status == 6 %}
+                                    {% elif order.status.pk == 6 %}
                                     <span class="badge badge-sm bg-gradient-danger">Отказ после замера</span>
                                     {% endif %}
                                 </td>

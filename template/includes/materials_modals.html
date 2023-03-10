@@ -71,27 +71,40 @@
 
             <div class="modal-body">
                 <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 mb-2"
-                        data-bs-target="#selectWindowsillModal"
+                        data-bs-target="#windowsillModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal"> Добавить подоконники и комплектующие
                 </button>
                 {% for el in windowsill_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">{{ el.windowsill.name }}</h6>
+                        <h6 class="mb-3 text-sm"> Подоконник {{ el.windowsill.name }} {{ el.windowsill_color.name }}</h6>
+                        {% if el.windowsill_plug.name|length %}
+                        <span class="mb-2 text-xs">Заглушка:
+                            <span class="text-dark font-weight-bold ms-sm-2">
+                            {{ el.windowsill_plug.name }}, {{ el.windowsill_plug_count }} шт. {{ el.sum_plug_byn }} BYN </span></span>
+                        {% endif %}
+                        {% if el.windowsill_connection.name|length %}
+                        <span class="mb-2 text-xs">Соединитель: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.windowsill_connection.name }} , {{ el.windowsill_connection_count }} шт. {{ el.sum_connection_byn }} BYN </span></span>
+                        {% endif %}
+                        {% if el.windowsill_width.name|length %}
                         <span class="mb-2 text-xs">Ширина: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.windowsill_width.name }}</span></span>
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.windowsill_width.name }} мм.</span></span>
                         <span class="mb-2 text-xs">Длина: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.length }}</span></span>
-                        <span class="mb-2 text-xs">Количество: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.count }}</span></span>
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.length }} мм.</span></span>
+
                         <span class="mb-2 text-xs">В метрах квадратных: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.square_meter }}</span></span>
                         <span class="mb-2 text-xs">В метрах погонных: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.linear_meter }}</span></span>
+                        {% endif %}
+                        <span class="mb-2 text-xs">Количество: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.count }} шт.</span></span>
+
                         <span class="mb-2 text-xs">Цена BYN: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_byn }}</span></span>
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.sum_in_byn }}</span></span>
                         <span class="mb-2 text-xs">Цена EUR/USD: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_currency }}</span></span>
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.sum_in_currency }}</span></span>
                     </div>
                     <div class="ms-auto text-end">
                         <form method="get" enctype="multipart/form-data">
@@ -109,33 +122,6 @@
                 </li>
                 {% endfor %}
 
-                {% for el in windowsill_complect_calc %}
-                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                    <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">{{ el.windowsill.name }}</h6>
-                        <span class="mb-2 text-xs">Количество: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.count }}</span></span>
-                        <span class="mb-2 text-xs">Цена BYN: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_byn }}</span></span>
-                        <span class="mb-2 text-xs">Цена EUR/USD: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_currency }}</span></span>
-                    </div>
-                    <div class="ms-auto text-end">
-                        <form method="get" enctype="multipart/form-data">
-                            {% csrf_token %}
-
-                            <input type="text" class="form-control mt-2 mb-2"
-                                   placeholder="id_windowsill_calc"
-                                   name="id_windowsill_complect_calc" value="{{ el.pk }}"
-                                   style="display:none">
-                            <button class="btn btn-link text-danger text-gradient px-3 mb-0"
-                                    href="javascript:;" type="submit"><i
-                                    class="far fa-trash-alt me-2"></i>Удалить
-                            </button>
-                        </form>
-                    </div>
-                </li>
-                {% endfor %}
             </div>
             <div class="modal-footer">
 
