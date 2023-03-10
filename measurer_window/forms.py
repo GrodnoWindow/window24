@@ -4,6 +4,7 @@ from .models import *
 from django.forms import ModelForm, TextInput, DateTimeInput, ChoiceField, ModelChoiceField, DateField, NumberInput
 from django import forms
 
+
 class MySelect(forms.Select):
     def render_option(self, selected_choices, option_value, option_label):
         return u'<option whatever>...</option>'
@@ -94,7 +95,8 @@ class WindowsillCalcForm(ModelForm):
 
     class Meta:
         model = WindowsillCalc
-        fields = ['windowsill', 'windowsill_color', 'width', 'length','windowsill_plug','windowsill_plug_count','windowsill_connection','windowsill_connection_count',  'count']
+        fields = ['windowsill', 'windowsill_color', 'width', 'length', 'windowsill_count', 'windowsill_plug', 'windowsill_plug_count',
+                  'windowsill_connection', 'windowsill_connection_count']
         widgets = {
             'windowsill_plug_count': NumberInput(attrs={
                 'class': 'form-control mb-2',
@@ -108,9 +110,9 @@ class WindowsillCalcForm(ModelForm):
                 'class': 'form-control mb-2',
                 'placeholder': 'Длина'
             }),
-            'count': NumberInput(attrs={
+            'windowsill_count': NumberInput(attrs={
                 'class': 'form-control mb-2',
-                'placeholder': 'Количество'
+                'placeholder': 'Количество подоконников'
             }),
 
         }

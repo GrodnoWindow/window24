@@ -93,8 +93,12 @@ class WindowsillCalc(models.Model):
     windowsill = models.ForeignKey(Windowsill, models.SET_NULL, verbose_name='Подоконник', blank=True, null=True)
     windowsill_width = models.ForeignKey(WindowsillWidth, models.SET_NULL, verbose_name='Полка подоконник', blank=True,
                                          null=True)
+
+    length = models.IntegerField(default=0, verbose_name='Длинна')
     windowsill_color = models.ForeignKey(WindowsillColor, models.SET_NULL, verbose_name='Цвет подоконника', blank=True,
                                          null=True)
+    windowsill_count = models.IntegerField(default=0, verbose_name='Количество  подоконников')
+
     windowsill_plug = models.ForeignKey(WindowsillPlug, models.SET_NULL, verbose_name='Заглушка подоконника',
                                         blank=True,
                                         null=True)
@@ -105,8 +109,6 @@ class WindowsillCalc(models.Model):
     windowsill_connection_count = models.IntegerField(default=0, blank=True, null=True,
                                                       verbose_name='Количество соединителей')
 
-    length = models.IntegerField(default=0, verbose_name='Длинна')
-    count = models.IntegerField(default=0, verbose_name='Количество')
     square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных', blank=True, null=True)
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных', blank=True, null=True)
 

@@ -86,17 +86,18 @@ def order(request, pk, form):
             windowsill_color = form_windowsill_calc.cleaned_data.get("windowsill_color")
             length = form_windowsill_calc.cleaned_data.get("length")
             windowsill_width = form_windowsill_calc.cleaned_data.get("width")
+            windowsill_count = form_windowsill_calc.cleaned_data.get("windowsill_count")
             windowsill_plug = form_windowsill_calc.cleaned_data.get("windowsill_plug")
             windowsill_plug_count = form_windowsill_calc.cleaned_data.get("windowsill_plug_count")
             windowsill_connection = form_windowsill_calc.cleaned_data.get("windowsill_connection")
             windowsill_connection_count = form_windowsill_calc.cleaned_data.get("windowsill_connection_count")
-            count = form_windowsill_calc.cleaned_data.get("count")
-            calc_windowsill(order_id=pk, windowsill=windowsill, windowsill_width=windowsill_width,windowsill_color=windowsill_color,
+            calc_windowsill(order_id=pk, windowsill=windowsill, windowsill_width=windowsill_width,
+                            windowsill_color=windowsill_color,
                             windowsill_plug=windowsill_plug, windowsill_plug_count=windowsill_plug_count,
                             windowsill_connection=windowsill_connection,
                             windowsill_connection_count=windowsill_connection_count,
                             length=length,
-                            count=count)
+                            windowsill_count=windowsill_count)
             return redirect('order', pk=pk, form='windowsill_calc')
 
         # form_windowsill_complect_calc = WindowsillComplectCalcForm(request.POST)
@@ -216,9 +217,9 @@ def order(request, pk, form):
         'status': order.status,
 
     })
-    form_windowsill_calc = WindowsillCalcForm(initial={'count': 1, 'color': 1, 'windowsill': 1})
-    form_windowsill_complect_calc = WindowsillComplectCalcForm(initial={'count': 1})
-    windowsill_complect_calc = WindowsillComplectCalc.objects.filter(order_id=pk)
+    form_windowsill_calc = WindowsillCalcForm(initial={'windowsill_count': 1, 'windowsill': 1, 'windowsill_color': 1})
+    # form_windowsill_complect_calc = WindowsillComplectCalcForm(initial={'count': 1})
+    # windowsill_complect_calc = WindowsillComplectCalc.objects.filter(order_id=pk)
 
     form_low_tides_calc = LowTidesCalcForm(initial={'count': 1})
     form_low_tides_complect_calc = LowTidesComplectCalcForm(initial={'count': 1})
@@ -245,9 +246,9 @@ def order(request, pk, form):
         'form_order': form_order,
 
         'form_windowsill_calc': form_windowsill_calc,
-        'form_windowsill_complect_calc': form_windowsill_complect_calc,
+        # 'form_windowsill_complect_calc': form_windowsill_complect_calc,
         'windowsill_calc': windowsill_calc,
-        'windowsill_complect_calc': windowsill_complect_calc,
+        # 'windowsill_complect_calc': windowsill_complect_calc,
 
         'form_low_tides_calc': form_low_tides_calc,
         'form_low_tides_complect_calc': form_low_tides_complect_calc,
