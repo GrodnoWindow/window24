@@ -24,24 +24,24 @@ from drf_spectacular.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')), # Django
-    path('api/', include('users.urls')), # Django
+    # path('api/', include('users.urls')), # Django
 
     path('api/shema/', SpectacularAPIView.as_view(), name='schema'),
-    path('', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 
     # path('api/', include('users.urls')),
-    path('clients/', include('client.urls')),
-    path('diary/', include('diary.urls')),
-    path('miscalculation/', include('miscalculation.urls')),
-    path('complaint/', include('complaint.urls')),
-    path('call/', include('call.urls')),
-    path('', include('constructor.urls')),
-    path('', include('calculation.urls')),
-    path('correspondence/', include('correspondence.urls')),
-    path('calls-table/', include('calls_table.urls')),
-    path('measurer/', include('measurer_window.urls')),
-    path('new-call/', include('new_call.urls')),
+    path('api/clients/', include('client.urls')),
+    path('api/diary/', include('diary.urls')),
+    path('api/miscalculation/', include('miscalculation.urls')),
+    path('api/complaint/', include('complaint.urls')),
+    path('api/call/', include('call.urls')) ,
+    path('api/', include('constructor.urls')),
+    path('api/', include('calculation.urls')),
+    path('api/correspondence/', include('correspondence.urls')),
+    path('api/calls-table/', include('calls_table.urls')),
+    # path('', include('measurer_window.urls')),
+    path('api/', include('new_call.urls')),
     path('r2d2/', include('measurer_window.urls')),
 
 ]

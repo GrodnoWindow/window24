@@ -5,7 +5,8 @@ def calc_windowsill(order_id, windowsill,windowsill_color, windowsill_width, win
                     windowsill_connection, windowsill_connection_count, length, count):
     sum_byn = 0.0
     sum_currency = 0.0
-
+    if (count is None) or count == 0:
+        return 
     if not (windowsill_plug is None) and (windowsill_plug_count > 0):
         sum_plug_byn = windowsill_plug.price_in_byn * windowsill_plug_count
         sum_plug_currency = windowsill_plug.price_in_currency * windowsill_plug_count

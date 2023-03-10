@@ -96,19 +96,19 @@ class WindowsillCalcForm(ModelForm):
         model = WindowsillCalc
         fields = ['windowsill', 'windowsill_color', 'width', 'length','windowsill_plug','windowsill_plug_count','windowsill_connection','windowsill_connection_count',  'count']
         widgets = {
-            'windowsill_plug_count': TextInput(attrs={
+            'windowsill_plug_count': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Количество заглушек'
             }),
-            'windowsill_connection_count': TextInput(attrs={
+            'windowsill_connection_count': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Количество соединителей'
             }),
-            'length': TextInput(attrs={
+            'length': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Длина'
             }),
-            'count': TextInput(attrs={
+            'count': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Количество'
             }),

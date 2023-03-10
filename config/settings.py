@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 
-LOGIN_REDIRECT_URL = "/measurer/"
+LOGIN_REDIRECT_URL = "/r2d2/"
 LOGOUT_REDIRECT_URL = "login"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
