@@ -57,7 +57,7 @@ class WindowsillCalcForm(ModelForm):
         }), required=False, blank=True
     )
 
-    width = ModelChoiceField(
+    windowsill_width = ModelChoiceField(
         queryset=WindowsillWidth.objects.all(), empty_label="Выберите полку подоконника", label='Полка подоконник',
         widget=MySelect(attrs={
             'name': 'Полка подоконник',
@@ -95,7 +95,7 @@ class WindowsillCalcForm(ModelForm):
 
     class Meta:
         model = WindowsillCalc
-        fields = ['windowsill', 'windowsill_color', 'width', 'length', 'windowsill_count', 'windowsill_plug', 'windowsill_plug_count',
+        fields = ['windowsill', 'windowsill_color', 'windowsill_width', 'length', 'windowsill_count', 'windowsill_plug', 'windowsill_plug_count',
                   'windowsill_connection', 'windowsill_connection_count']
         widgets = {
             'windowsill_plug_count': NumberInput(attrs={

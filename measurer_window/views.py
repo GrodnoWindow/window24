@@ -34,6 +34,7 @@ def order(request, pk, form):
     if request.method == "GET":
         try:
             WindowsillCalc.objects.get(pk=request.GET.get('id_windowsill_calc')).delete()
+            form = 'windowsill_calc'
         except:
             pass
         # try:
@@ -85,27 +86,19 @@ def order(request, pk, form):
             windowsill = form_windowsill_calc.cleaned_data.get("windowsill")
             windowsill_color = form_windowsill_calc.cleaned_data.get("windowsill_color")
             length = form_windowsill_calc.cleaned_data.get("length")
-            windowsill_width = form_windowsill_calc.cleaned_data.get("width")
+            windowsill_width = form_windowsill_calc.cleaned_data.get("windowsill_width")
             windowsill_count = form_windowsill_calc.cleaned_data.get("windowsill_count")
             windowsill_plug = form_windowsill_calc.cleaned_data.get("windowsill_plug")
             windowsill_plug_count = form_windowsill_calc.cleaned_data.get("windowsill_plug_count")
             windowsill_connection = form_windowsill_calc.cleaned_data.get("windowsill_connection")
             windowsill_connection_count = form_windowsill_calc.cleaned_data.get("windowsill_connection_count")
             calc_windowsill(order_id=pk, windowsill=windowsill, windowsill_width=windowsill_width,
-                            windowsill_color=windowsill_color,
+                            windowsill_color=windowsill_color, length=length,
+                            windowsill_count=windowsill_count,
                             windowsill_plug=windowsill_plug, windowsill_plug_count=windowsill_plug_count,
                             windowsill_connection=windowsill_connection,
-                            windowsill_connection_count=windowsill_connection_count,
-                            length=length,
-                            windowsill_count=windowsill_count)
+                            windowsill_connection_count=windowsill_connection_count)
             return redirect('order', pk=pk, form='windowsill_calc')
-
-        # form_windowsill_complect_calc = WindowsillComplectCalcForm(request.POST)
-        # if form_windowsill_complect_calc.is_valid():
-        #     windowsill = form_windowsill_complect_calc.cleaned_data.get("windowsill")
-        #     count = form_windowsill_complect_calc.cleaned_data.get("count")
-        #     calc_windowsill_complect(order_id=pk, windowsill=windowsill, count=count)
-        #     return redirect('order', pk=pk, form='windowsill_calc')
 
         form_low_tides_calc = LowTidesCalcForm(request.POST)
         if form_low_tides_calc.is_valid():
@@ -194,7 +187,7 @@ def order(request, pk, form):
             order = form_order.save()
             order.user = user
             order.save()
-            return redirect('order', pk=order.pk)
+            return redirect('order', pk=order.pk, form='None')
 
     calc_order(order_id=pk)
     order = Order.objects.get(pk=pk)

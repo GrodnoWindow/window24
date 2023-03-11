@@ -6,15 +6,14 @@ def calc_windowsill(order_id, windowsill, windowsill_color, windowsill_width, wi
                     windowsill_connection, windowsill_connection_count, length):
     sum_byn = 0.0
     sum_currency = 0.0
-    if (windowsill_count is None) or (windowsill_count == 0) or (windowsill_width is None):
-        return
 
-    # if not(windowsill_plug is None) and (int(windowsill_plug_count) > 0):
-    sum_plug_byn = windowsill_plug.price_in_byn * windowsill_plug_count
-    sum_plug_currency = windowsill_plug.price_in_currency * windowsill_plug_count
-# else:
-    sum_plug_byn = 0.0
-    sum_plug_currency = 0.0
+
+    if not(windowsill_plug is None) and (int(windowsill_plug_count) > 0):
+        sum_plug_byn = windowsill_plug.price_in_byn * windowsill_plug_count
+        sum_plug_currency = windowsill_plug.price_in_currency * windowsill_plug_count
+    else:
+        sum_plug_byn = 0.0
+        sum_plug_currency = 0.0
 
     if not (windowsill_connection is None) and (windowsill_connection_count > 0):
         sum_connection_byn = windowsill_connection.price_in_byn * windowsill_connection_count
@@ -22,12 +21,11 @@ def calc_windowsill(order_id, windowsill, windowsill_color, windowsill_width, wi
     else:
         sum_connection_byn = 0.0
         sum_connection_currency = 0.0
-
-    if windowsill_count > 0 and not(windowsill_width is None) and not(length is None):
-        sum_windowsill_byn = (windowsill.price_in_byn * (
-                    (float(windowsill_width.name) * length) / 1000000)) * windowsill_count
-        sum_windowsill_currency = (windowsill.price_in_currency * (
-                    (float(windowsill_width.name) * length) / 1000000)) * windowsill_count
+    if not(windowsill_count is None) and not(windowsill_count == 0) and not(windowsill_width is None):
+        sum_windowsill_byn = round((windowsill.price_in_byn * (
+                    (float(windowsill_width.name) * length) / 1000000)) * windowsill_count,2)
+        sum_windowsill_currency = round((windowsill.price_in_currency * (
+                    (float(windowsill_width.name) * length) / 1000000)) * windowsill_count,2)
         square_meter = ((float(windowsill_width.name) * length) / 1000000) * windowsill_count
         linear_meter = (length / 1000) * windowsill_count
         sum_windowsill_byn = sum_windowsill_byn * windowsill_count

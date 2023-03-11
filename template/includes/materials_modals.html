@@ -77,8 +77,10 @@
                 {% for el in windowsill_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
+                        {% if el.windowsill.name|length %}
                         <h6 class="mb-3 text-sm"> Подоконник {{ el.windowsill.name }} {{ el.windowsill_color.name }}</h6>
-                        {% if el.windowsill_count > 0 %}
+
+
                         <span class="mb-2 text-xs">Ширина: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.windowsill_width.name|default:"0" }} мм.</span></span>
                         <span class="mb-2 text-xs">Длина: <span
@@ -97,7 +99,7 @@
                             <span class="text-dark font-weight-bold ms-sm-2">
                             {{ el.windowsill_plug.name }}, {{ el.windowsill_plug_count }} шт. {{ el.sum_plug_byn }} BYN </span></span>
                         {% endif %}
-                        {% if el.windowsill_connection_count > 0 %}
+                        {% if el.windowsill_connection_count > 0%}
                         <span class="mb-2 text-xs">Соединитель: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.windowsill_connection.name }} , {{ el.windowsill_connection_count }} шт. {{ el.sum_connection_byn }} BYN </span></span>
                         {% endif %}
