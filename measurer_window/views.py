@@ -103,6 +103,25 @@ def order(request, pk, form):
         form_low_tides_calc = LowTidesCalcForm(request.POST)
         if form_low_tides_calc.is_valid():
             low_tides = form_low_tides_calc.cleaned_data.get("low_tides")
+            low_tides_color = form_low_tides_calc.cleaned_data.get("low_tides_color")
+            low_tides_type = form_low_tides_calc.cleaned_data.get("low_tides_type")
+            length = form_low_tides_calc.cleaned_data.get("length")
+            low_tides_width = form_low_tides_calc.cleaned_data.get("low_tides_width")
+            low_tides_count = form_low_tides_calc.cleaned_data.get("low_tides_count")
+            low_tides_plug = form_low_tides_calc.cleaned_data.get("low_tides_plug")
+            low_tides_plug_count = form_low_tides_calc.cleaned_data.get("low_tides_plug_count")
+            low_tides_connection = form_low_tides_calc.cleaned_data.get("low_tides_connection")
+            low_tides_connection_count = form_low_tides_calc.cleaned_data.get("low_tides_connection_count")
+            calc_low_tides(order_id=pk, low_tides=low_tides, low_tides_width=low_tides_width,low_tides_type=low_tides_type,
+                           low_tides_color=low_tides_color, length=length,
+                           low_tides_count=low_tides_count,
+                           low_tides_plug=low_tides_plug, low_tides_plug_count=low_tides_plug_count,
+                           low_tides_connection=low_tides_connection,
+                           low_tides_connection_count=low_tides_connection_count)
+            return redirect('order', pk=pk, form='low_tides_calc')
+        form_low_tides_calc = LowTidesCalcForm(request.POST)
+        if form_low_tides_calc.is_valid():
+            low_tides = form_low_tides_calc.cleaned_data.get("low_tides")
             length = form_low_tides_calc.cleaned_data.get("length")
             width = form_low_tides_calc.cleaned_data.get("width")
             count = form_low_tides_calc.cleaned_data.get("count")
@@ -110,12 +129,12 @@ def order(request, pk, form):
                            count=count)
             return redirect('order', pk=pk, form='low_tides_calc')
 
-        form_low_tides_complect_calc = LowTidesComplectCalcForm(request.POST)
-        if form_low_tides_complect_calc.is_valid():
-            low_tides = form_low_tides_complect_calc.cleaned_data.get("low_tides")
-            count = form_low_tides_complect_calc.cleaned_data.get("count")
-            calc_low_tides_complect(order_id=pk, low_tides=low_tides, count=count)
-            return redirect('order', pk=pk, form='low_tides_calc')
+        # form_low_tides_complect_calc = LowTidesComplectCalcForm(request.POST)
+        # if form_low_tides_complect_calc.is_valid():
+        #     low_tides = form_low_tides_complect_calc.cleaned_data.get("low_tides")
+        #     count = form_low_tides_complect_calc.cleaned_data.get("count")
+        #     calc_low_tides_complect(order_id=pk, low_tides=low_tides, count=count)
+        #     return redirect('order', pk=pk, form='low_tides_calc')
 
         form_visors_calc = VisorsCalcForm(request.POST)
         if form_visors_calc.is_valid():
@@ -215,7 +234,7 @@ def order(request, pk, form):
     # windowsill_complect_calc = WindowsillComplectCalc.objects.filter(order_id=pk)
 
     form_low_tides_calc = LowTidesCalcForm(initial={'count': 1})
-    form_low_tides_complect_calc = LowTidesComplectCalcForm(initial={'count': 1})
+    # form_low_tides_complect_calc = LowTidesComplectCalcForm(initial={'count': 1})
     low_tides_complect_calc = LowTidesComplectCalc.objects.filter(order_id=pk)
 
     form_visors_calc = VisorsCalcForm(initial={'count': 1})
@@ -244,7 +263,7 @@ def order(request, pk, form):
         # 'windowsill_complect_calc': windowsill_complect_calc,
 
         'form_low_tides_calc': form_low_tides_calc,
-        'form_low_tides_complect_calc': form_low_tides_complect_calc,
+        # 'form_low_tides_complect_calc': form_low_tides_complect_calc,
         'low_tides_calc': low_tides_calc,
         'low_tides_complect_calc': low_tides_complect_calc,
 

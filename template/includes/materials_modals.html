@@ -75,23 +75,22 @@
                         data-bs-toggle="modal" data-bs-dismiss="modal"> Добавить подоконники и комплектующие
                 </button>
                 {% for el in windowsill_calc %}
+                {% if el.sum_in_byn > 0 %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        {% if el.windowsill.name|length %}
+                        {% if el.windowsill_count > 0 %}
                         <h6 class="mb-3 text-sm"> Подоконник {{ el.windowsill.name }} {{ el.windowsill_color.name }}</h6>
-
-
                         <span class="mb-2 text-xs">Ширина: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.windowsill_width.name|default:"0" }} мм.</span></span>
                         <span class="mb-2 text-xs">Длина: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.length }} мм.</span></span>
-
                         <span class="mb-2 text-xs">Количество: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.windowsill_count }} шт. {{ el.sum_windowsill_byn }} BYN</span></span>
                         <span class="mb-2 text-xs">В метрах квадратных: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.square_meter }}</span></span>
                         <span class="mb-2 text-xs">В метрах погонных: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.linear_meter }}</span></span>
+
                         {% endif %}
 
                         {% if el.windowsill_plug_count > 0 %}
@@ -99,7 +98,7 @@
                             <span class="text-dark font-weight-bold ms-sm-2">
                             {{ el.windowsill_plug.name }}, {{ el.windowsill_plug_count }} шт. {{ el.sum_plug_byn }} BYN </span></span>
                         {% endif %}
-                        {% if el.windowsill_connection_count > 0%}
+                        {% if el.windowsill_connection_count > 0 %}
                         <span class="mb-2 text-xs">Соединитель: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.windowsill_connection.name }} , {{ el.windowsill_connection_count }} шт. {{ el.sum_connection_byn }} BYN </span></span>
                         {% endif %}
@@ -122,6 +121,7 @@
                         </form>
                     </div>
                 </li>
+                {% endif %}
                 {% endfor %}
 
             </div>
@@ -152,27 +152,41 @@
 
             <div class="modal-body">
                 <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 mb-2"
-                        data-bs-target="#selectLowTidesModal"
+                        data-bs-target="#lowTidesModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Добавить отливы и комплектующие
                 </button>
                 {% for el in low_tides_calc %}
+                {% if el.sum_in_byn > 0 %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">{{ el.low_tides.name }}</h6>
+                        {% if el.low_tides_count > 0 %}
+                        <h6 class="mb-3 text-sm"> Отлив {{ el.low_tides.name }} {{ el.low_tides_type.name }} {{ el.low_tides_color.name }}</h6>
                         <span class="mb-2 text-xs">Ширина: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.width }}</span></span>
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.low_tides_width|default:"0" }} мм.</span></span>
                         <span class="mb-2 text-xs">Длина: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.length }}</span></span>
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.length }} мм.</span></span>
                         <span class="mb-2 text-xs">Количество: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.count }}</span></span>
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.low_tides_count }} шт. {{ el.sum_low_tides_byn }} BYN</span></span>
                         <span class="mb-2 text-xs">В метрах квадратных: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.square_meter }}</span></span>
                         <span class="mb-2 text-xs">В метрах погонных: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.linear_meter }}</span></span>
+
+                        {% endif %}
+
+                        {% if el.low_tides_plug_count > 0 %}
+                        <span class="mb-2 text-xs">Заглушка:
+                            <span class="text-dark font-weight-bold ms-sm-2">
+                            {{ el.low_tides_plug.name }}, {{ el.low_tides_plug_count }} шт. {{ el.sum_plug_byn }} BYN </span></span>
+                        {% endif %}
+                        {% if el.low_tides_connection_count > 0 %}
+                        <span class="mb-2 text-xs">Соединитель: <span
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.low_tides_connection.name }} , {{ el.low_tides_connection_count }} шт. {{ el.sum_connection_byn }} BYN </span></span>
+                        {% endif %}
                         <span class="mb-2 text-xs">Цена BYN: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_byn }}</span></span>
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.sum_in_byn }}</span></span>
                         <span class="mb-2 text-xs">Цена EUR/USD: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_currency }}</span></span>
+                                class="text-dark font-weight-bold ms-sm-2">{{ el.sum_in_currency }}</span></span>
                     </div>
                     <div class="ms-auto text-end">
                         <form method="get" enctype="multipart/form-data">
@@ -188,35 +202,9 @@
                         </form>
                     </div>
                 </li>
+                {% endif %}
                 {% endfor %}
 
-                {% for el in low_tides_complect_calc %}
-                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                    <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">{{ el.low_tides.name }}</h6>
-                        <span class="mb-2 text-xs">Количество: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.count }}</span></span>
-                        <span class="mb-2 text-xs">Цена BYN: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_byn }}</span></span>
-                        <span class="mb-2 text-xs">Цена EUR/USD: <span
-                                class="text-dark font-weight-bold ms-sm-2">{{ el.price_in_currency }}</span></span>
-                    </div>
-                    <div class="ms-auto text-end">
-                        <form method="get" enctype="multipart/form-data">
-                            {% csrf_token %}
-
-                            <input type="text" class="form-control mt-2 mb-2"
-                                   placeholder="id_low_tides_calc"
-                                   name="id_low_tides_complect_calc" value="{{ el.pk }}"
-                                   style="display:none">
-                            <button class="btn btn-link text-danger text-gradient px-3 mb-0"
-                                    href="javascript:;" type="submit"><i
-                                    class="far fa-trash-alt me-2"></i>Удалить
-                            </button>
-                        </form>
-                    </div>
-                </li>
-                {% endfor %}
             </div>
             <div class="modal-footer">
 

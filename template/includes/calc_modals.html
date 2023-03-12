@@ -56,36 +56,36 @@
 <!--    </div>-->
 <!--</div>-->
 
-<div class="modal fade" id="selectWindowsillModal" aria-hidden="true"
-     aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalToggleLabel2">Подоконники и комплектующие</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
-            <div class="modal-body row">
-                <button class="btn btn-outline-primary mb-0 col-6" data-bs-target="#windowsillModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Подоконники
-                    <i
-                            class="fas fa-plus"></i>
-                </button>
-                <button class="btn btn-outline-primary mb-0 col-6"
-                        data-bs-target="#windowsillComplectModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Комплектующие
-                    <i
-                            class="fas fa-plus"></i>
-                </button>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#windowsillCalcModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div class="modal fade" id="selectWindowsillModal" aria-hidden="true"-->
+<!--     aria-labelledby="exampleModalToggleLabel2" tabindex="-1">-->
+<!--    <div class="modal-dialog modal-dialog-centered">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="exampleModalToggleLabel2">Подоконники и комплектующие</h5>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal"-->
+<!--                        aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body row">-->
+<!--                <button class="btn btn-outline-primary mb-0 col-6" data-bs-target="#windowsillModal"-->
+<!--                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Подоконники-->
+<!--                    <i-->
+<!--                            class="fas fa-plus"></i>-->
+<!--                </button>-->
+<!--                <button class="btn btn-outline-primary mb-0 col-6"-->
+<!--                        data-bs-target="#windowsillComplectModal"-->
+<!--                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Комплектующие-->
+<!--                    <i-->
+<!--                            class="fas fa-plus"></i>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button class="btn btn-primary" data-bs-target="#windowsillCalcModal"-->
+<!--                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <div class="modal fade" id="windowsillModal" aria-hidden="true"
      aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -123,79 +123,79 @@
     </div>
 </div>
 
-<div class="modal fade" id="windowsillComplectModal" aria-hidden="true"
-     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ModaWindowsill">Комплектующие к подоконникам</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
+<!--<div class="modal fade" id="windowsillComplectModal" aria-hidden="true"-->
+<!--     aria-labelledby="exampleModalToggleLabel" tabindex="-1">-->
+<!--    <div class="modal-dialog modal-dialog-centered">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="ModaWindowsill">Комплектующие к подоконникам</h5>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal"-->
+<!--                        aria-label="Close"></button>-->
+<!--            </div>-->
 
-            <div class="modal-body">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
+<!--            <div class="modal-body">-->
+<!--                <form method="post" enctype="multipart/form-data">-->
+<!--                    {% csrf_token %}-->
 
-                    <div class="row">
-                        {{ form_windowsill_complect_calc }}
-                    </div>
-                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
-                    </button>
-                </form>
+<!--                    <div class="row">-->
+<!--                        {{ form_windowsill_complect_calc }}-->
+<!--                    </div>-->
+<!--                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить-->
+<!--                    </button>-->
+<!--                </form>-->
 
-            </div>
-            <div class="modal-footer">
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
 
-                <button class="btn btn-outline-primary" data-bs-target="#windowsillCalcModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
-                </button>
-                <button class="btn btn-dark"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
-                </button>
-
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="selectLowTidesModal" aria-hidden="true"
-     aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Отливы и комплектующие</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
-            <div class="modal-body row">
-                <button class="btn btn-outline-primary mb-0 col-6" data-bs-target="#lowTidesModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Отливы
-                    <i
-                            class="fas fa-plus"></i>
-                </button>
-                <button class="btn btn-outline-primary mb-0 col-6"
-                        data-bs-target="#lowTidesComplectModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Комплектующие
-                    <i
-                            class="fas fa-plus"></i>
-                </button>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#lowTidesCalcModal"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
-                </button>
-                     <button class="btn btn-dark"
-                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
-                </button>
+<!--                <button class="btn btn-outline-primary" data-bs-target="#windowsillCalcModal"-->
+<!--                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад-->
+<!--                </button>-->
+<!--                <button class="btn btn-dark"-->
+<!--                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть-->
+<!--                </button>-->
 
 
-            </div>
-        </div>
-    </div>
-</div>
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" id="selectLowTidesModal" aria-hidden="true"-->
+<!--     aria-labelledby="exampleModalToggleLabel2" tabindex="-1">-->
+<!--    <div class="modal-dialog modal-dialog-centered">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title">Отливы и комплектующие</h5>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal"-->
+<!--                        aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body row">-->
+<!--                <button class="btn btn-outline-primary mb-0 col-6" data-bs-target="#lowTidesModal"-->
+<!--                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Отливы-->
+<!--                    <i-->
+<!--                            class="fas fa-plus"></i>-->
+<!--                </button>-->
+<!--                <button class="btn btn-outline-primary mb-0 col-6"-->
+<!--                        data-bs-target="#lowTidesComplectModal"-->
+<!--                        data-bs-toggle="modal" data-bs-dismiss="modal">&nbsp;Комплектующие-->
+<!--                    <i-->
+<!--                            class="fas fa-plus"></i>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-footer">-->
+<!--                <button class="btn btn-primary" data-bs-target="#lowTidesCalcModal"-->
+<!--                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад-->
+<!--                </button>-->
+<!--                     <button class="btn btn-dark"-->
+<!--                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть-->
+<!--                </button>-->
+
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <div class="modal fade" id="lowTidesModal" aria-hidden="true"
      aria-labelledby="exampleModalToggleLabel" tabindex="-1">

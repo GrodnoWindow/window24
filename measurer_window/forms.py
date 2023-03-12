@@ -67,7 +67,7 @@ class WindowsillCalcForm(ModelForm):
     )
 
     windowsill_color = ModelChoiceField(
-        queryset=WindowsillColor.objects.all(), empty_label="Выберите цвет подоконника", label='Цвет подоконник',
+        queryset=LowTidesColor.objects.all(), empty_label="Выберите цвет подоконника", label='Цвет подоконник',
         widget=MySelect(attrs={
             'name': 'Цвет подоконника',
             'class': 'form-control mb-2',
@@ -95,12 +95,12 @@ class WindowsillCalcForm(ModelForm):
 
     class Meta:
         model = WindowsillCalc
-        fields = ['windowsill', 'windowsill_color', 'windowsill_width', 'length', 'windowsill_count', 'windowsill_plug', 'windowsill_plug_count',
-                  'windowsill_connection', 'windowsill_connection_count']
+        fields = ['windowsill_width', 'length', 'windowsill', 'windowsill_count', 'windowsill_color', 'windowsill_plug',
+                  'windowsill_plug_count', 'windowsill_connection', 'windowsill_connection_count']
         widgets = {
             'windowsill_plug_count': NumberInput(attrs={
                 'class': 'form-control mb-2',
-                'placeholder': 'Количество заглушек'
+                'placeholder': 'Количество 6'
             }),
             'windowsill_connection_count': NumberInput(attrs={
                 'class': 'form-control mb-2',
@@ -118,75 +118,75 @@ class WindowsillCalcForm(ModelForm):
         }
 
 
-class WindowsillComplectCalcForm(ModelForm):
-    windowsill = ModelChoiceField(
-        queryset=Windowsill.objects.filter(unit=2), empty_label="Выберите комплектующие", label='Комплектующие',
-        widget=MySelect(attrs={
-            'name': 'Комплектующие',
-            'class': 'form-control mb-2',
-            'placeholder': 'Подоконник',
-        })
-    )
-
-    class Meta:
-        model = WindowsillComplectCalc
-        fields = ['windowsill', 'count']
-        widgets = {
-            'count': TextInput(attrs={
-                'class': 'form-control mb-2',
-                'placeholder': 'Количество'
-            }),
-
-        }
-
-
 class LowTidesCalcForm(ModelForm):
     low_tides = ModelChoiceField(
-        queryset=LowTides.objects.filter(unit=1), empty_label="Выберите отлив", label='Отливы',
+        queryset=LowTides.objects.filter(unit=1), empty_label="Выберите отлив", label='Отлив',
         widget=MySelect(attrs={
             'name': 'Отлив',
             'class': 'form-control mb-2',
             'placeholder': 'Отлив',
-        })
+        }), required=False, blank=True
+    )
+
+    low_tides_type = ModelChoiceField(
+        queryset=LowTidesType.objects.all(), empty_label="Выберите тип отлива", label='Тип Отлив',
+        widget=MySelect(attrs={
+            'name': 'Тип Отлив',
+            'class': 'form-control mb-2',
+            'placeholder': 'Тип отлив',
+        }), required=False, blank=True
+    )
+    low_tides_color = ModelChoiceField(
+        queryset=LowTidesColor.objects.all(), empty_label="Выберите цвет отлива", label='Цвет Отлива',
+        widget=MySelect(attrs={
+            'name': 'Цвет отлива',
+            'class': 'form-control mb-2',
+            'placeholder': 'Цвета отлива',
+        }), required=False, blank=True
+    )
+
+    low_tides_plug = ModelChoiceField(
+        queryset=LowTidesPlug.objects.all(), empty_label="Выберите заглушку", label='Заглушка',
+        widget=MySelect(attrs={
+            'name': 'Заглушка',
+            'class': 'form-control mb-2',
+            'placeholder': 'Заглушка',
+        }), required=False, blank=True
+    )
+
+    low_tides_connection = ModelChoiceField(
+        queryset=LowTidesConnection.objects.all(), empty_label="Выберите соединитель", label='Соединитель',
+        widget=MySelect(attrs={
+            'name': 'Соединитель',
+            'class': 'form-control mb-2',
+            'placeholder': 'Соединитель',
+        }), required=False, blank=True
     )
 
     class Meta:
         model = LowTidesCalc
-        fields = ['low_tides', 'width', 'length', 'count']
+        fields = ['low_tides_width', 'length', 'low_tides','low_tides_type', 'low_tides_color', 'low_tides_count', 'low_tides_plug',
+                  'low_tides_plug_count', 'low_tides_connection', 'low_tides_connection_count']
         widgets = {
-            'length': TextInput(attrs={
-                'class': 'form-control mb-2',
-                'placeholder': 'Длина'
-            }),
-            'width': TextInput(attrs={
+            'low_tides_width': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Ширина'
             }),
-            'count': TextInput(attrs={
+            'low_tides_plug_count': NumberInput(attrs={
                 'class': 'form-control mb-2',
-                'placeholder': 'Количество'
+                'placeholder': 'Количество '
             }),
-
-        }
-
-
-class LowTidesComplectCalcForm(ModelForm):
-    low_tides = ModelChoiceField(
-        queryset=LowTides.objects.filter(unit=2), empty_label="Выберите комплектующие", label='Комплектующие',
-        widget=MySelect(attrs={
-            'name': 'Комплектующие',
-            'class': 'form-control mb-2',
-            'placeholder': 'Подоконник',
-        })
-    )
-
-    class Meta:
-        model = LowTidesComplectCalc
-        fields = ['low_tides', 'count']
-        widgets = {
-            'count': TextInput(attrs={
+            'low_tides_connection_count': NumberInput(attrs={
                 'class': 'form-control mb-2',
-                'placeholder': 'Количество'
+                'placeholder': 'Количество соединителей'
+            }),
+            'length': NumberInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Длина'
+            }),
+            'low_tides_count': NumberInput(attrs={
+                'class': 'form-control mb-2',
+                'placeholder': 'Количество отливов',
             }),
 
         }

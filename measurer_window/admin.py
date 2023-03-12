@@ -8,13 +8,15 @@ admin.site.register(Unit)
 
 admin.site.register(Windowsill)
 admin.site.register(WindowsillWidth)
-admin.site.register(WindowsillColor)
 admin.site.register(WindowsillPlug)
 admin.site.register(WindowsillConnection)
 admin.site.register(WindowsillCalc)
-# admin.site.register(WindowsillComplectCalc)
 
 admin.site.register(LowTides)
+admin.site.register(LowTidesType)
+admin.site.register(LowTidesColor)
+admin.site.register(LowTidesPlug)
+admin.site.register(LowTidesConnection)
 admin.site.register(LowTidesCalc)
 admin.site.register(LowTidesComplectCalc)
 
