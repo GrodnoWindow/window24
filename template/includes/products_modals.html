@@ -1,0 +1,125 @@
+{% load static %}
+<div class="modal fade" id="productsCalcModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Изделия</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <button class="btn btn-outline-primary btn-xl mb-0 col-12 m-2"
+                        data-bs-target="#oneSashModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Одностворчатые
+                </button>
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="oneSashModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Изделия</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="offset-lg-3 col-lg-5 col-12" style="heigth: 50%">
+                    <div class="row">
+                        <div class="col-5 align-self-start">
+                            <div class="col-12">
+                                <label>Выбор конфигурации</label>
+                                <select class="model form-control" id="window-select">
+                                    <option>-</option>
+                                    <option data="#blind-left" b>Левое открывание</option>
+                                    <!-- в data указываем id блока с изображением нужного автомобиля  -->
+                                    <option data="#blind-right">Правое открывание</option>
+                                    <!-- в data указываем id блока с изображением нужного автомобиля  -->
+                                </select>
+
+                                <label>Заполнение</label>
+                                <select class="form-control">
+                                    <option>4-16-4i</option>
+                                    <option>4-24-4-Energy</option>
+                                </select>
+                                <label>Фурнитура</label>
+                                <select class="form-control">
+                                    <option>Favourite</option>
+                                    <option>Sigenia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col align-self-center">
+                            <div class="modelImg" id="blind-left">
+                                <img src="{% static '/assets/img/sashes/one_sash_blind_left.png' %}" alt="profile_image"
+                                     class="w-100 border-radius-lg shadow-sm modalImg">
+                            </div>
+                            <div class="modelImg" id="blind-right">
+                                <img src="{% static '/assets/img/sashes/one_sash_blind_right.png' %}"
+                                     alt="profile_image"
+                                     class="w-100 border-radius-lg shadow-sm modalImg">
+                            </div>
+                            <input placeholder="Ширина" class="form-control mt-3 mb-3">
+                        </div>
+                        <div class="col">
+                            <table style="height: 200px;">
+                                <tbody>
+                                <tr>
+                                    <td class="align-middle">
+                                        <input placeholder="Длинна" class="form-control">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-dark"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                    </button>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+     $(function() {
+	$(".model").change(function(){ //При изменении модели
+		var img_id = $(".model").children("option:selected").attr("data"); // Получаем значение атрибута блока с изображением модели автомобиля который нужно показать на изображении
+      $(".modelImg").fadeOut(1); // прячем все блоки с изображением автомобилей
+      $(img_id).fadeIn(10); // показываем нужный блок с изображением автомобиля
+	});
+});
+
+document.querySelector("#window-select").value = "rotary-left";
+
+
+    </script>
+
+    <style>
+        .modelImg {
+  display: none;
+  }
+
+
+
+    </style>

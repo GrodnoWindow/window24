@@ -239,7 +239,7 @@
                 {% for el in visors_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">{{ el.visors.name }}</h6>
+                        <h6 class="mb-3 text-sm">{{ el.visors.name }} {{ el.visors_color.name }}</h6>
                         <span class="mb-2 text-xs">Ширина: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.width }}</span></span>
                         <span class="mb-2 text-xs">Длина: <span
@@ -305,7 +305,7 @@
                 {% for el in flashing_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">{{ el.flashing.name }}</h6>
+                        <h6 class="mb-3 text-sm">{{ el.flashing.name }}  {{ el.flashing_color.name }}</h6>
                         <span class="mb-2 text-xs">Ширина: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.width }}</span></span>
                         <span class="mb-2 text-xs">Длина: <span
@@ -372,7 +372,7 @@
                 {% for el in casing_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">{{ el.casing.name }}</h6>
+                        <h6 class="mb-3 text-sm">{{ el.casing.name }}  {{ el.casing_color.name }}</h6>
                         <span class="mb-2 text-xs">Ширина: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.width }}</span></span>
                         <span class="mb-2 text-xs">Длина: <span
@@ -438,7 +438,7 @@
                 {% for el in slopes_of_metal_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">{{ el.slopes_of_metal.name }}</h6>
+                        <h6 class="mb-3 text-sm">{{ el.slopes_of_metal.name }}  {{ el.slopes_of_metal_color.name }}</h6>
                         <span class="mb-2 text-xs">Ширина: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.width }}</span></span>
                         <span class="mb-2 text-xs">Длина: <span
@@ -504,7 +504,7 @@
                 {% for el in internal_slopes_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">{{ el.internal_slopes.name }}</h6>
+                        <h6 class="mb-3 text-sm">{{ el.internal_slopes.name }}  {{ el.internal_slopes_color.name }}</h6>
                         <span class="mb-2 text-xs">Ширина: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.width }}</span></span>
                         <span class="mb-2 text-xs">Длина: <span
@@ -570,7 +570,7 @@
                 {% for el in mounting_materials_calc %}
                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                     <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm">{{ el.mounting_materials.name }}</h6>
+                        <h6 class="mb-3 text-sm">{{ el.mounting_materials.name }} </h6>
                         <span class="mb-2 text-xs">Количество: <span
                                 class="text-dark font-weight-bold ms-sm-2">{{ el.count }}</span></span>
                         <span class="mb-2 text-xs">Цена BYN: <span
@@ -611,3 +611,337 @@
 </div>
 
 
+
+
+
+<div class="modal fade" id="windowsillModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Подоконники</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_windowsill_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-primary" data-bs-target="#windowsillCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="lowTidesModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Отливы</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_low_tides_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#lowTidesCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="lowTidesComplectModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Комплектующие к отливам</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_low_tides_complect_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#selectLowTidesModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="visorsModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Козырьки</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_visors_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#visorsCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="flashingModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Нащельники</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_flashing_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#flashingCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="casingModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Наличники</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_casing_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#casingCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="slopesOfMetalModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Откосы из металла</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_slopes_of_metal_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#slopesOfMetalCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="internalSlopesModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Внутренние откосы</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_internal_slopes_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#internalSlopesCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mountingMaterialsModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Монтажные материалы</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {{ form_mounting_materials_calc }}
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Добавить
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-primary" data-bs-target="#mountingMaterialsCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Назад
+                </button>
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -211,7 +211,7 @@ class LowTidesCalc(models.Model):
     low_tides_color = models.ForeignKey(LowTidesColor, models.SET_NULL, verbose_name='Цвет отлива', blank=True,
                                         null=True)
     low_tides_type = models.ForeignKey(LowTidesType, models.SET_NULL, verbose_name='Тип отлива', blank=True,
-                                        null=True)
+                                       null=True)
     low_tides_count = models.IntegerField(default=0, verbose_name='Количество  отливов')
 
     low_tides_plug = models.ForeignKey(LowTidesPlug, models.SET_NULL, verbose_name='Заглушка отлива',
@@ -255,19 +255,15 @@ class LowTidesCalc(models.Model):
         verbose_name_plural = 'Просчеты отливов'
 
 
-class LowTidesComplectCalc(models.Model):
-    order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
-    low_tides = models.ForeignKey(LowTides, models.SET_NULL, verbose_name='Комплектующие отлива', blank=True, null=True)
-    count = models.IntegerField(default=0, verbose_name='Количество')
-    price_in_byn = models.FloatField(max_length=255, default=0.0, verbose_name='Цена BYN')
-    price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')
+class VisorsColor(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Цвет козырька', blank=True, null=True)
 
     def __str__(self):
-        return f' Номер замера {self.order_id} комплектующие отлива {self.low_tides}  на сумму {self.price_in_byn} BYN'
+        return f'{self.name}'
 
     class Meta:
-        verbose_name = 'Просчет комплектующих отливов'
-        verbose_name_plural = 'Просчеты комплектующих отливов'
+        verbose_name = 'Цвет козырька'
+        verbose_name_plural = 'Цвета козырьков'
 
 
 class Visors(models.Model):
@@ -286,6 +282,7 @@ class Visors(models.Model):
 class VisorsCalc(models.Model):
     order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
     visors = models.ForeignKey(Visors, models.SET_NULL, verbose_name='Козырек', blank=True, null=True)
+    visors_color = models.ForeignKey(VisorsColor, models.SET_NULL, verbose_name='Цвет козырька', blank=True, null=True)
     width = models.IntegerField(default=0, verbose_name='Ширина')
     length = models.IntegerField(default=0, verbose_name='Длинна')
     count = models.IntegerField(default=0, verbose_name='Количество')
@@ -300,6 +297,17 @@ class VisorsCalc(models.Model):
     class Meta:
         verbose_name = 'Просчет козырька'
         verbose_name_plural = 'Просчеты козырьков'
+
+
+class FlashingColor(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Цвет нащельника', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Цвет нащельника'
+        verbose_name_plural = 'Цвета нащельников'
 
 
 class Flashing(models.Model):
@@ -318,6 +326,8 @@ class Flashing(models.Model):
 class FlashingCalc(models.Model):
     order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
     flashing = models.ForeignKey(Flashing, models.SET_NULL, verbose_name='Нащельник', blank=True, null=True)
+    flashing_color = models.ForeignKey(FlashingColor, models.SET_NULL, verbose_name='Цвет нащельника', blank=True,
+                                       null=True)
     width = models.IntegerField(default=0, verbose_name='Ширина')
     length = models.IntegerField(default=0, verbose_name='Длинна')
     count = models.IntegerField(default=0, verbose_name='Количество')
@@ -332,6 +342,17 @@ class FlashingCalc(models.Model):
     class Meta:
         verbose_name = 'Просчет нащельника'
         verbose_name_plural = 'Просчеты нащельников'
+
+
+class CasingColor(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Цвет наличника', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Цвет наличника'
+        verbose_name_plural = 'Цвета наличников'
 
 
 class Casing(models.Model):
@@ -350,6 +371,8 @@ class Casing(models.Model):
 class CasingCalc(models.Model):
     order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
     casing = models.ForeignKey(Casing, models.SET_NULL, verbose_name='Наличник', blank=True, null=True)
+    casing_color = models.ForeignKey(CasingColor, models.SET_NULL, verbose_name='Цвет наличника', blank=True, null=True)
+
     width = models.IntegerField(default=0, verbose_name='Ширина')
     length = models.IntegerField(default=0, verbose_name='Длинна')
     count = models.IntegerField(default=0, verbose_name='Количество')
@@ -364,6 +387,17 @@ class CasingCalc(models.Model):
     class Meta:
         verbose_name = 'Просчет наличника'
         verbose_name_plural = 'Просчеты наличников'
+
+
+class SlopesOfMetalColor(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Цвет откосов из металла', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Цвет откоса из металла'
+        verbose_name_plural = 'Цвета откосов из металла'
 
 
 class SlopesOfMetal(models.Model):
@@ -383,6 +417,9 @@ class SlopesOfMetalCalc(models.Model):
     order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
     slopes_of_metal = models.ForeignKey(SlopesOfMetal, models.SET_NULL, verbose_name='Откосы из металла', blank=True,
                                         null=True)
+    slopes_of_metal_color = models.ForeignKey(SlopesOfMetalColor, models.SET_NULL, verbose_name='Цвет откоса из метлла',
+                                              blank=True, null=True)
+
     width = models.IntegerField(default=0, verbose_name='Ширина')
     length = models.IntegerField(default=0, verbose_name='Длинна')
     count = models.IntegerField(default=0, verbose_name='Количество')
@@ -397,6 +434,17 @@ class SlopesOfMetalCalc(models.Model):
     class Meta:
         verbose_name = 'Просчет откосов из металла'
         verbose_name_plural = 'Просчеты откосов из металла'
+
+
+class InternalSlopesColor(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Цвет внутренних откосов', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Цвет внутренних откосов'
+        verbose_name_plural = 'Цвета внутренних откосов'
 
 
 class InternalSlopes(models.Model):
@@ -416,6 +464,10 @@ class InternalSlopesCalc(models.Model):
     order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
     internal_slopes = models.ForeignKey(InternalSlopes, models.SET_NULL, verbose_name='Внутренние откосы', blank=True,
                                         null=True)
+    internal_slopes_color = models.ForeignKey(InternalSlopesColor, models.SET_NULL,
+                                              verbose_name='Цвет внутреннего откоса',
+                                              blank=True, null=True)
+
     width = models.IntegerField(default=0, verbose_name='Ширина')
     length = models.IntegerField(default=0, verbose_name='Длинна')
     count = models.IntegerField(default=0, verbose_name='Количество')

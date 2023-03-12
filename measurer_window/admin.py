@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+
 # Register your models here.
 
 
@@ -18,23 +19,25 @@ admin.site.register(LowTidesColor)
 admin.site.register(LowTidesPlug)
 admin.site.register(LowTidesConnection)
 admin.site.register(LowTidesCalc)
-admin.site.register(LowTidesComplectCalc)
 
 admin.site.register(Visors)
+admin.site.register(VisorsColor)
 admin.site.register(VisorsCalc)
 
-
 admin.site.register(Flashing)
+admin.site.register(FlashingColor)
 admin.site.register(FlashingCalc)
 
-
 admin.site.register(Casing)
+admin.site.register(CasingColor)
 admin.site.register(CasingCalc)
 
 admin.site.register(SlopesOfMetal)
+admin.site.register(SlopesOfMetalColor)
 admin.site.register(SlopesOfMetalCalc)
 
 admin.site.register(InternalSlopes)
+admin.site.register(InternalSlopesColor)
 admin.site.register(InternalSlopesCalc)
 
 admin.site.register(MountingMaterials)

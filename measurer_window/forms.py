@@ -67,7 +67,7 @@ class WindowsillCalcForm(ModelForm):
     )
 
     windowsill_color = ModelChoiceField(
-        queryset=LowTidesColor.objects.all(), empty_label="Выберите цвет подоконника", label='Цвет подоконник',
+        queryset=WindowsillColor.objects.all(), empty_label="Выберите цвет подоконника", label='Цвет подоконник',
         widget=MySelect(attrs={
             'name': 'Цвет подоконника',
             'class': 'form-control mb-2',
@@ -165,7 +165,8 @@ class LowTidesCalcForm(ModelForm):
 
     class Meta:
         model = LowTidesCalc
-        fields = ['low_tides_width', 'length', 'low_tides','low_tides_type', 'low_tides_color', 'low_tides_count', 'low_tides_plug',
+        fields = ['low_tides_width', 'length', 'low_tides', 'low_tides_type', 'low_tides_color', 'low_tides_count',
+                  'low_tides_plug',
                   'low_tides_plug_count', 'low_tides_connection', 'low_tides_connection_count']
         widgets = {
             'low_tides_width': NumberInput(attrs={
@@ -201,20 +202,28 @@ class VisorsCalcForm(ModelForm):
             'placeholder': 'Козырек',
         })
     )
+    visors_color = ModelChoiceField(
+        queryset=VisorsColor.objects.all(), empty_label="Выберите цвет козырька", label='Цвет Козырька',
+        widget=MySelect(attrs={
+            'name': 'Цвет козырька',
+            'class': 'form-control mb-2',
+            'placeholder': 'Цвета козырьков',
+        })
+    )
 
     class Meta:
         model = VisorsCalc
-        fields = ['visors', 'width', 'length', 'count']
+        fields = ['visors', 'visors_color', 'width', 'length', 'count']
         widgets = {
-            'length': TextInput(attrs={
+            'length': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Длина'
             }),
-            'width': TextInput(attrs={
+            'width': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Ширина'
             }),
-            'count': TextInput(attrs={
+            'count': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Количество'
             }),
@@ -231,20 +240,27 @@ class FlashingCalcForm(ModelForm):
             'placeholder': 'Нащельник',
         })
     )
-
+    flashing_color = ModelChoiceField(
+        queryset=FlashingColor.objects.all(), empty_label="Выберите цвет нащельника", label='Цвет Нащельника',
+        widget=MySelect(attrs={
+            'name': 'Цвет нащельника',
+            'class': 'form-control mb-2',
+            'placeholder': 'Цвета нащельников',
+        })
+    )
     class Meta:
         model = VisorsCalc
-        fields = ['flashing', 'width', 'length', 'count']
+        fields = ['flashing','flashing_color', 'width', 'length', 'count']
         widgets = {
-            'length': TextInput(attrs={
+            'length': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Длина'
             }),
-            'width': TextInput(attrs={
+            'width': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Ширина'
             }),
-            'count': TextInput(attrs={
+            'count': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Количество'
             }),
@@ -261,20 +277,27 @@ class CasingCalcForm(ModelForm):
             'placeholder': 'Наличники',
         })
     )
-
+    casing_color = ModelChoiceField(
+        queryset=CasingColor.objects.all(), empty_label="Выберите цвет наличника", label='Цвет наличника',
+        widget=MySelect(attrs={
+            'name': 'Цвет наличника',
+            'class': 'form-control mb-2',
+            'placeholder': 'Цвета наличников',
+        })
+    )
     class Meta:
         model = CasingCalc
-        fields = ['casing', 'width', 'length', 'count']
+        fields = ['casing','casing_color', 'width', 'length', 'count']
         widgets = {
-            'length': TextInput(attrs={
+            'length': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Длина'
             }),
-            'width': TextInput(attrs={
+            'width': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Ширина'
             }),
-            'count': TextInput(attrs={
+            'count': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Количество'
             }),
@@ -291,20 +314,27 @@ class SlopesOfMetalCalcForm(ModelForm):
             'placeholder': 'Откос из металла',
         })
     )
-
+    slopes_of_metal_color = ModelChoiceField(
+        queryset=SlopesOfMetalColor.objects.all(), empty_label="Выберите цвет откоса из металла", label='Цвет откоса из металла',
+        widget=MySelect(attrs={
+            'name': 'Цвет откоса из металла',
+            'class': 'form-control mb-2',
+            'placeholder': 'Цвета откосов из металла',
+        })
+    )
     class Meta:
         model = SlopesOfMetalCalc
-        fields = ['slopes_of_metal', 'width', 'length', 'count']
+        fields = ['slopes_of_metal','slopes_of_metal_color', 'width', 'length', 'count']
         widgets = {
-            'length': TextInput(attrs={
+            'length': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Длина'
             }),
-            'width': TextInput(attrs={
+            'width': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Ширина'
             }),
-            'count': TextInput(attrs={
+            'count': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Количество'
             }),
@@ -321,20 +351,27 @@ class InternalSlopesCalcForm(ModelForm):
             'placeholder': 'откосы',
         })
     )
-
+    internal_slopes_color = ModelChoiceField(
+        queryset=InternalSlopesColor.objects.all(), empty_label="Выберите цвет внутреннего откоса", label='Цвет внутреннего откоса',
+        widget=MySelect(attrs={
+            'name': 'Цвет внутреннего откоса',
+            'class': 'form-control mb-2',
+            'placeholder': 'Цвета внутреннего откоса',
+        })
+    )
     class Meta:
         model = InternalSlopesCalc
-        fields = ['internal_slopes', 'width', 'length', 'count']
+        fields = ['internal_slopes','internal_slopes_color', 'width', 'length', 'count']
         widgets = {
-            'length': TextInput(attrs={
+            'length': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Длина'
             }),
-            'width': TextInput(attrs={
+            'width': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Ширина'
             }),
-            'count': TextInput(attrs={
+            'count': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Количество'
             }),
@@ -357,7 +394,7 @@ class MountingMaterialsCalcForm(ModelForm):
         model = MountingMaterialsCalc
         fields = ['mounting_materials', 'count']
         widgets = {
-            'count': TextInput(attrs={
+            'count': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Количество'
             }),
@@ -380,7 +417,7 @@ class WorksCalcForm(ModelForm):
         model = WorksCalc
         fields = ['works', 'count']
         widgets = {
-            'count': TextInput(attrs={
+            'count': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Количество'
             }),
