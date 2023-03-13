@@ -51,7 +51,7 @@ class WindowsillCalcForm(ModelForm):
     windowsill = ModelChoiceField(
         queryset=Windowsill.objects.filter(unit=1), empty_label="Выберите подоконник", label='Подоконник',
         widget=MySelect(attrs={
-            'name': 'Подоконник',
+            'id': 'windowsill-select',
             'class': 'form-control mb-2',
             'placeholder': 'Подоконник',
         }), required=False, blank=True
@@ -78,7 +78,7 @@ class WindowsillCalcForm(ModelForm):
     windowsill_plug = ModelChoiceField(
         queryset=WindowsillPlug.objects.all(), empty_label="Выберите заглушку", label='Заглушка',
         widget=MySelect(attrs={
-            'name': 'Заглушка',
+            'id': 'windowsill-plug-select',
             'class': 'form-control mb-2',
             'placeholder': 'Заглушка',
         }), required=False, blank=True
@@ -123,6 +123,7 @@ class LowTidesCalcForm(ModelForm):
         queryset=LowTides.objects.filter(unit=1), empty_label="Выберите отлив", label='Отлив',
         widget=MySelect(attrs={
             'name': 'Отлив',
+            'id': 'low-tides-select',
             'class': 'form-control mb-2',
             'placeholder': 'Отлив',
         }), required=False, blank=True
@@ -149,6 +150,7 @@ class LowTidesCalcForm(ModelForm):
         queryset=LowTidesPlug.objects.all(), empty_label="Выберите заглушку", label='Заглушка',
         widget=MySelect(attrs={
             'name': 'Заглушка',
+            'id': 'low-tides-plug-select',
             'class': 'form-control mb-2',
             'placeholder': 'Заглушка',
         }), required=False, blank=True
@@ -248,9 +250,10 @@ class FlashingCalcForm(ModelForm):
             'placeholder': 'Цвета нащельников',
         })
     )
+
     class Meta:
         model = VisorsCalc
-        fields = ['flashing','flashing_color', 'width', 'length', 'count']
+        fields = ['flashing', 'flashing_color', 'width', 'length', 'count']
         widgets = {
             'length': NumberInput(attrs={
                 'class': 'form-control mb-2',
@@ -285,9 +288,10 @@ class CasingCalcForm(ModelForm):
             'placeholder': 'Цвета наличников',
         })
     )
+
     class Meta:
         model = CasingCalc
-        fields = ['casing','casing_color', 'width', 'length', 'count']
+        fields = ['casing', 'casing_color', 'width', 'length', 'count']
         widgets = {
             'length': NumberInput(attrs={
                 'class': 'form-control mb-2',
@@ -315,16 +319,18 @@ class SlopesOfMetalCalcForm(ModelForm):
         })
     )
     slopes_of_metal_color = ModelChoiceField(
-        queryset=SlopesOfMetalColor.objects.all(), empty_label="Выберите цвет откоса из металла", label='Цвет откоса из металла',
+        queryset=SlopesOfMetalColor.objects.all(), empty_label="Выберите цвет откоса из металла",
+        label='Цвет откоса из металла',
         widget=MySelect(attrs={
             'name': 'Цвет откоса из металла',
             'class': 'form-control mb-2',
             'placeholder': 'Цвета откосов из металла',
         })
     )
+
     class Meta:
         model = SlopesOfMetalCalc
-        fields = ['slopes_of_metal','slopes_of_metal_color', 'width', 'length', 'count']
+        fields = ['slopes_of_metal', 'slopes_of_metal_color', 'width', 'length', 'count']
         widgets = {
             'length': NumberInput(attrs={
                 'class': 'form-control mb-2',
@@ -352,16 +358,18 @@ class InternalSlopesCalcForm(ModelForm):
         })
     )
     internal_slopes_color = ModelChoiceField(
-        queryset=InternalSlopesColor.objects.all(), empty_label="Выберите цвет внутреннего откоса", label='Цвет внутреннего откоса',
+        queryset=InternalSlopesColor.objects.all(), empty_label="Выберите цвет внутреннего откоса",
+        label='Цвет внутреннего откоса',
         widget=MySelect(attrs={
             'name': 'Цвет внутреннего откоса',
             'class': 'form-control mb-2',
             'placeholder': 'Цвета внутреннего откоса',
         })
     )
+
     class Meta:
         model = InternalSlopesCalc
-        fields = ['internal_slopes','internal_slopes_color', 'width', 'length', 'count']
+        fields = ['internal_slopes', 'internal_slopes_color', 'width', 'length', 'count']
         widgets = {
             'length': NumberInput(attrs={
                 'class': 'form-control mb-2',

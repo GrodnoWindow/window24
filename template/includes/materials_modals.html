@@ -625,9 +625,8 @@
             </div>
 
             <div class="modal-body">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" id="#form-windowsill">
                     {% csrf_token %}
-
                     <div class="row">
                         {{ form_windowsill_calc }}
                     </div>

@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView
 from .forms import *
@@ -79,7 +80,7 @@ def order(request, pk, form):
                             windowsill_plug=windowsill_plug, windowsill_plug_count=windowsill_plug_count,
                             windowsill_connection=windowsill_connection,
                             windowsill_connection_count=windowsill_connection_count)
-            return redirect('order', pk=pk, form='windowsill_calc')
+            # return redirect('order', pk=pk, form='windowsill_calc')
 
         form_low_tides_calc = LowTidesCalcForm(request.POST)
         if form_low_tides_calc.is_valid():
@@ -109,7 +110,7 @@ def order(request, pk, form):
             length = form_visors_calc.cleaned_data.get("length")
             width = form_visors_calc.cleaned_data.get("width")
             count = form_visors_calc.cleaned_data.get("count")
-            calc_visors(order_id=pk, visors=visors,visors_color=visors_color, width=width, length=length,
+            calc_visors(order_id=pk, visors=visors, visors_color=visors_color, width=width, length=length,
                         count=count)
             return redirect('order', pk=pk, form='visors_calc')
 
@@ -120,7 +121,7 @@ def order(request, pk, form):
             length = form_flashing_calc.cleaned_data.get("length")
             width = form_flashing_calc.cleaned_data.get("width")
             count = form_flashing_calc.cleaned_data.get("count")
-            calc_flashing(order_id=pk, flashing=flashing,flashing_color=flashing_color, width=width, length=length,
+            calc_flashing(order_id=pk, flashing=flashing, flashing_color=flashing_color, width=width, length=length,
                           count=count)
             return redirect('order', pk=pk, form='flashing_calc')
 
@@ -131,7 +132,7 @@ def order(request, pk, form):
             length = form_casing_calc.cleaned_data.get("length")
             width = form_casing_calc.cleaned_data.get("width")
             count = form_casing_calc.cleaned_data.get("count")
-            calc_casing(order_id=pk, casing=casing, width=width, length=length,casing_color=casing_color,
+            calc_casing(order_id=pk, casing=casing, width=width, length=length, casing_color=casing_color,
                         count=count)
             return redirect('order', pk=pk, form='casing_calc')
 
@@ -142,7 +143,8 @@ def order(request, pk, form):
             length = form_slopes_of_metal_calc.cleaned_data.get("length")
             width = form_slopes_of_metal_calc.cleaned_data.get("width")
             count = form_slopes_of_metal_calc.cleaned_data.get("count")
-            calc_slopes_of_metal(order_id=pk, slopes_of_metal=slopes_of_metal,slopes_of_metal_color=slopes_of_metal_color,
+            calc_slopes_of_metal(order_id=pk, slopes_of_metal=slopes_of_metal,
+                                 slopes_of_metal_color=slopes_of_metal_color,
                                  width=width, length=length,
                                  count=count)
             return redirect('order', pk=pk, form='slopes_of_metal_calc')
@@ -154,7 +156,8 @@ def order(request, pk, form):
             length = form_internal_slopes_calc.cleaned_data.get("length")
             width = form_internal_slopes_calc.cleaned_data.get("width")
             count = form_internal_slopes_calc.cleaned_data.get("count")
-            calc_internal_slopes(order_id=pk, internal_slopes=internal_slopes,internal_slopes_color=internal_slopes_color,
+            calc_internal_slopes(order_id=pk, internal_slopes=internal_slopes,
+                                 internal_slopes_color=internal_slopes_color,
                                  width=width, length=length,
                                  count=count)
             return redirect('order', pk=pk, form='internal_slopes_calc')
@@ -206,10 +209,11 @@ def order(request, pk, form):
         'status': order.status,
 
     })
-    form_windowsill_calc = WindowsillCalcForm(initial={'windowsill_count': 1, 'windowsill': 1, 'windowsill_color': 1})
+    form_windowsill_calc = WindowsillCalcForm(
+        initial={'windowsill_count': 1, 'windowsill': 1, 'windowsill_color': 1, 'windowsill_plug': 1, })
 
     form_low_tides_calc = LowTidesCalcForm(
-        initial={'low_tides_count': 1, 'low_tides': 1, 'low_tides_type': 1, 'low_tides_color': 1})
+        initial={'low_tides_count': 1, 'low_tides': 1, 'low_tides_type': 1, 'low_tides_color': 1, 'low_tides_plug': 1})
 
     form_visors_calc = VisorsCalcForm(initial={'count': 1, 'visors_color': 1})
 
