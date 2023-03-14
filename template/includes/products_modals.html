@@ -13,6 +13,18 @@
                         data-bs-target="#oneSashModal"
                         data-bs-toggle="modal" data-bs-dismiss="modal">Одностворчатые
                 </button>
+                <button class="btn btn-outline-primary btn-xl mb-0 col-12 m-2"
+                        data-bs-target="#twoSashModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Двухстворчатые
+                </button>
+                <button class="btn btn-outline-primary btn-xl mb-0 col-12 m-2"
+                        data-bs-target="#threeSashModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Трехстворчатые
+                </button>
+                <button class="btn btn-outline-primary btn-xl mb-0 col-12 m-2"
+                        data-bs-target="#fourSashModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Четырехстворчатые
+                </button>
 
             </div>
             <div class="modal-footer">
@@ -36,75 +48,173 @@
             </div>
 
             <div class="modal-body">
+                <div class="offset-lg-4 col-lg-3">
+                    <div class="row">
+                        <div class="col align-self-start">
+                        </div>
+                        <div class="col align-self-center col-12">
+                            <div class="container col-12" style="display:flex">
+                                <div class="row">
+                                    <div class="modelImg1" id="defaut">
+                                        <img src="{% static '/assets/img/sashes/default.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    <div class="modelImg" id="no-opening">
+                                        <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                     <div class="modelImg" id="opening-left">
+                                        <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                       <div class="modelImg" id="opening-right">
+                                        <img src="{% static '/assets/img/sashes/opening_right.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                       <div class="modelImg" id="turn-left">
+                                        <img src="{% static '/assets/img/sashes/turn_left.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                       <div class="modelImg" id="turn-right">
+                                        <img src="{% static '/assets/img/sashes/turn_right.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    <select id='one-sash-select' class="model"  style="width:100%;margin-top:15px">
+                                        <option data="#default" value='defalut'>Не выбрано</option>
+                                        <option data="#no-opening" value='hui1'>Глухое</option>
+                                        <option data="#opening-left" value='hui1'>Левое открывание</option>
+                                        <option data="#opening-right" value='hui1'>Правое открывание</option>
+                                        <option data="#turn-left" value='twitter'>Левое поворотно-откидное открывание
+                                        </option>
+                                        <option data="#turn-right" value='twitter'>Правое поворотно-откидное открывание
+                                        </option>
+                                    </select>
+
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-dark"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                    </button>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="twoSashModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Изделия</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
                 <div class="offset-lg-3 col-lg-5 col-12" style="heigth: 50%">
                     <div class="row">
-                        <div class="col-5 align-self-start">
-                            <div class="col-12">
-                                <label>Выбор конфигурации</label>
-                                <select class="model form-control" id="window-select">
-                                    <option data="#default"> Не выбрано</option>
-                                    <option data="#no-opening" >Глухое</option>
-                                    <option data="#opening-left" >Левое открывание</option>
-                                    <option data="#opening-right">Правое открывание</option>
-                                    <option data="#turn-left">Левое поворотно-откидное</option>
-                                    <option data="#turn-right">Правое поворотно-откидное</option>
-                                </select>
+                        <div class="col align-self-start">
+                            <!--                            <div class="col-12">-->
+                            <!--                                <label>Выбор конфигурации</label>-->
+                            <!--                                <select class="model form-control" id="window-select">-->
+                            <!--                                    <option data="#default"> Не выбрано</option>-->
+                            <!--                                    <option data="#no-opening">Глухое</option>-->
+                            <!--                                    <option data="#opening-left">Левое открывание</option>-->
+                            <!--                                    <option data="#opening-right">Правое открывание</option>-->
+                            <!--                                    <option data="#turn-left">Левое поворотно-откидное</option>-->
+                            <!--                                    <option data="#turn-right">Правое поворотно-откидное</option>-->
+                            <!--                                </select>-->
 
-                                <label>Заполнение</label>
-                                <select class="form-control">
-                                    <option>4-16-4i</option>
-                                    <option>4-24-4-Energy</option>
-                                </select>
-                                <label>Фурнитура</label>
-                                <select class="form-control">
-                                    <option>Favourite</option>
-                                    <option>Sigenia</option>
-                                </select>
-                            </div>
+                            <!--                                <label>Заполнение</label>-->
+                            <!--                                <select class="form-control">-->
+                            <!--                                    <option>4-16-4i</option>-->
+                            <!--                                    <option>4-24-4-Energy</option>-->
+                            <!--                                </select>-->
+                            <!--                                <label>Фурнитура</label>-->
+                            <!--                                <select class="form-control">-->
+                            <!--                                    <option>Favourite</option>-->
+                            <!--                                    <option>Sigenia</option>-->
+                            <!--                                </select>-->
+                            <!--                            </div>-->
                         </div>
-                        <div class="col align-self-center">
-                                <div class="modelImg1" id="default">
-                                <img src="{% static '/assets/img/sashes/default.png' %}" alt="profile_image"
-                                     class="w-100 border-radius-lg shadow-sm modalImg">
-                            </div>
-                            <div class="modelImg" id="no-opening">
-                                <img src="{% static '/assets/img/sashes/no_opening.png' %}" alt="profile_image"
-                                     class="w-100 border-radius-lg shadow-sm modalImg">
-                            </div>
-                            <div class="modelImg" id="opening-left">
-                                <img src="{% static '/assets/img/sashes/opening_left.png' %}"
-                                     alt="profile_image"
-                                     class="w-100 border-radius-lg shadow-sm modalImg">
-                            </div>
-                              <div class="modelImg" id="opening-right">
-                                <img src="{% static '/assets/img/sashes/opening_right.png' %}"
-                                     alt="profile_image"
-                                     class="w-100 border-radius-lg shadow-sm modalImg">
-                            </div>
-                              <div class="modelImg" id="turn-left">
-                                <img src="{% static '/assets/img/sashes/turn_left.png' %}"
-                                     alt="profile_image"
-                                     class="w-100 border-radius-lg shadow-sm modalImg">
-                            </div>
-                            <div class="modelImg" id="turn-right">
-                                <img src="{% static '/assets/img/sashes/turn_right.png' %}"
-                                     alt="profile_image"
-                                     class="w-100 border-radius-lg shadow-sm modalImg">
+                        <div class="col-12 align-self-center">
+                            <div class="container col-12" style="display:flex">
+                                <div class="row">
+                                    <div class="modelIm1" id="defaut">
+                                        <img src="{% static '/assets/img/sashes/default.png' %}" alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    <select class="model " id="window-select">
+                                        <option data="#default"> Не выбрано</option>
+                                        <option data="#no-opening">Глухое</option>
+                                        <option data="#opening-left">Левое открывание</option>
+                                        <option data="#opening-right">Правое открывание</option>
+                                        <option data="#turn-left">Левое поворотно-откидное</option>
+                                        <option data="#turn-right">Правое поворотно-откидное</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="modelIm1" id="defaut">
+                                        <img src="{% static '/assets/img/sashes/turn_right.png' %}" alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    <select class="model" id="window-select">
+                                        <option data="#default"> Не выбрано</option>
+                                        <option data="#no-opening">Глухое</option>
+                                        <option data="#opening-left">Левое открывание</option>
+                                        <option data="#opening-right">Правое открывание</option>
+                                        <option data="#turn-left">Левое поворотно-откидное</option>
+                                        <option data="#turn-right">Правое поворотно-откидное</option>
+                                    </select>
+
+                                </div>
+
+                                <!--                                <input placeholder="Ширина" class="form-control mt-3 mb-3">-->
+
+                                <div class="col">
+
+                                    <!--                                    <tbody>-->
+                                    <!--                                    <tr>-->
+                                    <!--                                        <td class="align-middle">-->
+                                    <!--                                            <input placeholder="Длинна" class="form-control">-->
+                                    <!--                                        </td>-->
+                                    <!--                                    </tr>-->
+                                    <!--                                    </tbody>-->
+
+                                </div>
                             </div>
 
-                            <input placeholder="Ширина" class="form-control mt-3 mb-3">
-                        </div>
-                        <div class="col">
-                            <table style="height: 200px;">
-                                <tbody>
-                                <tr>
-                                    <td class="align-middle">
-                                        <input placeholder="Длинна" class="form-control">
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <!--                                <input placeholder="Ширина" class="form-control mt-3 mb-3">-->
 
+                            <div class="col">
+                                <!--                                    <tbody>-->
+                                <!--                                    <tr>-->
+                                <!--                                        <td class="align-middle">-->
+                                <!--                                            <input placeholder="Длинна" class="form-control">-->
+                                <!--                                        </td>-->
+                                <!--                                    </tr>-->
+                                <!--                                    </tbody>-->
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,11 +229,228 @@
             </div>
         </div>
     </div>
+</div>
 
-    <script>
+<div class="modal fade" id="threeSashModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Изделия</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="offset-lg-3 col-lg-5 col-12" style="heigth: 50%">
+                    <div class="row">
+                        <div class="col align-self-start">
+                        </div>
+                        <div class="col-12 align-self-center">
+                            <div class="container col-12" style="display:flex">
+                                <div class="row">
+                                    <div class="modelIm1" id="defaut">
+                                        <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    <select class="model " id="window-select">
+                                        <option data="#default"> Не выбрано</option>
+                                        <option data="#no-opening">Глухое</option>
+                                        <option data="#opening-left">Левое открывание</option>
+                                        <option data="#opening-right">Правое открывание</option>
+                                        <option data="#turn-left">Левое поворотно-откидное</option>
+                                        <option data="#turn-right">Правое поворотно-откидное</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="modelIm1" id="defaut">
+                                        <img src="{% static '/assets/img/sashes/turn_right.png' %}" alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    <select class="model" id="window-select">
+                                        <option data="#default"> Не выбрано</option>
+                                        <option data="#no-opening">Глухое</option>
+                                        <option data="#opening-left">Левое открывание</option>
+                                        <option data="#opening-right">Правое открывание</option>
+                                        <option data="#turn-left">Левое поворотно-откидное</option>
+                                        <option data="#turn-right">Правое поворотно-откидное</option>
+                                    </select>
+
+                                </div>
+                                <div class="row">
+                                    <div class="modelIm1" id="defaut">
+                                        <img src="{% static '/assets/img/sashes/turn_left.png' %}" alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    <select class="model" id="window-select">
+                                        <option data="#default"> Не выбрано</option>
+                                        <option data="#no-opening">Глухое</option>
+                                        <option data="#opening-left">Левое открывание</option>
+                                        <option data="#opening-right">Правое открывание</option>
+                                        <option data="#turn-left">Левое поворотно-откидное</option>
+                                        <option data="#turn-right">Правое поворотно-откидное</option>
+                                    </select>
+
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+
+                            <div class="col">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-dark"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                    </button>
 
 
-     $(function() {
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="fourSashModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Изделия</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="offset-lg-3 col-lg-5 col-12" style="heigth: 50%">
+                    <div class="row">
+                        <div class="col align-self-start">
+                        </div>
+                        <div class="col-12 align-self-center">
+                            <div class="container col-12" style="display:flex">
+                                <div class="row">
+                                    <div class="modelIm1" id="defaut">
+                                        <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    <select class="model " id="window-select">
+                                        <option data="#default"> Не выбрано</option>
+                                        <option data="#no-opening">Глухое</option>
+                                        <option data="#opening-left">Левое открывание</option>
+                                        <option data="#opening-right">Правое открывание</option>
+                                        <option data="#turn-left">Левое поворотно-откидное</option>
+                                        <option data="#turn-right">Правое поворотно-откидное</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="modelIm1" id="defaut">
+                                        <img src="{% static '/assets/img/sashes/turn_right.png' %}" alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    <select class="model" id="window-select">
+                                        <option data="#default"> Не выбрано</option>
+                                        <option data="#no-opening">Глухое</option>
+                                        <option data="#opening-left">Левое открывание</option>
+                                        <option data="#opening-right">Правое открывание</option>
+                                        <option data="#turn-left">Левое поворотно-откидное</option>
+                                        <option data="#turn-right">Правое поворотно-откидное</option>
+                                    </select>
+
+                                </div>
+                                <div class="row">
+                                    <div class="modelIm1" id="defaut">
+                                        <img src="{% static '/assets/img/sashes/turn_left.png' %}" alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    <select class="model" id="window-select">
+                                        <option data="#default"> Не выбрано</option>
+                                        <option data="#no-opening">Глухое</option>
+                                        <option data="#opening-left">Левое открывание</option>
+                                        <option data="#opening-right">Правое открывание</option>
+                                        <option data="#turn-left">Левое поворотно-откидное</option>
+                                        <option data="#turn-right">Правое поворотно-откидное</option>
+                                    </select>
+
+                                </div>
+                                <div class="row">
+                                    <div class="modelIm1" id="defaut">
+                                        <img src="{% static '/assets/img/sashes/opening_right.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    <select class="model " id="window-select">
+                                        <option data="#default"> Не выбрано</option>
+                                        <option data="#no-opening">Глухое</option>
+                                        <option data="#opening-left">Левое открывание</option>
+                                        <option data="#opening-right">Правое открывание</option>
+                                        <option data="#turn-left">Левое поворотно-откидное</option>
+                                        <option data="#turn-right">Правое поворотно-откидное</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-dark"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+     $(document).ready(function(){
+  $("#one-sash-select").select2({
+   templateResult: formatState
+  });
+ });
+
+let icons = {
+  "Не выбрано": "{% static '/assets/img/sashes/default.png' %}",
+  "Глухое": "{% static '/assets/img/sashes/no_opening.png' %}",
+  "Левое открывание": "{% static '/assets/img/sashes/opening_right.png' %}",
+  "Правое открывание": "{% static '/assets/img/sashes/opening_left.png' %}",
+  "Левое поворотно-откидное открывание": "{% static '/assets/img/sashes/turn_left.png' %}",
+  "Правое поворотно-откидное открывание": "{% static '/assets/img/sashes/turn_right.png' %}",
+  "Roof": "https://i.imgur.com/lGOXYfV.png",
+  "Door": "https://i.imgur.com/tSTGogW.png"
+}
+
+ function formatState (state) {
+  if (!state.id) { return state.text; }
+  console.log(state);
+  var $state = $(
+    `
+    <div style="display: flex; align-items: center;justify-content:center;">
+       <div><img stle="display: inline-block;" src="${icons[state.text]}" style="height: 150px;width: auto" /></div>
+       <div style="display:none">
+          ${state.text}
+       </div>
+    </div>
+    `
+  );
+  return $state;
+ }
+
+</script>
+<script>
+ $(function() {
 	$(".model").change(function(){ //При изменении модели
 		var img_id = $(".model").children("option:selected").attr("data"); // Получаем значение атрибута блока с изображением модели автомобиля который нужно показать на изображении
       $(".modelImg").fadeOut(1); // прячем все блоки с изображением автомобилей
@@ -132,10 +459,12 @@
 	});
 });
 
-    </script>
 
-    <style>
+</script>
+
+<style>
     .modelImg {
         display: none;
     }
-    </style>
+
+</style>
