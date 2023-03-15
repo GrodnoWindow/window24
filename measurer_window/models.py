@@ -574,3 +574,52 @@ class Order(models.Model):
 
     def __str__(self):
         return f' Адрес: {self.address} Cтатус: {self.status} Сумма {self.sum_in_byn} BYN Сумма {self.sum_in_currency} EUR/USD'
+
+
+class Profile(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Профиль', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профиля'
+
+class Fittings(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Фурнитура', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Фурнитура'
+        verbose_name_plural = 'Фурнитуры'
+
+class Filling(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Стеклопакет', blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Стеклопакет'
+        verbose_name_plural = 'Стеклопакеты'
+
+
+class WindowsCalc(models.Model):
+    order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
+
+    profile = models.ForeignKey(Profile, verbose_name='Профиль',on_delete=models.SET_NULL, blank=True, null=True)
+    fittings = models.ForeignKey(Fittings, verbose_name='Фурнитура',on_delete=models.SET_NULL, blank=True, null=True)
+    filling = models.ForeignKey(Filling, verbose_name='Стеклопакет',on_delete=models.SET_NULL, blank=True, null=True)
+
+    price_in_byn = models.FloatField(max_length=255, default=0.0, verbose_name='Цена BYN')
+    price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')
+
+    def __str__(self):
+        return f'{self.profile}'
+
+    class Meta:
+        verbose_name = 'Просчет окна'
+        verbose_name_plural = 'Просчеты окон'
