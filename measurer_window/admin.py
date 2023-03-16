@@ -3,6 +3,9 @@ from .models import *
 
 # Register your models here.
 
+admin.site.register(Profile)
+admin.site.register(Fittings)
+admin.site.register(Filling)
 
 admin.site.register(Status)
 admin.site.register(Unit)

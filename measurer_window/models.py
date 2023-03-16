@@ -586,6 +586,7 @@ class Profile(models.Model):
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профиля'
 
+
 class Fittings(models.Model):
     name = models.CharField(max_length=255, verbose_name='Фурнитура', blank=True, null=True)
 
@@ -595,6 +596,7 @@ class Fittings(models.Model):
     class Meta:
         verbose_name = 'Фурнитура'
         verbose_name_plural = 'Фурнитуры'
+
 
 class Filling(models.Model):
     name = models.CharField(max_length=255, verbose_name='Стеклопакет', blank=True, null=True)
@@ -607,12 +609,27 @@ class Filling(models.Model):
         verbose_name_plural = 'Стеклопакеты'
 
 
+class WindowDiscountMarkups(models.Model):
+    profile = models.ForeignKey(Profile, verbose_name="Профиль", blank=True, null=True, on_delete=models.CASCADE)
+    fittings = models.ForeignKey(Fittings, verbose_name="Фурнитура", blank=True, null=True, on_delete=models.CASCADE)
+    discount = models.FloatField(max_length=255, default=0.0, verbose_name='Значение')
+    markup = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка диллерская')
+    in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах')
+
+    def __str__(self):
+        return f'Профиль : {self.profile.name} + Фурнитура: скидка {self.fittings.name} = {self.discount} %,'
+
+    class Meta:
+        verbose_name = 'Скидка/Наценка на окно'
+        verbose_name_plural = 'Скидки/Наценки на окна'
+
+
 class WindowsCalc(models.Model):
     order_id = models.IntegerField(verbose_name='Номер замера', blank=True, null=True)
 
-    profile = models.ForeignKey(Profile, verbose_name='Профиль',on_delete=models.SET_NULL, blank=True, null=True)
-    fittings = models.ForeignKey(Fittings, verbose_name='Фурнитура',on_delete=models.SET_NULL, blank=True, null=True)
-    filling = models.ForeignKey(Filling, verbose_name='Стеклопакет',on_delete=models.SET_NULL, blank=True, null=True)
+    profile = models.ForeignKey(Profile, verbose_name='Профиль', on_delete=models.SET_NULL, blank=True, null=True)
+    fittings = models.ForeignKey(Fittings, verbose_name='Фурнитура', on_delete=models.SET_NULL, blank=True, null=True)
+    filling = models.ForeignKey(Filling, verbose_name='Стеклопакет', on_delete=models.SET_NULL, blank=True, null=True)
 
     price_in_byn = models.FloatField(max_length=255, default=0.0, verbose_name='Цена BYN')
     price_in_currency = models.FloatField(max_length=255, default=0.0, verbose_name='Цена EUR/USD')

@@ -17,6 +17,18 @@ def order(request, pk, form):
     user = User.objects.get(username=request.user.username)
 
     if request.method == "GET":
+        one_sash_width = request.GET.get('one-sash-width')
+        one_sash_length = request.GET.get('one-sash-length')
+        try:
+            if (int(one_sash_width) > 0) and (int(one_sash_length) > 0):
+                profile = request.GET.get('one-sash-profile-select')
+                fitting = request.GET.get('one-sash-fitting-select')
+                filling = request.GET.get('one-sash-filling-select')
+                window = request.GET.get('one-sash-window-select')
+                calc_one_sash(order_id=pk, profile=profile, fitting=fitting, filling=filling, window=window)
+        except:
+            pass
+
         try:
             WindowsillCalc.objects.get(pk=request.GET.get('id_windowsill_calc')).delete()
             form = 'windowsill_calc'
@@ -63,6 +75,7 @@ def order(request, pk, form):
         except:
             pass
     if request.method == 'POST':
+
         form_windowsill_calc = WindowsillCalcForm(request.POST)
         if form_windowsill_calc.is_valid():
             windowsill = form_windowsill_calc.cleaned_data.get("windowsill")
@@ -229,7 +242,14 @@ def order(request, pk, form):
 
     form_works_calc = WorksCalcForm(initial={'count': 1})
 
+    profiles = Profile.objects.all()
+    fittings = Fittings.objects.all()
+    filling = Filling.objects.all()
     context = {
+        'profiles': profiles,
+        'fittings': fittings,
+        'filling': filling,
+
         'form': form,
         'order': order,
 

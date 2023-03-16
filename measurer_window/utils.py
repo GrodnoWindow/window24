@@ -460,3 +460,37 @@ def calc_order(order_id):
     order.sum_byn = round(order.sum_materials_byn + order.sum_works_byn, 2)
     order.sum_currency = round(order.sum_materials_currency + order.sum_works_currency, 2)
     order.save()
+
+def calc_window_disc(order_id,profile, fittings,price):
+    # exchange_rates = ExchangeRates.objects.get(name=currency)
+    # try:
+    window = WindowDiscountMarkups.objects.get(profile=profile, fittings=fittings)
+    discount = window.discount
+    disc_window = (float(price) / 100) * discount  # discount window
+
+    window_input_price = 0.034 * (float(price) - disc_window)  # price in BYN - discount
+    # except:
+    #     window_input_price = exchange_rates.value * float(price)  # price in BYN
+    #     discount = 0.0
+    markup = window.markup
+    in_percent = window.in_percent
+
+    if in_percent:
+        window_price_with_markup = window_input_price + (window_input_price / 100 * markup)  # + MARKUP
+    else:
+        window_price_with_markup = window_input_price + markup  # + MARKUP
+
+    window_price_with_markup = round(window_price_with_markup, 2)  # round output price
+
+    window_calc = WindowsCalc.objects.create(order_id=order_id,
+                                             profile=profile,
+                                             fittings=fittings,
+                                             price_in_byn=window_price_with_markup,)
+
+    return window_calc
+def calc_one_sash(order_id, profile, fittings, filling, window):
+    profile = Profile.objects.get(pk=profile)
+    fittings = Profile.objects.get(pk=fittings)
+    filling = Profile.objects.get(pk=filling)
+    window = Profile.objects.get(pk=window)
+    calc_window_disc(order_id=order_id, profile=profile, fittings=fittings, filling=filling,price=80000)
