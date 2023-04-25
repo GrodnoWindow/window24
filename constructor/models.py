@@ -2,6 +2,17 @@ from django.db import models
 from django.forms import TextInput
 
 
+class Provider(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Поставщик", blank=True, null=True)
+    currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Поставщик'
+        verbose_name_plural = 'Поставщики'
+
 # _______________________________ CONFIGURATION MODEL _______________________________
 class ProductType(models.Model):
     name = models.CharField(max_length=255, verbose_name="Тип изделия", blank=True, null=True)
@@ -20,7 +31,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=255, verbose_name="Профиль", blank=True, null=True)
     type = models.PositiveSmallIntegerField(('type'), choices=TYPE, blank=True, null=True)
 
-    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
+    provider = models.ForeignKey(Provider,on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Поставщик')
 
     # price = models.FloatField(verbose_name="Цена", blank=True, null=True)
     # discount = models.FloatField(verbose_name="Скидка", blank=True, null=True)
@@ -200,6 +211,7 @@ class ConnectionProfile(models.Model):
                                       null=True)
     length = models.FloatField(default=0.0, verbose_name="Длина", blank=True, null=True)
     price = models.FloatField(default=0.0, verbose_name="Цена", blank=True, null=True)
+    provider = models.ForeignKey(Provider,on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Поставщик')
 
     def __str__(self):
         return f'№ {self.pk} {self.name}'
@@ -225,6 +237,7 @@ class AdditionalProfile(models.Model):
                                 blank=True, null=True)
     width = models.FloatField(default=0.0, verbose_name="Ширина", blank=True, null=True)
     price = models.FloatField(default=0.0, verbose_name="Цена", blank=True, null=True)
+    provider = models.ForeignKey(Provider,on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Поставщик')
 
     def __str__(self):
         return f'№ {self.pk} {self.article}'
@@ -605,8 +618,8 @@ class WindowsillColor(models.Model):
 class Windowsill(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название подоконника", blank=True, null=True)
     type = models.CharField(max_length=255, verbose_name='Тип подоконника', blank=True, null=True)
-    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    provider = models.ForeignKey(Provider, blank=True,on_delete=models.SET_NULL, null=True, verbose_name='Поставщик')
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
@@ -642,8 +655,8 @@ class LowTidesColor(models.Model):
 class LowTides(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название отлива", blank=True, null=True)
 
-    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    provider = models.ForeignKey(Provider, blank=True,on_delete=models.SET_NULL, null=True, verbose_name='Поставщик')
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
@@ -678,8 +691,8 @@ class FlashingColor(models.Model):
 
 class Flashing(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название нащельника')
-    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    provider = models.ForeignKey(Provider, blank=True,on_delete=models.SET_NULL, null=True, verbose_name='Поставщик')
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
@@ -725,8 +738,8 @@ class CasingColor(models.Model):
 
 class Casing(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название наличника')
-    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    provider = models.ForeignKey(Provider,on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Поставщик')
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
@@ -761,8 +774,8 @@ class VisorsColor(models.Model):
 
 class Visors(models.Model):
     name = models.CharField(max_length=255, verbose_name='Развертка козырька', blank=True, null=True)
-    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    provider = models.ForeignKey(Provider,on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Поставщик')
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
@@ -797,8 +810,8 @@ class SlopesOfMetalColor(models.Model):
 
 class SlopesOfMetal(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип откосов из металла')
-    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    provider = models.ForeignKey(Provider,on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Поставщик')
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
@@ -834,8 +847,8 @@ class InternalSlopeColor(models.Model):
 class InternalSlope(models.Model):
     type = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип внутренних откосов')
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Наименование внутренних откосов')
-    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    provider = models.ForeignKey(Provider,on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Поставщик')
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
@@ -859,8 +872,8 @@ class MountingMaterialsName(models.Model):
 class MountingMaterialsType(models.Model):
     type = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип монтажных материалов')
 
-    provider = models.CharField(max_length=255, blank=True, null=True, verbose_name='Поставщик')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    provider = models.ForeignKey(Provider,on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Поставщик')
 
     def __str__(self):
         return f'# {self.pk} Название: {self.type}, цена закупки: {self.price_input}'
@@ -883,6 +896,7 @@ class Handles(models.Model):
 
 class OtherComplectation(models.Model):
     name = models.CharField(max_length=255, verbose_name="Прочее комплектующие", blank=True, null=True)
+    provider = models.ForeignKey(Provider,on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Поставщик')
 
     def __str__(self):
         return self.name

@@ -3,7 +3,7 @@
 
   https://www.creative-tim.com/new-issue/soft-ui-dashboard
 
-**If your issue was not created using the app above, it will be closed immediately.**
+**If your issue was not created using the config above, it will be closed immediately.**
 -->
 
 <!--

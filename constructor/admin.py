@@ -85,3 +85,4 @@ admin.site.register(InternalSlopeInstallation)
 
 
 admin.site.register(Works)
+admin.site.register(Provider)

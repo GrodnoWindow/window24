@@ -1099,3 +1099,20 @@ class WorksAPIView(APIView):
 
             ]
         })
+
+
+class ProviderAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {'provider': Provider.objects.all()}
+        serializer = ConstructorSerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'provider',
+                    'placeholder': 'Выберите поставщика',
+                    'label': 'Поставщики',
+                    'data': serializer.data['provider'],
+                },
+
+            ]
+        })

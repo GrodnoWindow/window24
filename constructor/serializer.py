@@ -392,6 +392,10 @@ class ColorOutsideSerializer(serializers.ModelSerializer):
         model = ColorOutside
         fields = '__all__'
 
+class ProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Provider
+        fields = '__all__'
 
 class ConstructorSerializer(serializers.Serializer):
     profile = ProfileSerializer(read_only=True, many=True)
@@ -459,3 +463,4 @@ class ConstructorSerializer(serializers.Serializer):
     slopes_of_metal = SlopesOfMetalSerializer(read_only=True, many=True)
     mounting_materials_type = MountingMaterialsTypeSerializer(read_only=True, many=True)
     mounting_materials_name = MountingMaterialsNameSerializer(read_only=True, many=True)
+    provider = ProviderSerializer(read_only=True, many=True)
