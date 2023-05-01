@@ -1102,7 +1102,7 @@ class SlopesOfMetalAPIView(APIView):
                     'name': 'slope_of_metal_provider',
                     'placeholder': 'Выберите поставщика',
                     'label': 'Поставщики',
-                    'data': serializer.data['slope_of_metal_provider'],
+                    'data': serializer.data['slopes_of_metal_provider'],
                 },
             ]
         })
