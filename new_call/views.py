@@ -22,7 +22,7 @@ class OutgoingCallGenericAPIView(generics.GenericAPIView, mixins.CreateModelMixi
         num_phone = request.data['number']
         if num_phone == 1:
             response = requests.post(f'http://admin:reMont2004@192.168.1.229/servlet?key=number={phone}')
-        elif num_phone == 12:
-            response = requests.post(f'http://admin:reMont2004@192.168.1.223/servlet?key=number={phone}')
+        elif num_phone == 2:
+            response = requests.post(f'http://admin:reMont2004@192.168.1.230/servlet?key=number={phone}')
 
         return Response({"data": response})

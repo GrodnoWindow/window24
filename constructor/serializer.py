@@ -513,3 +513,4 @@ class ConstructorSerializer(serializers.Serializer):
     flashing_provider = FlashingProviderSerializer(read_only=True, many=True)
     slopes_of_metal_provider = SlopesOfMetalProviderSerializer(read_only=True, many=True)
     internal_slope_provider = InternalSlopeProviderSerializer(read_only=True, many=True)
+    mounting_materials_provider = MountingMaterialsProviderSerializer(read_only=True, many=True)
