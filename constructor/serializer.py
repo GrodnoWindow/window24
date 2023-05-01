@@ -141,9 +141,21 @@ class WindowsillSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class WindowsillProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WindowsillProvider
+        fields = '__all__'
+
+
 class LowTidesColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = LowTidesColor
+        fields = '__all__'
+
+
+class LowTidesProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LowTidesProvider
         fields = '__all__'
 
 
@@ -165,6 +177,12 @@ class VisorsColorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class VisorsProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VisorsProvider
+        fields = '__all__'
+
+
 class VisorsInstallationSerializer(serializers.ModelSerializer):
     class Meta:
         model = VisorsInstallation
@@ -183,6 +201,12 @@ class SlopesOfMetalColorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class SlopesOfMetalProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SlopesOfMetalProvider
+        fields = '__all__'
+
+
 class SlopesOfMetalInstallationSerializer(serializers.ModelSerializer):
     class Meta:
         model = SlopesOfMetalInstallation
@@ -194,6 +218,10 @@ class SlopesOfMetalSerializer(serializers.ModelSerializer):
         model = SlopesOfMetal
         fields = '__all__'
 
+class MountingMaterialsProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MountingMaterialsProvider
+        fields = '__all__'
 
 class MountingMaterialsNameSerializer(serializers.ModelSerializer):
     class Meta:
@@ -206,6 +234,11 @@ class MountingMaterialsTypeSerializer(serializers.ModelSerializer):
         model = MountingMaterialsType
         fields = '__all__'
 
+
+class FlashingProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FlashingProvider
+        fields = '__all__'
 
 class FlashingColorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -248,7 +281,10 @@ class SupplyValveSerializer(serializers.ModelSerializer):
         model = SupplyValve
         fields = ['id', 'name']
 
-
+class CasingProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CasingProvider
+        fields = '__all__'
 class CasingColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = CasingColor
@@ -272,10 +308,14 @@ class CasingSerializer(serializers.ModelSerializer):
         model = Casing
         fields = '__all__'
 
+class InternalSlopeProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InternalSlopeProvider
+        fields = '__all__'
 
 class InternalSlopeColorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = InternalSlope
+        model = InternalSlopeColor
         fields = '__all__'
 
 
@@ -392,10 +432,12 @@ class ColorOutsideSerializer(serializers.ModelSerializer):
         model = ColorOutside
         fields = '__all__'
 
-class ProviderSerializer(serializers.ModelSerializer):
+
+class ProviderWindowSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Provider
+        model = ProviderWindow
         fields = '__all__'
+
 
 class ConstructorSerializer(serializers.Serializer):
     profile = ProfileSerializer(read_only=True, many=True)
@@ -463,4 +505,11 @@ class ConstructorSerializer(serializers.Serializer):
     slopes_of_metal = SlopesOfMetalSerializer(read_only=True, many=True)
     mounting_materials_type = MountingMaterialsTypeSerializer(read_only=True, many=True)
     mounting_materials_name = MountingMaterialsNameSerializer(read_only=True, many=True)
-    provider = ProviderSerializer(read_only=True, many=True)
+    provider_window = ProviderWindowSerializer(read_only=True, many=True)
+    windowsill_provider = WindowsillProviderSerializer(read_only=True, many=True)
+    low_tides_provider = LowTidesProviderSerializer(read_only=True, many=True)
+    visors_provider = VisorsProviderSerializer(read_only=True, many=True)
+    casing_provider = CasingProviderSerializer(read_only=True, many=True)
+    flashing_provider = FlashingProviderSerializer(read_only=True, many=True)
+    slopes_of_metal_provider = SlopesOfMetalProviderSerializer(read_only=True, many=True)
+    internal_slope_provider = InternalSlopeProviderSerializer(read_only=True, many=True)

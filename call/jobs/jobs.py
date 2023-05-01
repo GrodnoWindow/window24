@@ -13,8 +13,8 @@ from calls_table.models import CallsTable
 
 # from client.models import Client
 
-API_URL = "https://86.57.178.104:4021"
-# API_URL = "https://192.168.1.209:4021"
+# API_URL = "https://86.57.178.104:4021"
+API_URL = "https://192.168.1.209:4021"
 MAIN_URL = API_URL + "/admin/api/jsonrpc/"
 LOGIN = "Ilya"
 PASSWORD = "bkmz1337"
@@ -178,69 +178,76 @@ def save_call_in_table(client, call):
 
 
 def parse_window24(data):
-    if not data['calls']:
-        CallWindow.objects.filter(call_type='0').update(call_type='2')
-    else:
-        for item in data['calls']:
-            id_call = item["id"].split(".")[0]
-            try:
-                CallWindow.objects.get(id_call=id_call)
-            except CallWindow.DoesNotExist:
-                number_call = item["FROM"]["NUMBER"]
-                if number_call in ('14', '15'):
-                    continue
-
-                call = CallWindow.objects.create(
-                    id_call=id_call,
-                    number=number_call,
-                    datetime=datetime.datetime.now(),
-                    call_type=item["STATUS"]
-                )
-
-                CallWindow.objects.filter(
-                    id_call__in=CallWindow.objects.values('id_call').distinct()[1:]
-                ).delete()
-
-                number, created = Number.objects.get_or_create(
-                    number=number_call, defaults={'name': 'new client'}
-                )
-                client, created = Client.objects.get_or_create(
-                    numbers=number, defaults={'author': 'system', 'name': 'new client'}
-                )
-
-                save_call_in_table(client=client, call=call)
-
     # if not data['calls']:
     #     CallWindow.objects.filter(call_type='0').update(call_type='2')
     # else:
     #     for item in data['calls']:
-    #         id_call = item["id"].split(".")[0]  # add id only number and check record
+    #         id_call = item["id"].split(".")[0]
     #         try:
-    #             call = CallWindow.objects.get(id_call=id_call)  # if not record call id in db
+    #             CallWindow.objects.get(id_call=id_call)
     #         except CallWindow.DoesNotExist:
     #             number_call = item["FROM"]["NUMBER"]
-    #             status = item["STATUS"]
-    #             if not (number_call == '1') and not (number_call == '2'):
-    #                 call = CallWindow.objects.create(id_call=id_call, number=number_call,
-    #                                                  datetime=datetime.datetime.now(),
-    #                                                  call_type=status)
-    #                 call.save()
-    #                 for id_call in CallWindow.objects.values_list('id_call', flat=True).distinct():
-    #                     CallWindow.objects.filter(
-    #                         pk__in=CallWindow.objects.filter(id_call=id_call).values_list('id', flat=True)[1:]).delete()
-    #                 try:
-    #                     number = Number.objects.get(number=number_call)
-    #                     number_id = number.pk
-    #                 except Number.DoesNotExist:
-    #                     number = Number.objects.create(number=number_call, name='new client')
-    #                     number_id = number.pk
-    #                 try:
-    #                     client = Client.objects.get(numbers=number)
-    #                 except Client.DoesNotExist:
-    #                     client = Client.objects.create(author='system', name='new client')
-    #                     client.numbers.add(number_id)
+    #             if number_call in ('14', '15'):
+    #                 continue
     #
-    #                 save_call_in_table(client=client, call=call)
+    #             call = CallWindow.objects.create(
+    #                 id_call=id_call,
+    #                 number=number_call,
+    #                 datetime=datetime.datetime.now(),
+    #                 call_type=item["STATUS"]
+    #             )
+    #
+    #             CallWindow.objects.filter(
+    #                 id_call__in=CallWindow.objects.values('id_call').distinct()[1:]
+    #             ).delete()
+    #
+    #             try:
+    #                 number = Number.objects.get(number=number_call)
+    #                 number_id = number.pk
+    #             except Number.DoesNotExist:
+    #                 number = Number.objects.create(number=number_call, name='new client')
+    #                 number_id = number.pk
+    #             try:
+    #                 client = Client.objects.get(numbers=number)
+    #                 client.calls.add(call)
+    #             except Client.DoesNotExist:
+    #                 client = Client.objects.create(author='system', name='new client')
+    #                 client.numbers.add(number_id)
+    #                 client.calls.add(call)
+    #
+    #             save_call_in_table(client=client, call=call)
+
+    if not data['calls']:
+        CallWindow.objects.filter(call_type='0').update(call_type='2')
+    else:
+        for item in data['calls']:
+            id_call = item["id"].split(".")[0]  # add id only number and check record
+            try:
+                call = CallWindow.objects.get(id_call=id_call)  # if not record call id in db
+            except CallWindow.DoesNotExist:
+                number_call = item["FROM"]["NUMBER"]
+                status = item["STATUS"]
+                if not (number_call == '14') and not (number_call == '15'):
+                    call = CallWindow.objects.create(id_call=id_call, number=number_call,
+                                                     datetime=datetime.datetime.now(),
+                                                     call_type=status)
+                    call.save()
+                    for id_call in CallWindow.objects.values_list('id_call', flat=True).distinct():
+                        CallWindow.objects.filter(
+                            pk__in=CallWindow.objects.filter(id_call=id_call).values_list('id', flat=True)[1:]).delete()
+                    try:
+                        number = Number.objects.get(number=number_call)
+                        number_id = number.pk
+                    except Number.DoesNotExist:
+                        number = Number.objects.create(number=number_call, name='new client')
+                        number_id = number.pk
+                    try:
+                        client = Client.objects.get(numbers=number)
+                    except Client.DoesNotExist:
+                        client = Client.objects.create(author='system', name='new client')
+                        client.numbers.add(number_id)
+
+                    save_call_in_table(client=client, call=call)
 
 
 # def parse_window24(data):

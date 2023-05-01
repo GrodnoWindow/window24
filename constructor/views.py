@@ -834,6 +834,7 @@ class WindowsillAPIView(APIView):
         filters['windowsill'] = Windowsill.objects.all()
         filters['windowsill_color'] = WindowsillColor.objects.all()
         filters['windowsill_installation'] = WindowsillInstallation.objects.all()
+        filters['windowsill_provider'] = WindowsillProvider.objects.all()
 
         serializer = ConstructorSerializer(filters)
         return Response({
@@ -855,7 +856,13 @@ class WindowsillAPIView(APIView):
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж подоконника',
                     'options': serializer.data['windowsill_installation'],
-                }
+                },
+                {
+                    'name': 'windowsill_provider',
+                    'placeholder': 'Выберите поставщика',
+                    'label': 'Поставщики',
+                    'data': serializer.data['windowsill_provider'],
+                },
             ]
         })
 
@@ -867,6 +874,7 @@ class CasingAPIView(APIView):
         filters['casing_color'] = CasingColor.objects.all()
         filters['casing_installation'] = CasingInstallation.objects.all()
         filters['casing_fastening'] = CasingFastening.objects.all()
+        filters['casing_provider'] = CasingProvider.objects.all()
 
         serializer = ConstructorSerializer(filters)
         return Response({
@@ -894,7 +902,13 @@ class CasingAPIView(APIView):
                     'placeholder': 'Выберите крепление',
                     'label': 'Крепление',
                     'options': serializer.data['casing_fastening'],
-                }
+                },
+                {
+                    'name': 'casing_provider',
+                    'placeholder': 'Выберите поставщика',
+                    'label': 'Поставщики',
+                    'data': serializer.data['casing_provider'],
+                },
             ]
         })
 
@@ -905,6 +919,7 @@ class FlashingAPIView(APIView):
         filters['flashing'] = Flashing.objects.all()
         filters['flashing_color'] = FlashingColor.objects.all()
         filters['flashing_installation'] = FlashingInstallation.objects.all()
+        filters['flashing_provider'] = FlashingProvider.objects.all()
 
         serializer = ConstructorSerializer(filters)
         return Response({
@@ -926,7 +941,13 @@ class FlashingAPIView(APIView):
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж нащельника',
                     'options': serializer.data['flashing_installation'],
-                }
+                },
+                {
+                    'name': 'flashing_provider',
+                    'placeholder': 'Выберите поставщика',
+                    'label': 'Поставщики',
+                    'data': serializer.data['flashing_provider'],
+                },
             ]
         })
 
@@ -937,6 +958,7 @@ class InternalSlopeAPIView(APIView):
         filters['internal_slope'] = InternalSlope.objects.all()
         filters['internal_slope_color'] = InternalSlopeColor.objects.all()
         filters['internal_slope_installation'] = InternalSlopeInstallation.objects.all()
+        filters['internal_slope_provider'] = InternalSlopeProvider.objects.all()
 
         serializer = ConstructorSerializer(filters)
         return Response({
@@ -958,7 +980,13 @@ class InternalSlopeAPIView(APIView):
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж внутренних откосов',
                     'options': serializer.data['internal_slope_installation'],
-                }
+                },
+                {
+                    'name': 'internal_slope_provider',
+                    'placeholder': 'Выберите поставщика',
+                    'label': 'Поставщики',
+                    'data': serializer.data['internal_slope_provider'],
+                },
             ]
         })
 
@@ -969,6 +997,7 @@ class LowTidesAPIView(APIView):
         filters['low_tides'] = LowTides.objects.all()
         filters['low_tides_color'] = LowTidesColor.objects.all()
         filters['low_tides_installation'] = LowTidesInstallation.objects.all()
+        filters['low_tides_provider'] = LowTidesProvider.objects.all()
 
         serializer = ConstructorSerializer(filters)
         return Response({
@@ -990,7 +1019,13 @@ class LowTidesAPIView(APIView):
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж отлива',
                     'options': serializer.data['low_tides_installation'],
-                }
+                },
+                {
+                    'name': 'low_tides_provider',
+                    'placeholder': 'Выберите поставщика',
+                    'label': 'Поставщики',
+                    'data': serializer.data['low_tides_provider'],
+                },
             ]
         })
 
@@ -1001,6 +1036,7 @@ class VisorsAPIView(APIView):
         filters['visors'] = Visors.objects.all()
         filters['visors_color'] = VisorsColor.objects.all()
         filters['visors_installation'] = VisorsInstallation.objects.all()
+        filters['visors_provider'] = VisorsInstallation.objects.all()
 
         serializer = ConstructorSerializer(filters)
         return Response({
@@ -1022,7 +1058,13 @@ class VisorsAPIView(APIView):
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж козырька',
                     'options': serializer.data['visors_installation'],
-                }
+                },
+                {
+                    'name': 'visors_provider',
+                    'placeholder': 'Выберите поставщика',
+                    'label': 'Поставщики',
+                    'data': serializer.data['visors_provider'],
+                },
             ]
         })
 
@@ -1033,6 +1075,7 @@ class SlopesOfMetalAPIView(APIView):
         filters['slopes_of_metal'] = SlopesOfMetal.objects.all()
         filters['slopes_of_metal_color'] = SlopesOfMetalColor.objects.all()
         filters['slopes_of_metal_installation'] = SlopesOfMetalInstallation.objects.all()
+        filters['slopes_of_metal_provider'] = SlopesOfMetalProvider.objects.all()
 
         serializer = ConstructorSerializer(filters)
         return Response({
@@ -1054,7 +1097,13 @@ class SlopesOfMetalAPIView(APIView):
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж откосов из металла',
                     'options': serializer.data['slopes_of_metal_installation'],
-                }
+                },
+                {
+                    'name': 'slope_of_metal_provider',
+                    'placeholder': 'Выберите поставщика',
+                    'label': 'Поставщики',
+                    'data': serializer.data['slope_of_metal_provider'],
+                },
             ]
         })
 
@@ -1064,6 +1113,7 @@ class MountingMaterialsAPIView(APIView):
         filters = {}
         filters['mounting_materials_type'] = MountingMaterialsType.objects.all()
         filters['mounting_materials_name'] = MountingMaterialsName.objects.all()
+        filters['mounting_materials_provider'] = MountingMaterialsProvider.objects.all()
 
         serializer = ConstructorSerializer(filters)
         return Response({
@@ -1079,7 +1129,13 @@ class MountingMaterialsAPIView(APIView):
                     'placeholder': 'Выберите наименование монтажного материала',
                     'label': 'Наименование монтажного материала',
                     'options': serializer.data['mounting_materials_name'],
-                }
+                },
+                {
+                    'name': 'mounting_materials_provider',
+                    'placeholder': 'Выберите поставщика',
+                    'label': 'Поставщики',
+                    'data': serializer.data['mounting_materials_provider'],
+                },
             ]
         })
 
@@ -1101,17 +1157,17 @@ class WorksAPIView(APIView):
         })
 
 
-class ProviderAPIView(APIView):
+class ProviderWindowAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        filters = {'provider': Provider.objects.all()}
+        filters = {'provider_window': ProviderWindow.objects.all()}
         serializer = ConstructorSerializer(filters)
         return Response({
             'data': [
                 {
-                    'name': 'provider',
+                    'name': 'provider_window',
                     'placeholder': 'Выберите поставщика',
                     'label': 'Поставщики',
-                    'data': serializer.data['provider'],
+                    'data': serializer.data['provider_window'],
                 },
 
             ]

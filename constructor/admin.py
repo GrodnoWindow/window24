@@ -61,28 +61,41 @@ admin.site.register(FreePositions)
 # admin.site.register(FavoritePositions)
 
 admin.site.register(Windowsill)
+admin.site.register(WindowsillProvider)
 admin.site.register(WindowsillColor)
 admin.site.register(WindowsillInstallation)
+
 admin.site.register(Flashing)
+admin.site.register(FlashingProvider)
 admin.site.register(FlashingColor)
 admin.site.register(FlashingInstallation)
+
 admin.site.register(Visors)
+admin.site.register(VisorsProvider)
 admin.site.register(VisorsColor)
 admin.site.register(VisorsInstallation)
+
 admin.site.register(Casing)
+admin.site.register(CasingProvider)
 admin.site.register(CasingColor)
 admin.site.register(CasingInstallation)
 admin.site.register(CasingFastening)
+
 admin.site.register(LowTides)
+admin.site.register(LowTidesProvider)
 admin.site.register(LowTidesColor)
 admin.site.register(LowTidesInstallation)
+
 admin.site.register(SlopesOfMetal)
+admin.site.register(SlopesOfMetalProvider)
 admin.site.register(SlopesOfMetalColor)
 admin.site.register(SlopesOfMetalInstallation)
+
 admin.site.register(InternalSlope)
+admin.site.register(InternalSlopeProvider)
 admin.site.register(InternalSlopeColor)
 admin.site.register(InternalSlopeInstallation)
 
 
 admin.site.register(Works)
-admin.site.register(Provider)
+admin.site.register(ProviderWindow)
