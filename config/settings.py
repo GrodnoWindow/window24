@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'calls_table',
     'measurer',
     'new_call',
-    'measurer_window',
 
 ]
 
