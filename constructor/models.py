@@ -51,8 +51,8 @@ class ProductTypeDoor(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Тип изделия'
-        verbose_name_plural = 'Тип изделия'
+        verbose_name = 'Тип изделия двери'
+        verbose_name_plural = 'Тип изделия двери'
 
 
 class Opening(models.Model):
@@ -300,7 +300,7 @@ class Sealant(models.Model):
                                         blank=True, null=True)
 
     def __str__(self):
-        return f'№ {self.pk} {self.color}'
+        return f'№ {self.pk}'
 
     class Meta:
         verbose_name = 'Уплотнитель'
@@ -988,37 +988,13 @@ class OtherComplectation(models.Model):
         verbose_name_plural = 'Прочее комплектующие'
 
 
-class Locks(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Замок", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Замок'
-        verbose_name_plural = 'Замки'
 
 
-class StraightConnectors(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Прямые соединители", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Прямые соединители'
-        verbose_name_plural = 'Прямые соединители'
 
 
-class SupplyValve(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Приточный клапан", blank=True, null=True)
 
-    def __str__(self):
-        return self.name
 
-    class Meta:
-        verbose_name = 'Приточный клапан'
-        verbose_name_plural = 'Приточные клапаны'
+
 
 
 class Works(models.Model):
@@ -1029,5 +1005,5 @@ class Works(models.Model):
         return f' Работы № {self.pk} {self.name} на сумму {self.price} BYN'
 
     class Meta:
-        verbose_name = 'Просчет работы'
-        verbose_name_plural = 'Просчеты работ'
+        verbose_name = 'Работы'
+        verbose_name_plural = 'Работы'

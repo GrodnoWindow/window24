@@ -5,7 +5,7 @@ from .models import Client, Number, Address, Prompter
 from call.serializer import CallWindowSerializer
 from miscalculation.serializer import MiscalculationSerializer
 from complaint.serializer import ComplaintSerializer
-
+from constructor.serializer import ConstructorSerializer
 
 class NumberSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,7 +33,7 @@ class ClientSerializer(serializers.ModelSerializer):
     addresses = AddressSerializer(many=True, read_only=False)
     prompter = PrompterSerializer(many=True, read_only=False)
     calls = CallWindowSerializer(many=True, read_only=False)
-    miscalculation = MiscalculationSerializer(many=True, read_only=False)
+    constructor = ConstructorSerializer(many=True, read_only=False)
     complaints = ComplaintSerializer(many=True, read_only=False)
     category_select = serializers.IntegerField(read_only=True)
 
@@ -56,7 +56,7 @@ class ClientPostSerializer(serializers.ModelSerializer):
     numbers = NumberSerializer(many=True, read_only=True)
     addresses = AddressSerializer(many=True, read_only=True)
     prompter = PrompterSerializer(many=True, read_only=True)
-    miscalculation = MiscalculationSerializer(many=True, read_only=True)
+    constructor = ConstructorSerializer(many=True, read_only=True)
     complaints = ComplaintSerializer(many=True, read_only=True)
 
     class Meta:

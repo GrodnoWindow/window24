@@ -41,7 +41,5 @@ urlpatterns = [
     path('api/correspondence/', include('correspondence.urls')),
     path('api/calls-table/', include('calls_table.urls')),
     path('api/new-call/', include('new_call.urls')),
-    path('', include('measurer_window.urls')),
-    path('r2d2/', include('measurer_window.urls')),
 
 ]

@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import *
-from constructor.serializer import WorksSerializer
 from constructor.serializer import *
 
 
@@ -19,7 +18,10 @@ class WindowSerializer(serializers.ModelSerializer):
         model = WindowDiscountMarkups
         fields = 'profile_id', 'fittings_id', 'price_input', 'markups_type', 'currency_name',
 
-
+class WindowsCalcSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WindowsCalc
+        fields = '__all__'
 class WindowsillCalcSerializer(serializers.ModelSerializer):
     windowsill_id = serializers.IntegerField(max_value=None, min_value=None)
     installation_id = serializers.IntegerField(max_value=None, min_value=None)
@@ -162,7 +164,15 @@ class LaminationSerializer(serializers.ModelSerializer):
         model = Lamination
         fields = '__all__'
 
+class MountingMaterialsCalcSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MountingMaterialsCalc
+        fields = '__all__'
 
+class WorksCalcSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Works
+        fields = '__all__'
 class ConnectionProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConnectionProfile

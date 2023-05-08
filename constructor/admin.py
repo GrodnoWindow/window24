@@ -38,6 +38,7 @@ admin.site.register(Aggregate)
 # admin.site.register(SealInternal)
 admin.site.register(TypeLamination)
 admin.site.register(TypeLamination2)
+admin.site.register(Sealant)
 admin.site.register(SealBasic)
 admin.site.register(SealRebate)
 admin.site.register(SealantColor)
@@ -48,7 +49,7 @@ admin.site.register(LaminationOutside)
 admin.site.register(LaminationInside)
 admin.site.register(ProfileWeight)
 admin.site.register(Note)
-admin.site.register(SupplyValve)
+admin.site.register(OtherComplectation)
 
 
 # EXTRAWORKS

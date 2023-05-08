@@ -558,6 +558,7 @@ class WindowsCalc(models.Model):
 
 
 class Constructor(models.Model):
+    configuration = models.TextField(blank=True, null=True)
     # EQUIPMENT
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, verbose_name="Тип изделия",
                                      null=True, blank=True)
@@ -591,7 +592,7 @@ class Constructor(models.Model):
     flashing_calc = models.ManyToManyField(FlashingCalc, verbose_name="Просчеты нащельников", blank=True)
     visors_calc = models.ManyToManyField(VisorsCalc, verbose_name="Просчеты козырьков", blank=True)
     casing_calc = models.ManyToManyField(CasingCalc, verbose_name="Просчеты наличников", blank=True)
-    sploes_of_metal_calc = models.ManyToManyField(SlopesOfMetalCalc, verbose_name="Просчеты откосов из металла",
+    slopes_of_metal_calc = models.ManyToManyField(SlopesOfMetalCalc, verbose_name="Просчеты откосов из металла",
                                                   blank=True)
     internal_slope_calc = models.ManyToManyField(InternalSlopeCalc, verbose_name="Просчеты внутренних откосов",
                                                  blank=True)

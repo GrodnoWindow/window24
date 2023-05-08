@@ -22,7 +22,7 @@ class EquipmentMainAPIView(APIView):
         filters['aggregate'] = Aggregate.objects.all()
         filters['fittings'] = Fittings.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -63,7 +63,7 @@ class EquipmentExtraAPIView(APIView):
         filters['handles'] = Handles.objects.all()
         filters['other_complectation'] = OtherComplectation.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -110,7 +110,7 @@ class LaminationAPIView(APIView):
         filters['seal_outside'] = SealOutside.objects.all()
         filters['seal_basic'] = SealBasic.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -160,7 +160,7 @@ class DoorAPIView(APIView):
         filters['door_closer'] = DoorCloser.objects.all()
         filters['opening_limiter'] = OpeningLimiter.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -225,7 +225,7 @@ class ConnectionProfileAPIView(APIView):
         filters['color_inside'] = ColorInside.objects.all()
         filters['color_outside'] = ColorOutside.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -267,7 +267,7 @@ class AdditionalProfileAPIView(APIView):
         filters = {}
         filters['article'] = ArticleAdditionalProfile.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -288,7 +288,7 @@ class SealantAPIView(APIView):
         filters['sealant_outside'] = SealantOutside.objects.all()
         filters['sealant_shtapik'] = SealantShtapik.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -319,28 +319,28 @@ class SealantAPIView(APIView):
         })
 
 
-class ConstructorLowTidesAPIView(APIView):
-    def get(self, request, *args, **kwargs):
-        filters = {}
-        filters['windowsill'] = Windowsill.objects.all()
-        filters['low_tides'] = LowTides.objects.all()
-
-        serializer = ConstructorSerializer(filters)
-        return Response({
-            'data': [
-                {
-                    'name': 'windowsill',
-                    'placeholder': 'Выберите подоконник',
-                    'label': 'Подоконники',
-                    'data': serializer.data['windowsill'],
-                },
-                {'name': 'low_tides',
-                 'placeholder': 'Выберите отливы',
-                 'label': 'Отливы',
-                 'data': serializer.data['low_tides'],
-                 }
-            ]
-        })
+# class ConstructorLowTidesAPIView(APIView):
+#     def get(self, request, *args, **kwargs):
+#         filters = {}
+#         filters['windowsill'] = Windowsill.objects.all()
+#         filters['low_tides'] = LowTides.objects.all()
+#
+#         serializer = ConstructorSerializer(filters)
+#         return Response({
+#             'data': [
+#                 {
+#                     'name': 'windowsill',
+#                     'placeholder': 'Выберите подоконник',
+#                     'label': 'Подоконники',
+#                     'data': serializer.data['windowsill'],
+#                 },
+#                 {'name': 'low_tides',
+#                  'placeholder': 'Выберите отливы',
+#                  'label': 'Отливы',
+#                  'data': serializer.data['low_tides'],
+#                  }
+#             ]
+#         })
 
 
 class ConstructorLaminationsAPIView(APIView):
@@ -350,7 +350,7 @@ class ConstructorLaminationsAPIView(APIView):
         filters['lamination_inside'] = LaminationInside.objects.all()
         filters['profile_weight'] = ProfileWeight.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -386,7 +386,7 @@ class ConstructorAdditionOptionAPIView(APIView):
         filters['shtapik'] = Shtapik.objects.all()
         filters['sash'] = Sash.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -447,7 +447,7 @@ class ConstructorMaterialAPIView(APIView):
         filters['straight_connectors'] = StraightConnectors.objects.all()
         filters['supply_valve'] = SupplyValve.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -549,7 +549,6 @@ class ConstructorWindowAPIView(APIView):
         filters['seal_outside'] = SealOutside.objects.all()
         filters['seal_rebate'] = SealRebate.objects.all()
         filters['seal_internal'] = SealInternal.objects.all()
-        filters['seal_color'] = SealColor.objects.all()
         filters['shpros'] = Shpros.objects.all()
         filters['shtapik'] = Shtapik.objects.all()
         filters['sash'] = Sash.objects.all()
@@ -557,7 +556,7 @@ class ConstructorWindowAPIView(APIView):
         filters['lamination_inside'] = LaminationInside.objects.all()
         filters['profile_weight'] = ProfileWeight.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -650,182 +649,8 @@ class ConstructorWindowAPIView(APIView):
         })
 
 
-class ConstructorExtraWorkAPIView(APIView):
-    def get(self, request, *args, **kwargs):
-        filters = {}
-        # other
-        filters['products_install'] = ProductsInstall.objects.all()
-        filters['pvc_slopes'] = PvcSlopes.objects.all()
-        filters['free_positions'] = FreePositions.objects.all()
-        filters['favorite_positions'] = FavoritePositions.objects.all()
-        #
-        filters['windowsill'] = Windowsill.objects.all()
-        # filters['windowsill_danke_komfort'] = WindowsillDankeKomfort.objects.all()
-        # filters['windowsill_danke_standart'] = WindowsillDankeStandart.objects.all()
-        # filters['windowsill_danke_premium'] = WindowsillDankePremium.objects.all()
-        filters['low_tides'] = LowTides.objects.all()
-        filters['visors'] = Visors.objects.all()
-        filters['flashing'] = Flashing.objects.all()
-        filters['flashing_metal'] = FlashingMetal.objects.all()
-        filters['platband'] = Platband.objects.all()
-        filters['extensions_to_profile60'] = ExtensionsToProfile60.objects.all()
-        filters['extensions_to_profile70'] = ExtensionsToProfile70.objects.all()
-        filters['bay_window_to_profile60'] = BayWindowToProfile60.objects.all()
-        filters['bay_window_to_profile70'] = BayWindowToProfile70.objects.all()
-        filters['connector_90g'] = Connector90g.objects.all()
-        filters['accessories'] = Accessories.objects.all()
-        filters['handles'] = OtherComplecation.objects.all()
-        filters['locks'] = Locks.objects.all()
-        filters['straight_connectors'] = StraightConnectors.objects.all()
-        filters['supply_valve'] = SupplyValve.objects.all()
-
-        serializer = ConstructorSerializer(filters)
-        return Response({
-            'data': [
-                {
-                    'name': 'products_install',
-                    'placeholder': 'Выберите монтаж изделий',
-                    'label': 'Монтаж изделий',
-                    'data': serializer.data['products_install'],
-                },
-                {
-                    'name': 'pvc_slopes',
-                    'placeholder': 'Выберите откосы ПВХ',
-                    'label': 'Откосы ПВХ',
-                    'data': serializer.data['pvc_slopes'],
-                },
-                {
-                    'name': 'free_positions',
-                    'placeholder': 'Выберите бесплатные позиции',
-                    'label': 'Бесплатные позиции',
-                    'data': serializer.data['free_positions'],
-                },
-
-            ]
-        })
 
 
-class ConstructorExtraMaterialAPIView(APIView):
-    def get(self, request, *args, **kwargs):
-        filters = {}
-        #  extramaterial
-        filters['windowsill'] = Windowsill.objects.all()
-        filters['low_tides'] = LowTides.objects.all()
-        filters['visors'] = Visors.objects.all()
-        filters['flashing'] = Flashing.objects.all()
-        filters['flashing_metal'] = FlashingMetal.objects.all()
-        filters['platband'] = Platband.objects.all()
-        filters['extensions_to_profile60'] = ExtensionsToProfile60.objects.all()
-        filters['extensions_to_profile70'] = ExtensionsToProfile70.objects.all()
-        filters['bay_window_to_profile60'] = BayWindowToProfile60.objects.all()
-        filters['bay_window_to_profile70'] = BayWindowToProfile70.objects.all()
-        filters['connector_90g'] = Connector90g.objects.all()
-        filters['accessories'] = Accessories.objects.all()
-        filters['handles'] = OtherComplecation.objects.all()
-        filters['locks'] = Locks.objects.all()
-        filters['straight_connectors'] = StraightConnectors.objects.all()
-        filters['supply_valve'] = SupplyValve.objects.all()
-
-        serializer = ConstructorSerializer(filters)
-        return Response({
-            'data': [
-                {
-                    'name': 'windowsill',
-                    'placeholder': 'Выберите подоконник',
-                    'label': 'Подоконники',
-                    'data': serializer.data['windowsill'],
-                },
-                {'name': 'low_tides',
-                 'placeholder': 'Выберите отливы',
-                 'label': 'Отливы',
-                 'data': serializer.data['low_tides'], },
-                {
-                    'name': 'visors',
-                    'placeholder': 'Выберите козырьки',
-                    'label': 'Козырьки',
-                    'data': serializer.data['visors'],
-                },
-                {
-                    'name': 'flashing',
-                    'placeholder': 'Выберите нащельники',
-                    'label': 'Нащельники',
-                    'data': serializer.data['flashing'],
-                },
-                {
-                    'name': 'flashing_metal',
-                    'placeholder': 'Выберите металлические нащельники',
-                    'label': 'Металлические нащельники',
-                    'data': serializer.data['flashing_metal'],
-                },
-                {
-                    'name': 'platband',
-                    'placeholder': 'Выберите наличники',
-                    'label': 'Наличники',
-                    'data': serializer.data['platband'],
-                },
-                {
-                    'name': 'extensions_to_profile60',
-                    'placeholder': 'Выберите доборы к профилю 60мм',
-                    'label': 'Доборы к профилю 60мм',
-                    'data': serializer.data['extensions_to_profile60'],
-                },
-                {
-                    'name': 'extensions_to_profile70',
-                    'placeholder': 'Выберите доборы к профилю 70мм',
-                    'label': 'Доборы к профилю 70мм',
-                    'data': serializer.data['extensions_to_profile70'],
-                },
-                {
-                    'name': 'bay_window_to_profile60',
-                    'placeholder': 'Выберите эркер к профилю 60мм',
-                    'label': 'Эркер к профилю 60мм',
-                    'data': serializer.data['bay_window_to_profile60']
-
-                },
-                {
-                    'name': 'bay_window_to_profile70',
-                    'placeholder': 'Выберите эркер к профилю 70мм',
-                    'label': 'Эркер к профилю 70мм',
-                    'data': serializer.data['bay_window_to_profile70'],
-                },
-                {
-                    'name': 'connector_90g',
-                    'placeholder': 'Выберите соединитель 90гр',
-                    'label': 'Соединитель 90гр',
-                    'data': serializer.data['connector_90g'],
-                },
-                {
-                    'name': 'accessories',
-                    'placeholder': 'Выберите комлпектующие',
-                    'label': 'Комлпектующие',
-                    'data': serializer.data['accessories'],
-                },
-                {
-                    'name': 'handles',
-                    'placeholder': 'Выберите ручку',
-                    'label': 'Ручка',
-                    'data': serializer.data['handles'],
-                },
-                {
-                    'name': 'locks',
-                    'placeholder': 'Выберите замок',
-                    'label': 'Замок',
-                    'data': serializer.data['locks'],
-                },
-                {
-                    'name': 'straight_connectors',
-                    'placeholder': 'Выберите прямые соединители',
-                    'label': 'Прямые соединители',
-                    'data': serializer.data['straight_connectors'],
-                },
-                {
-                    'name': 'supply_valve',
-                    'placeholder': 'Выберите приточный клапан',
-                    'label': 'Приточный клапан',
-                    'data': serializer.data['supply_valve'],
-                }
-            ]
-        })
 
 
 class WindowsillAPIView(APIView):
@@ -876,7 +701,7 @@ class CasingAPIView(APIView):
         filters['casing_fastening'] = CasingFastening.objects.all()
         filters['casing_provider'] = CasingProvider.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -921,7 +746,7 @@ class FlashingAPIView(APIView):
         filters['flashing_installation'] = FlashingInstallation.objects.all()
         filters['flashing_provider'] = FlashingProvider.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -960,7 +785,7 @@ class InternalSlopeAPIView(APIView):
         filters['internal_slope_installation'] = InternalSlopeInstallation.objects.all()
         filters['internal_slope_provider'] = InternalSlopeProvider.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -999,7 +824,7 @@ class LowTidesAPIView(APIView):
         filters['low_tides_installation'] = LowTidesInstallation.objects.all()
         filters['low_tides_provider'] = LowTidesProvider.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -1038,7 +863,7 @@ class VisorsAPIView(APIView):
         filters['visors_installation'] = VisorsInstallation.objects.all()
         filters['visors_provider'] = VisorsInstallation.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -1077,7 +902,7 @@ class SlopesOfMetalAPIView(APIView):
         filters['slopes_of_metal_installation'] = SlopesOfMetalInstallation.objects.all()
         filters['slopes_of_metal_provider'] = SlopesOfMetalProvider.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -1115,7 +940,7 @@ class MountingMaterialsAPIView(APIView):
         filters['mounting_materials_name'] = MountingMaterialsName.objects.all()
         filters['mounting_materials_provider'] = MountingMaterialsProvider.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -1143,7 +968,7 @@ class MountingMaterialsAPIView(APIView):
 class WorksAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {'works': Works.objects.all()}
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -1172,3 +997,270 @@ class ProviderWindowAPIView(APIView):
 
             ]
         })
+
+
+class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
+                      mixins.RetrieveModelMixin,
+                      mixins.UpdateModelMixin,
+                      mixins.ListModelMixin,
+                      GenericViewSet):  # get, post , get<id>, put<id>, path<id>
+
+    queryset = Constructor.objects.all()
+    serializer_class = ConstructorSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = request.user
+
+        constructor = Constructor.objects.create()
+        try:
+            constructor.configuration = request.data['configuration']
+        except:
+            pass
+        try:
+            constructor.product_type = ProductType.objects.get(id=request.data['product_type'])
+        except:
+            pass
+
+        try:
+            constructor.door = Door.objects.get(id=request.data['door'])
+        except:
+            pass
+        try:
+            constructor.aggregate = Aggregate.objects.get(id=request.data['aggregate'])
+        except:
+            pass
+        try:
+            constructor.lamination = Lamination.objects.get(id=request.data['lamination'])
+        except:
+            pass
+        try:
+            constructor.shtapik = Shtapik.objects.get(id=request.data['shtapik'])
+        except:
+            pass
+        try:
+            constructor.sash = Sash.objects.get(id=request.data['sash'])
+        except:
+            pass
+        try:
+            constructor.gorbylki = Gorbylki.objects.get(id=request.data['gorbylki'])
+        except:
+            pass
+        try:
+            constructor.handles = Handles.objects.get(id=request.data['handles'])
+        except:
+            pass
+        try:
+            constructor.connection_profile = ConnectionProfile.objects.get(id=request.data['connection_profile'])
+        except:
+            pass
+        try:
+            constructor.additional_profile = AdditionalProfile.objects.get(id=request.data['additional_profile'])
+        except:
+            pass
+        try:
+            constructor.sealant = Sealant.objects.get(id=request.data['sealant'])
+        except:
+            pass
+        try:
+            constructor.other_complectation = OtherComplectation.objects.get(id=request.data['other_complectation'])
+        except:
+            pass
+        try:
+            constructor.price_constructor = request.data['price_constructor']
+        except:
+            pass
+        try:
+            constructor.window_calc = WindowsCalc.objects.get(id=request.data['window_calc'])
+        except:
+            pass
+
+
+
+        # MATERIALS END
+
+        try:
+            for windowsill_calc in request.data['windowsills_calc']:
+                constructor.windowsills_calc.add(windowsill_calc)
+        except:
+            pass
+
+        try:
+            for lowtides_calc in request.data['lowtides_calc']:
+                constructor.lowtides_calc.add(lowtides_calc)
+        except:
+            pass
+        try:
+            for flashing_calc in request.data['flashing_calc']:
+                constructor.flashing_calc.add(flashing_calc)
+        except:
+            pass
+        try:
+            for visors_calc in request.data['visors_calc']:
+                constructor.visors_calc.add(visors_calc)
+        except:
+            pass
+        try:
+            for casing_calc in request.data['casing_calc']:
+                constructor.casing_calc.add(casing_calc)
+        except:
+            pass
+        try:
+            for slopes_of_metal_calc in request.data['slopes_of_metal_calc']:
+                constructor.slopes_of_metal_calc.add(slopes_of_metal_calc)
+        except:
+            pass
+        try:
+            for internal_slope_calc in request.data['internal_slope_calc']:
+                constructor.internal_slope_calc.add(internal_slope_calc)
+        except:
+            pass
+        try:
+            for mounting_materials_calc in request.data['mounting_materials_calc']:
+                constructor.mounting_materials_calc.add(mounting_materials_calc)
+        except:
+            pass
+        try:
+            for works in request.data['works']:
+                constructor.works.add(works)
+        except:
+            pass
+
+        constructor.save()
+
+        serializer = ConstructorSerializer(constructor)
+        return Response({"data": serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = Constructor.objects.all()
+        constructor = get_object_or_404(queryset, pk=pk)
+        serializer = ConstructorSerializer(constructor)
+        return Response({"data": serializer.data})
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+
+        constructor = Constructor.objects.create()
+        try:
+            constructor.configuration = request.data['configuration']
+        except:
+            pass
+        try:
+            constructor.product_type = ProductType.objects.get(id=request.data['product_type'])
+        except:
+            pass
+
+        try:
+            constructor.door = Door.objects.get(id=request.data['door'])
+        except:
+            pass
+        try:
+            constructor.aggregate = Aggregate.objects.get(id=request.data['aggregate'])
+        except:
+            pass
+        try:
+            constructor.lamination = Lamination.objects.get(id=request.data['lamination'])
+        except:
+            pass
+        try:
+            constructor.shtapik = Shtapik.objects.get(id=request.data['shtapik'])
+        except:
+            pass
+        try:
+            constructor.sash = Sash.objects.get(id=request.data['sash'])
+        except:
+            pass
+        try:
+            constructor.gorbylki = Gorbylki.objects.get(id=request.data['gorbylki'])
+        except:
+            pass
+        try:
+            constructor.handles = Handles.objects.get(id=request.data['handles'])
+        except:
+            pass
+        try:
+            constructor.connection_profile = ConnectionProfile.objects.get(id=request.data['connection_profile'])
+        except:
+            pass
+        try:
+            constructor.additional_profile = AdditionalProfile.objects.get(id=request.data['additional_profile'])
+        except:
+            pass
+        try:
+            constructor.sealant = Sealant.objects.get(id=request.data['sealant'])
+        except:
+            pass
+        try:
+            constructor.other_complectation = OtherComplectation.objects.get(id=request.data['other_complectation'])
+        except:
+            pass
+        try:
+            constructor.price_constructor = request.data['price_constructor']
+        except:
+            pass
+        try:
+            constructor.window_calc = WindowsCalc.objects.get(id=request.data['window_calc'])
+        except:
+            pass
+
+
+
+        # MATERIALS END
+
+        try:
+            for windowsill_calc in request.data['windowsills_calc']:
+                constructor.windowsills_calc.add(windowsill_calc)
+        except:
+            pass
+
+        try:
+            for lowtides_calc in request.data['lowtides_calc']:
+                constructor.lowtides_calc.add(lowtides_calc)
+        except:
+            pass
+        try:
+            for flashing_calc in request.data['flashing_calc']:
+                constructor.flashing_calc.add(flashing_calc)
+        except:
+            pass
+        try:
+            for visors_calc in request.data['visors_calc']:
+                constructor.visors_calc.add(visors_calc)
+        except:
+            pass
+        try:
+            for casing_calc in request.data['casing_calc']:
+                constructor.casing_calc.add(casing_calc)
+        except:
+            pass
+        try:
+            for slopes_of_metal_calc in request.data['slopes_of_metal_calc']:
+                constructor.slopes_of_metal_calc.add(slopes_of_metal_calc)
+        except:
+            pass
+        try:
+            for internal_slope_calc in request.data['internal_slope_calc']:
+                constructor.internal_slope_calc.add(internal_slope_calc)
+        except:
+            pass
+        try:
+            for mounting_materials_calc in request.data['mounting_materials_calc']:
+                constructor.mounting_materials_calc.add(mounting_materials_calc)
+        except:
+            pass
+        try:
+            for works in request.data['works']:
+                constructor.works.add(works)
+        except:
+            pass
+
+        constructor.save()
+
+        serializer = ConstructorSerializer(constructor)
+        return Response({"data": serializer.data})

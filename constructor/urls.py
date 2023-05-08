@@ -1,9 +1,16 @@
 from django.urls import path, include
+from rest_framework import routers
+
 from .views import *
 from rest_framework.routers import SimpleRouter
+router_constructor = routers.SimpleRouter()
+router_constructor.register(r'', ConstructorViewSet) # all routers
+
+
+
 
 urlpatterns = [
-
+    path('constructor/', include(router_constructor.urls)),
     path('category/equipment/main/', EquipmentMainAPIView.as_view()),
     path('category/equipment/extra/', EquipmentExtraAPIView.as_view()),
     path('category/equipment/lamination/', LaminationAPIView.as_view()),
