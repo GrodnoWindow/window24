@@ -661,7 +661,7 @@ class WindowsillAPIView(APIView):
         filters['windowsill_installation'] = WindowsillInstallation.objects.all()
         filters['windowsill_provider'] = WindowsillProvider.objects.all()
 
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
@@ -985,7 +985,7 @@ class WorksAPIView(APIView):
 class ProviderWindowAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {'provider_window': ProviderWindow.objects.all()}
-        serializer = ConstructorSerializer(filters)
+        serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
