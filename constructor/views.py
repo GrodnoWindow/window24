@@ -906,25 +906,25 @@ class SlopesOfMetalAPIView(APIView):
         return Response({
             'data': [
                 {
-                    'name': 'slope_of_metal',
+                    'name': 'slopes_of_metal',
                     'placeholder': 'Выберите тип откосов из металла',
                     'label': 'Тип откосов из металла',
                     'data': serializer.data['slopes_of_metal'],
                 },
                 {
-                    'name': 'slope_of_metal_color',
+                    'name': 'slopes_of_metal_color',
                     'placeholder': 'Выберите цвет откосов из металла',
                     'label': 'Цвет откосов из металла',
                     'options': serializer.data['slopes_of_metal_color'],
                 },
                 {
-                    'name': 'slope_of_metal_installation',
+                    'name': 'slopes_of_metal_installation',
                     'placeholder': 'Выберите тип монтажа',
                     'label': 'Монтаж откосов из металла',
                     'options': serializer.data['slopes_of_metal_installation'],
                 },
                 {
-                    'name': 'slope_of_metal_provider',
+                    'name': 'slopes_of_metal_provider',
                     'placeholder': 'Выберите поставщика',
                     'label': 'Поставщики',
                     'data': serializer.data['slopes_of_metal_provider'],
