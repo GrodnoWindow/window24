@@ -17,23 +17,23 @@ def calc_window_disc(profile_id, fittings_id, markup_type, currency, price):
     if markup_type == 0:
         in_percent = window.markups_diler_in_percent
         markup = window.markups_diler
-        markups_name = 'Диллерская'
+        markups_name = "0"
     elif markup_type == 1:
         in_percent = window.markups_retail_in_percent
         markup = window.markups_retail
-        markups_name = 'Розничная'
+        markups_name = "1"
     elif markup_type == 2:
         in_percent = window.markups_3_in_percent
         markup = window.markups_3
-        markups_name = 'Наценка №3'
+        markups_name = '2'
     elif markup_type == 3:
         in_percent = window.markups_4_in_percent
         markup = window.markups_4
-        markups_name = 'Наценка №4'
+        markups_name = '3'
     elif markup_type == 4:
         in_percent = window.markups_5_in_percent
         markup = window.markups_5
-        markups_name = 'Наценка №5'
+        markups_name = '4'
 
     if in_percent:
         window_price_with_markup = window_input_price + (window_input_price / 100 * markup)  # + MARKUP
@@ -65,26 +65,26 @@ def calc_windowsill(windowsill_id,installation_id,color_id, width, length, count
     if markups_type == 0:
         in_percent = windowsill_markups.markups_diler_in_percent
         markup = windowsill_markups.markups_diler
-        markups_name = 'Диллерская'
+        markups_name = "0"
     elif markups_type == 1:
         in_percent = windowsill_markups.markups_retail_in_percent
         markup = windowsill_markups.markups_retail
-        markups_name = 'Розничная'
+        markups_name = "1"
 
     elif markups_type == 2:
         in_percent = windowsill_markups.markups_3_in_percent
         markup = windowsill_markups.markups_3
-        markups_name = 'Наценка №3'
+        markups_name = "2"
 
     elif markups_type == 3:
         in_percent = windowsill_markups.markups_4_in_percent
         markup = windowsill_markups.markups_4
-        markups_name = 'Наценка №4'
+        markups_name = "3"
 
     elif markups_type == 4:
         in_percent = windowsill_markups.markups_5_in_percent
         markup = windowsill_markups.markups_5
-        markups_name = 'Наценка №5'
+        markups_name = "4"
 
     if in_percent:
         price_windowsill = price_input_windowsill + (price_input_windowsill / 100 * markup)  # MARKUP
@@ -124,26 +124,26 @@ def calc_low_tides(low_tides_id,installation_id,color_id, width, length, count, 
     if markups_type == 0:
         in_percent = low_tides_markup.markups_diler_in_percent
         markup = low_tides_markup.markups_diler
-        markups_name = 'Диллерская'
+        markups_name = "0"
     elif markups_type == 1:
         in_percent = low_tides_markup.markups_retail_in_percent
         markup = low_tides_markup.markups_retail
-        markups_name = 'Розничная'
+        markups_name = "1"
 
     elif markups_type == 2:
         in_percent = low_tides_markup.markups_3_in_percent
         markup = low_tides_markup.markups_3
-        markups_name = 'Наценка №3'
+        markups_name = "2"
 
     elif markups_type == 3:
         in_percent = low_tides_markup.markups_4_in_percent
         markup = low_tides_markup.markups_4
-        markups_name = 'Наценка №4'
+        markups_name = "3"
 
     elif markups_type == 4:
         in_percent = low_tides_markup.markups_5_in_percent
         markup = low_tides_markup.markups_5
-        markups_name = 'Наценка №5'
+        markups_name = "4"
 
     if in_percent:
         price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
@@ -182,25 +182,25 @@ def calc_flashing(flashing_id,installation_id,color_id, width, length, count, ma
     if markups_type == 0:
         in_percent = flashing_markup.markups_diler_in_percent
         markup = flashing_markup.markups_diler
-        markups_name = 'Диллерская'
+        markups_name = '0'
     elif markups_type == 1:
         in_percent = flashing_markup.markups_retail_in_percent
         markup = flashing_markup.markups_retail
-        markups_name = 'Розничная'
+        markups_name = '1'
     elif markups_type == 2:
         in_percent = flashing_markup.markups_3_in_percent
         markup = flashing_markup.markups_3
-        markups_name = 'Наценка №3'
+        markups_name = '2'
 
     elif markups_type == 3:
         in_percent = flashing_markup.markups_4_in_percent
         markup = flashing_markup.markups_4
-        markups_name = 'Наценка №4'
+        markups_name = '3'
 
     elif markups_type == 4:
         in_percent = flashing_markup.markups_5_in_percent
         markup = flashing_markup.markups_5
-        markups_name = 'Наценка №5'
+        markups_name = '4'
     if in_percent:
         price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
     else:
@@ -238,23 +238,23 @@ def calc_casing(casing_id,installation_id,color_id,fastening_id, width, length, 
     if markups_type == 0:
         in_percent = casing_markup.markups_diler_in_percent
         markup = casing_markup.markups_diler
-        markups_name = 'Диллерская'
+        markups_name = '0'
     elif markups_type == 1:
         in_percent = casing_markup.markups_retail_in_percent
         markup = casing_markup.markups_retail
-        markups_name = 'Розничная'
+        markups_name = '1'
     elif markups_type == 2:
         in_percent = casing_markup.markups_3_in_percent
         markup = casing_markup.markups_3
-        markups_name = 'Наценка №3'
+        markups_name = '2'
     elif markups_type == 3:
         in_percent = casing_markup.markups_4_in_percent
         markup = casing_markup.markups_4
-        markups_name = 'Наценка №4'
+        markups_name = '3'
     elif markups_type == 4:
         in_percent = casing_markup.markups_5_in_percent
         markup = casing_markup.markups_5
-        markups_name = 'Наценка №5'
+        markups_name = '4'
 
     if in_percent:
         price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
@@ -294,23 +294,23 @@ def calc_visors(visors_id, installation_id, color_id, width, length, count, mark
     if markups_type == 0:
         in_percent = visors_markup.markups_diler_in_percent
         markup = visors_markup.markups_diler
-        markups_name = 'Диллерская'
+        markups_name = '0'
     elif markups_type == 1:
         in_percent = visors_markup.markups_retail_in_percent
         markup = visors_markup.markups_retail
-        markups_name = 'Розничная'
+        markups_name = '1'
     elif markups_type == 2:
         in_percent = visors_markup.markups_3_in_percent
         markup = visors_markup.markups_3
-        markups_name = 'Наценка №3'
+        markups_name = '2'
     elif markups_type == 3:
         in_percent = visors_markup.markups_4_in_percent
         markup = visors_markup.markups_4
-        markups_name = 'Наценка №4'
+        markups_name = '3'
     elif markups_type == 4:
         in_percent = visors_markup.markups_5_in_percent
         markup = visors_markup.markups_5
-        markups_name = 'Наценка №5'
+        markups_name = '4'
     if in_percent:
         price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
     else:
@@ -348,23 +348,23 @@ def calc_slopes_of_metal(slopes_of_metal_id,installation_id,color_id, width, len
     if markups_type == 0:
         in_percent = slopes_of_metal_markup.markups_diler_in_percent
         markup = slopes_of_metal_markup.markups_diler
-        markups_name = 'Диллерская'
+        markups_name = '0'
     elif markups_type == 1:
         in_percent = slopes_of_metal_markup.markups_retail_in_percent
         markup = slopes_of_metal_markup.markups_retail
-        markups_name = 'Розничная'
+        markups_name = '1'
     elif markups_type == 2:
         in_percent = slopes_of_metal_markup.markups_3_in_percent
         markup = slopes_of_metal_markup.markups_3
-        markups_name = 'Наценка №3'
+        markups_name = '2'
     elif markups_type == 3:
         in_percent = slopes_of_metal_markup.markups_4_in_percent
         markup = slopes_of_metal_markup.markups_4
-        markups_name = 'Наценка №4'
+        markups_name = '3'
     elif markups_type == 4:
         in_percent = slopes_of_metal_markup.markups_5_in_percent
         markup = slopes_of_metal_markup.markups_5
-        markups_name = 'Наценка №5'
+        markups_name = '4'
     if in_percent:
         price = price_input + (price_input / 100 * markup)
     else:
@@ -403,23 +403,23 @@ def calc_internal_slope(internal_slope_id,installation_id,color_id, width, lengt
     if markups_type == 0:
         in_percent = internal_slope_markup.markups_diler_in_percent
         markup = internal_slope_markup.markups_diler
-        markups_name = 'Диллерская'
+        markups_name = '0'
     elif markups_type == 1:
         in_percent = internal_slope_markup.markups_retail_in_percent
         markup = internal_slope_markup.markups_retail
-        markups_name = 'Розничная'
+        markups_name = '1'
     elif markups_type == 2:
         in_percent = internal_slope_markup.markups_3_in_percent
         markup = internal_slope_markup.markups_3
-        markups_name = 'Наценка №3'
+        markups_name = '2'
     elif markups_type == 3:
         in_percent = internal_slope_markup.markups_4_in_percent
         markup = internal_slope_markup.markups_4
-        markups_name = 'Наценка №4'
+        markups_name = '3'
     elif markups_type == 4:
         in_percent = internal_slope_markup.markups_5_in_percent
         markup = internal_slope_markup.markups_5
-        markups_name = 'Наценка №5'
+        markups_name = '4'
     if in_percent:
         price = price_input + (price_input / 100 * markup)
     else:

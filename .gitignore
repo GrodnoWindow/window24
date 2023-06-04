@@ -9669,3 +9669,4 @@ venv/Scripts/rqinfo.exe
 venv/Scripts/rqscheduler.exe
 venv/Scripts/rqworker.exe
 venv/Scripts/sqlformat.exe
+db.sqlite3
