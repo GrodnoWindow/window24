@@ -202,7 +202,7 @@ class ColorOutside(models.Model):
 
 class ConnectionProfile(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, verbose_name="Профиль", blank=True, null=True)
-    article = models.ForeignKey(Article, on_delete=models.SET_NULL, verbose_name="Артикуль", blank=True, null=True)
+    connection_article = models.ForeignKey(Article, on_delete=models.SET_NULL, verbose_name="Артикуль", blank=True, null=True)
     name = models.ForeignKey(ConnectionProfileName, on_delete=models.SET_NULL, verbose_name="Название соен.профиля",
                              blank=True, null=True)
     color_inside = models.ForeignKey(ColorInside, on_delete=models.SET_NULL, verbose_name="Цвет внутри", blank=True,
@@ -232,7 +232,7 @@ class ArticleAdditionalProfile(models.Model):
 
 
 class AdditionalProfile(models.Model):
-    article = models.ForeignKey(ArticleAdditionalProfile, on_delete=models.SET_NULL, verbose_name="Артикуль",
+    additional_article = models.ForeignKey(ArticleAdditionalProfile, on_delete=models.SET_NULL, verbose_name="Артикуль",
                                 blank=True, null=True)
     width = models.FloatField(default=0.0, verbose_name="Ширина", blank=True, null=True)
     price = models.FloatField(default=0.0, verbose_name="Цена", blank=True, null=True)

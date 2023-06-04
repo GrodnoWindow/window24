@@ -29,15 +29,15 @@ urlpatterns = [
     path('api/shema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-
+    path('api/', include('constructor.urls')),
+    path('api/', include('calculation.urls')),
     # path('api/', include('users.urls')),
     path('api/clients/', include('client.urls')),
     path('api/diary/', include('diary.urls')),
     path('api/miscalculation/', include('miscalculation.urls')),
     path('api/complaint/', include('complaint.urls')),
     path('api/call/', include('call.urls')) ,
-    path('api/', include('constructor.urls')),
-    path('api/', include('calculation.urls')),
+
     path('api/correspondence/', include('correspondence.urls')),
     path('api/calls-table/', include('calls_table.urls')),
     path('api/new-call/', include('new_call.urls')),
