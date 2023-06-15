@@ -59,7 +59,7 @@ class Client(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     calls = models.ManyToManyField(CallWindow, blank=True)
-    constructor = models.ManyToManyField(Constructor, verbose_name="Просчеты конструкторов", blank=True)
+    miscalculation = models.ManyToManyField(Miscalculation, verbose_name="Просчеты конструкторов", blank=True)
     complaints = models.ManyToManyField(Complaint, verbose_name="Жалобы", blank=True)
 
     def __str__(self):

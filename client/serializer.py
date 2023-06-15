@@ -33,7 +33,7 @@ class ClientSerializer(serializers.ModelSerializer):
     addresses = AddressSerializer(many=True, read_only=False)
     prompter = PrompterSerializer(many=True, read_only=False)
     calls = CallWindowSerializer(many=True, read_only=False)
-    constructor = ConstructorSerializer(many=True, read_only=False)
+    miscalculation = MiscalculationSerializer(many=True, read_only=False)
     complaints = ComplaintSerializer(many=True, read_only=False)
     category_select = serializers.IntegerField(read_only=True)
 
@@ -57,6 +57,7 @@ class ClientPostSerializer(serializers.ModelSerializer):
     addresses = AddressSerializer(many=True, read_only=True)
     prompter = PrompterSerializer(many=True, read_only=True)
     constructor = ConstructorSerializer(many=True, read_only=True)
+    miscalculation = MiscalculationSerializer(many=True, read_only=True)
     complaints = ComplaintSerializer(many=True, read_only=True)
 
     class Meta:

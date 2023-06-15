@@ -2,7 +2,7 @@ from datetime import datetime
 
 import coreschema as coreschema
 from django.shortcuts import render
-from rest_framework import generics, viewsets, mixins
+from rest_framework import generics, viewsets, mixins, status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.schemas import ManualSchema, coreapi, AutoSchema
@@ -28,17 +28,21 @@ class MiscalculationViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        # self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
         miscalculation = Miscalculation.objects.create(created_time=datetime.now(),last_update_time=datetime.now())
+        miscalculation.author = request.user.username
+
         try:
             for constructors in request.data['constructors']:
                 miscalculation.constructors.add(constructors)
             for constructors in miscalculation.constructors.all():
                 miscalculation.sum += constructors.price_constructor
-
+        except:
+            pass
+        try:
             miscalculation.status = request.data['status']
-            miscalculation.author = request.user.username
+        except:
+            pass
+        try:
             miscalculation.offer = request.data['offer']
         except:
             pass
@@ -72,9 +76,8 @@ class MiscalculationViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
             miscalculation.sum = sum_price
 
             # Обновление остальных полей
-            miscalculation.status = request.data.get('status', miscalculation.status)
+            miscalculation.status = request.data['status']
             miscalculation.author = request.user.username
-            miscalculation.offer = request.data.get('offer', miscalculation.offer)
 
             miscalculation.save()
 

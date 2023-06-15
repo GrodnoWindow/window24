@@ -7,4 +7,4 @@ class MiscalculationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Miscalculation
         fields = ['id', 'author', 'constructors', 'sum', 'status',
-                  'created_time', 'last_update_time','offer']
+                  'created_time', 'last_update_time']

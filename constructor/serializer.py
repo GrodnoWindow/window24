@@ -486,6 +486,7 @@ class ConstructorSerializer(serializers.Serializer):
     internal_slope_calc = InternalSlopeCalcSerializer(read_only=True,many=True)
     mounting_materials_calc = MountingMaterialsCalcSerializer(read_only=True,many=True)
     works = WorksCalcSerializer(read_only=True,many=True)
+    final_image = serializers.ImageField(read_only=False)
 
     class Meta:
         model = Constructor

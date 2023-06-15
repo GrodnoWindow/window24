@@ -51,6 +51,12 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
             pass
 
         try:
+            for miscalculation in request.data['miscalculation']:
+                client.miscalculation.add(miscalculation)
+        except:
+            pass
+
+        try:
             for constructor in request.data['constructor']:
                 client.constructor.add(constructor)
         except:
@@ -113,6 +119,13 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
                 client.calls.add(calls)
         except:
             pass
+
+        try:
+            for miscalculation in request.data['miscalculation']:
+                client.miscalculation.add(miscalculation)
+        except:
+            pass
+
         try:
             for constructor in request.data['constructor']:
                 client.constructor.add(constructor)

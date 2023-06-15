@@ -10,5 +10,4 @@ router.register(r'', MiscalculationViewSet) # all routers
 
 urlpatterns = [
     path('', include(router.urls)),
-    # path('', MiscalculationAPIList.as_view()),
 ]

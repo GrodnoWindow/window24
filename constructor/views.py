@@ -1021,6 +1021,10 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         except:
             pass
         try:
+            constructor.final_image = request.data['final_image']
+        except:
+            pass
+        try:
             constructor.product_type = ProductType.objects.get(id=request.data['product_type'])
         except:
             pass
@@ -1191,7 +1195,10 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
             constructor.product_type = ProductType.objects.get(id=request.data['product_type'])
         except:
             pass
-
+        try:
+            constructor.final_image = request.data['final_image']
+        except:
+            pass
         try:
             constructor.door = Door.objects.get(id=request.data['door'])
         except:
