@@ -1075,57 +1075,90 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
             pass
         try:
             constructor.window_calc = WindowsCalc.objects.get(id=request.data['window_calc'])
+            constructor.price_constructor += constructor.window_calc.price_output
         except:
             pass
-
-
+        try:
+            constructor.name = request.data['name']
+        except:
+            pass
+        try:
+            constructor.context = request.data['context']
+        except:
+            pass
 
         # MATERIALS END
 
         try:
             for windowsill_calc in request.data['windowsills_calc']:
                 constructor.windowsills_calc.add(windowsill_calc)
+            for windowsill_calc in constructor.windowsills_calc.all():
+                constructor.price_constructor += windowsill_calc.price_output
         except:
             pass
 
         try:
             for lowtides_calc in request.data['lowtides_calc']:
                 constructor.lowtides_calc.add(lowtides_calc)
+
+            for lowtides_calc in constructor.lowtides_calc.all():
+                constructor.price_constructor += lowtides_calc.price_output
         except:
             pass
         try:
             for flashing_calc in request.data['flashing_calc']:
                 constructor.flashing_calc.add(flashing_calc)
+
+            for flashing_calc in constructor.flashing_calc.all():
+                constructor.price_constructor += flashing_calc.price_output
         except:
             pass
         try:
             for visors_calc in request.data['visors_calc']:
                 constructor.visors_calc.add(visors_calc)
+
+            for visors_calc in constructor.visors_calc.all():
+                constructor.price_constructor += visors_calc.price_output
         except:
             pass
         try:
             for casing_calc in request.data['casing_calc']:
                 constructor.casing_calc.add(casing_calc)
+
+            for casing_calc in constructor.casing_calc.all():
+                constructor.price_constructor += casing_calc.price_output
         except:
             pass
         try:
             for slopes_of_metal_calc in request.data['slopes_of_metal_calc']:
                 constructor.slopes_of_metal_calc.add(slopes_of_metal_calc)
+
+            for slopes_of_metal_calc in constructor.slopes_of_metal_calc.all():
+                constructor.price_constructor += slopes_of_metal_calc.price_output
         except:
             pass
         try:
             for internal_slope_calc in request.data['internal_slope_calc']:
                 constructor.internal_slope_calc.add(internal_slope_calc)
+
+            for internal_slope_calc in constructor.internal_slope_calc.all():
+                constructor.price_constructor += internal_slope_calc.price_output
         except:
             pass
         try:
             for mounting_materials_calc in request.data['mounting_materials_calc']:
                 constructor.mounting_materials_calc.add(mounting_materials_calc)
+
+            for mounting_materials_calc in constructor.mounting_materials_calc.all():
+                constructor.price_constructor += mounting_materials_calc.price_output * mounting_materials_calc.count
         except:
             pass
         try:
             for works in request.data['works']:
                 constructor.works.add(works)
+
+            for works in constructor.works.all():
+                constructor.price_constructor += works.price_output
         except:
             pass
 
@@ -1146,7 +1179,10 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
 
-        constructor = Constructor.objects.create()
+        constructor_id = instance.id  # Получение id объекта Constructor
+
+        constructor = Constructor.objects.get(pk=constructor_id)
+        constructor.price_constructor = 0
         try:
             constructor.configuration = request.data['configuration']
         except:
@@ -1205,58 +1241,102 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         except:
             pass
         try:
+            constructor.window_calc = None
             constructor.window_calc = WindowsCalc.objects.get(id=request.data['window_calc'])
+            constructor.price_constructor += constructor.window_calc.price_output
         except:
             pass
-
-
+        try:
+            constructor.name = request.data['name']
+        except:
+            pass
+        try:
+            constructor.context = request.data['context']
+        except:
+            pass
 
         # MATERIALS END
 
         try:
+            constructor.windowsills_calc.clear()
             for windowsill_calc in request.data['windowsills_calc']:
                 constructor.windowsills_calc.add(windowsill_calc)
+            for windowsill_calc in constructor.windowsills_calc.all():
+                constructor.price_constructor += windowsill_calc.price_output
         except:
             pass
 
         try:
+            constructor.lowtides_calc.clear()
             for lowtides_calc in request.data['lowtides_calc']:
                 constructor.lowtides_calc.add(lowtides_calc)
+
+            for lowtides_calc in constructor.lowtides_calc.all():
+                constructor.price_constructor += lowtides_calc.price_output
         except:
             pass
         try:
+            constructor.flashing_calc.clear()
+
             for flashing_calc in request.data['flashing_calc']:
                 constructor.flashing_calc.add(flashing_calc)
+
+            for flashing_calc in constructor.flashing_calc.all():
+                constructor.price_constructor += flashing_calc.price_output
         except:
             pass
         try:
+            constructor.visors_calc.clear()
             for visors_calc in request.data['visors_calc']:
                 constructor.visors_calc.add(visors_calc)
+
+            for visors_calc in constructor.visors_calc.all():
+                constructor.price_constructor += visors_calc.price_output
         except:
             pass
         try:
+            constructor.casing_calc.clear()
             for casing_calc in request.data['casing_calc']:
                 constructor.casing_calc.add(casing_calc)
+
+            for casing_calc in constructor.casing_calc.all():
+                constructor.price_constructor += casing_calc.price_output
         except:
             pass
         try:
+            constructor.slopes_of_metal_calc.clear()
             for slopes_of_metal_calc in request.data['slopes_of_metal_calc']:
                 constructor.slopes_of_metal_calc.add(slopes_of_metal_calc)
+
+            for slopes_of_metal_calc in constructor.slopes_of_metal_calc.all():
+                constructor.price_constructor += slopes_of_metal_calc.price_output
         except:
             pass
         try:
+            constructor.internal_slope_calc.clear()
             for internal_slope_calc in request.data['internal_slope_calc']:
                 constructor.internal_slope_calc.add(internal_slope_calc)
+
+            for internal_slope_calc in constructor.internal_slope_calc.all():
+                constructor.price_constructor += internal_slope_calc.price_output
         except:
             pass
         try:
+            constructor.mounting_materials_calc.clear()
             for mounting_materials_calc in request.data['mounting_materials_calc']:
                 constructor.mounting_materials_calc.add(mounting_materials_calc)
+
+            for mounting_materials_calc in constructor.mounting_materials_calc.all():
+                constructor.price_constructor += mounting_materials_calc.price_output * mounting_materials_calc.count
         except:
             pass
         try:
+            constructor.works.clear()
             for works in request.data['works']:
                 constructor.works.add(works)
+
+            for works in constructor.works.all():
+                constructor.price_constructor += works.price_output
         except:
             pass
 

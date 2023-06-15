@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import coreschema as coreschema
 from django.shortcuts import render
 from rest_framework import generics, viewsets, mixins
@@ -11,10 +13,6 @@ from .models import *
 from config.pagination import CustomPagination
 
 
-# class MiscalculationAPIList(generics.ListCreateAPIView):  # GET and POST requests
-#     queryset = Miscalculation.objects.all()
-#     serializer_class = MiscalculationSerializer
-#     pagination_class = CustomPagination
 
 
 class MiscalculationViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
@@ -30,8 +28,24 @@ class MiscalculationViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
+        # self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
+        miscalculation = Miscalculation.objects.create(created_time=datetime.now(),last_update_time=datetime.now())
+        try:
+            for constructors in request.data['constructors']:
+                miscalculation.constructors.add(constructors)
+            for constructors in miscalculation.constructors.all():
+                miscalculation.sum += constructors.price_constructor
+
+            miscalculation.status = request.data['status']
+            miscalculation.author = request.user.username
+            miscalculation.offer = request.data['offer']
+        except:
+            pass
+
+        miscalculation.save()
+        serializer = MiscalculationSerializer(miscalculation)
+
         return Response({"data": serializer.data})
 
     def retrieve(self, request, pk=None):
@@ -43,7 +57,29 @@ class MiscalculationViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response({"data": serializer.data})
+        miscalculation_id = instance.id
+        miscalculation = Miscalculation.objects.get(pk=miscalculation_id)
+        miscalculation.sum = 0
+        try:
+            miscalculation.constructors.clear()  # Очистка связанных конструкторов
+
+            for constructor_id in request.data.get('constructors', []):
+                constructor = Constructor.objects.get(pk=constructor_id)
+                miscalculation.constructors.add(constructor)
+
+            # Подсчет суммы
+            sum_price = sum(constructor.price_constructor for constructor in miscalculation.constructors.all())
+            miscalculation.sum = sum_price
+
+            # Обновление остальных полей
+            miscalculation.status = request.data.get('status', miscalculation.status)
+            miscalculation.author = request.user.username
+            miscalculation.offer = request.data.get('offer', miscalculation.offer)
+
+            miscalculation.save()
+
+            serializer = MiscalculationSerializer(miscalculation)
+            return Response({"data": serializer.data})
+        except Miscalculation.DoesNotExist:
+            return Response({'error': 'Miscalculation not found.'}, status=status.HTTP_404_NOT_FOUND)
+

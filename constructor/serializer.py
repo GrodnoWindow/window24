@@ -458,6 +458,8 @@ class SealantSerializer(serializers.ModelSerializer):
 class ConstructorSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     configuration = serializers.CharField(read_only=True)
+    name = serializers.CharField(read_only=True)
+    context = serializers.CharField(read_only=True)
     product_type = ProductTypeSerializer(read_only=True)
     door = DoorSerializer(read_only=True)
     aggregate = AggregateSerializer(read_only=True)
@@ -472,7 +474,7 @@ class ConstructorSerializer(serializers.Serializer):
     sealant = SealantSerializer(read_only=True)
     other_complectation = OtherComplectationSerializer(read_only=True)
 
-    price_constructor = serializers.FloatField()
+    price_constructor = serializers.FloatField(read_only=True)
     # MATERIALS END
     window_calc = WindowsCalcSerializer(read_only=True,)
     windowsills_calc = WindowsillCalcSerializer(read_only=True,many=True)

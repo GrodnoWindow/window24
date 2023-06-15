@@ -1,0 +1,5 @@
+
+
+
+def calculation(constructor):
+    constructor

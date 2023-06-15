@@ -3,8 +3,8 @@ from .views import *
 from rest_framework.routers import SimpleRouter
 
 
-router_constructor = SimpleRouter()
-router_constructor.register(r'constructor', ConstructorViewSet, basename='constructor')
+# router_constructor = SimpleRouter()
+# router_constructor.register(r'constructor', ConstructorViewSet, basename='constructor')
 
 router_door = SimpleRouter()
 router_door.register(r'door', DoorViewSet, basename='door')
@@ -25,7 +25,7 @@ router_sealant.register(r'sealant', SealantViewSet, basename='sealant')
 
 urlpatterns = [
 
-    path('', include(router_constructor.urls)),
+    # path('', include(router_constructor.urls)),
 
     path('calculation/window/', CalculationWindowAPIView.as_view()),
     path('calculation/windowsill/', CalculationWindowsillAPIView.as_view()),

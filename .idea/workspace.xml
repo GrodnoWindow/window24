@@ -13,8 +13,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -35,7 +35,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/window24",
+    "last_opened_file_path": "D:/PersonalOfficeDelta",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -140,7 +140,16 @@
       <workItem from="1684137617222" duration="775000" />
       <workItem from="1685632105392" duration="858000" />
       <workItem from="1685880604198" duration="468000" />
-      <workItem from="1685890122462" duration="1087000" />
+      <workItem from="1685890122462" duration="1414000" />
+      <workItem from="1685906507132" duration="950000" />
+      <workItem from="1685910985907" duration="122000" />
+      <workItem from="1685956721367" duration="980000" />
+      <workItem from="1686042664686" duration="16000" />
+      <workItem from="1686219117105" duration="2767000" />
+      <workItem from="1686242729362" duration="672000" />
+      <workItem from="1686562557176" duration="40000" />
+      <workItem from="1686660673307" duration="20000" />
+      <workItem from="1686817648570" duration="8277000" />
     </task>
     <servers />
   </component>

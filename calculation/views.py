@@ -175,221 +175,227 @@ class CalculationInternalSlopeAPIView(APIView):
         return Response({'data': model_to_dict(internal_slope)})
 
 
-class ConstructorViewSet(viewsets.ModelViewSet):
-    queryset = Constructor.objects.all()
-    serializer_class = ConstructorSerializer
-    pagination_class = CustomPagination
-    http_method_names = ['get', 'patch', 'post']
-
-    def list(self, request):
-        queryset = Constructor.objects.all()
-        serializer = ConstructorSerializer(queryset, many=True)
-        return Response({"data": serializer.data})
-
-    def retrieve(self, request, pk=None):
-        queryset = Constructor.objects.all()
-        mail = get_object_or_404(queryset, pk=pk)
-        serializer = ConstructorSerializer(mail)
-        return Response({"data": serializer.data})
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        constructor = Constructor.objects.create()
-
-        # product_type = ProductType.objects.get(pk=request.data['product_type']),
-        # constructor.product_type = ProductType.objects.get(id=request.data['product_type'])
-        try:
-            constructor.product_type = ProductType.objects.get(pk=request.data['product_type'])
-        except:
-            pass
-
-        try:
-            constructor.door = Door.objects.get(pk=request.data['door'])
-        except:
-            pass
-
-        try:
-            constructor.aggregate = Aggregate.objects.get(pk=request.data['aggregate'])
-        except:
-            pass
-
-        try:
-            constructor.lamination = Lamination.objects.get(pk=request.data['lamination'])
-        except:
-            pass
-
-        try:
-            constructor.shtapik = Shtapik.objects.get(pk=request.data['shtapik'])
-        except:
-            pass
-
-        try:
-            constructor.sash = Sash.objects.get(pk=request.data['sash'])
-        except:
-            pass
-
-        try:
-            constructor.gorbylki = Gorbylki.objects.get(pk=request.data['gorbylki'])
-        except:
-            pass
-
-        try:
-            constructor.handles = Handles.objects.get(pk=request.data['handles'])
-        except:
-            pass
-
-        try:
-            constructor.connection_profile = ConnectionProfile.objects.get(pk=request.data['connection_profile'])
-        except:
-            pass
-
-        try:
-            constructor.additional_profile = AdditionalProfile.objects.get(pk=request.data['additional_profile'])
-        except:
-            pass
-
-        try:
-            constructor.other_complectation = OtherComplectation.objects.get(pk=request.data['other_complectation'])
-        except:
-            pass
-
-        try:
-            constructor.price_constructor = request.data['price_constructor']
-        except:
-            pass
-
-        try:
-            for i in request.data['windowsills_calc']:
-                constructor.windowsills_calc.add(i)
-        except:
-            pass
-        try:
-            for i in request.data['casing_calc']:
-                constructor.casing_calc.add(i)
-        except:
-            pass
-        try:
-            for i in request.data['flashing_calc']:
-                constructor.flashing_calc.add(i)
-        except:
-            pass
-        try:
-            for i in request.data['visors_calc']:
-                constructor.visors_calc.add(i)
-        except:
-            pass
-        try:
-            for i in request.data['lowtides_calc']:
-                constructor.lowtides_calc.add(i)
-        except:
-            pass
-        try:
-            for i in request.data['works']:
-                constructor.works.add(i)
-        except:
-            pass
-        constructor.save()
-        serializer = ConstructorSerializer(constructor)
-        return Response({'data': serializer.data})
-
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        constructor = Constructor.objects.get(id=instance.pk)
-        try:
-            constructor.product_type = ProductType.objects.get(pk=request.data['product_type'])
-        except:
-            pass
-
-        try:
-            constructor.door = Door.objects.get(pk=request.data['door'])
-        except:
-            pass
-
-        try:
-            constructor.aggregate = Aggregate.objects.get(pk=request.data['aggregate'])
-        except:
-            pass
-
-        try:
-            constructor.lamination = Lamination.objects.get(pk=request.data['lamination'])
-        except:
-            pass
-
-        try:
-            constructor.shtapik = Shtapik.objects.get(pk=request.data['shtapik'])
-        except:
-            pass
-
-        try:
-            constructor.sash = Sash.objects.get(pk=request.data['sash'])
-        except:
-            pass
-
-        try:
-            constructor.gorbylki = Gorbylki.objects.get(pk=request.data['gorbylki'])
-        except:
-            pass
-
-        try:
-            constructor.handles = Handles.objects.get(pk=request.data['handles'])
-        except:
-            pass
-
-        try:
-            constructor.connection_profile = ConnectionProfile.objects.get(pk=request.data['connection_profile'])
-        except:
-            pass
-
-        try:
-            constructor.additional_profile = AdditionalProfile.objects.get(pk=request.data['additional_profile'])
-        except:
-            pass
-
-        try:
-            constructor.other_complectation = OtherComplectation.objects.get(pk=request.data['other_complectation'])
-        except:
-            pass
-
-        try:
-            constructor.price_constructor = request.data['price_constructor']
-        except:
-            pass
-
-        try:
-            for i in request.data['windowsills_calc']:
-                constructor.windowsills_calc.add(i)
-        except:
-            pass
-        try:
-            for i in request.data['casing_calc']:
-                constructor.casing_calc.add(i)
-        except:
-            pass
-        try:
-            for i in request.data['flashing_calc']:
-                constructor.flashing_calc.add(i)
-        except:
-            pass
-        try:
-            for i in request.data['visors_calc']:
-                constructor.visors_calc.add(i)
-        except:
-            pass
-        try:
-            for i in request.data['lowtides_calc']:
-                constructor.lowtides_calc.add(i)
-        except:
-            pass
-        try:
-            for i in request.data['works']:
-                constructor.works.add(i)
-        except:
-            pass
-        constructor.save()
-
-        serializer = ConstructorSerializer(constructor)
-        return Response({"data": serializer.data})
+# class ConstructorViewSet(viewsets.ModelViewSet):
+#     queryset = Constructor.objects.all()
+#     serializer_class = ConstructorSerializer
+#     pagination_class = CustomPagination
+#     http_method_names = ['get', 'patch', 'post']
+#
+#     def list(self, request):
+#         queryset = Constructor.objects.all()
+#         serializer = ConstructorSerializer(queryset, many=True)
+#         return Response({"data": serializer.data})
+#
+#     def retrieve(self, request, pk=None):
+#         queryset = Constructor.objects.all()
+#         mail = get_object_or_404(queryset, pk=pk)
+#         serializer = ConstructorSerializer(mail)
+#         return Response({"data": serializer.data})
+#
+#     def create(self, request, *args, **kwargs):
+#         serializer = self.serializer_class(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         constructor = Constructor.objects.create()
+#
+#         # product_type = ProductType.objects.get(pk=request.data['product_type']),
+#         # constructor.product_type = ProductType.objects.get(id=request.data['product_type'])
+#         try:
+#             constructor.product_type = ProductType.objects.get(pk=request.data['product_type'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.door = Door.objects.get(pk=request.data['door'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.aggregate = Aggregate.objects.get(pk=request.data['aggregate'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.lamination = Lamination.objects.get(pk=request.data['lamination'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.shtapik = Shtapik.objects.get(pk=request.data['shtapik'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.sash = Sash.objects.get(pk=request.data['sash'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.gorbylki = Gorbylki.objects.get(pk=request.data['gorbylki'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.handles = Handles.objects.get(pk=request.data['handles'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.connection_profile = ConnectionProfile.objects.get(pk=request.data['connection_profile'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.additional_profile = AdditionalProfile.objects.get(pk=request.data['additional_profile'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.other_complectation = OtherComplectation.objects.get(pk=request.data['other_complectation'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.price_constructor = request.data['price_constructor']
+#         except:
+#             pass
+#
+#         # constructor.name = "HUI"
+#
+#         try:
+#             for i in request.data['windowsills_calc']:
+#                 constructor.windowsills_calc.add(i)
+#         except:
+#             pass
+#         try:
+#             for i in request.data['casing_calc']:
+#                 constructor.casing_calc.add(i)
+#         except:
+#             pass
+#         try:
+#             for i in request.data['flashing_calc']:
+#                 constructor.flashing_calc.add(i)
+#         except:
+#             pass
+#         try:
+#             for i in request.data['visors_calc']:
+#                 constructor.visors_calc.add(i)
+#         except:
+#             pass
+#         try:
+#             for i in request.data['lowtides_calc']:
+#                 constructor.lowtides_calc.add(i)
+#         except:
+#             pass
+#         try:
+#             for i in request.data['works']:
+#                 constructor.works.add(i)
+#         except:
+#             pass
+#         constructor.save()
+#         serializer = ConstructorSerializer(constructor)
+#         return Response({'data': serializer.data})
+#
+#     def update(self, request, *args, **kwargs):
+#         instance = self.get_object()
+#         constructor = Constructor.objects.get(id=instance.pk)
+#         try:
+#             constructor.product_type = ProductType.objects.get(pk=request.data['product_type'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.door = Door.objects.get(pk=request.data['door'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.aggregate = Aggregate.objects.get(pk=request.data['aggregate'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.lamination = Lamination.objects.get(pk=request.data['lamination'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.shtapik = Shtapik.objects.get(pk=request.data['shtapik'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.sash = Sash.objects.get(pk=request.data['sash'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.gorbylki = Gorbylki.objects.get(pk=request.data['gorbylki'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.handles = Handles.objects.get(pk=request.data['handles'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.connection_profile = ConnectionProfile.objects.get(pk=request.data['connection_profile'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.additional_profile = AdditionalProfile.objects.get(pk=request.data['additional_profile'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.other_complectation = OtherComplectation.objects.get(pk=request.data['other_complectation'])
+#         except:
+#             pass
+#
+#         try:
+#             constructor.price_constructor = request.data['price_constructor']
+#         except:
+#             pass
+#         try:
+#             constructor.name = request.data['name']
+#         except:
+#             pass
+#
+#         try:
+#             for i in request.data['windowsills_calc']:
+#                 constructor.windowsills_calc.add(i)
+#         except:
+#             pass
+#         try:
+#             for i in request.data['casing_calc']:
+#                 constructor.casing_calc.add(i)
+#         except:
+#             pass
+#         try:
+#             for i in request.data['flashing_calc']:
+#                 constructor.flashing_calc.add(i)
+#         except:
+#             pass
+#         try:
+#             for i in request.data['visors_calc']:
+#                 constructor.visors_calc.add(i)
+#         except:
+#             pass
+#         try:
+#             for i in request.data['lowtides_calc']:
+#                 constructor.lowtides_calc.add(i)
+#         except:
+#             pass
+#         try:
+#             for i in request.data['works']:
+#                 constructor.works.add(i)
+#         except:
+#             pass
+#         constructor.save()
+#
+#         serializer = ConstructorSerializer(constructor)
+#         return Response({"data": serializer.data})
 
 
 class DoorViewSet(viewsets.ModelViewSet):

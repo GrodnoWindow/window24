@@ -32,10 +32,11 @@ class WindowsillCalcSerializer(serializers.ModelSerializer):
     plug = serializers.IntegerField(max_value=None, min_value=None)
     connector = serializers.IntegerField(max_value=None, min_value=None)
     markups_type = serializers.IntegerField(max_value=None, min_value=None)
+    price_output = serializers.IntegerField(max_value=None, min_value=None)
 
     class Meta:
         model = WindowsillCalc
-        fields = 'windowsill_id', 'installation_id', 'color_id', 'width', 'length', 'count', 'plug', 'connector', 'markups_type'
+        fields = 'windowsill_id', 'installation_id', 'color_id', 'width', 'length', 'count', 'plug', 'connector', 'markups_type', 'price_output'
 
 
 class LowTidesCalcSerializer(serializers.ModelSerializer):

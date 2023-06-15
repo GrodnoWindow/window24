@@ -558,6 +558,9 @@ class WindowsCalc(models.Model):
 
 
 class Constructor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Имя", blank=True, null=True)
+    context = models.CharField(max_length=255, verbose_name="Контекст", blank=True, null=True)
+
     configuration = models.TextField(blank=True, null=True)
     # EQUIPMENT
     product_type = models.ForeignKey(ProductType, on_delete=models.SET_NULL, verbose_name="Тип изделия",
