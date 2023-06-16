@@ -8,3 +8,9 @@ class MiscalculationSerializer(serializers.ModelSerializer):
         model = Miscalculation
         fields = ['id', 'author', 'constructors', 'sum', 'status',
                   'created_time', 'last_update_time']
+
+
+class CommercialOfferSerializer(serializers.Serializer):
+    class Meta:
+        model = CommercialOffer
+        fields = '__all__'

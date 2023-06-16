@@ -7,7 +7,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.schemas import ManualSchema, coreapi, AutoSchema
 from rest_framework.viewsets import GenericViewSet
-from .serializer import MiscalculationSerializer
+from .serializer import MiscalculationSerializer, CommercialOfferSerializer
 from .models import *
 
 from config.pagination import CustomPagination
@@ -85,4 +85,16 @@ class MiscalculationViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
             return Response({"data": serializer.data})
         except Miscalculation.DoesNotExist:
             return Response({'error': 'Miscalculation not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+class CommercialOfferViewSet(mixins.RetrieveModelMixin,
+                            mixins.ListModelMixin,GenericViewSet):
+    queryset = CommercialOffer.objects.all()
+    serializer_class = CommercialOfferSerializer
+
+    def retrieve(self, request, pk=None):
+        queryset = CommercialOffer.objects.all()
+        miscalculation = get_object_or_404(queryset, pk=pk)
+        serializer = CommercialOfferSerializer(miscalculation)
+        print(pk)
+        return Response({"data": serializer.data})
 

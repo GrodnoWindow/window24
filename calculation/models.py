@@ -611,3 +611,4 @@ class Constructor(models.Model):
     class Meta:
         verbose_name = 'Просчет конструктора'
         verbose_name_plural = 'Просчеты конструкторов'
+

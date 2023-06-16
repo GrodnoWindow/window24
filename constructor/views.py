@@ -12,6 +12,8 @@ from call.models import CallWindow
 from client.models import Client
 from .models import *
 from calculation.models import Constructor
+from .utils import generate_offer
+
 
 
 class EquipmentMainAPIView(APIView):
@@ -649,10 +651,6 @@ class ConstructorWindowAPIView(APIView):
         })
 
 
-
-
-
-
 class WindowsillAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
@@ -1000,10 +998,10 @@ class ProviderWindowAPIView(APIView):
 
 
 class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
-                      mixins.RetrieveModelMixin,
-                      mixins.UpdateModelMixin,
-                      mixins.ListModelMixin,
-                      GenericViewSet):  # get, post , get<id>, put<id>, path<id>
+                         mixins.RetrieveModelMixin,
+                         mixins.UpdateModelMixin,
+                         mixins.ListModelMixin,
+                         GenericViewSet):  # get, post , get<id>, put<id>, path<id>
 
     queryset = Constructor.objects.all()
     serializer_class = ConstructorSerializer

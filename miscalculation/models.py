@@ -18,3 +18,13 @@ class Miscalculation(models.Model):
     class Meta:
         verbose_name = 'Просчет полные'
         verbose_name_plural = 'Просчеты полные'
+
+
+class CommercialOffer(models.Model):
+    miscalculation = models.ForeignKey(Miscalculation, on_delete=models.SET_NULL, blank=True, null=True,
+                                       verbose_name='Поставщик')
+    image = models.FileField(upload_to='commercial_offers/', verbose_name='Ком. предложения')
+
+    class Meta:
+        verbose_name = 'Коммерческое предложение'
+        verbose_name_plural = 'Коммерческие предложения'

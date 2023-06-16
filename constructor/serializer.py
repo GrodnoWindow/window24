@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from miscalculation.models import CommercialOffer
 from .models import *
 from calculation.models import *
 from calculation.serializer import *
@@ -500,6 +502,8 @@ class ConstructorPostSerializer(serializers.Serializer):
     class Meta:
         model = Constructor
         fields = '__all__'
+
+
 
 
 class ConstructorCategorySerializer(serializers.Serializer):
