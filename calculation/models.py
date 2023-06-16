@@ -603,7 +603,7 @@ class Constructor(models.Model):
                                                      blank=True)
     works = models.ManyToManyField(Works, verbose_name='Работы', blank=True)
 
-    final_image = models.ImageField(upload_to='constructor_images/', verbose_name='Изображение', blank=True, null=True)
+    final_image = models.FileField(upload_to='constructor_images/', verbose_name='Изображение', blank=True, null=True)
 
     def __str__(self):
         return f'Просчет конструктора № {self.pk} на сумму {self.price_constructor}'
