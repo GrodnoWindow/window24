@@ -80,8 +80,8 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         except:
             pass
         try:
-            for passport_details in request.data['passport_details']:
-                client.passport_details.add(passport_details)
+            passport = PassportDetails.objects.get(pk=request.data['passport_details'])
+            client.passport_details = passport
         except:
             pass
 
@@ -160,11 +160,10 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         except:
             pass
         try:
-            for passport_details in request.data['passport_details']:
-                client.passport_details.add(passport_details)
+            passport = PassportDetails.objects.get(pk=request.data['passport_details'])
+            client.passport_details = passport
         except:
             pass
-
         client.save()
 
         serializer = ClientSerializer(client)

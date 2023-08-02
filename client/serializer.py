@@ -43,7 +43,7 @@ class ClientSerializer(serializers.ModelSerializer):
     addresses = AddressSerializer(many=True, read_only=False)
     prompter = PrompterSerializer(many=True, read_only=False)
     calls = CallWindowSerializer(many=True, read_only=False)
-    passport_details = PassportDetailsSerializer(many=True, read_only=False)
+    passport_details = PassportDetailsSerializer(read_only=False)
     contract = ContractSerializer(many=True, read_only=False)
     miscalculation = MiscalculationSerializer(many=True, read_only=False)
     complaints = ComplaintSerializer(many=True, read_only=False)
