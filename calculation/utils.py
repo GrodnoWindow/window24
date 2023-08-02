@@ -34,6 +34,14 @@ def calc_window_disc(profile_id, fittings_id, markup_type, currency, price):
         in_percent = window.markups_5_in_percent
         markup = window.markups_5
         markups_name = '4'
+    elif markup_type == 5:
+        in_percent = window.markups_6_in_percent
+        markup = window.markups_6
+        markups_name = '5'
+    elif markup_type == 6:
+        in_percent = window.markups_7_in_percent
+        markup = window.markups_7
+        markups_name = '6'
 
     if in_percent:
         window_price_with_markup = window_input_price + (window_input_price / 100 * markup)  # + MARKUP

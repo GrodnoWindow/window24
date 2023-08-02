@@ -18,7 +18,7 @@ from calculation.models import Constructor
 
 def generate_offer():
     constructor = Constructor.objects.get(pk=1)
-    print('пошел генерить нахуй')
+
     buffer = BytesIO()
 
     # Создание документа PDF

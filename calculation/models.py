@@ -3,6 +3,7 @@ from constructor.models import Profile, Fittings, ProductType, Aggregate, \
     Shtapik, Sash, Windowsill, LowTides, OtherComplectation, SlopesOfMetal, InternalSlope, \
     Works, Lamination, Gorbylki, Handles, ConnectionProfile, AdditionalProfile, Sealant, Door, \
     Casing, Flashing, Visors
+from users.models import User
 
 
 class Markups(models.Model):
@@ -510,13 +511,13 @@ class MountingMaterialsCalc(models.Model):
 class WindowDiscountMarkups(models.Model):
     profile_id = models.ForeignKey(Profile, verbose_name="Профиль", blank=True, null=True, on_delete=models.CASCADE)
     fittings_id = models.ForeignKey(Fittings, verbose_name="Фурнитура", blank=True, null=True, on_delete=models.CASCADE)
-    discount = models.FloatField(max_length=255, default=0.0, verbose_name='Значение')
+    discount = models.FloatField(max_length=255, default=0.0, verbose_name='Значение скидки')
 
-    markups_diler = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка диллерская')
-    markups_diler_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( диллер )')
+    markups_diler = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №1')
+    markups_diler_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №1 )')
 
-    markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка розничная')
-    markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( розница )')
+    markups_retail = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №2')
+    markups_retail_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №2 )')
 
     markups_3 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №3')
     markups_3_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №3 )')
@@ -526,6 +527,12 @@ class WindowDiscountMarkups(models.Model):
 
     markups_5 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №5')
     markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
+
+    markups_6 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №6')
+    markups_6_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №6 )')
+
+    markups_7 = models.FloatField(default=0.0, max_length=255, verbose_name='Наценка №7')
+    markups_7_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №7 )')
 
     def __str__(self):
         return f'Профиль : {self.profile_id.name} + Фурнитура: скидка {self.fittings_id.name} = {self.discount} %,'
@@ -558,6 +565,8 @@ class WindowsCalc(models.Model):
 
 
 class Constructor(models.Model):
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name="Автор",
+                                     null=True, blank=True)
     name = models.CharField(max_length=255, verbose_name="Имя", blank=True, null=True)
     context = models.CharField(max_length=255, verbose_name="Контекст", blank=True, null=True)
 
@@ -603,7 +612,8 @@ class Constructor(models.Model):
                                                      blank=True)
     works = models.ManyToManyField(Works, verbose_name='Работы', blank=True)
 
-    final_image = models.TextField(max_length=5000000, verbose_name='Изображение', blank=True, null=True)
+    final_image = models.TextField(max_length=10000000,verbose_name='Изображение', blank=True, null=True)
+    final_image_url = models.CharField(max_length=255,verbose_name='Изображение url', blank=True, null=True)
 
     def __str__(self):
         return f'Просчет конструктора № {self.pk} на сумму {self.price_constructor}'

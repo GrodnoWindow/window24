@@ -435,7 +435,7 @@ class LaminationViewSet(viewsets.ModelViewSet):
         return Response({"data": serializer.data})
 
     def retrieve(self, request, pk=None):
-        queryset = Door.objects.all()
+        queryset = Lamination.objects.all()
         lamination = get_object_or_404(queryset, pk=pk)
         serializer = LaminationSerializer(lamination)
         return Response({"data": serializer.data})

@@ -14,5 +14,6 @@ router_offer.register(r'', CommercialOfferViewSet) # all routers
 urlpatterns = [
     path('', include(router.urls)),
     path('offer/', include(router_offer.urls)),
+    path('offer/files/<str:file_name>/', FileView.as_view(), name='file-view'),
 
 ]

@@ -6,6 +6,7 @@ from requests import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
+from .models import Contract
 from .serializer import *
 from rest_framework import viewsets, mixins, status, generics
 from rest_framework.response import Response
@@ -72,6 +73,18 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
                 client.category_select.add(category_select)
         except:
             pass
+
+        try:
+            for contract in request.data['contract']:
+                client.contract.add(contract)
+        except:
+            pass
+        try:
+            for passport_details in request.data['passport_details']:
+                client.passport_details.add(passport_details)
+        except:
+            pass
+
         client.save()
 
         serializer = ClientSerializer(client)
@@ -140,6 +153,18 @@ class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
             client.category_select = request.data['category_select']
         except:
             pass
+
+        try:
+            for contract in request.data['contract']:
+                client.contract.add(contract)
+        except:
+            pass
+        try:
+            for passport_details in request.data['passport_details']:
+                client.passport_details.add(passport_details)
+        except:
+            pass
+
         client.save()
 
         serializer = ClientSerializer(client)
@@ -234,6 +259,72 @@ class PrompterViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         queryset = Prompter.objects.all()
         prompter = get_object_or_404(queryset, pk=pk)
         serializer = PrompterSerializer(prompter)
+        return Response({"data": serializer.data})
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response({"data": serializer.data})
+
+
+class ContractViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
+                      mixins.RetrieveModelMixin,
+                      mixins.UpdateModelMixin,
+                      mixins.ListModelMixin,
+                      GenericViewSet):  # get, post , get<id>, put<id>, path<id>
+
+    queryset = Contract.objects.all()
+    serializer_class = ContractSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({"data": serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = Contract.objects.all()
+        contract = get_object_or_404(queryset, pk=pk)
+        serializer = NumberSerializer(contract)
+        return Response({"data": serializer.data})
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response({"data": serializer.data})
+
+
+class PassportDetailsViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
+                             mixins.RetrieveModelMixin,
+                             mixins.UpdateModelMixin,
+                             mixins.ListModelMixin,
+                             GenericViewSet):  # get, post , get<id>, put<id>, path<id>
+
+    queryset = PassportDetails.objects.all()
+    serializer_class = PassportDetailsSerializer
+    pagination_class = CustomPagination
+    http_method_names = ['get', 'patch', 'post']
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response({"data": serializer.data})
+
+    def retrieve(self, request, pk=None):
+        queryset = PassportDetails.objects.all()
+        passport = get_object_or_404(queryset, pk=pk)
+        serializer = NumberSerializer(passport)
         return Response({"data": serializer.data})
 
     def update(self, request, *args, **kwargs):

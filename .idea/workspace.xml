@@ -13,8 +13,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -35,7 +35,8 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/window24&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;backend-1&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/PyCharmProjects/window24&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -45,11 +46,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\window24\measurer\templates" />
+      <recent name="D:\window24\measurer\templates\includes" />
+      <recent name="D:\window24" />
+      <recent name="D:\window24\MEDIA" />
       <recent name="E:\window24\measurer_window\static\assets\img\sashes" />
-      <recent name="E:\window24\measurer_window\static\assets\img" />
-      <recent name="E:\window24\static\assets\img\sashes" />
-      <recent name="E:\window24\measurer_window\static" />
-      <recent name="E:\window24\template\measurer_window" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\window24\calls_table" />
@@ -59,7 +60,7 @@
       <recent name="E:\window24\measurer\templates" />
     </key>
   </component>
-  <component name="RunManager" selected="Django Server.window24">
+  <component name="RunManager" selected="Python.parse_calls">
     <configuration name="parse_calls" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="window24" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -152,7 +153,11 @@
       <workItem from="1686817648570" duration="8953000" />
       <workItem from="1686847425447" duration="8733000" />
       <workItem from="1686917961171" duration="931000" />
-      <workItem from="1687083103102" duration="1980000" />
+      <workItem from="1687083103102" duration="4705000" />
+      <workItem from="1687162227904" duration="91000" />
+      <workItem from="1687162460438" duration="306000" />
+      <workItem from="1690800004231" duration="1188000" />
+      <workItem from="1690960969449" duration="4616000" />
     </task>
     <servers />
   </component>
@@ -169,5 +174,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

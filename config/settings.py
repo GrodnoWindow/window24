@@ -13,9 +13,8 @@ from datetime import timedelta
 from pathlib import Path
 import os
 
-
-LOGIN_REDIRECT_URL = "/api/swagger/"
-LOGOUT_REDIRECT_URL = "/api/swagger/"
+LOGIN_REDIRECT_URL = "/welcome-page/"
+LOGOUT_REDIRECT_URL = "/welcome-page/"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +29,7 @@ SECRET_KEY = 'django-insecure--86iuxy1g1+!4bnm%j=+#rlz!w3x0p3sw#!xaaa82k1o!tcqmr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.201', '86.57.178.104']
 
 # Application definition
 
@@ -125,7 +124,7 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'windows_db',
+#         'NAME': 'windows_database',
 #         'USER': 'myuser',
 #         'PASSWORD': 'mypassword',
 #         'HOST': '86.57.178.104',
@@ -245,8 +244,8 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = ['http://86.57.178.104:777','http://192.168.1.200:3001']
-
+CSRF_TRUSTED_ORIGINS = ['http://86.57.178.104:777', 'http://86.57.178.104:888', 'http://192.168.1.200:3001',
+                        'http://192.168.1.200:8001']
 
 CORS_ALLOW_HEADERS = [
     "accept",

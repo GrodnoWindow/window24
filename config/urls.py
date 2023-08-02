@@ -20,11 +20,17 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
     SpectacularRedocView
 )
+from rest_framework import routers
+
+from measurer.views import MiscalculationViewSet
+
+router = routers.SimpleRouter()
+router.register(r'', MiscalculationViewSet) # all routers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')), # Django
-    path('api/users/', include('users.urls')), # Django
+    path('api/users/', include('users.urls')),# Django
 
     path('api/shema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
@@ -36,10 +42,12 @@ urlpatterns = [
     path('api/clients/', include('client.urls')),
     path('api/diary/', include('diary.urls')),
     path('api/complaint/', include('complaint.urls')),
-    path('api/call/', include('call.urls')) ,
+    path('api/call/', include('call.urls')),
 
     path('api/correspondence/', include('correspondence.urls')),
     path('api/calls-table/', include('calls_table.urls')),
     path('api/new-call/', include('new_call.urls')),
+    path('', include('measurer.urls')),
+    path('api/measurer/', include(router.urls)),
 
 ]

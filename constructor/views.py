@@ -12,7 +12,6 @@ from call.models import CallWindow
 from client.models import Client
 from .models import *
 from calculation.models import Constructor
-from .utils import generate_offer
 
 
 
@@ -21,7 +20,7 @@ class EquipmentMainAPIView(APIView):
         filters = {}
         filters['product_type'] = ProductType.objects.all()
         filters['profile'] = Profile.objects.all()
-        filters['aggregate'] = Aggregate.objects.all()
+        # filters['aggregate'] = Aggregate.objects.all()
         filters['fittings'] = Fittings.objects.all()
 
         serializer = ConstructorCategorySerializer(filters)
@@ -39,18 +38,37 @@ class EquipmentMainAPIView(APIView):
                     'label': 'Профиль',
                     'data': serializer.data['profile'],
                 },
-                {
-                    'name': 'aggregate',
-                    'placeholder': 'Выберите заполнитель',
-                    'label': 'Заполнитель',
-                    'data': serializer.data['aggregate'],
-                },
+                # {
+                #     'name': 'aggregate',
+                #     'placeholder': 'Выберите заполнитель',
+                #     'label': 'Заполнитель',
+                #     'data': serializer.data['aggregate'],
+                # },
                 {
                     'name': 'fittings',
                     'placeholder': 'Выберите фурнитуру',
                     'label': 'Фурнитура',
                     'data': serializer.data['fittings'],
                 },
+
+            ]
+        })
+
+class EquipmentMainAggregateAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['aggregate'] = Aggregate.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'aggregate',
+                    'placeholder': 'Выберите заполнитель',
+                    'label': 'Заполнитель',
+                    'data': serializer.data['aggregate'],
+                },
+
 
             ]
         })
@@ -859,7 +877,7 @@ class VisorsAPIView(APIView):
         filters['visors'] = Visors.objects.all()
         filters['visors_color'] = VisorsColor.objects.all()
         filters['visors_installation'] = VisorsInstallation.objects.all()
-        filters['visors_provider'] = VisorsInstallation.objects.all()
+        filters['visors_provider'] = VisorsProvider.objects.all()
 
         serializer = ConstructorCategorySerializer(filters)
         return Response({
@@ -1014,6 +1032,7 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         user = request.user
 
         constructor = Constructor.objects.create()
+        constructor.author = user
         try:
             constructor.configuration = request.data['configuration']
         except:
@@ -1184,6 +1203,10 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         constructor_id = instance.id  # Получение id объекта Constructor
 
         constructor = Constructor.objects.get(pk=constructor_id)
+
+        user = request.user
+        constructor.author = user
+
         constructor.price_constructor = 0
         try:
             constructor.configuration = request.data['configuration']
