@@ -462,17 +462,19 @@ class Aggregate(models.Model):
         (3, 'Белая'),
     )
     TYPE_CHOICE = (
-        (1, 'Sendvich'),
+        (1, 'Sendwich'),
         (2, 'Энергосберегающие'),
         (3, 'EnergyAir'),
         (4, 'Тонированные'),
-        (5, 'феникс клер'),
-        (6, 'феникс бронза'),
-        (7, 'феникс грей'),
-        (8, 'CRYSTALVISION'),
-        (9, 'Антирезонансные'),
-        (10, 'Антивандальные'),
-        (11, 'триплекс'),
+        (5, 'Фениксы'),
+        (6, 'Феникс клер'),
+        (7, 'Феникс бронза'),
+        (8, 'Феникс грей'),
+        (9, 'CRYSTALVISION'),
+        (10, 'Антирезонансные'),
+        (11, 'Антивандальные'),
+        (12, 'Триплекс'),
+        (13, 'Простые'),
     )
     name = models.CharField(max_length=255, verbose_name="Заполнитель №1", blank=True, null=True)
     article = models.CharField(max_length=255, verbose_name="Артикул", blank=True, null=True)

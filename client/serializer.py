@@ -70,7 +70,7 @@ class ClientPostSerializer(serializers.ModelSerializer):
     prompter = PrompterSerializer(many=True, read_only=True)
     constructor = ConstructorSerializer(many=True, read_only=True)
     contract = ContractSerializer(many=True, read_only=True)
-    passport_details = PassportDetailsSerializer(many=True, read_only=True)
+    passport_details = PassportDetailsSerializer(read_only=True)
     miscalculation = MiscalculationSerializer(many=True, read_only=True)
     complaints = ComplaintSerializer(many=True, read_only=True)
 

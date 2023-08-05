@@ -36,7 +36,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "backend-1",
-    "last_opened_file_path": "D:/PyCharmProjects/window24",
+    "last_opened_file_path": "D:/PyCharmProjects/DataMatrixAppPython",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -158,7 +158,9 @@
       <workItem from="1687162460438" duration="306000" />
       <workItem from="1690800004231" duration="1188000" />
       <workItem from="1690960969449" duration="5373000" />
-      <workItem from="1690981098080" duration="512000" />
+      <workItem from="1690981098080" duration="2409000" />
+      <workItem from="1691050023458" duration="85000" />
+      <workItem from="1691089515404" duration="891000" />
     </task>
     <servers />
   </component>
