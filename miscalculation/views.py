@@ -18,7 +18,7 @@ from constructor.models import LowTides, LowTidesColor, Flashing, FlashingColor,
     CasingColor, CasingFastening, SlopesOfMetal, SlopesOfMetalColor, InternalSlope, InternalSlopeColor, \
     MountingMaterialsName, Works
 from constructor.serializer import ProductTypeSerializer, WindowsillSerializer
-from .serializer import MiscalculationSerializer, CommercialOfferSerializer
+from .serializer import MiscalculationSerializer, CommercialOfferSerializer, HideCostSerializer
 from .models import *
 from .utils import *
 from config.pagination import CustomPagination
@@ -375,3 +375,33 @@ class FileView(APIView):
             return FileResponse(open(file_path, 'rb'), content_type='image/png')
         else:
             return Response({'error': 'File not found'}, status=404)
+
+
+
+
+
+class MiscalculationAddHideCostAPIView(APIView):
+    serializer_class = HideCostSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        add_hide_cost_miscalculation(request.data['pk'],request.data['cost'])
+        miscalculation = Miscalculation.objects.get(pk=request.data['pk'])
+        serializer = MiscalculationSerializer(miscalculation)
+        return Response({"data": serializer.data})
+
+
+
+class MiscalculationMinusHideCostAPIView(APIView):
+    serializer_class = HideCostSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        minus_hide_cost_miscalculation(request.data['pk'],request.data['cost'])
+        miscalculation = Miscalculation.objects.get(pk=request.data['pk'])
+        serializer = MiscalculationSerializer(miscalculation)
+        return Response({"data": serializer.data})

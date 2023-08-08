@@ -251,3 +251,68 @@ def generate_offer(pk):
     response.write(pdf_content)
 
     return response
+
+
+def add_hide_cost_miscalculation(pk, cost):
+    try:
+        miscalculation = Miscalculation.objects.get(pk=pk)
+
+        constructors = miscalculation.constructors.all()
+        count = 0  # Начальное значение для подсчета
+
+        for el in constructors:
+            if el.window_calc:  # Проверка наличия связанного объекта window_calc
+                count += 1
+
+        if count > 0:
+            add_cost = float(cost) / count
+
+            for el in constructors:
+                if el.window_calc:
+                    window_calc = el.window_calc
+                    window_calc.price_output += add_cost
+                    window_calc.save()
+                    constructor = Constructor.objects.get(pk=el.pk)
+                    constructor.price_constructor += add_cost
+                    constructor.save()
+
+            miscalculation.hidden_cost += float(cost)
+            miscalculation.sum += add_cost
+            miscalculation.save()
+
+    except Miscalculation.DoesNotExist:
+        # Обработка случая, когда Miscalculation с данным pk не найдена
+        pass
+
+
+def minus_hide_cost_miscalculation(pk, cost):
+    try:
+        if cost > 0:
+            miscalculation = Miscalculation.objects.get(pk=pk)
+
+            constructors = miscalculation.constructors.all()
+            count = 0  # Начальное значение для подсчета
+
+            for el in constructors:
+                if el.window_calc:  # Проверка наличия связанного объекта window_calc
+                    count += 1
+
+            if count > 0:
+                add_cost = float(cost) / count
+
+                for el in constructors:
+                    if el.window_calc:
+                        window_calc = el.window_calc
+                        window_calc.price_output -= add_cost
+                        window_calc.save()
+                        constructor = Constructor.objects.get(pk=el.pk)
+                        constructor.price_constructor -= add_cost
+                        constructor.save()
+
+                miscalculation.hidden_cost -= float(cost)
+                miscalculation.sum -= add_cost
+                miscalculation.save()
+
+    except Miscalculation.DoesNotExist:
+        # Обработка случая, когда Miscalculation с данным pk не найдена
+        pass

@@ -132,3 +132,4 @@ def generate_offer():
 
     with open(os.path.join(), "wb") as file:
         file.write(pdf_content)
+

@@ -454,3 +454,6 @@ def calc_internal_slope(internal_slope_id,installation_id,color_id, width, lengt
                                                           installation_id=installation_id,color_id=color_id)
 
     return internal_slop_calc
+
+
+

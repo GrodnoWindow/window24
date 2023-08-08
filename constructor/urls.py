@@ -10,6 +10,7 @@ router_constructor.register(r'', ConstructorViewSet) # all routers
 
 
 urlpatterns = [
+
     path('constructor/', include(router_constructor.urls)),
     path('category/equipment/main/', EquipmentMainAPIView.as_view()),
     path('category/equipment/main/aggregate/', EquipmentMainAggregateAPIView.as_view()),

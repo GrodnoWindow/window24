@@ -13,7 +13,7 @@ class MiscalculationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Miscalculation
         fields = ['id', 'author', 'constructors', 'sum', 'status',
-                  'created_time', 'last_update_time']
+                  'created_time', 'last_update_time','hidden_cost']
 
 
 class CommercialOfferSerializer(serializers.Serializer):
@@ -59,3 +59,11 @@ class ConstructorOfferSerializer(serializers.Serializer):
     class Meta:
         model = Constructor
         fields = '__all__'
+
+
+
+class HideCostSerializer(serializers.ModelSerializer):
+    cost = serializers.FloatField()
+    class Meta:
+        model = Miscalculation
+        fields = 'pk', 'cost'

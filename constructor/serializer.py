@@ -8,6 +8,9 @@ class WindowsCalcSerializer(serializers.ModelSerializer):
     class Meta:
         model = WindowsCalc
         fields = '__all__'
+
+
+
 class WindowsillCalcSerializer(serializers.ModelSerializer):
     windowsill_id = serializers.IntegerField(max_value=None, min_value=None)
     installation_id = serializers.IntegerField(max_value=None, min_value=None)
