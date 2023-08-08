@@ -669,16 +669,7 @@ class WindowsillColorProvider(models.Model):
     class Meta:
         verbose_name = 'Поставщик цветов подоконников'
         verbose_name_plural = 'Поставщики цветов подоконников'
-class WindowsillColor(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
-    windowsill_provider = models.ForeignKey(WindowsillColorProvider, blank=True, on_delete=models.SET_NULL, null=True,
-                                            verbose_name='Поставщик')
-    def __str__(self):
-        return f'# {self.pk} Название: {self.name} '
 
-    class Meta:
-        verbose_name = 'Цвет подоконника'
-        verbose_name_plural = 'Цвета подоконников'
 
 
 class WindowsillWidth(models.Model):
@@ -703,7 +694,16 @@ class WindowsillProvider(models.Model):
         verbose_name = 'Поставщик подоконников'
         verbose_name_plural = 'Поставщики подоконников'
 
+class WindowsillColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+    windowsill_provider = models.ForeignKey(WindowsillProvider, blank=True, on_delete=models.SET_NULL, null=True,
+                                            verbose_name='Поставщик')
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
 
+    class Meta:
+        verbose_name = 'Цвет подоконника'
+        verbose_name_plural = 'Цвета подоконников'
 class WindowsillPlug(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
     # price_in_currency = models.FloatField(blank=True, null=True, verbose_name=' Цена EUR/USD')
@@ -783,15 +783,7 @@ class LowTidesConnection(models.Model):
         verbose_name_plural = 'Соединители отливов'
 
 
-class LowTidesColor(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
 
-    def __str__(self):
-        return f'# {self.pk} Название: {self.name} '
-
-    class Meta:
-        verbose_name = 'Цвет отлива'
-        verbose_name_plural = 'Цвета отливов'
 
 
 class LowTidesType(models.Model):
@@ -816,6 +808,16 @@ class LowTidesProvider(models.Model):
         verbose_name = 'Поставщик отливов'
         verbose_name_plural = 'Поставщики отливов'
 
+class LowTidesColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+    low_tides_provider = models.ForeignKey(LowTidesProvider, blank=True, on_delete=models.SET_NULL, null=True,
+                                            verbose_name='Поставщик')
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет отлива'
+        verbose_name_plural = 'Цвета отливов'
 
 class LowTides(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название отлива", blank=True, null=True)
@@ -844,15 +846,6 @@ class FlashingInstallation(models.Model):
         verbose_name_plural = 'Монтажи нащельников'
 
 
-class FlashingColor(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
-
-    def __str__(self):
-        return f'# {self.pk} Название: {self.name} '
-
-    class Meta:
-        verbose_name = 'Цвет нащельника'
-        verbose_name_plural = 'Цвета нащельников'
 
 
 class FlashingProvider(models.Model):
@@ -865,6 +858,18 @@ class FlashingProvider(models.Model):
     class Meta:
         verbose_name = 'Поставщик нащельников'
         verbose_name_plural = 'Поставщики нащельников'
+
+class FlashingColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+    flashing_provider = models.ForeignKey(FlashingProvider, blank=True, on_delete=models.SET_NULL, null=True,
+                                           verbose_name='Поставщик')
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет нащельника'
+        verbose_name_plural = 'Цвета нащельников'
+
 
 
 class Flashing(models.Model):
@@ -904,15 +909,6 @@ class CasingInstallation(models.Model):
         verbose_name_plural = 'Монтажи наличников'
 
 
-class CasingColor(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
-
-    def __str__(self):
-        return f'# {self.pk} Название: {self.name} '
-
-    class Meta:
-        verbose_name = 'Цвет наличника'
-        verbose_name_plural = 'Цвета наличников'
 
 
 class CasingProvider(models.Model):
@@ -925,6 +921,17 @@ class CasingProvider(models.Model):
     class Meta:
         verbose_name = 'Поставщик наличников'
         verbose_name_plural = 'Поставщики наличников'
+
+class CasingColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+    casing_provider = models.ForeignKey(CasingProvider, blank=True, on_delete=models.SET_NULL, null=True,
+                                          verbose_name='Поставщик')
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет наличника'
+        verbose_name_plural = 'Цвета наличников'
 
 
 class Casing(models.Model):
@@ -953,15 +960,7 @@ class VisorsInstallation(models.Model):
         verbose_name_plural = 'Монтажи козырьков'
 
 
-class VisorsColor(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
 
-    def __str__(self):
-        return f'# {self.pk} Название: {self.name} '
-
-    class Meta:
-        verbose_name = 'Цвет козырька'
-        verbose_name_plural = 'Цвета козырьков'
 
 
 class VisorsProvider(models.Model):
@@ -975,6 +974,16 @@ class VisorsProvider(models.Model):
         verbose_name = 'Поставщик козырьков'
         verbose_name_plural = 'Поставщики козырьков'
 
+class VisorsColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+    visors_provider = models.ForeignKey(VisorsProvider, blank=True, on_delete=models.SET_NULL, null=True,
+                                          verbose_name='Поставщик')
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет козырька'
+        verbose_name_plural = 'Цвета козырьков'
 
 class Visors(models.Model):
     name = models.CharField(max_length=255, verbose_name='Развертка козырька', blank=True, null=True)
@@ -990,16 +999,7 @@ class Visors(models.Model):
         verbose_name_plural = 'Козырьки'
 
 
-class SlopesOfMetalInstallation(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
-    price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
 
-    def __str__(self):
-        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
-
-    class Meta:
-        verbose_name = 'Монтаж откосов из металла'
-        verbose_name_plural = 'Монтажи откосов из металла'
 
 
 class SlopesOfMetalColor(models.Model):
@@ -1024,6 +1024,17 @@ class SlopesOfMetalProvider(models.Model):
         verbose_name = 'Поставщик откосов из металла'
         verbose_name_plural = 'Поставщики откосов из металла'
 
+class SlopesOfMetalInstallation(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
+    price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
+    slopes_of_metal_provider = models.ForeignKey(SlopesOfMetalProvider, blank=True, on_delete=models.SET_NULL, null=True,
+                                          verbose_name='Поставщик')
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
+
+    class Meta:
+        verbose_name = 'Монтаж откосов из металла'
+        verbose_name_plural = 'Монтажи откосов из металла'
 
 class SlopesOfMetal(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип откосов из металла')
@@ -1039,16 +1050,7 @@ class SlopesOfMetal(models.Model):
         verbose_name_plural = 'откосы из металла'
 
 
-class InternalSlopeInstallation(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
-    price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
 
-    def __str__(self):
-        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
-
-    class Meta:
-        verbose_name = 'Монтаж внутренних откосов'
-        verbose_name_plural = 'Монтажи внутренних откосов'
 
 
 class InternalSlopeColor(models.Model):
@@ -1073,6 +1075,18 @@ class InternalSlopeProvider(models.Model):
         verbose_name = 'Поставщик внутренние откосы'
         verbose_name_plural = 'Поставщики внутренние откосы'
 
+class InternalSlopeInstallation(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
+    price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
+    internal_provider = models.ForeignKey(InternalSlopeProvider, blank=True, on_delete=models.SET_NULL,
+                                                 null=True,
+                                                 verbose_name='Поставщик')
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
+
+    class Meta:
+        verbose_name = 'Монтаж внутренних откосов'
+        verbose_name_plural = 'Монтажи внутренних откосов'
 
 class InternalSlope(models.Model):
     type = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип внутренних откосов')
