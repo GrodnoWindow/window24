@@ -49,11 +49,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PyCharmProjects\window24" />
       <recent name="D:\window24\measurer\templates" />
       <recent name="D:\window24\measurer\templates\includes" />
       <recent name="D:\window24" />
       <recent name="D:\window24\MEDIA" />
-      <recent name="E:\window24\measurer_window\static\assets\img\sashes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\window24\calls_table" />
@@ -166,6 +166,11 @@
       <workItem from="1691089515404" duration="891000" />
       <workItem from="1691484830028" duration="10000" />
       <workItem from="1691512674865" duration="7064000" />
+      <workItem from="1691770091877" duration="26000" />
+      <workItem from="1691867591450" duration="683000" />
+      <workItem from="1691868281675" duration="47000" />
+      <workItem from="1691868348264" duration="472000" />
+      <workItem from="1691868882227" duration="8720000" />
     </task>
     <servers />
   </component>

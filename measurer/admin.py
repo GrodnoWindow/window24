@@ -29,7 +29,7 @@ admin.site.register(ConnectionProfileCalcMob)
 
 # admin.site.register(Visors)
 # admin.site.register(VisorsColor)
-# admin.site.register(VisorsCalcMob)
+admin.site.register(VisorsCalcMob)
 
 # admin.site.register(Flashing)
 # admin.site.register(FlashingColor)

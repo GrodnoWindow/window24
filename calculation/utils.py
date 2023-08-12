@@ -64,7 +64,7 @@ def calc_window_disc(profile_id, fittings_id, markup_type, currency, price):
     return window_calc
 
 
-def calc_windowsill(windowsill_id,installation_id,color_id, width, length, count, markups_type):
+def calc_windowsill(windowsill_id,installation_id,color_id, width, length, count, markups_type, plug, connector):
     windowsill = Windowsill.objects.get(id=windowsill_id)
     windowsill_markups = WindowsillMarkups.objects.get(windowsill=windowsill_id)
     price_input_windowsill = windowsill.price_input
@@ -107,6 +107,12 @@ def calc_windowsill(windowsill_id,installation_id,color_id, width, length, count
         sum = sum * count
         square_meter = square_meter * count
         linear_meter = linear_meter * count
+    if plug > 0:
+        windowsill_plug_sum = windowsill.windowsill_plug.price_input * plug
+        sum = sum + windowsill_plug_sum
+    if connector > 0:
+        windowsill_connector_sum = windowsill.windowsill_connection.price_input * connector
+        sum = sum + windowsill_connector_sum
 
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
@@ -122,13 +128,13 @@ def calc_windowsill(windowsill_id,installation_id,color_id, width, length, count
     return windowsill_calc
 
 
-def calc_low_tides(low_tides_id,installation_id,color_id, width, length, count, markups_type,plug):
+def calc_low_tides(low_tides_id,installation_id,color_id, width,width_1,width_2,width_3, length, count, markups_type,plug,low_tides_type):
     low_tides = LowTides.objects.get(id=low_tides_id)
     low_tides_markup = LowTidesMarkups.objects.get(lowtides=low_tides_id)
 
     price_input_low_tides = low_tides.price_input
 
-    width = width + 55  # + 55 мм
+    width = width + width_1 + width_2 + width_3  # + 55 мм
     if markups_type == 0:
         in_percent = low_tides_markup.markups_diler_in_percent
         markup = low_tides_markup.markups_diler
@@ -171,7 +177,9 @@ def calc_low_tides(low_tides_id,installation_id,color_id, width, length, count, 
     square_meter = round(square_meter, 2)
     linear_meter = round(linear_meter, 2)
 
-    low_tides_calc = LowTidesCalc.objects.create(low_tides_id=low_tides.id, width=width, length=length,
+    low_tides_calc = LowTidesCalc.objects.create(low_tides_id=low_tides.id,
+                                                 low_tides_type=low_tides_type,
+                                                 width=width,width_1=width_1,width_2=width_2,width_3=width_3, length=length,
                                                  count=count,
                                                  price_output=sum, markups_type=markups_name,plug=plug,
                                                  square_meter=square_meter,
@@ -293,7 +301,8 @@ def calc_casing(casing_id,installation_id,color_id,fastening_id, width, length, 
     return casing_calc
 
 
-def calc_visors(visors_id, installation_id, color_id, width, length, count, markups_type):
+def calc_visors(visors_id, installation_id, color_id, width_1,width_2,width_3, length, count, markups_type):
+    width = width_1 + width_2 + width_3
     visors = Visors.objects.get(id=visors_id)
     visors_markup = VisorsMarkups.objects.get(visors=visors_id)
 

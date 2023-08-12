@@ -316,19 +316,43 @@ class VisorsCalcForm(ModelForm):
             'placeholder': 'Цвета козырьков',
         })
     )
+    width_1 = forms.FloatField(
+        label='Ширина А',
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control mb-2',
+            'placeholder': 'Ширина А',
 
+
+        })
+    )
+
+    width_2 = forms.FloatField(
+        label='Ширина Б',
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control mb-2',
+            'placeholder': 'Ширина Б',
+
+        })
+    )
+
+    width_3 = forms.FloatField(
+        label='Ширина В',
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control mb-2',
+            'placeholder': 'Ширина В',
+
+
+        })
+    )
     class Meta:
         model = VisorsCalcMob
-        fields = ['visors', 'visors_color', 'width', 'length', 'count']
+        fields = ['visors', 'visors_color', 'width_1','width_2','width_3', 'length', 'count']
         widgets = {
             'length': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Длина'
             }),
-            'width': NumberInput(attrs={
-                'class': 'form-control mb-2',
-                'placeholder': 'Ширина'
-            }),
+
             'count': NumberInput(attrs={
                 'class': 'form-control mb-2',
                 'placeholder': 'Количество'

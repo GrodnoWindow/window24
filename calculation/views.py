@@ -60,15 +60,19 @@ class CalculationLowTidesAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         low_tides_id = request.data['low_tides_id']
+        low_tides_type = LowTidesType.objects.get(pk=request.data['low_tides_type'])
         installation_id = request.data['installation_id']
         color_id = request.data['color_id']
         plug = request.data['plug']
         width = request.data['width']
+        width_1 = request.data['width_1']
+        width_2 = request.data['width_2']
+        width_3 = request.data['width_3']
         length = request.data['length']
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        low_tides_calc = calc_low_tides(low_tides_id=low_tides_id, width=width,plug=plug,color_id=color_id,installation_id=installation_id,
+        low_tides_calc = calc_low_tides(low_tides_id=low_tides_id, width=width,width_1=width_1,width_2=width_2,width_3=width_3,plug=plug,color_id=color_id,installation_id=installation_id,low_tides_type=low_tides_type,
                                         length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(low_tides_calc)})
@@ -124,12 +128,14 @@ class CalculationVisorsAPIView(APIView):
         visors_id = request.data['visors_id']
         installation_id = request.data['installation_id']
         color_id = request.data['color_id']
-        width = request.data['width']
         length = request.data['length']
         count = request.data['count']
         markups_type = request.data['markups_type']
+        width_1 = request.data['width_1']
+        width_2 = request.data['width_2']
+        width_3= request.data['width_3']
 
-        visors_calc = calc_visors(visors_id=visors_id, width=width,color_id=color_id,installation_id=installation_id,
+        visors_calc = calc_visors(visors_id=visors_id, color_id=color_id,installation_id=installation_id,width_1=width_1,width_2=width_2,width_3=width_3,
                                   length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(visors_calc)})
@@ -536,8 +542,10 @@ class CalculationWindowsillAPIView(APIView):
         color_id = request.data['color_id']
         count = request.data['count']
         markups_type = request.data['markups_type']
+        plug = request.data['plug']
+        connector = request.data['connector']
         windowsill_calc = calc_windowsill(windowsill_id=windowsill_id, width=width,color_id=color_id,installation_id=installation_id,
-                                          length=length, count=count, markups_type=markups_type)
+                                          length=length, count=count, markups_type=markups_type, connector=connector,plug=plug)
 
         return Response({'data': model_to_dict(windowsill_calc)})
 

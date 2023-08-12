@@ -13,6 +13,7 @@ class NumberSerializer(serializers.ModelSerializer):
         fields = ['id', 'number', 'name']
 
 class ContractSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Contract
         fields = '__all__'

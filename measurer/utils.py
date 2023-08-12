@@ -151,12 +151,13 @@ def calc_low_tides(order_id, low_tides, low_tides_color, low_tides_width, low_ti
     low_tides_calc.save()
 
 
-def calc_visors(order_id, visors, visors_color, width, length, count):
+def calc_visors(order_id, visors, visors_color, width_1,width_2,width_3, length, count):
+    width = width_1 + width_2 + width_3
     if (width > 0) and (length > 0):
-        price_in_byn = visors.price_in_byn
+        price_in_byn = visors.price_input
         # price_in_currency = visors.price_in_currency
 
-        width = width + 55.0  # + 55 мм
+        # width = width + 55.0  # + 55 мм
 
         sum_byn = price_in_byn * ((width * length) / 1000000)
         # sum_currency = price_in_currency * ((width * length) / 1000000)

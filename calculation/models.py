@@ -2,7 +2,7 @@ from django.db import models
 from constructor.models import Profile, Fittings, ProductType, Aggregate, \
     Shtapik, Sash, Windowsill, LowTides, OtherComplectation, SlopesOfMetal, InternalSlope, \
     Works, Lamination, Gorbylki, Handles, ConnectionProfile, AdditionalProfile, Sealant, Door, \
-    Casing, Flashing, Visors
+    Casing, Flashing, Visors, LowTidesType
 from users.models import User
 
 
@@ -365,7 +365,10 @@ class LowTidesCalc(models.Model):
 
     installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
     color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
-
+    low_tides_type = models.ForeignKey(LowTidesType, verbose_name='Тип отлива', blank=True, null=True, on_delete=models.SET_NULL)
+    width_1 = models.IntegerField(blank=True,null=True,verbose_name='Ширина 1')
+    width_2 = models.IntegerField(blank=True,null=True,verbose_name='Ширина 2')
+    width_3 = models.IntegerField(blank=True,null=True,verbose_name='Ширина 3')
     plug = models.IntegerField(default=0, verbose_name='Заглушка', blank=True, null=True)
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')

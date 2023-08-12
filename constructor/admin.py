@@ -89,6 +89,7 @@ admin.site.register(CasingInstallation)
 admin.site.register(CasingFastening)
 
 admin.site.register(LowTides)
+admin.site.register(LowTidesType)
 admin.site.register(LowTidesProvider)
 admin.site.register(LowTidesColor)
 admin.site.register(LowTidesInstallation)

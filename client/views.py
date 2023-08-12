@@ -283,9 +283,29 @@ class ContractViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response({"data": serializer.data})
+
+        last_contract = Contract.objects.order_by('-id').first()
+        last_number = int(last_contract.number) if last_contract else 0
+        new_number = last_number + 1
+
+        passport_details = PassportDetails.objects.get(pk=request.data['passport_details'])
+
+
+        contract = Contract.objects.create(
+            date=request.data['date'],
+            delivery_address=request.data['delivery_address'],
+            phone=request.data['phone'],
+            cost=request.data['cost'],
+            deposit=request.data['deposit'],
+            finish_cost=request.data['finish_cost'],
+            signed=request.data['signed'],
+            number=new_number,
+            passport_details=passport_details,
+        )
+
+        contract.save()
+        serializer_contract = ContractSerializer(contract)
+        return Response({"data": serializer_contract.data})
 
     def retrieve(self, request, pk=None):
         queryset = Contract.objects.all()

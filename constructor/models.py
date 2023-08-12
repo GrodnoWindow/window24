@@ -708,6 +708,8 @@ class WindowsillPlug(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
     # price_in_currency = models.FloatField(blank=True, null=True, verbose_name=' Цена EUR/USD')
     price_input = models.FloatField(blank=True, null=True, verbose_name='Цена BYN')
+    windowsill_plug_provider = models.ForeignKey(WindowsillProvider, blank=True, on_delete=models.SET_NULL, null=True,
+                                            verbose_name='Поставщик')
 
     def __str__(self):
         return f'{self.name}'
@@ -717,19 +719,7 @@ class WindowsillPlug(models.Model):
         verbose_name_plural = 'Заглушки подоконников'
 
 
-class Windowsill(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Название подоконника", blank=True, null=True)
-    type = models.CharField(max_length=255, verbose_name='Тип подоконника', blank=True, null=True)
-    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
-    windowsill_provider = models.ForeignKey(WindowsillProvider, blank=True, on_delete=models.SET_NULL, null=True,
-                                            verbose_name='Поставщик')
 
-    def __str__(self):
-        return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
-
-    class Meta:
-        verbose_name = 'Подоконник'
-        verbose_name_plural = 'Подоконники'
 
 
 class WindowsillConnection(models.Model):
@@ -745,6 +735,23 @@ class WindowsillConnection(models.Model):
         verbose_name_plural = 'Соединители подоконников'
 
 
+class Windowsill(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название подоконника", blank=True, null=True)
+    type = models.CharField(max_length=255, verbose_name='Тип подоконника', blank=True, null=True)
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    windowsill_provider = models.ForeignKey(WindowsillProvider, blank=True, on_delete=models.SET_NULL, null=True,
+                                            verbose_name='Поставщик')
+    windowsill_plug = models.ForeignKey(WindowsillPlug, blank=True, on_delete=models.SET_NULL, null=True,  related_name='plug_windowsills',
+                                            verbose_name='Заглушка')
+    windowsill_connection = models.ForeignKey(WindowsillConnection, blank=True, on_delete=models.SET_NULL, null=True,related_name='connection_windowsills',
+                                            verbose_name='Соединитель')
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
+
+    class Meta:
+        verbose_name = 'Подоконник'
+        verbose_name_plural = 'Подоконники'
 class LowTidesInstallation(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
     price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
