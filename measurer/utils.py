@@ -152,7 +152,7 @@ def calc_low_tides(order_id, low_tides, low_tides_color, low_tides_width, low_ti
 
 
 def calc_visors(order_id, visors, visors_color, width_1,width_2,width_3, length, count):
-    width = width_1 + width_2 + width_3
+    width = width_1 + width_2 + width_3 + 50
     if (width > 0) and (length > 0):
         price_in_byn = visors.price_input
         # price_in_currency = visors.price_in_currency
@@ -179,6 +179,7 @@ def calc_visors(order_id, visors, visors_color, width_1,width_2,width_3, length,
                                                 visors=visors,
                                                 visors_color=visors_color,
                                                 width=width,
+                                                width_1=width_1, width_2=width_2, width_3=width_3,
                                                 length=length,
                                                 count=count,
                                                 price_in_byn=sum_byn,
@@ -267,9 +268,13 @@ def calc_flashing(order_id, flashing, flashing_color, width, length, count):
 
 
 def calc_casing(order_id, casing, casing_color, width, length, count):
+
+    casing_price = CasingPrice.objects.get(casing=casing, width_1__lte=width, width_2__gte=width)
+    price_input_casing = casing_price.price_input
+    
     if (width > 0) and (length > 0):
 
-        price_in_byn = casing.price_in_byn
+        price_in_byn = price_input_casing
         # price_in_currency = casing.price_in_currency
 
         sum_byn = price_in_byn * ((width * length) / 1000000)

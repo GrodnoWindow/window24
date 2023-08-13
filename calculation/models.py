@@ -333,6 +333,9 @@ class VisorsCalc(models.Model):
 
     markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
+    width_1 = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина 1')
+    width_2 = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина 2')
+    width_3 = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина 3')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')

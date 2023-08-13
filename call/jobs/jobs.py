@@ -318,5 +318,3 @@ def parse_active_calls():
     data = get_calls()
     parse_okna360(data)
     parse_window24(data)
-
-# data = get_calls()

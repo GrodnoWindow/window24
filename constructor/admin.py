@@ -83,6 +83,7 @@ admin.site.register(VisorsColor)
 admin.site.register(VisorsInstallation)
 
 admin.site.register(Casing)
+admin.site.register(CasingPrice)
 admin.site.register(CasingProvider)
 admin.site.register(CasingColor)
 admin.site.register(CasingInstallation)

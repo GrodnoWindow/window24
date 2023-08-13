@@ -838,6 +838,7 @@ class LowTidesAPIView(APIView):
         filters = {}
         filters['low_tides'] = LowTides.objects.all()
         filters['low_tides_color'] = LowTidesColor.objects.all()
+        filters['low_tides_type'] = LowTidesType.objects.all()
         filters['low_tides_installation'] = LowTidesInstallation.objects.all()
         filters['low_tides_provider'] = LowTidesProvider.objects.all()
 
@@ -855,6 +856,12 @@ class LowTidesAPIView(APIView):
                     'placeholder': 'Выберите цвет отлива',
                     'label': 'Цвет отлива',
                     'options': serializer.data['low_tides_color'],
+                },
+                {
+                    'name': 'low_tides_type',
+                    'placeholder': 'Выберите тип отлива',
+                    'label': 'Типы отливов',
+                    'options': serializer.data['low_tides_type'],
                 },
                 {
                     'name': 'low_tides_installation',

@@ -300,6 +300,10 @@ class LowTidesColorSerializer(serializers.ModelSerializer):
         model = LowTidesColor
         fields = '__all__'
 
+class LowTidesTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LowTidesType
+        fields = '__all__'
 
 class LowTidesProviderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -703,15 +707,21 @@ class ConstructorCategorySerializer(serializers.Serializer):
     casing_color = CasingColorSerializer(read_only=True, many=True)
     casing_installation = CasingInstallationSerializer(read_only=True, many=True)
     casing = CasingSerializer(read_only=True, many=True)
+
     flashing_color = FlashingColorSerializer(read_only=True, many=True)
     flashing_installation = FlashingInstallationSerializer(read_only=True, many=True)
     flashing = FlashingSerializer(read_only=True, many=True)
+
     internal_slope_color = InternalSlopeColorSerializer(read_only=True, many=True)
     internal_slope_installation = InternalSlopeInstallationSerializer(read_only=True, many=True)
     internal_slope = InternalSlopeSerializer(read_only=True, many=True)
+
     low_tides_color = LowTidesColorSerializer(read_only=True, many=True)
     low_tides_installation = LowTidesInstallationSerializer(read_only=True, many=True)
+    low_tides_type = LowTidesTypeSerializer(read_only=True, many=True)
     low_tides = LowTidesSerializer(read_only=True, many=True)
+
+
     visors_color = VisorsColorSerializer(read_only=True, many=True)
     visors_installation = VisorsInstallationSerializer(read_only=True, many=True)
     visors = VisorsSerializer(read_only=True, many=True)

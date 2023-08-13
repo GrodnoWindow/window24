@@ -941,19 +941,36 @@ class CasingColor(models.Model):
         verbose_name_plural = 'Цвета наличников'
 
 
+
 class Casing(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название наличника')
-    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    # price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
     casing_provider = models.ForeignKey(CasingProvider, on_delete=models.SET_NULL, blank=True, null=True,
                                         verbose_name='Поставщик')
 
     def __str__(self):
-        return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
+        return f'# {self.pk} Название: {self.name}'
 
     class Meta:
         verbose_name = 'Наличник'
         verbose_name_plural = 'Наличники'
 
+class CasingPrice(models.Model):
+    casing = models.ForeignKey(Casing, on_delete=models.SET_NULL, blank=True, null=True,
+                                        verbose_name='Наличник')
+    width_1 = models.CharField(max_length=255, blank=True, null=True, verbose_name='длинна от')
+    width_2 = models.CharField(max_length=255, blank=True, null=True, verbose_name='длинна до')
+
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    casing_provider = models.ForeignKey(CasingProvider, on_delete=models.SET_NULL, blank=True, null=True,
+                                        verbose_name='Поставщик')
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.casing.name}, цена закупки: {self.price_input}'
+
+    class Meta:
+        verbose_name = 'Наличник цены'
+        verbose_name_plural = 'Наличники цены'
 
 class VisorsInstallation(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)

@@ -1,4 +1,4 @@
-from constructor.models import Windowsill, LowTides
+from constructor.models import Windowsill, LowTides, CasingPrice
 from .models import *
 
 
@@ -248,8 +248,8 @@ def calc_flashing(flashing_id,installation_id,color_id, width, length, count, ma
 def calc_casing(casing_id,installation_id,color_id,fastening_id, width, length, count, markups_type):
     casing = Casing.objects.get(id=casing_id)
     casing_markup = CasingMarkups.objects.get(casing=casing_id)
-
-    price_input_low_tides = casing.price_input
+    casing_price = CasingPrice.objects.get(casing=casing, width_1__lte=width, width_2__gte=width)
+    price_input_casing = casing_price.price_input
 
     if markups_type == 0:
         in_percent = casing_markup.markups_diler_in_percent
@@ -273,9 +273,9 @@ def calc_casing(casing_id,installation_id,color_id,fastening_id, width, length, 
         markups_name = '4'
 
     if in_percent:
-        price_low_tides = price_input_low_tides + (price_input_low_tides / 100 * markup)
+        price_low_tides = price_input_casing + (price_input_casing / 100 * markup)
     else:
-        price_low_tides = price_input_low_tides + markup
+        price_low_tides = price_input_casing + markup
 
     sum = price_low_tides * ((width * length) / 1000000)
     square_meter = (width * length) / 1000000
@@ -294,7 +294,7 @@ def calc_casing(casing_id,installation_id,color_id,fastening_id, width, length, 
                                                    count=count,
                                                    price_output=sum, markups_type=markups_name,
                                                    square_meter=square_meter,
-                                            fastening_id=fastening_id,
+                                                    fastening_id=fastening_id,
                                                    linear_meter=linear_meter,
                                                    installation_id=installation_id,color_id=color_id)
 
@@ -302,7 +302,7 @@ def calc_casing(casing_id,installation_id,color_id,fastening_id, width, length, 
 
 
 def calc_visors(visors_id, installation_id, color_id, width_1,width_2,width_3, length, count, markups_type):
-    width = width_1 + width_2 + width_3
+    width = width_1 + width_2 + width_3 + 50
     visors = Visors.objects.get(id=visors_id)
     visors_markup = VisorsMarkups.objects.get(visors=visors_id)
 
@@ -347,7 +347,7 @@ def calc_visors(visors_id, installation_id, color_id, width_1,width_2,width_3, l
     linear_meter = round(linear_meter, 2)
 
     visors_calc = VisorsCalc.objects.create(visors_id=visors_id, width=width, length=length,
-                                            count=count,
+                                            count=count,width_1=width_1,width_2=width_2,width_3=width_3,
                                             price_output=sum, markups_type=markups_name,
                                             square_meter=square_meter,
                                             linear_meter=linear_meter,
