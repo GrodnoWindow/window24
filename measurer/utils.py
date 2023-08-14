@@ -230,25 +230,29 @@ def calc_connection_profile(order_id, connection_profile, count):
 
 
 def calc_flashing(order_id, flashing, flashing_color, width, length, count):
+
     if (width > 0) and (length > 0):
 
-        price_in_byn = flashing.price_in_byn
+        price_in_byn = flashing.price_input
         # price_in_currency = flashing.price_in_currency
 
         width = width + 55.0  # + 55 мм
+        sum = 0
+        if flashing.type == 0:  # metal -> m2
+            sum = price_in_byn * ((width * length) / 1000000)
+        elif flashing.type == 1:
+            sum = price_in_byn * (length / 1000000)
 
-        sum_byn = price_in_byn * ((width * length) / 1000000)
-        # sum_currency = price_in_currency * ((width * length) / 1000000)
         square_meter = (width * length) / 1000000
         linear_meter = length / 1000
 
         if count > 0:
-            sum_byn = sum_byn * count
+            sum = sum * count
             # sum_currency = sum_currency * count
             square_meter = square_meter * count
             linear_meter = linear_meter * count
 
-        sum_byn = round(sum_byn, 2)
+        sum = round(sum, 2)
         # sum_currency = round(sum_currency, 2)
 
         square_meter = round(square_meter, 2)
@@ -259,7 +263,7 @@ def calc_flashing(order_id, flashing, flashing_color, width, length, count):
                                                     width=width,
                                                     length=length,
                                                     count=count,
-                                                    price_in_byn=sum_byn,
+                                                    price_in_byn=sum,
                                                     # price_in_currency=sum_currency,
                                                     square_meter=square_meter,
                                                     linear_meter=linear_meter)
@@ -271,7 +275,7 @@ def calc_casing(order_id, casing, casing_color, width, length, count):
 
     casing_price = CasingPrice.objects.get(casing=casing, width_1__lte=width, width_2__gte=width)
     price_input_casing = casing_price.price_input
-    
+
     if (width > 0) and (length > 0):
 
         price_in_byn = price_input_casing

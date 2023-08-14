@@ -84,7 +84,9 @@ admin.site.register(VisorsInstallation)
 
 admin.site.register(Casing)
 admin.site.register(CasingPrice)
+admin.site.register(CasingNipelPrice)
 admin.site.register(CasingProvider)
+
 admin.site.register(CasingColor)
 admin.site.register(CasingInstallation)
 admin.site.register(CasingFastening)

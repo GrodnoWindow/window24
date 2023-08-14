@@ -298,6 +298,7 @@ class CasingCalc(models.Model):
 
     markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
+    nipel_count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество Нипелей')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')

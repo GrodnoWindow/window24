@@ -80,11 +80,12 @@ class CasingCalcSerializer(serializers.ModelSerializer):
     width = serializers.IntegerField(max_value=None, min_value=None)
     length = serializers.IntegerField(max_value=None, min_value=None)
     count = serializers.IntegerField(max_value=None, min_value=None)
+    nipel_count = serializers.IntegerField(max_value=None, min_value=None)
     markups_type = serializers.IntegerField(max_value=None, min_value=None)
 
     class Meta:
         model = SlopesOfMetalCalc
-        fields = 'casing_id', 'installation_id','fastening_id', 'color_id',  'width', 'length', 'count', 'markups_type'
+        fields = 'casing_id', 'installation_id','fastening_id', 'color_id',  'width', 'length', 'count', 'markups_type','nipel_count'
 
 
 class VisorsCalcSerializer(serializers.ModelSerializer):

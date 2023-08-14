@@ -884,6 +884,11 @@ class Flashing(models.Model):
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
     flashing_provider = models.ForeignKey(FlashingProvider, blank=True, on_delete=models.SET_NULL, null=True,
                                           verbose_name='Поставщик')
+    TYPE = [(0, 'Металл'),
+            (1, 'Пластик')]
+    width = models.FloatField(default=0.0, verbose_name='Ширина', blank=True, null=True)
+    name = models.CharField(max_length=255, verbose_name="Профиль", blank=True, null=True)
+    type = models.PositiveSmallIntegerField(('type'), choices=TYPE, blank=True, null=True)
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
@@ -955,11 +960,23 @@ class Casing(models.Model):
         verbose_name = 'Наличник'
         verbose_name_plural = 'Наличники'
 
+class CasingNipelPrice(models.Model):
+    casing = models.ForeignKey(Casing, on_delete=models.SET_NULL, blank=True, null=True,
+                                        verbose_name='Наличник')
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    casing_provider = models.ForeignKey(CasingProvider, on_delete=models.SET_NULL, blank=True, null=True,
+                                        verbose_name='Поставщик')
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.casing.name}, цена закупки: {self.price_input}'
+
+    class Meta:
+        verbose_name = 'Нипели для наличников'
+        verbose_name_plural = 'Нипели для наличников '
 class CasingPrice(models.Model):
     casing = models.ForeignKey(Casing, on_delete=models.SET_NULL, blank=True, null=True,
                                         verbose_name='Наличник')
-    width_1 = models.CharField(max_length=255, blank=True, null=True, verbose_name='длинна от')
-    width_2 = models.CharField(max_length=255, blank=True, null=True, verbose_name='длинна до')
+    width = models.CharField(max_length=255, blank=True, null=True, verbose_name='Ширина')
 
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
     casing_provider = models.ForeignKey(CasingProvider, on_delete=models.SET_NULL, blank=True, null=True,
