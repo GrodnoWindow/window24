@@ -191,10 +191,13 @@ def calc_low_tides(low_tides_id,installation_id,color_id, width,width_1,width_2,
 
 def calc_flashing(flashing_id,installation_id,color_id, width, length, count, markups_type):
     flashing = Flashing.objects.get(id=flashing_id)
-    flashing_markup = FlashingMarkups.objects.get(flashing=flashing_id)
+
+    flashing_markup = FlashingMarkups.objects.get(flashing=flashing)
 
     price_input_flashing = flashing.price_input
 
+    # print(price_input_flashing)
+    # print(markups_type)
     if markups_type == 0:
         in_percent = flashing_markup.markups_diler_in_percent
         markup = flashing_markup.markups_diler
@@ -217,6 +220,7 @@ def calc_flashing(flashing_id,installation_id,color_id, width, length, count, ma
         in_percent = flashing_markup.markups_5_in_percent
         markup = flashing_markup.markups_5
         markups_name = '4'
+
     if in_percent:
         price_input_flashing = price_input_flashing + (price_input_flashing / 100 * markup)
     else:
@@ -224,13 +228,15 @@ def calc_flashing(flashing_id,installation_id,color_id, width, length, count, ma
 
 
     if flashing.type == 0: # metal -> m2
-        sum = price_input_flashing * ((width * length) / 1000000)
+        sum = price_input_flashing * (((width + 30) * length) / 1000000)
     elif flashing.type == 1:
-        sum = price_input_flashing * (length / 1000000)
-
-    square_meter = (width * length) / 1000000
-    linear_meter = width / 1000
-
+        width = flashing.width
+        sum = price_input_flashing * (length / 1000)
+    # print(price_input_flashing)
+    square_meter = (width * length) / 1000
+    linear_meter = length / 1000
+    # print(linear_meter)
+    # print(square_meter)
     if count > 0:
         sum = sum * count
         square_meter = square_meter * count
@@ -253,6 +259,7 @@ def calc_flashing(flashing_id,installation_id,color_id, width, length, count, ma
 def calc_casing(casing_id,installation_id,color_id,fastening_id, width, length, count, markups_type):
     casing = Casing.objects.get(id=casing_id)
     casing_markup = CasingMarkups.objects.get(casing=casing_id)
+
     casing_price = CasingPrice.objects.get(casing=casing, width=width)
     price_input_casing = casing_price.price_input
 
@@ -276,13 +283,15 @@ def calc_casing(casing_id,installation_id,color_id,fastening_id, width, length, 
         in_percent = casing_markup.markups_5_in_percent
         markup = casing_markup.markups_5
         markups_name = '4'
+    # print(price_input_casing)
 
     if in_percent:
-        price_low_tides = price_input_casing + (price_input_casing / 100 * markup)
+        price_input_casing = price_input_casing + (price_input_casing / 100 * markup)
     else:
-        price_low_tides = price_input_casing + markup
-
-    sum = price_low_tides * ((width * length) / 1000000)
+        price_input_casing = price_input_casing + markup
+    # print(price_input_casing)
+    sum = price_input_casing * (length / 1000)
+    # print(sum)
     square_meter = (width * length) / 1000000
     linear_meter = length / 1000
 
@@ -298,10 +307,14 @@ def calc_casing(casing_id,installation_id,color_id,fastening_id, width, length, 
     linear_meter = round(linear_meter, 2)
 
     nipel = CasingNipelPrice.objects.get(casing=casing)
+
     nipel.price_input
     nipel_count = int(linear_meter) * 4
 
-    sum = sum + ( nipel_count * nipel.price_input )
+    price_nipel = ( nipel_count * nipel.price_input )
+    print(sum)
+    print(price_nipel)
+    sum = sum + price_nipel
     sum = round(sum,2)
     casing_calc = CasingCalc.objects.create(casing_id=casing_id, width=width, length=length,
                                                    count=count,

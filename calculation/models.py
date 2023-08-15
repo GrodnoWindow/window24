@@ -137,7 +137,7 @@ class CasingMarkups(models.Model):
     markups_5_in_percent = models.BooleanField(default=True, verbose_name='Добавлять в процентах ( наценка №5 )')
 
     def __str__(self):
-        return f' Наличник № {self.casing.pk} название: {self.casing}, цена закупки: {self.casing.price_input} ,'
+        return f' Наличник № {self.casing.pk} название: {self.casing}'
 
     class Meta:
         verbose_name = 'Наценка на наличник'
