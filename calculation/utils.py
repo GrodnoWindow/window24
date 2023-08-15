@@ -309,7 +309,7 @@ def calc_casing(casing_id,installation_id,color_id,fastening_id, width, length, 
     nipel = CasingNipelPrice.objects.get(casing=casing)
 
     nipel.price_input
-    nipel_count = int(linear_meter) * 4
+    nipel_count = int(linear_meter) * 5
 
     price_nipel = ( nipel_count * nipel.price_input )
     print(sum)

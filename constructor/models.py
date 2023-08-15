@@ -968,7 +968,7 @@ class CasingNipelPrice(models.Model):
                                         verbose_name='Поставщик')
 
     def __str__(self):
-        return f'# {self.pk} Название: {self.casing.name}, цена закупки: {self.price_input}'
+        return f'# {self.pk} цена закупки: {self.price_input}'
 
     class Meta:
         verbose_name = 'Нипели для наличников'
