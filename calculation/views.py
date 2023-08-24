@@ -174,6 +174,7 @@ class CalculationInternalSlopeAPIView(APIView):
         installation_id = request.data['installation_id']
         color_id = request.data['color_id']
         type = request.data['type']
+        f_count = request.data['f_count']
         width = request.data['width']
         length = request.data['length']
         height_1 = request.data['height_1']
@@ -181,7 +182,7 @@ class CalculationInternalSlopeAPIView(APIView):
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        internal_slope = calc_internal_slope(internal_slope_id=internal_slope_id,type=type, width=width,height_1=height_1,height_2=height_2,color_id=color_id,installation_id=installation_id,
+        internal_slope = calc_internal_slope(internal_slope_id=internal_slope_id,type=type, f_count=f_count,width=width,height_1=height_1,height_2=height_2,color_id=color_id,installation_id=installation_id,
                                              length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(internal_slope)})

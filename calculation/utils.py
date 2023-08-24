@@ -1,6 +1,6 @@
 import math
 
-from constructor.models import Windowsill, LowTides, CasingPrice, CasingNipelPrice
+from constructor.models import Windowsill, LowTides, CasingPrice, CasingNipelPrice, InsternalSlopePrice
 from .models import *
 
 
@@ -425,7 +425,7 @@ def calc_slopes_of_metal(slopes_of_metal_id,installation_id,color_id, width_1,wi
         sum = sum * count
         square_meter = square_meter * count
         linear_meter = linear_meter * count
-    sum = sum + (lock_count * lock_price)
+    sum = sum + ((lock_count * 4) * lock_price)
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
     linear_meter = round(linear_meter, 2)
@@ -446,18 +446,29 @@ def calc_slopes_of_metal(slopes_of_metal_id,installation_id,color_id, width_1,wi
     return slopes_of_metal_calc
 
 
-def calc_internal_slope(internal_slope_id,installation_id,color_id,type,height_1,height_2, width, length, count, markups_type):
+
+
+def calc_internal_slope(internal_slope_id,installation_id,color_id,type,f_count,height_1,height_2, width, length, count, markups_type):
     internal_slope = InternalSlope.objects.get(id=internal_slope_id)
-    internal_slope_start_profile_price = internal_slope.internal_slope_start_profile.price_input
-    internal_slope_casing_price = internal_slope.internal_slope_casing.price_input
-    internal_slope_lid_price = internal_slope.internal_slope_lid.price_input
-    internal_slope_latch_price = internal_slope.internal_slope_latch.price_input
-    internal_slope_f_price = internal_slope.internal_slope_f.price_input
 
     internal_slope_markup = InternalSlopeMarkups.objects.get(internal_slope=internal_slope)
 
-    price_input = internal_slope.price_input
+    price_input = 0
+    if type == 0:  # Кюнель
+        try:
+            internal_slope_price = InsternalSlopePrice.objects.get(internal_slope=internal_slope, width=width)
+            internal_slope_start_profile_price = internal_slope.internal_slope_start_profile.price_input
+            internal_slope_casing_price = internal_slope.internal_slope_casing.price_input
+            internal_slope_lid_price = internal_slope.internal_slope_lid.price_input
+            internal_slope_latch_price = internal_slope.internal_slope_latch.price_input
+            price_input = internal_slope_price.price_input
+        except:
+            pass
+    elif type == 1:  # F
+        internal_slope_f_price = internal_slope.internal_slope_f.price_input
 
+        price_input = internal_slope.price_input
+    print(price_input)
     if markups_type == 0:
         in_percent = internal_slope_markup.markups_diler_in_percent
         markup = internal_slope_markup.markups_diler
@@ -483,25 +494,43 @@ def calc_internal_slope(internal_slope_id,installation_id,color_id,type,height_1
         price = price_input + (price_input / 100 * markup)
     else:
         price = price_input + markup
-
-    sum = price * ((width * length) / 1000000)
-    square_meter = (width * length) / 1000000
+    square_meter = (length + height_1 + height_2) * width / 1000000
     linear_meter = (length + height_1 + height_2) / 1000
 
-
-
+    print(square_meter)
+    print(price)
+    if type == 0:
+        sum = price * linear_meter
+    elif type == 1:
+        sum = price * square_meter
+    print(sum)
     if count > 0:
         sum = sum * count
         square_meter = square_meter * count
         linear_meter = linear_meter * count
 
-    sum = sum + (internal_slope_lid_price * 2) # + 2 крышки
 
+
+
+    lid_count = 0
     if type == 0:  # Кюнель
-        sum = sum + (linear_meter * internal_slope_start_profile_price ) # + старт профиль
-        sum = sum + (linear_meter * internal_slope_casing_price ) # + наличник
+        try:
+            count_latch = math.ceil(linear_meter) * 4
+            sum += linear_meter * internal_slope_start_profile_price  # + старт профиль
+            sum += linear_meter * internal_slope_casing_price  # + наличник
+            sum += count_latch * internal_slope_latch_price # + защелка
+            sum = sum + (internal_slope_lid_price * 2)  # + 2 крышки
+            lid_count = 2
+        except:
+            pass
+
     elif type == 1: # F
-        pass
+
+        sum += f_count * internal_slope_f_price  # + F профиль
+        count_latch = 0
+        lid_count = 0
+
+
 
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
@@ -509,7 +538,11 @@ def calc_internal_slope(internal_slope_id,installation_id,color_id,type,height_1
 
     internal_slop_calc = InternalSlopeCalc.objects.create(internal_slope_id=internal_slope.id, width=width, length=length,
                                                           count=count,
-                                                          lid_count=2,
+                                                          lid_count=lid_count,
+                                                          latch_count=count_latch,
+                                                          f_count=f_count,
+                                                          height_1=height_1,
+                                                          height_2=height_2,
                                                           start_profile_length=linear_meter,
                                                           casing_length=linear_meter,
                                                           price_output=sum, markups_type=markups_name,

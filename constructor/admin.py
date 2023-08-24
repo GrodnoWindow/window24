@@ -104,6 +104,7 @@ admin.site.register(SlopesOfMetalColor)
 admin.site.register(SlopesOfMetalInstallation)
 
 admin.site.register(InternalSlope)
+admin.site.register(InsternalSlopePrice)
 admin.site.register(InternalSlopeF)
 admin.site.register(InternalSlopeLatch)
 admin.site.register(InternalSlopeLid)

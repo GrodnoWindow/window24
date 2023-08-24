@@ -127,6 +127,8 @@ class InternalSlopeCalcSerializer(serializers.ModelSerializer):
     internal_slope_id = serializers.IntegerField(max_value=None, min_value=None)
     installation_id = serializers.IntegerField(max_value=None, min_value=None)
     color_id = serializers.IntegerField(max_value=None, min_value=None)
+    type = serializers.IntegerField(max_value=None, min_value=None)
+    f_count = serializers.IntegerField(max_value=None, min_value=None)
     width = serializers.IntegerField(max_value=None, min_value=None)
     length = serializers.IntegerField(max_value=None, min_value=None)
     height_1 = serializers.IntegerField(max_value=None, min_value=None)
@@ -136,7 +138,7 @@ class InternalSlopeCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = InternalSlope
-        fields = 'internal_slope_id', 'installation_id', 'color_id',  'width', 'length', 'count', 'markups_type'
+        fields = 'internal_slope_id', 'installation_id', 'color_id', 'type','f_count',  'width','height_1','height_2', 'length', 'count', 'markups_type'
 
 
 class WindowCalcSerializer(serializers.ModelSerializer):

@@ -1116,6 +1116,7 @@ class SlopesOfMetal(models.Model):
         verbose_name_plural = 'откосы из металла'
 
 
+
 class InternalSlopeColor(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
 
@@ -1241,6 +1242,22 @@ class InternalSlope(models.Model):
         verbose_name = 'Внутренние откосы'
         verbose_name_plural = 'Внутренние откосы'
 
+
+class InsternalSlopePrice(models.Model):
+    internal_slope = models.ForeignKey(InternalSlope, on_delete=models.SET_NULL, blank=True, null=True,
+                               verbose_name='Внутренние откосы')
+    width = models.CharField(max_length=255, blank=True, null=True, verbose_name='Ширина')
+
+    price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    casing_provider = models.ForeignKey(InternalSlopeProvider, on_delete=models.SET_NULL, blank=True, null=True,
+                                        verbose_name='Поставщик')
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.internal_slope.name}, цена закупки: {self.price_input}'
+
+    class Meta:
+        verbose_name = 'Цена на внутренние откосы'
+        verbose_name_plural = 'Цены на внутренние откосы'
 
 class MountingMaterialsName(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Наименование монтажных материалов')
