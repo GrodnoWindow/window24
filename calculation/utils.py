@@ -1,3 +1,5 @@
+import math
+
 from constructor.models import Windowsill, LowTides, CasingPrice, CasingNipelPrice
 from .models import *
 
@@ -101,7 +103,7 @@ def calc_windowsill(windowsill_id,installation_id,color_id, width, length, count
 
     sum = price_windowsill * ((width * length) / 1000000)
     square_meter = (width * length) / 1000000
-    linear_meter = width / 1000
+    linear_meter = length / 1000
 
     if count > 0:
         sum = sum * count
@@ -166,7 +168,7 @@ def calc_low_tides(low_tides_id,installation_id,color_id, width,width_1,width_2,
 
     sum = price_low_tides * ((width * length) / 1000000)
     square_meter = (width * length) / 1000000
-    linear_meter = width / 1000
+    linear_meter = length / 1000
 
     if count > 0:
         sum = sum * count
@@ -362,7 +364,7 @@ def calc_visors(visors_id, installation_id, color_id, width_1,width_2,width_3, l
 
     sum = price_low_tides * ((width * length) / 1000000)
     square_meter = (width * length) / 1000000
-    linear_meter = width / 1000
+    linear_meter = length / 1000
 
     if count > 0:
         sum = sum * count
@@ -383,12 +385,12 @@ def calc_visors(visors_id, installation_id, color_id, width_1,width_2,width_3, l
     return visors_calc
 
 
-def calc_slopes_of_metal(slopes_of_metal_id,installation_id,color_id, width, length, count, markups_type):
+def calc_slopes_of_metal(slopes_of_metal_id,installation_id,color_id, width_1,width_2,width_3,width_4, length, count, markups_type):
     slopes_of_metal = SlopesOfMetal.objects.get(id=slopes_of_metal_id)
     slopes_of_metal_markup = SlopesOfMetalMarkups.objects.get(slopes_of_metal=slopes_of_metal)
-
+    lock_price = slopes_of_metal.slopes_of_metal_lock.price_input
     price_input = slopes_of_metal.price_input
-
+    width = width_1 + width_2 + width_3 + width_4
     if markups_type == 0:
         in_percent = slopes_of_metal_markup.markups_diler_in_percent
         markup = slopes_of_metal_markup.markups_diler
@@ -416,18 +418,24 @@ def calc_slopes_of_metal(slopes_of_metal_id,installation_id,color_id, width, len
 
     sum = price * ((width * length) / 1000000)
     square_meter = (width * length) / 1000000
-    linear_meter = width / 1000
+    linear_meter = length / 1000
 
+    lock_count = math.ceil(linear_meter)
     if count > 0:
         sum = sum * count
         square_meter = square_meter * count
         linear_meter = linear_meter * count
-
+    sum = sum + (lock_count * lock_price)
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
     linear_meter = round(linear_meter, 2)
 
     slopes_of_metal_calc = SlopesOfMetalCalc.objects.create(slopes_of_metal_id=slopes_of_metal.id, width=width,
+                                                            width_1=width_1,
+                                                            width_2=width_2,
+                                                            width_3=width_3,
+                                                            width_4=width_4,
+                                                            lock_count=lock_count,
                                                             length=length,
                                                             count=count,
                                                             price_output=sum, markups_type=markups_name,
@@ -438,8 +446,14 @@ def calc_slopes_of_metal(slopes_of_metal_id,installation_id,color_id, width, len
     return slopes_of_metal_calc
 
 
-def calc_internal_slope(internal_slope_id,installation_id,color_id, width, length, count, markups_type):
+def calc_internal_slope(internal_slope_id,installation_id,color_id,type,height_1,height_2, width, length, count, markups_type):
     internal_slope = InternalSlope.objects.get(id=internal_slope_id)
+    internal_slope_start_profile_price = internal_slope.internal_slope_start_profile.price_input
+    internal_slope_casing_price = internal_slope.internal_slope_casing.price_input
+    internal_slope_lid_price = internal_slope.internal_slope_lid.price_input
+    internal_slope_latch_price = internal_slope.internal_slope_latch.price_input
+    internal_slope_f_price = internal_slope.internal_slope_f.price_input
+
     internal_slope_markup = InternalSlopeMarkups.objects.get(internal_slope=internal_slope)
 
     price_input = internal_slope.price_input
@@ -464,6 +478,7 @@ def calc_internal_slope(internal_slope_id,installation_id,color_id, width, lengt
         in_percent = internal_slope_markup.markups_5_in_percent
         markup = internal_slope_markup.markups_5
         markups_name = '4'
+
     if in_percent:
         price = price_input + (price_input / 100 * markup)
     else:
@@ -471,12 +486,22 @@ def calc_internal_slope(internal_slope_id,installation_id,color_id, width, lengt
 
     sum = price * ((width * length) / 1000000)
     square_meter = (width * length) / 1000000
-    linear_meter = width / 1000
+    linear_meter = (length + height_1 + height_2) / 1000
+
+
 
     if count > 0:
         sum = sum * count
         square_meter = square_meter * count
         linear_meter = linear_meter * count
+
+    sum = sum + (internal_slope_lid_price * 2) # + 2 крышки
+
+    if type == 0:  # Кюнель
+        sum = sum + (linear_meter * internal_slope_start_profile_price ) # + старт профиль
+        sum = sum + (linear_meter * internal_slope_casing_price ) # + наличник
+    elif type == 1: # F
+        pass
 
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
@@ -484,6 +509,9 @@ def calc_internal_slope(internal_slope_id,installation_id,color_id, width, lengt
 
     internal_slop_calc = InternalSlopeCalc.objects.create(internal_slope_id=internal_slope.id, width=width, length=length,
                                                           count=count,
+                                                          lid_count=2,
+                                                          start_profile_length=linear_meter,
+                                                          casing_length=linear_meter,
                                                           price_output=sum, markups_type=markups_name,
                                                           square_meter=square_meter,
                                                           linear_meter=linear_meter,

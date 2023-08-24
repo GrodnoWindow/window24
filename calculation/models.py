@@ -447,7 +447,12 @@ class SlopesOfMetalCalc(models.Model):
     color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
 
     markups_type = models.CharField(max_length=255, verbose_name='Наценка')
-    width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
+    width = models.IntegerField(default=0,blank=True,null=True, verbose_name='Ширина')
+    width_1 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Ширина 1')
+    width_2 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Ширина 2')
+    width_3 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Ширина 3')
+    width_4 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Ширина 4')
+    lock_count = models.IntegerField(default=0,blank=True,null=True, verbose_name='Количество замком')
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
@@ -481,12 +486,21 @@ class InternalSlopeCalc(models.Model):
     installation_id = models.IntegerField(default=0, verbose_name='Установка', blank=True, null=True)
     color_id = models.IntegerField(default=0, verbose_name='Цвет', blank=True, null=True)
 
-    markups_type = models.CharField(max_length=255, verbose_name='Наценка ')
+    markups_type = models.CharField(max_length=255, verbose_name='Наценка')
     width = models.FloatField(max_length=255, default=0.0, verbose_name='Ширина')
-    length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
     square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
+
+    height_1 = models.IntegerField(default=0.0,blank=True,null=True, verbose_name='Высота 1')
+    height_2 = models.IntegerField(default=0.0,blank=True,null=True, verbose_name='Высота 2')
+    length = models.IntegerField(default=0.0,blank=True,null=True, verbose_name='Длинна')
+
+    start_profile_length = models.IntegerField( default=0.0,blank=True,null=True, verbose_name='Стартовый профиль в мп')
+    casing_length = models.IntegerField( default=0.0,blank=True,null=True, verbose_name='Наличник профиль в мп')
+    lid_count = models.IntegerField(default=0.0,blank=True,null=True, verbose_name='Кол-во крышек')
+    latch_count = models.IntegerField( default=0.0,blank=True,null=True, verbose_name='Кол-во защелок')
+    f_count = models.IntegerField(default=0.0,blank=True,null=True, verbose_name='Кол-во F')
 
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
 

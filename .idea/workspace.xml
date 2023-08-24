@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="157e8c57-b7d6-4564-ab9c-d233cf82ba22" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calculation/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/calculation/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constructor/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/constructor/models.py" afterDir="false" />
-    </list>
+    <list default="true" id="157e8c57-b7d6-4564-ab9c-d233cf82ba22" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,7 +39,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "backend-1",
-    "last_opened_file_path": "D:/Roman/PyCharmProjects/window24",
+    "last_opened_file_path": "D:/window24",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -67,7 +63,7 @@
       <recent name="E:\window24\measurer\templates" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.parse_calls">
+  <component name="RunManager" selected="Django Server.window24">
     <configuration name="parse_calls" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="window24" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -177,6 +173,7 @@
       <workItem from="1691868882227" duration="8720000" />
       <workItem from="1691921117267" duration="5518000" />
       <workItem from="1692040098951" duration="4055000" />
+      <workItem from="1692800390172" duration="8526000" />
     </task>
     <servers />
   </component>

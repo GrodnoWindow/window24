@@ -108,14 +108,19 @@ class SlopesOfMetalCalcSerializer(serializers.ModelSerializer):
     slopes_of_metal_id = serializers.IntegerField(max_value=None, min_value=None)
     installation_id = serializers.IntegerField(max_value=None, min_value=None)
     color_id = serializers.IntegerField(max_value=None, min_value=None)
-    width = serializers.IntegerField(max_value=None, min_value=None)
+    width = serializers.IntegerField(max_value=None, min_value=None,read_only=True)
+    width_1 = serializers.IntegerField(max_value=None, min_value=None)
+    width_2 = serializers.IntegerField(max_value=None, min_value=None)
+    width_3 = serializers.IntegerField(max_value=None, min_value=None)
+    width_4 = serializers.IntegerField(max_value=None, min_value=None)
+    lock_count = serializers.IntegerField(max_value=None, min_value=None,read_only=True)
     length = serializers.IntegerField(max_value=None, min_value=None)
     count = serializers.IntegerField(max_value=None, min_value=None)
     markups_type = serializers.IntegerField(max_value=None, min_value=None)
 
     class Meta:
-        model = SlopesOfMetal
-        fields = 'slopes_of_metal_id', 'installation_id', 'color_id',  'width', 'length', 'count', 'markups_type'
+        model = SlopesOfMetalCalc
+        fields = 'slopes_of_metal_id', 'installation_id', 'color_id',  'width','width_1','width_2','width_3','width_4','lock_count', 'length', 'count', 'markups_type'
 
 
 class InternalSlopeCalcSerializer(serializers.ModelSerializer):
@@ -124,6 +129,8 @@ class InternalSlopeCalcSerializer(serializers.ModelSerializer):
     color_id = serializers.IntegerField(max_value=None, min_value=None)
     width = serializers.IntegerField(max_value=None, min_value=None)
     length = serializers.IntegerField(max_value=None, min_value=None)
+    height_1 = serializers.IntegerField(max_value=None, min_value=None)
+    height_2 = serializers.IntegerField(max_value=None, min_value=None)
     count = serializers.IntegerField(max_value=None, min_value=None)
     markups_type = serializers.IntegerField(max_value=None, min_value=None)
 

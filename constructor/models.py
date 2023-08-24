@@ -659,6 +659,7 @@ class WindowsillInstallation(models.Model):
         verbose_name = 'Монтаж подоконника'
         verbose_name_plural = 'Монтажи подоконников'
 
+
 class WindowsillColorProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
@@ -669,7 +670,6 @@ class WindowsillColorProvider(models.Model):
     class Meta:
         verbose_name = 'Поставщик цветов подоконников'
         verbose_name_plural = 'Поставщики цветов подоконников'
-
 
 
 class WindowsillWidth(models.Model):
@@ -694,22 +694,26 @@ class WindowsillProvider(models.Model):
         verbose_name = 'Поставщик подоконников'
         verbose_name_plural = 'Поставщики подоконников'
 
+
 class WindowsillColor(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
     windowsill_provider = models.ForeignKey(WindowsillProvider, blank=True, on_delete=models.SET_NULL, null=True,
                                             verbose_name='Поставщик')
+
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
 
     class Meta:
         verbose_name = 'Цвет подоконника'
         verbose_name_plural = 'Цвета подоконников'
+
+
 class WindowsillPlug(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
     # price_in_currency = models.FloatField(blank=True, null=True, verbose_name=' Цена EUR/USD')
     price_input = models.FloatField(blank=True, null=True, verbose_name='Цена BYN')
     windowsill_plug_provider = models.ForeignKey(WindowsillProvider, blank=True, on_delete=models.SET_NULL, null=True,
-                                            verbose_name='Поставщик')
+                                                 verbose_name='Поставщик')
 
     def __str__(self):
         return f'{self.name}'
@@ -717,9 +721,6 @@ class WindowsillPlug(models.Model):
     class Meta:
         verbose_name = 'Заглушка подоконника'
         verbose_name_plural = 'Заглушки подоконников'
-
-
-
 
 
 class WindowsillConnection(models.Model):
@@ -741,10 +742,12 @@ class Windowsill(models.Model):
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
     windowsill_provider = models.ForeignKey(WindowsillProvider, blank=True, on_delete=models.SET_NULL, null=True,
                                             verbose_name='Поставщик')
-    windowsill_plug = models.ForeignKey(WindowsillPlug, blank=True, on_delete=models.SET_NULL, null=True,  related_name='plug_windowsills',
-                                            verbose_name='Заглушка')
-    windowsill_connection = models.ForeignKey(WindowsillConnection, blank=True, on_delete=models.SET_NULL, null=True,related_name='connection_windowsills',
-                                            verbose_name='Соединитель')
+    windowsill_plug = models.ForeignKey(WindowsillPlug, blank=True, on_delete=models.SET_NULL, null=True,
+                                        related_name='plug_windowsills',
+                                        verbose_name='Заглушка')
+    windowsill_connection = models.ForeignKey(WindowsillConnection, blank=True, on_delete=models.SET_NULL, null=True,
+                                              related_name='connection_windowsills',
+                                              verbose_name='Соединитель')
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'
@@ -752,6 +755,8 @@ class Windowsill(models.Model):
     class Meta:
         verbose_name = 'Подоконник'
         verbose_name_plural = 'Подоконники'
+
+
 class LowTidesInstallation(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
     price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
@@ -790,9 +795,6 @@ class LowTidesConnection(models.Model):
         verbose_name_plural = 'Соединители отливов'
 
 
-
-
-
 class LowTidesType(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
 
@@ -815,16 +817,19 @@ class LowTidesProvider(models.Model):
         verbose_name = 'Поставщик отливов'
         verbose_name_plural = 'Поставщики отливов'
 
+
 class LowTidesColor(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
     low_tides_provider = models.ForeignKey(LowTidesProvider, blank=True, on_delete=models.SET_NULL, null=True,
-                                            verbose_name='Поставщик')
+                                           verbose_name='Поставщик')
+
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
 
     class Meta:
         verbose_name = 'Цвет отлива'
         verbose_name_plural = 'Цвета отливов'
+
 
 class LowTides(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название отлива", blank=True, null=True)
@@ -853,8 +858,6 @@ class FlashingInstallation(models.Model):
         verbose_name_plural = 'Монтажи нащельников'
 
 
-
-
 class FlashingProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
@@ -866,17 +869,18 @@ class FlashingProvider(models.Model):
         verbose_name = 'Поставщик нащельников'
         verbose_name_plural = 'Поставщики нащельников'
 
+
 class FlashingColor(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
     flashing_provider = models.ForeignKey(FlashingProvider, blank=True, on_delete=models.SET_NULL, null=True,
-                                           verbose_name='Поставщик')
+                                          verbose_name='Поставщик')
+
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
 
     class Meta:
         verbose_name = 'Цвет нащельника'
         verbose_name_plural = 'Цвета нащельников'
-
 
 
 class Flashing(models.Model):
@@ -921,8 +925,6 @@ class CasingInstallation(models.Model):
         verbose_name_plural = 'Монтажи наличников'
 
 
-
-
 class CasingProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
@@ -934,17 +936,18 @@ class CasingProvider(models.Model):
         verbose_name = 'Поставщик наличников'
         verbose_name_plural = 'Поставщики наличников'
 
+
 class CasingColor(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
     casing_provider = models.ForeignKey(CasingProvider, blank=True, on_delete=models.SET_NULL, null=True,
-                                          verbose_name='Поставщик')
+                                        verbose_name='Поставщик')
+
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
 
     class Meta:
         verbose_name = 'Цвет наличника'
         verbose_name_plural = 'Цвета наличников'
-
 
 
 class Casing(models.Model):
@@ -960,9 +963,10 @@ class Casing(models.Model):
         verbose_name = 'Наличник'
         verbose_name_plural = 'Наличники'
 
+
 class CasingNipelPrice(models.Model):
     casing = models.ForeignKey(Casing, on_delete=models.SET_NULL, blank=True, null=True,
-                                        verbose_name='Наличник')
+                               verbose_name='Наличник')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
     casing_provider = models.ForeignKey(CasingProvider, on_delete=models.SET_NULL, blank=True, null=True,
                                         verbose_name='Поставщик')
@@ -973,9 +977,11 @@ class CasingNipelPrice(models.Model):
     class Meta:
         verbose_name = 'Нипели для наличников'
         verbose_name_plural = 'Нипели для наличников '
+
+
 class CasingPrice(models.Model):
     casing = models.ForeignKey(Casing, on_delete=models.SET_NULL, blank=True, null=True,
-                                        verbose_name='Наличник')
+                               verbose_name='Наличник')
     width = models.CharField(max_length=255, blank=True, null=True, verbose_name='Ширина')
 
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
@@ -989,6 +995,7 @@ class CasingPrice(models.Model):
         verbose_name = 'Наличник цены'
         verbose_name_plural = 'Наличники цены'
 
+
 class VisorsInstallation(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
     price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
@@ -999,9 +1006,6 @@ class VisorsInstallation(models.Model):
     class Meta:
         verbose_name = 'Монтаж козырька'
         verbose_name_plural = 'Монтажи козырьков'
-
-
-
 
 
 class VisorsProvider(models.Model):
@@ -1015,16 +1019,19 @@ class VisorsProvider(models.Model):
         verbose_name = 'Поставщик козырьков'
         verbose_name_plural = 'Поставщики козырьков'
 
+
 class VisorsColor(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
     visors_provider = models.ForeignKey(VisorsProvider, blank=True, on_delete=models.SET_NULL, null=True,
-                                          verbose_name='Поставщик')
+                                        verbose_name='Поставщик')
+
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
 
     class Meta:
         verbose_name = 'Цвет козырька'
         verbose_name_plural = 'Цвета козырьков'
+
 
 class Visors(models.Model):
     name = models.CharField(max_length=255, verbose_name='Развертка козырька', blank=True, null=True)
@@ -1038,9 +1045,6 @@ class Visors(models.Model):
     class Meta:
         verbose_name = 'Козырек'
         verbose_name_plural = 'Козырьки'
-
-
-
 
 
 class SlopesOfMetalColor(models.Model):
@@ -1065,11 +1069,14 @@ class SlopesOfMetalProvider(models.Model):
         verbose_name = 'Поставщик откосов из металла'
         verbose_name_plural = 'Поставщики откосов из металла'
 
+
 class SlopesOfMetalInstallation(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
     price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
-    slopes_of_metal_provider = models.ForeignKey(SlopesOfMetalProvider, blank=True, on_delete=models.SET_NULL, null=True,
-                                          verbose_name='Поставщик')
+    slopes_of_metal_provider = models.ForeignKey(SlopesOfMetalProvider, blank=True, on_delete=models.SET_NULL,
+                                                 null=True,
+                                                 verbose_name='Поставщик')
+
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
 
@@ -1077,9 +1084,27 @@ class SlopesOfMetalInstallation(models.Model):
         verbose_name = 'Монтаж откосов из металла'
         verbose_name_plural = 'Монтажи откосов из металла'
 
+
+class SlopesOfMetalLock(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название замка", blank=True, null=True)
+    price_input = models.FloatField(default=0.0, verbose_name='Цена замка', blank=True, null=True)
+    slopes_of_metal_provider = models.ForeignKey(SlopesOfMetalProvider, blank=True, on_delete=models.SET_NULL,
+                                                 null=True,
+                                                 verbose_name='Поставщик')
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price_input}'
+
+    class Meta:
+        verbose_name = 'Замок откосов из металла'
+        verbose_name_plural = 'Замки откосов из металла'
+
+
 class SlopesOfMetal(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип откосов из металла')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
+    slopes_of_metal_lock = models.ForeignKey(SlopesOfMetalLock, on_delete=models.SET_NULL, blank=True,
+                                             null=True, verbose_name='замок')
     slopes_of_metal_provider = models.ForeignKey(SlopesOfMetalProvider, on_delete=models.SET_NULL, blank=True,
                                                  null=True, verbose_name='Поставщик')
 
@@ -1089,9 +1114,6 @@ class SlopesOfMetal(models.Model):
     class Meta:
         verbose_name = 'Откосы из металла'
         verbose_name_plural = 'откосы из металла'
-
-
-
 
 
 class InternalSlopeColor(models.Model):
@@ -1116,12 +1138,14 @@ class InternalSlopeProvider(models.Model):
         verbose_name = 'Поставщик внутренние откосы'
         verbose_name_plural = 'Поставщики внутренние откосы'
 
+
 class InternalSlopeInstallation(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
     price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
     internal_provider = models.ForeignKey(InternalSlopeProvider, blank=True, on_delete=models.SET_NULL,
-                                                 null=True,
-                                                 verbose_name='Поставщик')
+                                          null=True,
+                                          verbose_name='Поставщик')
+
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
 
@@ -1129,12 +1153,86 @@ class InternalSlopeInstallation(models.Model):
         verbose_name = 'Монтаж внутренних откосов'
         verbose_name_plural = 'Монтажи внутренних откосов'
 
+
+class InternalSlopeLid(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название", blank=True, null=True)
+    price_input = models.FloatField(verbose_name="Цена", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Крышка внутренние откосы'
+        verbose_name_plural = 'Крышки внутренних откосов'
+
+
+class InternalSlopeLatch(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название", blank=True, null=True)
+    price_input = models.FloatField(verbose_name="Цена", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Защелка внутренние откосы'
+        verbose_name_plural = 'Защелки внутренних откосов'
+
+
+class InternalSlopeF(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название", blank=True, null=True)
+    price_input = models.FloatField(verbose_name="Цена", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'F внутренние откосы'
+        verbose_name_plural = 'F внутренних откосов'
+
+
+class InternalSlopeCasing(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название", blank=True, null=True)
+    price_input = models.FloatField(verbose_name="Цена", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Наличник внутренние откосы'
+        verbose_name_plural = 'Наличник внутренних откосов'
+
+
+class InternalSlopeStartProfile(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название", blank=True, null=True)
+    price_input = models.FloatField(verbose_name="Цена", blank=True, null=True)
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Старт профиль внутренние откосы'
+        verbose_name_plural = 'Старт профиля внутренних откосов'
+
+
 class InternalSlope(models.Model):
-    type = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип внутренних откосов')
+    TYPE = [(0, 'Кюнель'),
+            (1, 'ПВХ')]
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Наименование внутренних откосов')
+    type = models.PositiveSmallIntegerField(('type'), choices=TYPE, blank=True, null=True)
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
     internal_slope_provider = models.ForeignKey(InternalSlopeProvider, on_delete=models.SET_NULL, blank=True, null=True,
                                                 verbose_name='Поставщик')
+    internal_slope_start_profile = models.ForeignKey(InternalSlopeStartProfile, on_delete=models.SET_NULL, blank=True,
+                                                     null=True,
+                                                     verbose_name='Стартовый профиль')
+    internal_slope_casing = models.ForeignKey(InternalSlopeCasing, on_delete=models.SET_NULL, blank=True, null=True,
+                                              verbose_name='наличник')
+    internal_slope_lid = models.ForeignKey(InternalSlopeLid, on_delete=models.SET_NULL, blank=True, null=True,
+                                           verbose_name='Крышка')
+    internal_slope_latch = models.ForeignKey(InternalSlopeLatch, on_delete=models.SET_NULL, blank=True, null=True,
+                                             verbose_name='Защелка')
+    internal_slope_f = models.ForeignKey(InternalSlopeF, on_delete=models.SET_NULL, blank=True, null=True,
+                                         verbose_name='F')
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена закупки: {self.price_input}'

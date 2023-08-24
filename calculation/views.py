@@ -150,12 +150,15 @@ class CalculationSlopesOfMetalAPIView(APIView):
         slopes_of_metal_id = request.data['slopes_of_metal_id']
         installation_id = request.data['installation_id']
         color_id = request.data['color_id']
-        width = request.data['width']
+        width_1 = request.data['width_1']
+        width_2 = request.data['width_2']
+        width_3 = request.data['width_3']
+        width_4 = request.data['width_4']
         length = request.data['length']
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        slopes_of_metal_calc = calc_slopes_of_metal(slopes_of_metal_id=slopes_of_metal_id, width=width,color_id=color_id,installation_id=installation_id,
+        slopes_of_metal_calc = calc_slopes_of_metal(slopes_of_metal_id=slopes_of_metal_id, width_1=width_1,width_2=width_2,width_3=width_3,width_4=width_4,color_id=color_id,installation_id=installation_id,
                                                     length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(slopes_of_metal_calc)})
@@ -170,12 +173,15 @@ class CalculationInternalSlopeAPIView(APIView):
         internal_slope_id = request.data['internal_slope_id']
         installation_id = request.data['installation_id']
         color_id = request.data['color_id']
+        type = request.data['type']
         width = request.data['width']
         length = request.data['length']
+        height_1 = request.data['height_1']
+        height_2 = request.data['height_2']
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        internal_slope = calc_internal_slope(internal_slope_id=internal_slope_id, width=width,color_id=color_id,installation_id=installation_id,
+        internal_slope = calc_internal_slope(internal_slope_id=internal_slope_id,type=type, width=width,height_1=height_1,height_2=height_2,color_id=color_id,installation_id=installation_id,
                                              length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(internal_slope)})
