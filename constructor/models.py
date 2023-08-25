@@ -1105,7 +1105,7 @@ class SlopesOfMetal(models.Model):
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
     slopes_of_metal_lock = models.ForeignKey(SlopesOfMetalLock, on_delete=models.SET_NULL, blank=True,
                                              null=True, verbose_name='замок')
-    slopes_of_metal_provider = models.ForeignKey(SlopesOfMetalProvider, on_delete=models.SET_NULL, blank=True,
+    internal_slope_provider = models.ForeignKey(SlopesOfMetalProvider, on_delete=models.SET_NULL, blank=True,
                                                  null=True, verbose_name='Поставщик')
 
     def __str__(self):
@@ -1117,15 +1117,6 @@ class SlopesOfMetal(models.Model):
 
 
 
-class InternalSlopeColor(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
-
-    def __str__(self):
-        return f'# {self.pk} Название: {self.name} '
-
-    class Meta:
-        verbose_name = 'Цвет внутренних откосов'
-        verbose_name_plural = 'Цвета внутренних откосов'
 
 
 class InternalSlopeProvider(models.Model):
@@ -1139,13 +1130,23 @@ class InternalSlopeProvider(models.Model):
         verbose_name = 'Поставщик внутренние откосы'
         verbose_name_plural = 'Поставщики внутренние откосы'
 
+class InternalSlopeColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+    internal_slope_provider = models.ForeignKey(InternalSlopeProvider, blank=True, on_delete=models.SET_NULL,
+                                          null=True,
+                                          verbose_name='Поставщик')
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет внутренних откосов'
+        verbose_name_plural = 'Цвета внутренних откосов'
+
 
 class InternalSlopeInstallation(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
     price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
-    internal_provider = models.ForeignKey(InternalSlopeProvider, blank=True, on_delete=models.SET_NULL,
-                                          null=True,
-                                          verbose_name='Поставщик')
+
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
