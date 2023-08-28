@@ -6,6 +6,17 @@ class ProviderWindow(models.Model):
     name = models.CharField(max_length=255, verbose_name="Поставщик", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
+    document = models.FileField(upload_to='provider_documents/')
+
+    # Дополнительные поля из договора с поставщиком
+    contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
+    contract_date = models.DateField(verbose_name="Дата договора", blank=True, null=True)
+    contract_expiry = models.DateField(verbose_name="Срок действия договора", blank=True, null=True)
+    contact_person = models.CharField(max_length=255, verbose_name="Контактное лицо", blank=True, null=True)
+    contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
+    terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
+
     def __str__(self):
         return self.name
 
@@ -664,6 +675,17 @@ class WindowsillColorProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
+    document = models.FileField(upload_to='provider_documents/')
+
+    # Дополнительные поля из договора с поставщиком
+    contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
+    contract_date = models.DateField(verbose_name="Дата договора", blank=True, null=True)
+    contract_expiry = models.DateField(verbose_name="Срок действия договора", blank=True, null=True)
+    contact_person = models.CharField(max_length=255, verbose_name="Контактное лицо", blank=True, null=True)
+    contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
+    terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
+
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
 
@@ -686,6 +708,18 @@ class WindowsillWidth(models.Model):
 class WindowsillProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
+
+    document = models.FileField(upload_to='provider_documents/')
+
+    # Дополнительные поля из договора с поставщиком
+    contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
+    contract_date = models.DateField(verbose_name="Дата договора", blank=True, null=True)
+    contract_expiry = models.DateField(verbose_name="Срок действия договора", blank=True, null=True)
+    contact_person = models.CharField(max_length=255, verbose_name="Контактное лицо", blank=True, null=True)
+    contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
+    terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
+
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
@@ -810,6 +844,18 @@ class LowTidesProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
+    document = models.FileField(upload_to='provider_documents/')
+
+    # Дополнительные поля из договора с поставщиком
+    contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
+    contract_date = models.DateField(verbose_name="Дата договора", blank=True, null=True)
+    contract_expiry = models.DateField(verbose_name="Срок действия договора", blank=True, null=True)
+    contact_person = models.CharField(max_length=255, verbose_name="Контактное лицо", blank=True, null=True)
+    contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
+    terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
+
+
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
 
@@ -861,6 +907,18 @@ class FlashingInstallation(models.Model):
 class FlashingProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
+
+    document = models.FileField(upload_to='provider_documents/')
+
+    # Дополнительные поля из договора с поставщиком
+    contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
+    contract_date = models.DateField(verbose_name="Дата договора", blank=True, null=True)
+    contract_expiry = models.DateField(verbose_name="Срок действия договора", blank=True, null=True)
+    contact_person = models.CharField(max_length=255, verbose_name="Контактное лицо", blank=True, null=True)
+    contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
+    terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
+
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
@@ -928,6 +986,18 @@ class CasingInstallation(models.Model):
 class CasingProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
+
+    document = models.FileField(upload_to='provider_documents/')
+
+    # Дополнительные поля из договора с поставщиком
+    contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
+    contract_date = models.DateField(verbose_name="Дата договора", blank=True, null=True)
+    contract_expiry = models.DateField(verbose_name="Срок действия договора", blank=True, null=True)
+    contact_person = models.CharField(max_length=255, verbose_name="Контактное лицо", blank=True, null=True)
+    contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
+    terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
+
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
@@ -1012,6 +1082,18 @@ class VisorsProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
+    document = models.FileField(upload_to='provider_documents/')
+
+    # Дополнительные поля из договора с поставщиком
+    contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
+    contract_date = models.DateField(verbose_name="Дата договора", blank=True, null=True)
+    contract_expiry = models.DateField(verbose_name="Срок действия договора", blank=True, null=True)
+    contact_person = models.CharField(max_length=255, verbose_name="Контактное лицо", blank=True, null=True)
+    contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
+    terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
+
+
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
 
@@ -1061,6 +1143,18 @@ class SlopesOfMetalColor(models.Model):
 class SlopesOfMetalProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
+
+    document = models.FileField(upload_to='provider_documents/')
+
+    # Дополнительные поля из договора с поставщиком
+    contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
+    contract_date = models.DateField(verbose_name="Дата договора", blank=True, null=True)
+    contract_expiry = models.DateField(verbose_name="Срок действия договора", blank=True, null=True)
+    contact_person = models.CharField(max_length=255, verbose_name="Контактное лицо", blank=True, null=True)
+    contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
+    terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
+
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
@@ -1122,6 +1216,18 @@ class SlopesOfMetal(models.Model):
 class InternalSlopeProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
+
+    document = models.FileField(upload_to='provider_documents/')
+
+    # Дополнительные поля из договора с поставщиком
+    contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
+    contract_date = models.DateField(verbose_name="Дата договора", blank=True, null=True)
+    contract_expiry = models.DateField(verbose_name="Срок действия договора", blank=True, null=True)
+    contact_person = models.CharField(max_length=255, verbose_name="Контактное лицо", blank=True, null=True)
+    contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
+    terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
+
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
@@ -1287,6 +1393,18 @@ class MountingMaterials(models.Model):
 class MountingMaterialsProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
+
+    document = models.FileField(upload_to='provider_documents/')
+
+    # Дополнительные поля из договора с поставщиком
+    contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
+    contract_date = models.DateField(verbose_name="Дата договора", blank=True, null=True)
+    contract_expiry = models.DateField(verbose_name="Срок действия договора", blank=True, null=True)
+    contact_person = models.CharField(max_length=255, verbose_name="Контактное лицо", blank=True, null=True)
+    contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
+    terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
+
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
