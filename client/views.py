@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
 from .models import Contract
-from .serializer import *
+from .serializer_old import *
 from rest_framework import viewsets, mixins, status, generics
 from rest_framework.response import Response
 from .utils import *
@@ -15,159 +15,49 @@ from config.pagination import CustomPagination
 
 from call.models import CallWindow
 
+# @permission_classes([IsAuthenticated])
+# class ClientViewSet(viewsets.ModelViewSet):
+#     queryset = Client.objects.all().order_by('-id')
+#     serializer_class = OrderSerializer
+#     http_method_names = ['get', 'patch', 'post']
+#     pagination_class = CustomPagination
 
-class ClientViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
-                    mixins.RetrieveModelMixin,
-                    mixins.UpdateModelMixin,
-                    mixins.ListModelMixin,
-                    GenericViewSet):  # get, post , get<id>, put<id>, path<id>
 
+# @permission_classes([IsAuthenticated])
+class ClientViewSet(viewsets.ModelViewSet):  # get, post , get<id>, put<id>, path<id>
     queryset = Client.objects.all().order_by('-id')
-    serializer_class = ClientPostSerializer
-    pagination_class = CustomPagination
+    serializer_class = ClientSerializer
     http_method_names = ['get', 'patch', 'post']
+    pagination_class = CustomPagination
+
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        data = {"data": serializer.data}
+        return Response(data)
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        data = {"data": serializer.data}
+        return Response(data)
 
     def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = request.user
-
-        client = Client.objects.create(
-            name=request.data['name'],
-            author=user.username,  # get current user
-        )
-        try:
-            for number in request.data['numbers']:
-                client.numbers.add(number)
-                calls = create_calls_record(number)
-                for call in calls:
-                    client.calls.add(call)
-        except:
-            pass
-
-        try:
-            for address in request.data['addresses']:
-                client.addresses.add(address)
-        except:
-            pass
-
-        try:
-            for miscalculation in request.data['miscalculation']:
-                client.miscalculation.add(miscalculation)
-        except:
-            pass
-
-        try:
-            for constructor in request.data['constructor']:
-                client.constructor.add(constructor)
-        except:
-            pass
-        try:
-            for complaint in request.data['complaints']:
-                client.complaints.add(complaint)
-        except:
-            pass
-
-        try:
-            for category_select in request.data['category_select']:
-                client.category_select.add(category_select)
-        except:
-            pass
-
-        try:
-            for contract in request.data['contract']:
-                client.contract.add(contract)
-        except:
-            pass
-        try:
-            passport = PassportDetails.objects.get(pk=request.data['passport_details'])
-            client.passport_details = passport
-        except:
-            pass
-
-        client.save()
-
-        serializer = ClientSerializer(client)
-        return Response({"data": serializer.data})
-
-    def retrieve(self, request, pk=None):
-        queryset = Client.objects.all().order_by('-id')
-        client = get_object_or_404(queryset, pk=pk)
-        serializer = ClientSerializer(client)
-        return Response({"data": serializer.data})
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        data = {"data": serializer.data}
+        return Response(data, status=201, headers=headers)
 
     def update(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
         instance = self.get_object()
-        client = Client.objects.get(id=instance.pk)
-
-        try:
-            client.name = request.data['name']
-        except:
-            pass
-
-        try:
-            for number_id in request.data['numbers']:
-                client.numbers.add(number_id)
-                calls = create_calls_record(number_id)
-                for call in calls:
-                    client.calls.add(call)
-        except:
-            pass
-        try:
-            for address in request.data['addresses']:
-                client.addresses.add(address)
-        except:
-            pass
-
-        try:
-            for prompter in request.data['prompter']:
-                client.prompter.add(prompter)
-        except:
-            pass
-
-        try:
-            for calls in request.data['calls']:
-                client.calls.add(calls)
-        except:
-            pass
-
-        try:
-            for miscalculation in request.data['miscalculation']:
-                client.miscalculation.add(miscalculation)
-        except:
-            pass
-
-        try:
-            for constructor in request.data['constructor']:
-                client.constructor.add(constructor)
-        except:
-            pass
-        try:
-            for complaints in request.data['complaints']:
-                client.complaints.add(complaints)
-        except:
-            pass
-        try:
-            client.category_select = request.data['category_select']
-        except:
-            pass
-
-        try:
-            for contract in request.data['contract']:
-                client.contract.add(contract)
-        except:
-            pass
-        try:
-            passport = PassportDetails.objects.get(pk=request.data['passport_details'])
-            client.passport_details = passport
-        except:
-            pass
-        client.save()
-
-        serializer = ClientSerializer(client)
-        return Response({"data": serializer.data})
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        data = {"data": serializer.data}
+        return Response(data)
 
 
 class NumberViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet

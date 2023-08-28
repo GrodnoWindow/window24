@@ -30,7 +30,7 @@ class CalculationWindowAPIView(APIView):
                                        price=price_input)
 
         return Response({'data': model_to_dict(window_calc)})
-        # return Response({'data': serializer.data})
+
 
 
 class CalculationWindowsillAPIView(APIView):

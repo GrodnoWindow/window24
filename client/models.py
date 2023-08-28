@@ -86,4 +86,4 @@ class Client(models.Model):
     complaints = models.ManyToManyField(Complaint, verbose_name="Жалобы", blank=True)
 
     def __str__(self):
-        return f' {self.name} {self.numbers}'
+        return f' {self.pk} {self.name}'
