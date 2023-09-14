@@ -32,7 +32,6 @@ class CalculationWindowAPIView(APIView):
         return Response({'data': model_to_dict(window_calc)})
 
 
-
 class CalculationWindowsillAPIView(APIView):
     serializer_class = WindowsillCalcSerializer
 
@@ -47,7 +46,8 @@ class CalculationWindowsillAPIView(APIView):
         color_id = request.data['color_id']
         count = request.data['count']
         markups_type = request.data['markups_type']
-        windowsill_calc = calc_windowsill(windowsill_id=windowsill_id, width=width,color_id=color_id,installation_id=installation_id,
+        windowsill_calc = calc_windowsill(windowsill_id=windowsill_id, width=width, color_id=color_id,
+                                          installation_id=installation_id,
                                           length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(windowsill_calc)})
@@ -72,7 +72,9 @@ class CalculationLowTidesAPIView(APIView):
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        low_tides_calc = calc_low_tides(low_tides_id=low_tides_id, width=width,width_1=width_1,width_2=width_2,width_3=width_3,plug=plug,color_id=color_id,installation_id=installation_id,low_tides_type=low_tides_type,
+        low_tides_calc = calc_low_tides(low_tides_id=low_tides_id, width=width, width_1=width_1, width_2=width_2,
+                                        width_3=width_3, plug=plug, color_id=color_id, installation_id=installation_id,
+                                        low_tides_type=low_tides_type,
                                         length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(low_tides_calc)})
@@ -92,7 +94,8 @@ class CalculationFlashingAPIView(APIView):
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        flashing_calc = calc_flashing(flashing_id=flashing_id, width=width,color_id=color_id,installation_id=installation_id,
+        flashing_calc = calc_flashing(flashing_id=flashing_id, width=width, color_id=color_id,
+                                      installation_id=installation_id,
                                       length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(flashing_calc)})
@@ -113,8 +116,8 @@ class CalculationCasingAPIView(APIView):
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        casing_calc = calc_casing(casing_id=casing_id, width=width,color_id=color_id,installation_id=installation_id,
-                                  fastening_id=fastening_id,length=length, count=count, markups_type=markups_type)
+        casing_calc = calc_casing(casing_id=casing_id, width=width, color_id=color_id, installation_id=installation_id,
+                                  fastening_id=fastening_id, length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(casing_calc)})
 
@@ -133,9 +136,10 @@ class CalculationVisorsAPIView(APIView):
         markups_type = request.data['markups_type']
         width_1 = request.data['width_1']
         width_2 = request.data['width_2']
-        width_3= request.data['width_3']
+        width_3 = request.data['width_3']
 
-        visors_calc = calc_visors(visors_id=visors_id, color_id=color_id,installation_id=installation_id,width_1=width_1,width_2=width_2,width_3=width_3,
+        visors_calc = calc_visors(visors_id=visors_id, color_id=color_id, installation_id=installation_id,
+                                  width_1=width_1, width_2=width_2, width_3=width_3,
                                   length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(visors_calc)})
@@ -154,12 +158,28 @@ class CalculationSlopesOfMetalAPIView(APIView):
         width_2 = request.data['width_2']
         width_3 = request.data['width_3']
         width_4 = request.data['width_4']
+
+        lock_width_1 = request.data['lock_width_1']
+        lock_width_2 = request.data['lock_width_2']
+        lock_width_3 = request.data['lock_width_3']
+        lock_width_4 = request.data['lock_width_4']
+
+        low_tides_width_1 = request.data['low_tides_width_1']
+        low_tides_width_2 = request.data['low_tides_width_2']
+        low_tides_width_3 = request.data['low_tides_width_3']
+        low_tides_width_4 = request.data['low_tides_width_4']
+
         length = request.data['length']
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        slopes_of_metal_calc = calc_slopes_of_metal(slopes_of_metal_id=slopes_of_metal_id, width_1=width_1,width_2=width_2,width_3=width_3,width_4=width_4,color_id=color_id,installation_id=installation_id,
-                                                    length=length, count=count, markups_type=markups_type)
+        slopes_of_metal_calc = calc_slopes_of_metal(slopes_of_metal_id=slopes_of_metal_id, width_1=width_1,
+                                                    width_2=width_2, width_3=width_3, width_4=width_4,
+                                                    color_id=color_id, installation_id=installation_id,
+                                                    length=length, count=count, markups_type=markups_type,lock_width_1=lock_width_1,
+                                                    lock_width_2=lock_width_2,lock_width_3=lock_width_3,lock_width_4=lock_width_4,
+                                                    low_tides_width_1=low_tides_width_1,low_tides_width_2=low_tides_width_2,low_tides_width_3=low_tides_width_3,
+                                                    low_tides_width_4=low_tides_width_4)
 
         return Response({'data': model_to_dict(slopes_of_metal_calc)})
 
@@ -182,7 +202,9 @@ class CalculationInternalSlopeAPIView(APIView):
         count = request.data['count']
         markups_type = request.data['markups_type']
 
-        internal_slope = calc_internal_slope(internal_slope_id=internal_slope_id,type=type, f_count=f_count,width=width,height_1=height_1,height_2=height_2,color_id=color_id,installation_id=installation_id,
+        internal_slope = calc_internal_slope(internal_slope_id=internal_slope_id, type=type, f_count=f_count,
+                                             width=width, height_1=height_1, height_2=height_2, color_id=color_id,
+                                             installation_id=installation_id,
                                              length=length, count=count, markups_type=markups_type)
 
         return Response({'data': model_to_dict(internal_slope)})
@@ -535,6 +557,7 @@ class SealantViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response({"data": serializer.data})
 
+
 class CalculationWindowsillAPIView(APIView):
     serializer_class = WindowsillCalcSerializer
 
@@ -551,8 +574,9 @@ class CalculationWindowsillAPIView(APIView):
         markups_type = request.data['markups_type']
         plug = request.data['plug']
         connector = request.data['connector']
-        windowsill_calc = calc_windowsill(windowsill_id=windowsill_id, width=width,color_id=color_id,installation_id=installation_id,
-                                          length=length, count=count, markups_type=markups_type, connector=connector,plug=plug)
+        windowsill_calc = calc_windowsill(windowsill_id=windowsill_id, width=width, color_id=color_id,
+                                          installation_id=installation_id,
+                                          length=length, count=count, markups_type=markups_type, connector=connector,
+                                          plug=plug)
 
         return Response({'data': model_to_dict(windowsill_calc)})
-

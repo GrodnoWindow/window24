@@ -17,7 +17,7 @@ from client.models import Client
 API_URL = "https://192.168.1.209:4021"
 MAIN_URL = API_URL + "/admin/api/jsonrpc/"
 LOGIN = "Ilya"
-PASSWORD = "bkmz1337"
+PASSWORD = "hjvxbr1337"
 
 
 def get_credentials():
@@ -316,5 +316,4 @@ def parse_okna360(data):
 
 def parse_active_calls():
     data = get_calls()
-    parse_okna360(data)
     parse_window24(data)

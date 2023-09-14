@@ -18,10 +18,13 @@ class WindowSerializer(serializers.ModelSerializer):
         model = WindowDiscountMarkups
         fields = 'profile_id', 'fittings_id', 'price_input', 'markups_type', 'currency_name',
 
+
 class WindowsCalcSerializer(serializers.ModelSerializer):
     class Meta:
         model = WindowsCalc
         fields = '__all__'
+
+
 class WindowsillCalcSerializer(serializers.ModelSerializer):
     windowsill_id = serializers.IntegerField(max_value=None, min_value=None)
     installation_id = serializers.IntegerField(max_value=None, min_value=None)
@@ -55,7 +58,7 @@ class LowTidesCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LowTidesCalc
-        fields = 'low_tides_id', 'low_tides_type','width','width_1','width_2','width_3','installation_id', 'color_id', 'length', 'count', 'plug', 'markups_type'
+        fields = 'low_tides_id', 'low_tides_type', 'width', 'width_1', 'width_2', 'width_3', 'installation_id', 'color_id', 'length', 'count', 'plug', 'markups_type'
 
 
 class FlashingCalcSerializer(serializers.ModelSerializer):
@@ -69,7 +72,7 @@ class FlashingCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FlashingCalc
-        fields = 'flashing_id', 'installation_id', 'color_id',  'width', 'length', 'count', 'markups_type'
+        fields = 'flashing_id', 'installation_id', 'color_id', 'width', 'length', 'count', 'markups_type'
 
 
 class CasingCalcSerializer(serializers.ModelSerializer):
@@ -85,7 +88,7 @@ class CasingCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SlopesOfMetalCalc
-        fields = 'casing_id', 'installation_id','fastening_id', 'color_id',  'width', 'length', 'count', 'markups_type','nipel_count'
+        fields = 'casing_id', 'installation_id', 'fastening_id', 'color_id', 'width', 'length', 'count', 'markups_type', 'nipel_count'
 
 
 class VisorsCalcSerializer(serializers.ModelSerializer):
@@ -101,26 +104,37 @@ class VisorsCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = VisorsCalc
-        fields = 'visors_id', 'installation_id', 'color_id',  'width_1','width_2','width_3', 'length', 'count', 'markups_type'
+        fields = 'visors_id', 'installation_id', 'color_id', 'width_1', 'width_2', 'width_3', 'length', 'count', 'markups_type'
 
 
 class SlopesOfMetalCalcSerializer(serializers.ModelSerializer):
     slopes_of_metal_id = serializers.IntegerField(max_value=None, min_value=None)
     installation_id = serializers.IntegerField(max_value=None, min_value=None)
     color_id = serializers.IntegerField(max_value=None, min_value=None)
-    width = serializers.IntegerField(max_value=None, min_value=None,read_only=True)
+    width = serializers.IntegerField(max_value=None, min_value=None, read_only=True)
     width_1 = serializers.IntegerField(max_value=None, min_value=None)
     width_2 = serializers.IntegerField(max_value=None, min_value=None)
     width_3 = serializers.IntegerField(max_value=None, min_value=None)
     width_4 = serializers.IntegerField(max_value=None, min_value=None)
-    lock_count = serializers.IntegerField(max_value=None, min_value=None,read_only=True)
+
+    lock_width_1 = serializers.IntegerField(max_value=None, min_value=None)
+    lock_width_2 = serializers.IntegerField(max_value=None, min_value=None)
+    lock_width_3 = serializers.IntegerField(max_value=None, min_value=None)
+    lock_width_4 = serializers.IntegerField(max_value=None, min_value=None)
+
+    low_tides_width_1 = serializers.IntegerField(max_value=None, min_value=None)
+    low_tides_width_2 = serializers.IntegerField(max_value=None, min_value=None)
+    low_tides_width_3 = serializers.IntegerField(max_value=None, min_value=None)
+    low_tides_width_4 = serializers.IntegerField(max_value=None, min_value=None)
+
+    lock_count = serializers.IntegerField(max_value=None, min_value=None, read_only=True)
     length = serializers.IntegerField(max_value=None, min_value=None)
     count = serializers.IntegerField(max_value=None, min_value=None)
     markups_type = serializers.IntegerField(max_value=None, min_value=None)
 
     class Meta:
         model = SlopesOfMetalCalc
-        fields = 'slopes_of_metal_id', 'installation_id', 'color_id',  'width','width_1','width_2','width_3','width_4','lock_count', 'length', 'count', 'markups_type'
+        fields = 'slopes_of_metal_id', 'installation_id', 'color_id', 'width', 'width_1', 'width_2', 'width_3', 'width_4','lock_width_1', 'lock_width_2', 'lock_width_3', 'lock_width_4','low_tides_width_1', 'low_tides_width_2', 'low_tides_width_3', 'low_tides_width_4','lock_count', 'length', 'count','markups_type'
 
 
 class InternalSlopeCalcSerializer(serializers.ModelSerializer):
@@ -138,7 +152,7 @@ class InternalSlopeCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = InternalSlope
-        fields = 'internal_slope_id', 'installation_id', 'color_id', 'type','f_count',  'width','height_1','height_2', 'length', 'count', 'markups_type'
+        fields = 'internal_slope_id', 'installation_id', 'color_id', 'type', 'f_count', 'width', 'height_1', 'height_2', 'length', 'count', 'markups_type'
 
 
 class WindowCalcSerializer(serializers.ModelSerializer):
@@ -160,8 +174,8 @@ class WindowCalcSerializer(serializers.ModelSerializer):
         model = WindowsCalc
         fields = '__all__'
 
-class ProductTypeSerializer(serializers.ModelSerializer):
 
+class ProductTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Constructor
         fields = '__all__'
@@ -187,15 +201,19 @@ class LaminationSerializer(serializers.ModelSerializer):
         model = Lamination
         fields = '__all__'
 
+
 class MountingMaterialsCalcSerializer(serializers.ModelSerializer):
     class Meta:
         model = MountingMaterialsCalc
         fields = '__all__'
 
+
 class WorksCalcSerializer(serializers.ModelSerializer):
     class Meta:
         model = Works
         fields = '__all__'
+
+
 class ConnectionProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConnectionProfile

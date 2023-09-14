@@ -309,8 +309,13 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                     slopes_of_metal['Цвет'] = slopes_of_metal_color.name
                     slopes_of_metal['Установка'] = el.installation_id
                     slopes_of_metal['Ширина'] = el.width
+                    slopes_of_metal['Ширина_1'] = el.width_1
+                    slopes_of_metal['Ширина_2'] = el.width_2
+                    slopes_of_metal['Ширина_3'] = el.width_3
+                    slopes_of_metal['Ширина_4'] = el.width_4
                     slopes_of_metal['Длинна'] = el.length
                     slopes_of_metal['Количество'] = el.count
+                    slopes_of_metal['Количество_Замков'] = el.lock_count
                     slopes_of_metal['Цена'] = el.price_output
                     slopes_of_metal['Поставщик'] = slopes_of_metal_model.slopes_of_metal_provider.name
                     slopes_of_metal_data.append(slopes_of_metal)
@@ -318,12 +323,20 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                 data["Откосы из металла"] = slopes_of_metal_data
 
             if hasattr(constructor, 'internal_slope_calc') and constructor.internal_slope_calc.exists():
+
                 internal_slope_data = []
                 for el in constructor.internal_slope_calc.all():
                     internal_slope_model = InternalSlope.objects.get(pk=el.internal_slope_id)
                     internal_slope_color = InternalSlopeColor.objects.get(pk=el.color_id)
                     internal_slope = {}
-                    internal_slope['Тип'] = internal_slope_model.type
+
+                    index = internal_slope_model.type
+                    if index == 0:
+                        internal_slope['Тип'] = 'Кюнель'
+                    elif index == 1:
+                        internal_slope['Тип'] = 'ПВХ'
+
+
                     internal_slope['Название'] = internal_slope_model.name
                     internal_slope['Цвет'] = internal_slope_color.name
                     internal_slope['Установка'] = el.installation_id
@@ -331,6 +344,13 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                     internal_slope['Длинна'] = el.length
                     internal_slope['Количество'] = el.count
                     internal_slope['Цена'] = el.price_output
+                    internal_slope['Высота_1'] = el.height_1
+                    internal_slope['Высота_2'] = el.height_2
+                    internal_slope['Стартовый_Профиль'] = el.start_profile_length
+                    internal_slope['Наличник_Профиль'] = el.casing_length
+                    internal_slope['Колво_крышек'] = el.lid_count
+                    internal_slope['Колво_защелок'] = el.latch_count
+                    internal_slope['Колво_f'] = el.f_count
                     internal_slope['Поставщик'] = internal_slope_model.internal_slope_provider.name
                     internal_slope_data.append(internal_slope)
 

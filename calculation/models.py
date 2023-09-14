@@ -452,7 +452,21 @@ class SlopesOfMetalCalc(models.Model):
     width_2 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Ширина 2')
     width_3 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Ширина 3')
     width_4 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Ширина 4')
+
+    lock_width = models.IntegerField(default=0,blank=True,null=True, verbose_name='Замок ширина ( общая )')
+    lock_width_1 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Замок ширина 1')
+    lock_width_2 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Замок ширина 2')
+    lock_width_3 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Замок ширина 3')
+    lock_width_4 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Замок ширина 4')
+
+    low_tides_width = models.IntegerField(default=0,blank=True,null=True, verbose_name='Отлив ширина ( общая ) ')
+    low_tides_width_1 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Отлив ширина 1')
+    low_tides_width_2 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Отлив ширина 2')
+    low_tides_width_3 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Отлив ширина 3')
+    low_tides_width_4 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Отлив ширина 4')
+
     lock_count = models.IntegerField(default=0,blank=True,null=True, verbose_name='Количество замком')
+
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')

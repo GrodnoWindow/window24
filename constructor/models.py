@@ -6,7 +6,7 @@ class ProviderWindow(models.Model):
     name = models.CharField(max_length=255, verbose_name="Поставщик", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
-    document = models.FileField(upload_to='provider_documents/')
+    document = models.FileField(upload_to='provider_documents/', blank=True, null=True)
 
     # Дополнительные поля из договора с поставщиком
     contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
@@ -675,7 +675,7 @@ class WindowsillColorProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
-    document = models.FileField(upload_to='provider_documents/')
+    document = models.FileField(upload_to='provider_documents/', blank=True, null=True)
 
     # Дополнительные поля из договора с поставщиком
     contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
@@ -709,7 +709,7 @@ class WindowsillProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
-    document = models.FileField(upload_to='provider_documents/')
+    document = models.FileField(upload_to='provider_documents/', blank=True, null=True)
 
     # Дополнительные поля из договора с поставщиком
     contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
@@ -719,7 +719,6 @@ class WindowsillProvider(models.Model):
     contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
     contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
     terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
-
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
@@ -844,7 +843,7 @@ class LowTidesProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
-    document = models.FileField(upload_to='provider_documents/')
+    document = models.FileField(upload_to='provider_documents/', blank=True, null=True)
 
     # Дополнительные поля из договора с поставщиком
     contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
@@ -854,7 +853,6 @@ class LowTidesProvider(models.Model):
     contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
     contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
     terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
-
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
@@ -908,7 +906,7 @@ class FlashingProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
-    document = models.FileField(upload_to='provider_documents/')
+    document = models.FileField(upload_to='provider_documents/', blank=True, null=True)
 
     # Дополнительные поля из договора с поставщиком
     contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
@@ -918,7 +916,6 @@ class FlashingProvider(models.Model):
     contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
     contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
     terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
-
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
@@ -987,7 +984,7 @@ class CasingProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
-    document = models.FileField(upload_to='provider_documents/')
+    document = models.FileField(upload_to='provider_documents/', blank=True, null=True)
 
     # Дополнительные поля из договора с поставщиком
     contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
@@ -997,7 +994,6 @@ class CasingProvider(models.Model):
     contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
     contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
     terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
-
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
@@ -1082,7 +1078,7 @@ class VisorsProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
-    document = models.FileField(upload_to='provider_documents/')
+    document = models.FileField(upload_to='provider_documents/', blank=True, null=True)
 
     # Дополнительные поля из договора с поставщиком
     contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
@@ -1092,7 +1088,6 @@ class VisorsProvider(models.Model):
     contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
     contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
     terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
-
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
@@ -1129,22 +1124,11 @@ class Visors(models.Model):
         verbose_name_plural = 'Козырьки'
 
 
-class SlopesOfMetalColor(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
-
-    def __str__(self):
-        return f'# {self.pk} Название: {self.name} '
-
-    class Meta:
-        verbose_name = 'Цвет откосов из металла'
-        verbose_name_plural = 'Цвета откосов из металла'
-
-
 class SlopesOfMetalProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
-    document = models.FileField(upload_to='provider_documents/')
+    document = models.FileField(upload_to='provider_documents/', blank=True, null=True)
 
     # Дополнительные поля из договора с поставщиком
     contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
@@ -1155,13 +1139,25 @@ class SlopesOfMetalProvider(models.Model):
     contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
     terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
 
-
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
 
     class Meta:
         verbose_name = 'Поставщик откосов из металла'
         verbose_name_plural = 'Поставщики откосов из металла'
+
+
+class SlopesOfMetalColor(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
+    slopes_of_metal_provider = models.ForeignKey(SlopesOfMetalProvider, on_delete=models.SET_NULL, blank=True,
+                                                 null=True, verbose_name='Поставщик')
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name} '
+
+    class Meta:
+        verbose_name = 'Цвет откосов из металла'
+        verbose_name_plural = 'Цвета откосов из металла'
 
 
 class SlopesOfMetalInstallation(models.Model):
@@ -1193,13 +1189,29 @@ class SlopesOfMetalLock(models.Model):
         verbose_name = 'Замок откосов из металла'
         verbose_name_plural = 'Замки откосов из металла'
 
+class SlopesOfMetalLowTides(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название замка", blank=True, null=True)
+    price_input = models.FloatField(default=0.0, verbose_name='Цена замка', blank=True, null=True)
+    slopes_of_metal_provider = models.ForeignKey(SlopesOfMetalProvider, blank=True, on_delete=models.SET_NULL,
+                                                 null=True,
+                                                 verbose_name='Поставщик')
+
+    def __str__(self):
+        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price_input}'
+
+    class Meta:
+        verbose_name = 'Замок откосов из металла'
+        verbose_name_plural = 'Замки откосов из металла'
+
 
 class SlopesOfMetal(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Тип откосов из металла')
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
     slopes_of_metal_lock = models.ForeignKey(SlopesOfMetalLock, on_delete=models.SET_NULL, blank=True,
                                              null=True, verbose_name='замок')
-    internal_slope_provider = models.ForeignKey(SlopesOfMetalProvider, on_delete=models.SET_NULL, blank=True,
+    slopes_of_metal_low_tides = models.ForeignKey(SlopesOfMetalLowTides, on_delete=models.SET_NULL, blank=True,
+                                             null=True, verbose_name='Отлив')
+    slopes_of_metal_provider = models.ForeignKey(SlopesOfMetalProvider, on_delete=models.SET_NULL, blank=True,
                                                  null=True, verbose_name='Поставщик')
 
     def __str__(self):
@@ -1210,14 +1222,11 @@ class SlopesOfMetal(models.Model):
         verbose_name_plural = 'откосы из металла'
 
 
-
-
-
 class InternalSlopeProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
-    document = models.FileField(upload_to='provider_documents/')
+    document = models.FileField(upload_to='provider_documents/', blank=True, null=True)
 
     # Дополнительные поля из договора с поставщиком
     contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
@@ -1228,7 +1237,6 @@ class InternalSlopeProvider(models.Model):
     contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
     terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
 
-
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
 
@@ -1236,11 +1244,13 @@ class InternalSlopeProvider(models.Model):
         verbose_name = 'Поставщик внутренние откосы'
         verbose_name_plural = 'Поставщики внутренние откосы'
 
+
 class InternalSlopeColor(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название цвета", blank=True, null=True)
     internal_slope_provider = models.ForeignKey(InternalSlopeProvider, blank=True, on_delete=models.SET_NULL,
-                                          null=True,
-                                          verbose_name='Поставщик')
+                                                null=True,
+                                                verbose_name='Поставщик')
+
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '
 
@@ -1252,7 +1262,6 @@ class InternalSlopeColor(models.Model):
 class InternalSlopeInstallation(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название монтажа", blank=True, null=True)
     price = models.FloatField(default=0.0, verbose_name='Цена монтажа', blank=True, null=True)
-
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price}'
@@ -1352,7 +1361,7 @@ class InternalSlope(models.Model):
 
 class InsternalSlopePrice(models.Model):
     internal_slope = models.ForeignKey(InternalSlope, on_delete=models.SET_NULL, blank=True, null=True,
-                               verbose_name='Внутренние откосы')
+                                       verbose_name='Внутренние откосы')
     width = models.CharField(max_length=255, blank=True, null=True, verbose_name='Ширина')
 
     price_input = models.FloatField(default=0.0, verbose_name='Цена закупки', blank=True, null=True)
@@ -1365,6 +1374,7 @@ class InsternalSlopePrice(models.Model):
     class Meta:
         verbose_name = 'Цена на внутренние откосы'
         verbose_name_plural = 'Цены на внутренние откосы'
+
 
 class MountingMaterialsName(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Наименование монтажных материалов')
@@ -1394,7 +1404,7 @@ class MountingMaterialsProvider(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название поставщика", blank=True, null=True)
     currency = models.CharField(max_length=255, verbose_name="Валюта", blank=True, null=True)
 
-    document = models.FileField(upload_to='provider_documents/')
+    document = models.FileField(upload_to='provider_documents/', blank=True, null=True)
 
     # Дополнительные поля из договора с поставщиком
     contract_number = models.CharField(max_length=100, verbose_name="Номер договора", blank=True, null=True)
@@ -1404,7 +1414,6 @@ class MountingMaterialsProvider(models.Model):
     contact_email = models.EmailField(verbose_name="Email контактного лица", blank=True, null=True)
     contact_phone = models.CharField(max_length=20, verbose_name="Телефон контактного лица", blank=True, null=True)
     terms_and_conditions = models.TextField(verbose_name="Условия и положения", blank=True, null=True)
-
 
     def __str__(self):
         return f'# {self.pk} Название: {self.name} '

@@ -29,6 +29,7 @@ def parse_exchange_rates():
         pass
     soup = BeautifulSoup(response.text, 'lxml')
     data = []
+
     table = soup.find('table', attrs={'class': 'currencyTable'})
     table_body = table.find('tbody')
 

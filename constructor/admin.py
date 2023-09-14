@@ -99,6 +99,7 @@ admin.site.register(LowTidesInstallation)
 
 admin.site.register(SlopesOfMetal)
 admin.site.register(SlopesOfMetalLock)
+admin.site.register(SlopesOfMetalLowTides)
 admin.site.register(SlopesOfMetalProvider)
 admin.site.register(SlopesOfMetalColor)
 admin.site.register(SlopesOfMetalInstallation)

@@ -14,26 +14,51 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: -1
+  &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2UWp0o9MKtzV6SNy23mgw5MfOb5" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "backend-1",
-    "last_opened_file_path": "D:/Roman/PyCharmProjects/window24",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;backend-1&quot;,
+    &quot;last_opened_file_path&quot;: &quot;W:/window24&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager">
+    <configuration name="window24" type="Python.DjangoServer" factoryName="Django server">
+      <module name="window24" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -43,6 +68,29 @@
       <option name="presentableId" value="Default" />
       <updated>1693064970337</updated>
       <workItem from="1693064971425" duration="597000" />
+      <workItem from="1693638996926" duration="190000" />
+      <workItem from="1693643382402" duration="610000" />
+      <workItem from="1693750302223" duration="1831000" />
+      <workItem from="1693758841541" duration="15000" />
+      <workItem from="1693789987317" duration="633000" />
+      <workItem from="1694009026304" duration="4918000" />
+      <workItem from="1694075491890" duration="2463000" />
+      <workItem from="1694110212088" duration="40000" />
+      <workItem from="1694110253864" duration="1238000" />
+      <workItem from="1694168289586" duration="2409000" />
+      <workItem from="1694262440138" duration="1270000" />
+      <workItem from="1694283178578" duration="1362000" />
+      <workItem from="1694290054539" duration="1443000" />
+      <workItem from="1694298034308" duration="389000" />
+      <workItem from="1694298797104" duration="18000" />
+      <workItem from="1694301790253" duration="5674000" />
+      <workItem from="1694505101332" duration="1210000" />
+      <workItem from="1694506333326" duration="2427000" />
+      <workItem from="1694544850577" duration="17000" />
+      <workItem from="1694681917786" duration="22000" />
+      <workItem from="1694690638840" duration="2410000" />
+      <workItem from="1694701885732" duration="1245000" />
+      <workItem from="1694708581229" duration="1612000" />
     </task>
     <servers />
   </component>

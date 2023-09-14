@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from call.serializer import CallWindowSerializer
-from client.serializer_old import ClientSerializer
+from client.serializer import ClientSerializer
 
 
 class CallsTableSerializer(serializers.ModelSerializer):
