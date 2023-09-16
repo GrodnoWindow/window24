@@ -454,12 +454,14 @@ class SlopesOfMetalCalc(models.Model):
     width_4 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Ширина 4')
 
     lock_width = models.IntegerField(default=0,blank=True,null=True, verbose_name='Замок ширина ( общая )')
+    lock_length = models.IntegerField(default=0,blank=True,null=True, verbose_name='Замок длинна ( общая )')
     lock_width_1 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Замок ширина 1')
     lock_width_2 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Замок ширина 2')
     lock_width_3 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Замок ширина 3')
     lock_width_4 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Замок ширина 4')
 
     low_tides_width = models.IntegerField(default=0,blank=True,null=True, verbose_name='Отлив ширина ( общая ) ')
+    low_tides_length = models.IntegerField(default=0,blank=True,null=True, verbose_name='Отлив длинна ( общая ) ')
     low_tides_width_1 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Отлив ширина 1')
     low_tides_width_2 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Отлив ширина 2')
     low_tides_width_3 = models.IntegerField(default=0,blank=True,null=True, verbose_name='Отлив ширина 3')
@@ -469,8 +471,15 @@ class SlopesOfMetalCalc(models.Model):
 
     length = models.FloatField(max_length=255, default=0.0, verbose_name='Длинна')
     count = models.FloatField(max_length=255, default=0.0, verbose_name='Количество')
+
     linear_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных')
     square_meter = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных')
+
+    linear_meter_lock = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных (замок)')
+    square_meter_lock = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных (замок)')
+
+    linear_meter_low_tides = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных (отлив)')
+    square_meter_low_tides = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных (отлив)')
 
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
 

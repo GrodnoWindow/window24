@@ -159,11 +159,13 @@ class CalculationSlopesOfMetalAPIView(APIView):
         width_3 = request.data['width_3']
         width_4 = request.data['width_4']
 
+        lock_length = request.data['lock_length']
         lock_width_1 = request.data['lock_width_1']
         lock_width_2 = request.data['lock_width_2']
         lock_width_3 = request.data['lock_width_3']
         lock_width_4 = request.data['lock_width_4']
 
+        low_tides_length = request.data['low_tides_length']
         low_tides_width_1 = request.data['low_tides_width_1']
         low_tides_width_2 = request.data['low_tides_width_2']
         low_tides_width_3 = request.data['low_tides_width_3']
@@ -174,7 +176,7 @@ class CalculationSlopesOfMetalAPIView(APIView):
         markups_type = request.data['markups_type']
 
         slopes_of_metal_calc = calc_slopes_of_metal(slopes_of_metal_id=slopes_of_metal_id, width_1=width_1,
-                                                    width_2=width_2, width_3=width_3, width_4=width_4,
+                                                    width_2=width_2, width_3=width_3, width_4=width_4,lock_length=lock_length,low_tides_length=low_tides_length,
                                                     color_id=color_id, installation_id=installation_id,
                                                     length=length, count=count, markups_type=markups_type,lock_width_1=lock_width_1,
                                                     lock_width_2=lock_width_2,lock_width_3=lock_width_3,lock_width_4=lock_width_4,

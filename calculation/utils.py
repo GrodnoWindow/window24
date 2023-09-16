@@ -395,8 +395,8 @@ def calc_visors(visors_id, installation_id, color_id, width_1, width_2, width_3,
 
 def calc_slopes_of_metal(slopes_of_metal_id, installation_id, color_id,
                          width_1, width_2, width_3, width_4,
-                         lock_width_1, lock_width_2, lock_width_3, lock_width_4,
-                         low_tides_width_1, low_tides_width_2, low_tides_width_3, low_tides_width_4,
+                         lock_width_1, lock_width_2, lock_width_3, lock_width_4,lock_length,
+                         low_tides_width_1, low_tides_width_2, low_tides_width_3, low_tides_width_4,low_tides_length,
                          length, count, markups_type):
     slopes_of_metal = SlopesOfMetal.objects.get(id=slopes_of_metal_id)
     slopes_of_metal_markup = SlopesOfMetalMarkups.objects.get(slopes_of_metal=slopes_of_metal)
@@ -427,19 +427,31 @@ def calc_slopes_of_metal(slopes_of_metal_id, installation_id, color_id,
         in_percent = slopes_of_metal_markup.markups_5_in_percent
         markup = slopes_of_metal_markup.markups_5
         markups_name = '4'
+
     if in_percent:
         price = price_input + (price_input / 100 * markup)
     else:
         price = price_input + markup
 
-    sum_lock = lock_price * ((lock_width * length) / 1000000)
-    sum_low_tides = low_tides_price * ((low_tides_width * length) / 1000000)
+    sum_lock = lock_price * ((lock_width * lock_length) / 1000000)
+    try:
+        sum_low_tides = low_tides_price * ((low_tides_width * low_tides_length) / 1000000)
+    except:
+        sum_low_tides = 0
+
     sum = price * ((width * length) / 1000000)
 
     sum = sum + sum_lock + sum_low_tides
 
     square_meter = (width * length) / 1000000
     linear_meter = length / 1000
+
+    square_meter_lock = (lock_width * lock_length) / 1000000
+    linear_meter_lock = lock_length / 1000
+
+    square_meter_low_tides = (low_tides_width * low_tides_length) / 1000000
+    linear_meter_low_tides = low_tides_length / 1000
+
     lock_count = math.ceil((lock_width * length) / 1000000)
 
     if count > 0:
@@ -447,9 +459,21 @@ def calc_slopes_of_metal(slopes_of_metal_id, installation_id, color_id,
         square_meter = square_meter * count
         linear_meter = linear_meter * count
 
+        square_meter_lock = square_meter_lock * count
+        linear_meter_lock = linear_meter_lock * count
+
+        square_meter_low_tides = square_meter_low_tides * count
+        linear_meter_low_tides = linear_meter_low_tides * count
+
     sum = round(sum, 2)
     square_meter = round(square_meter, 2)
     linear_meter = round(linear_meter, 2)
+
+    square_meter_lock = round(square_meter_lock, 2)
+    linear_meter_lock = round(linear_meter_lock, 2)
+
+    square_meter_low_tides = round(square_meter_low_tides, 2)
+    linear_meter_low_tides = round(linear_meter_low_tides, 2)
 
     slopes_of_metal_calc = SlopesOfMetalCalc.objects.create(slopes_of_metal_id=slopes_of_metal.id, width=width,
                                                             width_1=width_1,
@@ -461,7 +485,11 @@ def calc_slopes_of_metal(slopes_of_metal_id, installation_id, color_id,
                                                             lock_width_2=lock_width_2,
                                                             lock_width_3=lock_width_3,
                                                             lock_width_4=lock_width_4,
+                                                            square_meter_lock=square_meter_lock,
+                                                            linear_meter_lock=linear_meter_lock,
                                                             low_tides_width=low_tides_width,
+                                                            square_meter_low_tides=square_meter_low_tides,
+                                                            linear_meter_low_tides=linear_meter_low_tides,
                                                             low_tides_width_1=low_tides_width_1,
                                                             low_tides_width_2=low_tides_width_2,
                                                             low_tides_width_3=low_tides_width_3,

@@ -1183,25 +1183,25 @@ class SlopesOfMetalLock(models.Model):
                                                  verbose_name='Поставщик')
 
     def __str__(self):
-        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price_input}'
+        return f'# {self.pk} Название: {self.name}, цена: {self.price_input}'
 
     class Meta:
         verbose_name = 'Замок откосов из металла'
         verbose_name_plural = 'Замки откосов из металла'
 
 class SlopesOfMetalLowTides(models.Model):
-    name = models.CharField(max_length=255, verbose_name="Название замка", blank=True, null=True)
-    price_input = models.FloatField(default=0.0, verbose_name='Цена замка', blank=True, null=True)
+    name = models.CharField(max_length=255, verbose_name="Название отлива", blank=True, null=True)
+    price_input = models.FloatField(default=0.0, verbose_name='Цена отлива', blank=True, null=True)
     slopes_of_metal_provider = models.ForeignKey(SlopesOfMetalProvider, blank=True, on_delete=models.SET_NULL,
                                                  null=True,
                                                  verbose_name='Поставщик')
 
     def __str__(self):
-        return f'# {self.pk} Название: {self.name}, цена монтажа: {self.price_input}'
+        return f'# {self.pk} Название: {self.name}, цена : {self.price_input}'
 
     class Meta:
-        verbose_name = 'Замок откосов из металла'
-        verbose_name_plural = 'Замки откосов из металла'
+        verbose_name = 'Отлив откосов из металла'
+        verbose_name_plural = 'Отливы откосов из металла'
 
 
 class SlopesOfMetal(models.Model):

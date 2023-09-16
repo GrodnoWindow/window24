@@ -117,11 +117,13 @@ class SlopesOfMetalCalcSerializer(serializers.ModelSerializer):
     width_3 = serializers.IntegerField(max_value=None, min_value=None)
     width_4 = serializers.IntegerField(max_value=None, min_value=None)
 
+    lock_length = serializers.IntegerField(max_value=None, min_value=None)
     lock_width_1 = serializers.IntegerField(max_value=None, min_value=None)
     lock_width_2 = serializers.IntegerField(max_value=None, min_value=None)
     lock_width_3 = serializers.IntegerField(max_value=None, min_value=None)
     lock_width_4 = serializers.IntegerField(max_value=None, min_value=None)
 
+    low_tides_length = serializers.IntegerField(max_value=None, min_value=None)
     low_tides_width_1 = serializers.IntegerField(max_value=None, min_value=None)
     low_tides_width_2 = serializers.IntegerField(max_value=None, min_value=None)
     low_tides_width_3 = serializers.IntegerField(max_value=None, min_value=None)
@@ -134,7 +136,7 @@ class SlopesOfMetalCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SlopesOfMetalCalc
-        fields = 'slopes_of_metal_id', 'installation_id', 'color_id', 'width', 'width_1', 'width_2', 'width_3', 'width_4','lock_width_1', 'lock_width_2', 'lock_width_3', 'lock_width_4','low_tides_width_1', 'low_tides_width_2', 'low_tides_width_3', 'low_tides_width_4','lock_count', 'length', 'count','markups_type'
+        fields = 'slopes_of_metal_id', 'installation_id', 'color_id', 'width', 'width_1', 'width_2', 'width_3', 'width_4','lock_width_1','lock_length', 'lock_width_2', 'lock_width_3', 'lock_width_4','low_tides_length','low_tides_width_1', 'low_tides_width_2', 'low_tides_width_3', 'low_tides_width_4','lock_count', 'length', 'count','markups_type'
 
 
 class InternalSlopeCalcSerializer(serializers.ModelSerializer):
