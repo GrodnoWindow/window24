@@ -455,6 +455,8 @@ def calc_slopes_of_metal(slopes_of_metal_id, installation_id, color_id,
     lock_count = math.ceil((lock_width * length) / 1000000)
 
     if count > 0:
+        sum_lock = sum_lock * count
+        sum_low_tides = sum_low_tides * count
         sum = sum * count
         square_meter = square_meter * count
         linear_meter = linear_meter * count
@@ -465,7 +467,10 @@ def calc_slopes_of_metal(slopes_of_metal_id, installation_id, color_id,
         square_meter_low_tides = square_meter_low_tides * count
         linear_meter_low_tides = linear_meter_low_tides * count
 
+    sum_low_tides = round(sum_low_tides, 2)
+    sum_lock = round(sum_lock, 2)
     sum = round(sum, 2)
+
     square_meter = round(square_meter, 2)
     linear_meter = round(linear_meter, 2)
 
@@ -481,6 +486,8 @@ def calc_slopes_of_metal(slopes_of_metal_id, installation_id, color_id,
                                                             width_3=width_3,
                                                             width_4=width_4,
                                                             lock_width=lock_width,
+                                                            price_lock=sum_lock,
+                                                            price_low_tides=sum_low_tides,
                                                             lock_width_1=lock_width_1,
                                                             lock_width_2=lock_width_2,
                                                             lock_width_3=lock_width_3,

@@ -477,9 +477,12 @@ class SlopesOfMetalCalc(models.Model):
 
     linear_meter_lock = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных (замок)')
     square_meter_lock = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных (замок)')
+    price_lock = models.FloatField(max_length=255, default=0.0, verbose_name='Цена замка')
 
     linear_meter_low_tides = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах погонных (отлив)')
     square_meter_low_tides = models.FloatField(max_length=255, default=0.0, verbose_name='В метрах квадратных (отлив)')
+    price_low_tides = models.FloatField(max_length=255, default=0.0, verbose_name='Цена отлива')
+
 
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
 

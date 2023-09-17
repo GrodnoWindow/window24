@@ -326,6 +326,7 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                     slopes_of_metal['Ширина_Замка_4'] = el.lock_width_4
                     slopes_of_metal['Замок_мп'] = el.linear_meter_lock
                     slopes_of_metal['Замок_м2'] = el.square_meter_lock
+                    slopes_of_metal['Замок_Цена'] = el.price_lock
 
                     slopes_of_metal['Ширина_Отлива'] = el.low_tides_width
                     slopes_of_metal['Длинна_Отлива'] = el.low_tides_length
@@ -335,6 +336,7 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                     slopes_of_metal['Ширина_Отлива_4'] = el.low_tides_width_4
                     slopes_of_metal['Отлив_мп'] = el.linear_meter_low_tides
                     slopes_of_metal['Отлив_м2'] = el.square_meter_low_tides
+                    slopes_of_metal['Отлив_Цена'] = el.price_low_tides
 
                     slopes_of_metal['Количество'] = el.count
                     slopes_of_metal['Количество_Замков'] = el.lock_count
