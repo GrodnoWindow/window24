@@ -1,14 +1,16 @@
 from rest_framework import serializers
 
+from calculation.serializer import ConnectionProfileCalcSerializer, AdditionalProfileCalcSerializer, \
+    OtherComplectationProfileCalcSerializer
 from miscalculation.models import CommercialOffer
 from .models import *
 from calculation.models import *
+
 
 class WindowsCalcSerializer(serializers.ModelSerializer):
     class Meta:
         model = WindowsCalc
         fields = '__all__'
-
 
 
 class WindowsillCalcSerializer(serializers.ModelSerializer):
@@ -25,7 +27,7 @@ class WindowsillCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WindowsillCalc
-        fields = 'windowsill_id', 'installation_id', 'color_id', 'width', 'length', 'count', 'plug', 'connector', 'markups_type','price_output'
+        fields = 'windowsill_id', 'installation_id', 'color_id', 'width', 'length', 'count', 'plug', 'connector', 'markups_type', 'price_output'
 
 
 class LowTidesCalcSerializer(serializers.ModelSerializer):
@@ -54,7 +56,7 @@ class FlashingCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FlashingCalc
-        fields = 'flashing_id', 'installation_id', 'color_id',  'width', 'length', 'count', 'markups_type'
+        fields = 'flashing_id', 'installation_id', 'color_id', 'width', 'length', 'count', 'markups_type'
 
 
 class CasingCalcSerializer(serializers.ModelSerializer):
@@ -69,7 +71,7 @@ class CasingCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SlopesOfMetalCalc
-        fields = 'casing_id', 'installation_id','fastening_id', 'color_id',  'width', 'length', 'count', 'markups_type'
+        fields = 'casing_id', 'installation_id', 'fastening_id', 'color_id', 'width', 'length', 'count', 'markups_type'
 
 
 class VisorsCalcSerializer(serializers.ModelSerializer):
@@ -83,7 +85,7 @@ class VisorsCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = VisorsCalc
-        fields = 'visors_id', 'installation_id', 'color_id',  'width', 'length', 'count', 'markups_type'
+        fields = 'visors_id', 'installation_id', 'color_id', 'width', 'length', 'count', 'markups_type'
 
 
 class SlopesOfMetalCalcSerializer(serializers.ModelSerializer):
@@ -97,7 +99,7 @@ class SlopesOfMetalCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SlopesOfMetal
-        fields = 'slopes_of_metal_id', 'installation_id', 'color_id',  'width', 'length', 'count', 'markups_type'
+        fields = 'slopes_of_metal_id', 'installation_id', 'color_id', 'width', 'length', 'count', 'markups_type'
 
 
 class InternalSlopeCalcSerializer(serializers.ModelSerializer):
@@ -111,7 +113,8 @@ class InternalSlopeCalcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = InternalSlope
-        fields = 'internal_slope_id', 'installation_id', 'color_id',  'width', 'length', 'count', 'markups_type'
+        fields = 'internal_slope_id', 'installation_id', 'color_id', 'width', 'length', 'count', 'markups_type'
+
 
 class WindowSerializer(serializers.ModelSerializer):
     price_input = serializers.FloatField(max_value=None, min_value=None)
@@ -121,6 +124,7 @@ class WindowSerializer(serializers.ModelSerializer):
     class Meta:
         model = WindowDiscountMarkups
         fields = 'profile_id', 'fittings_id', 'price_input', 'markups_type', 'currency_name',
+
 
 class WindowCalcSerializer(serializers.ModelSerializer):
     window = WindowSerializer(read_only=False)
@@ -141,15 +145,18 @@ class WindowCalcSerializer(serializers.ModelSerializer):
         model = WindowsCalc
         fields = '__all__'
 
+
 class MountingMaterialsCalcSerializer(serializers.ModelSerializer):
     class Meta:
         model = MountingMaterialsCalc
         fields = '__all__'
 
+
 class WorksCalcSerializer(serializers.ModelSerializer):
     class Meta:
         model = Works
         fields = '__all__'
+
 
 class ProductTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -300,10 +307,12 @@ class LowTidesColorSerializer(serializers.ModelSerializer):
         model = LowTidesColor
         fields = '__all__'
 
+
 class LowTidesTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = LowTidesType
         fields = '__all__'
+
 
 class LowTidesProviderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -551,6 +560,30 @@ class SealBasicSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class AdditionalProfileArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArticleAdditionalProfile
+        fields = '__all__'
+
+
+class AdditionalProfileWidthSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdditionalProfileWidth
+        fields = '__all__'
+
+
+class AdditionalProfileWidth1Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdditionalProfileWidth1
+        fields = '__all__'
+
+
+class AdditionalProfileLaminationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdditionalProfileLamination
+        fields = '__all__'
+
+
 class ArticleAdditionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArticleAdditionalProfile
@@ -586,10 +619,12 @@ class DoorSerializer(serializers.ModelSerializer):
         model = Door
         fields = '__all__'
 
+
 class LaminationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lamination
         fields = '__all__'
+
 
 class ConnectionProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -602,6 +637,54 @@ class AdditionalProfileSerializer(serializers.ModelSerializer):
         model = AdditionalProfile
         fields = '__all__'
 
+
+class ConnectionProfileArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConnectionProfileArticle
+        fields = '__all__'
+
+class OtherComplectationProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OtherComplectationProfile
+        fields = '__all__'
+
+class OtherComplectationProfileArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OtherComplectationProfileArticle
+        fields = '__all__'
+
+class OtherComplectationProfileWidthSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OtherComplectationProfileWidth
+        fields = '__all__'
+
+class OtherComplectationProfileWidth1Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = OtherComplectationProfileWidth1
+        fields = '__all__'
+
+class OtherComplectationProfileLaminationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OtherComplectationProfileLamination
+        fields = '__all__'
+class ConnectionProfileWidthSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConnectionProfileWidth
+        fields = '__all__'
+
+
+class ConnectionProfileWidth1Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConnectionProfileWidth1
+        fields = '__all__'
+
+
+class ConnectionProfileLaminationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConnectionProfileLamination
+        fields = '__all__'
+
+
 class SealantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sealant
@@ -613,6 +696,7 @@ class ConstructorSerializer(serializers.Serializer):
     configuration = serializers.CharField(read_only=True)
     name = serializers.CharField(read_only=True)
     context = serializers.CharField(read_only=True)
+    stb_info = serializers.CharField(read_only=True)
     product_type = ProductTypeSerializer(read_only=True)
     door = DoorSerializer(read_only=True)
     aggregate = AggregateSerializer(read_only=True)
@@ -629,32 +713,32 @@ class ConstructorSerializer(serializers.Serializer):
 
     price_constructor = serializers.FloatField(read_only=True)
     # MATERIALS END
-    window_calc = WindowsCalcSerializer(read_only=True,)
-    windowsills_calc = WindowsillCalcSerializer(read_only=True,many=True)
-    lowtides_calc = LowTidesCalcSerializer(read_only=True,many=True)
-    flashing_calc = FlashingCalcSerializer(read_only=True,many=True)
-    visors_calc =  VisorsCalcSerializer(read_only=True,many=True)
-    casing_calc = CasingCalcSerializer(read_only=True,many=True)
-    slopes_of_metal_calc = SlopesOfMetalCalcSerializer(read_only=True,many=True)
-    internal_slope_calc = InternalSlopeCalcSerializer(read_only=True,many=True)
-    mounting_materials_calc = MountingMaterialsCalcSerializer(read_only=True,many=True)
-    works = WorksCalcSerializer(read_only=True,many=True)
-    final_image = serializers.CharField(read_only=False,max_length=10000000)
+    window_calc = WindowsCalcSerializer(read_only=True, )
+    windowsills_calc = WindowsillCalcSerializer(read_only=True, many=True)
+    additional_profile_calc = AdditionalProfileCalcSerializer(read_only=True, many=True)
+    connection_profile_calc = ConnectionProfileCalcSerializer(read_only=True, many=True)
+    other_complectation_profile_calc = OtherComplectationProfileCalcSerializer(read_only=True, many=True)
+    lowtides_calc = LowTidesCalcSerializer(read_only=True, many=True)
+    flashing_calc = FlashingCalcSerializer(read_only=True, many=True)
+    visors_calc = VisorsCalcSerializer(read_only=True, many=True)
+    casing_calc = CasingCalcSerializer(read_only=True, many=True)
+    slopes_of_metal_calc = SlopesOfMetalCalcSerializer(read_only=True, many=True)
+    internal_slope_calc = InternalSlopeCalcSerializer(read_only=True, many=True)
+    mounting_materials_calc = MountingMaterialsCalcSerializer(read_only=True, many=True)
+    works = WorksCalcSerializer(read_only=True, many=True)
+    final_image = serializers.CharField(read_only=False, max_length=10000000)
 
     class Meta:
         model = Constructor
         fields = '__all__'
-
-
 
 
 class ConstructorPostSerializer(serializers.Serializer):
     product_type = ProductTypeSerializer(read_only=False)
+
     class Meta:
         model = Constructor
         fields = '__all__'
-
-
 
 
 class ConstructorCategorySerializer(serializers.Serializer):
@@ -689,7 +773,27 @@ class ConstructorCategorySerializer(serializers.Serializer):
     type_lamination = TypeLaminationSerializer(read_only=True, many=True)
     type_lamination1 = TypeLamination1Serializer(read_only=True, many=True)
     seal_basic = SealBasicSerializer(read_only=True, many=True)
-    article = ArticleAdditionalSerializer(read_only=True, many=True)
+
+    additional_profile_article = ArticleAdditionalSerializer(read_only=True, many=True)
+    additional_profile_width = AdditionalProfileWidthSerializer(read_only=True, many=True)
+    additional_profile_width1 = AdditionalProfileWidth1Serializer(read_only=True, many=True)
+    additional_profile_lamination = AdditionalProfileLaminationSerializer(read_only=True, many=True)
+    additional_profile = AdditionalProfileSerializer(read_only=True, many=True)
+
+    connection_profile_article = ConnectionProfileArticleSerializer(read_only=True, many=True)
+    connection_profile_width = ConnectionProfileWidthSerializer(read_only=True, many=True)
+    connection_profile_width1 = ConnectionProfileWidth1Serializer(read_only=True, many=True)
+    connection_profile_lamination = ConnectionProfileLaminationSerializer(read_only=True, many=True)
+    connection_profile = ConnectionProfileSerializer(read_only=True, many=True)
+
+
+    other_complectation_profile = OtherComplectationProfileSerializer(read_only=True, many=True)
+    other_complectation_profile_article = OtherComplectationProfileArticleSerializer(read_only=True, many=True)
+    other_complectation_profile_width = OtherComplectationProfileWidthSerializer(read_only=True, many=True)
+    other_complectation_profile_width1 = OtherComplectationProfileWidth1Serializer(read_only=True, many=True)
+    other_complectation_profile_lamination = OtherComplectationProfileLaminationSerializer(read_only=True, many=True)
+
+
     connection_profile_name = ConnectionProfileNameSerializer(read_only=True, many=True)
     color_inside = ColorInsideSerializer(read_only=True, many=True)
     color_outside = ColorOutsideSerializer(read_only=True, many=True)
@@ -720,7 +824,6 @@ class ConstructorCategorySerializer(serializers.Serializer):
     low_tides_installation = LowTidesInstallationSerializer(read_only=True, many=True)
     low_tides_type = LowTidesTypeSerializer(read_only=True, many=True)
     low_tides = LowTidesSerializer(read_only=True, many=True)
-
 
     visors_color = VisorsColorSerializer(read_only=True, many=True)
     visors_installation = VisorsInstallationSerializer(read_only=True, many=True)

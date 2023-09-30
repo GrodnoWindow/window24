@@ -34,6 +34,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="W:\window24" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="window24" type="Python.DjangoServer" factoryName="Django server">
       <module name="window24" />
@@ -97,7 +102,11 @@
       <workItem from="1694766559312" duration="3899000" />
       <workItem from="1694773485781" duration="504000" />
       <workItem from="1694848223827" duration="1223000" />
-      <workItem from="1694950444960" duration="593000" />
+      <workItem from="1694950444960" duration="992000" />
+      <workItem from="1695194663642" duration="1192000" />
+      <workItem from="1695366300019" duration="1256000" />
+      <workItem from="1695624152166" duration="830000" />
+      <workItem from="1695968931833" duration="21474000" />
     </task>
     <servers />
   </component>

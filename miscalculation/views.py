@@ -25,7 +25,6 @@ from config.pagination import CustomPagination
 from django.core import serializers
 
 
-
 class MiscalculationViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
                             mixins.RetrieveModelMixin,
                             mixins.UpdateModelMixin,
@@ -39,7 +38,8 @@ class MiscalculationViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        miscalculation = Miscalculation.objects.create(created_time=datetime.datetime.now(),last_update_time=datetime.datetime.now())
+        miscalculation = Miscalculation.objects.create(created_time=datetime.datetime.now(),
+                                                       last_update_time=datetime.datetime.now())
         miscalculation.author = request.user.username
 
         try:
@@ -97,11 +97,11 @@ class MiscalculationViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         except Miscalculation.DoesNotExist:
             return Response({'error': 'Miscalculation not found.'}, status=status.HTTP_404_NOT_FOUND)
 
+
 class CommercialOfferViewSet(mixins.RetrieveModelMixin,
-                            mixins.ListModelMixin,GenericViewSet):
+                             mixins.ListModelMixin, GenericViewSet):
     queryset = Miscalculation.objects.all()
     serializer_class = MiscalculationSerializer
-
 
     def retrieve(self, request, pk=None):
         queryset = Miscalculation.objects.all()
@@ -129,11 +129,16 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
             if constructor.name:
                 data["Имя"] = constructor.name
 
+            if constructor.context:
+                data["Контекст"] = constructor.context
+
+            if constructor.stb_info:
+                data["СТБ_название"] = constructor.stb_info
+
             if constructor.aggregate:
                 data["Заполнитель"] = constructor.aggregate.name
             if constructor.window_calc:
                 data["Цена изделия"] = constructor.window_calc.price_output
-
 
             if constructor.shtapik:
                 data["Штапик"] = constructor.shtapik.name
@@ -146,8 +151,6 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
 
             if constructor.handles:
                 data["Ручки"] = constructor.handles.name
-
-
 
             if constructor.door:
                 door_data = {}
@@ -173,7 +176,6 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
 
                 data["Соединительный профиль"] = profile_data
 
-
             if constructor.additional_profile:
                 profile_data = {}
                 profile_data["Артикул"] = constructor.additional_profile.additional_article.name
@@ -193,7 +195,6 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                 sealant_data["Штапик уплотнителя"] = constructor.sealant.sealant_shtapik.name
                 data["Уплотнитель"] = sealant_data
 
-
             if constructor.lamination:
                 lamination_data = {}
                 lamination_data["Тип ламинации"] = constructor.lamination.type_lamination.name
@@ -202,7 +203,6 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                 lamination_data["Исполнение снаружи"] = constructor.lamination.seal_outside.name
                 lamination_data["Исполнение основы детали"] = constructor.lamination.seal_basic.name
                 data["Ламинация"] = lamination_data
-
 
             if hasattr(constructor, 'windowsills_calc') and constructor.windowsills_calc.exists():
                 windowsill_data = []
@@ -360,7 +360,6 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                     elif index == 1:
                         internal_slope['Тип'] = 'ПВХ'
 
-
                     internal_slope['Название'] = internal_slope_model.name
                     internal_slope['Цвет'] = internal_slope_color.name
                     internal_slope['Установка'] = el.installation_id
@@ -402,13 +401,12 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
 
                 data["Работы"] = works_data
 
-
             if constructor.price_constructor:
                 data["Сумма конструктора"] = str(constructor.price_constructor)
 
-            output_data.append({"Конструктор":data})
+            output_data.append({"Конструктор": data})
 
-        return Response({"Конструкторы":output_data,"Сумма просчета":miscalculation.sum})
+        return Response({"Конструкторы": output_data, "Сумма просчета": miscalculation.sum})
 
 
 class FileView(APIView):
@@ -421,9 +419,6 @@ class FileView(APIView):
             return Response({'error': 'File not found'}, status=404)
 
 
-
-
-
 class MiscalculationAddHideCostAPIView(APIView):
     serializer_class = HideCostSerializer
 
@@ -431,11 +426,10 @@ class MiscalculationAddHideCostAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        add_hide_cost_miscalculation(request.data['pk'],request.data['cost'])
+        add_hide_cost_miscalculation(request.data['pk'], request.data['cost'])
         miscalculation = Miscalculation.objects.get(pk=request.data['pk'])
         serializer = MiscalculationSerializer(miscalculation)
         return Response({"data": serializer.data})
-
 
 
 class MiscalculationMinusHideCostAPIView(APIView):
@@ -445,7 +439,7 @@ class MiscalculationMinusHideCostAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        minus_hide_cost_miscalculation(request.data['pk'],request.data['cost'])
+        minus_hide_cost_miscalculation(request.data['pk'], request.data['cost'])
         miscalculation = Miscalculation.objects.get(pk=request.data['pk'])
         serializer = MiscalculationSerializer(miscalculation)
         return Response({"data": serializer.data})

@@ -23,6 +23,7 @@ urlpatterns = [
     path('reset-hidden-cost-miscalculation/<int:pk>/', reset_hidden_cost_miscalculation, name='reset_hidden_cost_miscalculation'),
     path('miscalculation/<int:pk>/commercial_offer/', commercial_offer, name='commercial_offer'),
     path('miscalculation/<int:pk>/contract/', contract, name='contract'),
+    path('miscalculation/contract-blank/', contract_blank, name='contract_blank'),
     path('miscalculation/<int:pk>/contract-offer/', contract_offer, name='contract_offer'),
     path('miscalculation/<int:pk>/send-to-manager/', send_to_manager, name='send_to_manager'),
     path('miscalculation/<int:pk>/confirm-order/', confirm_order, name='confirm_order'),

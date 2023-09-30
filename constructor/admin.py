@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import *
 
 
-admin.site.register(ConnectionProfile)
+# admin.site.register(ConnectionProfile)
 admin.site.register(MountingMaterialsName)
 admin.site.register(Article)
 admin.site.register(ConnectionProfileName)
@@ -12,8 +12,26 @@ admin.site.register(SealantOutside)
 admin.site.register(SealantInside)
 admin.site.register(SealantShtapik)
 admin.site.register(Cylinder)
+
 admin.site.register(ArticleAdditionalProfile)
+admin.site.register(AdditionalProfileWidth)
+admin.site.register(AdditionalProfileWidth1)
+admin.site.register(AdditionalProfileLamination)
 admin.site.register(AdditionalProfile)
+
+admin.site.register(ConnectionProfile)
+admin.site.register(ConnectionProfileArticle)
+admin.site.register(ConnectionProfileWidth)
+admin.site.register(ConnectionProfileWidth1)
+admin.site.register(ConnectionProfileLamination)
+
+admin.site.register(OtherComplectationProfile)
+admin.site.register(OtherComplectationProfileArticle)
+admin.site.register(OtherComplectationProfileWidth)
+admin.site.register(OtherComplectationProfileWidth1)
+admin.site.register(OtherComplectationProfileLamination)
+
+
 admin.site.register(ProductTypeDoor)
 admin.site.register(ProfileDoor)
 admin.site.register(Gorbylki)

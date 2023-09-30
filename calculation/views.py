@@ -176,11 +176,16 @@ class CalculationSlopesOfMetalAPIView(APIView):
         markups_type = request.data['markups_type']
 
         slopes_of_metal_calc = calc_slopes_of_metal(slopes_of_metal_id=slopes_of_metal_id, width_1=width_1,
-                                                    width_2=width_2, width_3=width_3, width_4=width_4,lock_length=lock_length,low_tides_length=low_tides_length,
+                                                    width_2=width_2, width_3=width_3, width_4=width_4,
+                                                    lock_length=lock_length, low_tides_length=low_tides_length,
                                                     color_id=color_id, installation_id=installation_id,
-                                                    length=length, count=count, markups_type=markups_type,lock_width_1=lock_width_1,
-                                                    lock_width_2=lock_width_2,lock_width_3=lock_width_3,lock_width_4=lock_width_4,
-                                                    low_tides_width_1=low_tides_width_1,low_tides_width_2=low_tides_width_2,low_tides_width_3=low_tides_width_3,
+                                                    length=length, count=count, markups_type=markups_type,
+                                                    lock_width_1=lock_width_1,
+                                                    lock_width_2=lock_width_2, lock_width_3=lock_width_3,
+                                                    lock_width_4=lock_width_4,
+                                                    low_tides_width_1=low_tides_width_1,
+                                                    low_tides_width_2=low_tides_width_2,
+                                                    low_tides_width_3=low_tides_width_3,
                                                     low_tides_width_4=low_tides_width_4)
 
         return Response({'data': model_to_dict(slopes_of_metal_calc)})
@@ -211,6 +216,54 @@ class CalculationInternalSlopeAPIView(APIView):
 
         return Response({'data': model_to_dict(internal_slope)})
 
+
+class CalculationAdditionalProfileAPIView(APIView):
+    serializer_class = AdditionalProfileCalcSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        additional_profile_id = request.data['additional_profile_id']
+        length = request.data['length']
+        count = request.data['count']
+        markups_type = request.data['markups_type']
+
+        additional_profile_calc = calc_additional_profile(additional_profile_id=additional_profile_id,
+                                                          length=length, count=count, markups_type=markups_type)
+
+        return Response({'data': model_to_dict(additional_profile_calc)})
+
+class CalculationConnectionProfileAPIView(APIView):
+    serializer_class = ConnectionProfileCalcSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        connection_profile_id = request.data['connection_profile_id']
+        length = request.data['length']
+        count = request.data['count']
+        markups_type = request.data['markups_type']
+
+        connection_profile_calc = calc_connection_profile(connection_profile_id=connection_profile_id,
+                                                          length=length, count=count, markups_type=markups_type)
+
+        return Response({'data': model_to_dict(connection_profile_calc)})
+
+class CalculationOtherComplectationProfileAPIView(APIView):
+    serializer_class = OtherComplectationProfileCalcSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        other_complectation_profile_id = request.data['other_complectation_profile_id']
+        length = request.data['length']
+        count = request.data['count']
+        markups_type = request.data['markups_type']
+
+        other_complectation = calc_other_complectation_profile(other_complectation_profile_id=other_complectation_profile_id,
+                                                          length=length, count=count, markups_type=markups_type)
+
+        return Response({'data': model_to_dict(other_complectation)})
 
 # class ConstructorViewSet(viewsets.ModelViewSet):
 #     queryset = Constructor.objects.all()

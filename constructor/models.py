@@ -1,5 +1,4 @@
 from django.db import models
-from django.forms import TextInput
 
 
 class ProviderWindow(models.Model):
@@ -261,6 +260,28 @@ class ArticleAdditionalProfile(models.Model):
         verbose_name_plural = 'Артикуль доб. профиля'
 
 
+class AdditionalProfileWidth(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Ширина", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Ширина доб. профиля'
+        verbose_name_plural = 'Ширина доб. профиля'
+
+
+class AdditionalProfileWidth1(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Ширина", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Ширина 2 доб. профиля'
+        verbose_name_plural = 'Ширина 2 доб. профиля'
+
+
 class AdditionalProfileLamination(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Ламинация')
 
@@ -273,17 +294,154 @@ class AdditionalProfileLamination(models.Model):
 
 
 class AdditionalProfile(models.Model):
-    additional_article = models.ForeignKey(ArticleAdditionalProfile, on_delete=models.SET_NULL, verbose_name="Артикуль",
+    additional_article = models.ForeignKey(ArticleAdditionalProfile, on_delete=models.SET_NULL, verbose_name="Артикул",
                                            blank=True, null=True)
-    width = models.FloatField(default=0.0, verbose_name="Ширина", blank=True, null=True)
-    price = models.FloatField(default=0.0, verbose_name="Цена", blank=True, null=True)
+    additional_width = models.ForeignKey(AdditionalProfileWidth, on_delete=models.SET_NULL, verbose_name="Ширина 1",
+                                         blank=True, null=True)
+    additional_width1 = models.ForeignKey(AdditionalProfileWidth1, on_delete=models.SET_NULL, verbose_name="Ширина 2",
+                                          blank=True, null=True)
+    additional_lamination = models.ForeignKey(AdditionalProfileLamination, on_delete=models.SET_NULL,
+                                              verbose_name="Ламинация",
+                                              blank=True, null=True)
+    price_input = models.FloatField(blank=True, null=True, verbose_name='Цена BYN')
 
     def __str__(self):
-        return f'№ {self.pk} {self.additional_article}'
+        return f'№ {self.pk} {self.additional_article} {self.additional_width} {self.additional_width1} {self.additional_lamination} '
 
     class Meta:
         verbose_name = 'Доборный профиль'
         verbose_name_plural = 'Доборные профиля'
+
+
+class OtherComplectationProfileArticle(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Артикул", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Доп. комп. артикулы'
+        verbose_name_plural = 'Доп. комп. артикулы '
+
+
+class OtherComplectationProfileWidth(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Ширина", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Доп. комп ширина 1'
+        verbose_name_plural = 'Доп. комп. ширина 1'
+
+
+class OtherComplectationProfileWidth1(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Ширина", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Доп. комп ширина 2'
+        verbose_name_plural = 'Доп. комп. ширина 2'
+
+
+class OtherComplectationProfileLamination(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Ламинация", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Доп. комп ламинация'
+        verbose_name_plural = 'Доп. комп. ламинация'
+
+
+class OtherComplectationProfile(models.Model):
+    additional_article = models.ForeignKey(OtherComplectationProfileArticle, on_delete=models.SET_NULL,
+                                           verbose_name="Артикул",
+                                           blank=True, null=True)
+    additional_width = models.ForeignKey(OtherComplectationProfileWidth, on_delete=models.SET_NULL,
+                                         verbose_name="Ширина 1",
+                                         blank=True, null=True)
+    additional_width1 = models.ForeignKey(OtherComplectationProfileWidth1, on_delete=models.SET_NULL,
+                                          verbose_name="Ширина 2",
+                                          blank=True, null=True)
+    additional_lamination = models.ForeignKey(OtherComplectationProfileLamination, on_delete=models.SET_NULL,
+                                              verbose_name="Ламинация",
+                                              blank=True, null=True)
+    price_input = models.FloatField(blank=True, null=True, verbose_name='Цена BYN')
+
+    def __str__(self):
+        return f'№ {self.pk} {self.additional_article} {self.additional_width} {self.additional_width1} {self.additional_lamination} '
+
+    class Meta:
+        verbose_name = 'Доп. компл. профиль'
+        verbose_name_plural = 'Доп компл. профиля'
+
+
+class ConnectionProfileArticle(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Артикулы соединительных профилей'
+        verbose_name_plural = 'Артикулы соединительных профилей'
+
+
+class ConnectionProfileWidth(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Ширина 1 соединительных профилей'
+        verbose_name_plural = 'Ширина 1 соединительных профилей'
+
+
+class ConnectionProfileWidth1(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Ширина 2 соединительных профилей'
+        verbose_name_plural = 'Ширина 2 соединительных профилей'
+
+
+class ConnectionProfileLamination(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Название')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Ламинация соединительных профилей'
+        verbose_name_plural = 'Ламинация соединительных профилей'
+
+
+class ConnectionProfile(models.Model):
+    connection_article = models.ForeignKey(ConnectionProfileArticle, on_delete=models.SET_NULL, verbose_name="Артикул",
+                                           blank=True, null=True)
+    connection_width = models.ForeignKey(ConnectionProfileWidth, on_delete=models.SET_NULL, verbose_name="Ширина 1",
+                                         blank=True, null=True)
+    connection_width1 = models.ForeignKey(ConnectionProfileWidth1, on_delete=models.SET_NULL, verbose_name="Ширина 2",
+                                          blank=True, null=True)
+    connection_lamination = models.ForeignKey(ConnectionProfileLamination, on_delete=models.SET_NULL,
+                                              verbose_name="Ламинация",
+                                              blank=True, null=True)
+    price_input = models.FloatField(blank=True, null=True, verbose_name='Цена BYN')
+
+    def __str__(self):
+        return f'№ {self.pk} {self.connection_article} {self.connection_width} {self.connection_width1} {self.connection_lamination} '
+
+    class Meta:
+        verbose_name = 'Соединительные профиль'
+        verbose_name_plural = 'Соединительные профиля'
 
 
 class SealantColor(models.Model):
@@ -1189,6 +1347,7 @@ class SlopesOfMetalLock(models.Model):
         verbose_name = 'Замок откосов из металла'
         verbose_name_plural = 'Замки откосов из металла'
 
+
 class SlopesOfMetalLowTides(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название отлива", blank=True, null=True)
     price_input = models.FloatField(default=0.0, verbose_name='Цена отлива', blank=True, null=True)
@@ -1210,7 +1369,7 @@ class SlopesOfMetal(models.Model):
     slopes_of_metal_lock = models.ForeignKey(SlopesOfMetalLock, on_delete=models.SET_NULL, blank=True,
                                              null=True, verbose_name='замок')
     slopes_of_metal_low_tides = models.ForeignKey(SlopesOfMetalLowTides, on_delete=models.SET_NULL, blank=True,
-                                             null=True, verbose_name='Отлив')
+                                                  null=True, verbose_name='Отлив')
     slopes_of_metal_provider = models.ForeignKey(SlopesOfMetalProvider, on_delete=models.SET_NULL, blank=True,
                                                  null=True, verbose_name='Поставщик')
 

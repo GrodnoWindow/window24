@@ -15,7 +15,6 @@ from .models import *
 from calculation.models import Constructor
 
 
-
 class EquipmentMainAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
@@ -55,6 +54,7 @@ class EquipmentMainAPIView(APIView):
             ]
         })
 
+
 class EquipmentMainAggregateAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
@@ -69,7 +69,6 @@ class EquipmentMainAggregateAPIView(APIView):
                     'label': 'Заполнитель',
                     'data': serializer.data['aggregate'],
                 },
-
 
             ]
         })
@@ -237,7 +236,7 @@ class DoorAPIView(APIView):
         })
 
 
-class ConnectionProfileAPIView(APIView):
+class ConnectionProfile1APIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
         filters['profile'] = Profile.objects.all()
@@ -286,16 +285,263 @@ class ConnectionProfileAPIView(APIView):
 class AdditionalProfileAPIView(APIView):
     def get(self, request, *args, **kwargs):
         filters = {}
-        filters['article'] = ArticleAdditionalProfile.objects.all()
+        filters['additional_profile'] = AdditionalProfile.objects.all()
 
         serializer = ConstructorCategorySerializer(filters)
         return Response({
             'data': [
                 {
-                    'name': 'article',
-                    'placeholder': 'Выберите Артикул',
-                    'label': 'Артикул',
-                    'data': serializer.data['article'],
+                    'name': 'additional_profile',
+                    'placeholder': 'Выберите профиль',
+                    'label': 'Доборный профиль',
+                    'data': serializer.data['additional_profile'],
+                },
+            ]
+        })
+
+
+class ArticleAdditionalProfileAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['additional_profile_article'] = ArticleAdditionalProfile.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'additional_profile_article',
+                    'placeholder': 'Выберите артикул доборного профиля',
+                    'label': 'Артикул доборного профиля',
+                    'data': serializer.data['additional_profile_article'],
+                },
+            ]
+        })
+
+
+class AdditionalProfileWidthAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['additional_profile_width'] = AdditionalProfileWidth.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'additional_profile_width',
+                    'placeholder': 'Выберите ширину 1',
+                    'label': 'Ширина 1',
+                    'data': serializer.data['additional_profile_width'],
+                },
+            ]
+        })
+
+
+class AdditionalProfileWidth1APIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['additional_profile_width1'] = AdditionalProfileWidth1.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'additional_profile_width1',
+                    'placeholder': 'Выберите ширину 2',
+                    'label': 'Ширина 2',
+                    'data': serializer.data['additional_profile_width1'],
+                },
+            ]
+        })
+
+
+class AdditionalProfileLaminationAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['additional_profile_lamination'] = AdditionalProfileLamination.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'additional_profile_lamination',
+                    'placeholder': 'Выберите лаимнацию доборного профиля',
+                    'label': 'Ламинация доборного профиля',
+                    'data': serializer.data['additional_profile_lamination'],
+                },
+            ]
+        })
+
+
+class ConnectionProfileAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['connection_profile'] = ConnectionProfile.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'connection_profile',
+                    'placeholder': 'Выберите соединительный профиль',
+                    'label': 'Соединительный профиль',
+                    'data': serializer.data['connection_profile'],
+                },
+            ]
+        })
+
+
+class ConnectionProfileArticleAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['connection_profile_article'] = ConnectionProfileArticle.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'connection_profile_article',
+                    'placeholder': 'Выберите артикул соединительных профиль',
+                    'label': 'Артикул соединительных профилей',
+                    'data': serializer.data['connection_profile_article'],
+                },
+            ]
+        })
+
+
+class OtherComplectationProfileAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['other_complectation_profile'] = OtherComplectationProfile.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'other_complectation_profile',
+                    'placeholder': 'Выберите доп. комплектующие для профиля',
+                    'label': 'Доп. комплектующие для профилей',
+                    'data': serializer.data['other_complectation_profile'],
+                },
+            ]
+        })
+
+class OtherComplectationProfileArticleAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['other_complectation_profile_article'] = OtherComplectationProfileArticle.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'other_complectation_profile_article',
+                    'placeholder': 'Выберите доп. комплектующие ( артикул )для профиля',
+                    'label': 'Артикул доп. комплектующие для профилей',
+                    'data': serializer.data['other_complectation_profile_article'],
+                },
+            ]
+        })
+
+class OtherComplectationProfileWidthAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['other_complectation_profile_width'] = OtherComplectationProfileWidth.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'other_complectation_profile_width',
+                    'placeholder': 'Выберите доп. комплектующие ( ширина )для профиля',
+                    'label': 'Ширина доп. комплектующие для профилей',
+                    'data': serializer.data['other_complectation_profile_width'],
+                },
+            ]
+        })
+
+class OtherComplectationProfileWidth1APIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['other_complectation_profile_width1'] = OtherComplectationProfileWidth1.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'other_complectation_profile_width',
+                    'placeholder': 'Выберите доп. комплектующие ( ширина 2 )для профиля',
+                    'label': 'Ширина 2 доп. комплектующие для профилей',
+                    'data': serializer.data['other_complectation_profile_width1'],
+                },
+            ]
+        })
+
+class OtherComplectationProfileLaminationAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['other_complectation_profile_lamination'] = OtherComplectationProfileLamination.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'other_complectation_profile_lamination',
+                    'placeholder': 'Выберите доп. комплектующие ( ламинация ) для профиля',
+                    'label': 'Ширина 2 доп. комплектующие для профилей',
+                    'data': serializer.data['other_complectation_profile_lamination'],
+                },
+            ]
+        })
+
+class ConnectionProfileWidthAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['connection_profile_width'] = ConnectionProfileWidth.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'connection_profile_width',
+                    'placeholder': 'Выберите ширину 1 соединительных профиль',
+                    'label': 'Ширина 1 соединительных профилей',
+                    'data': serializer.data['connection_profile_width'],
+                },
+            ]
+        })
+
+
+class ConnectionProfileWidth1APIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['connection_profile_width1'] = ConnectionProfileWidth1.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'connection_profile_width1',
+                    'placeholder': 'Выберите ширину 2 соединительных профиль',
+                    'label': 'Ширина 2 соединительных профилей',
+                    'data': serializer.data['connection_profile_width1'],
+                },
+            ]
+        })
+
+
+class ConnectionProfileLaminationAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        filters = {}
+        filters['connection_profile_lamination'] = ConnectionProfileLamination.objects.all()
+
+        serializer = ConstructorCategorySerializer(filters)
+        return Response({
+            'data': [
+                {
+                    'name': 'connection_profile_lamination',
+                    'placeholder': 'Выберите ламинацию соединительных профиль',
+                    'label': 'Ламинация соединительных профилей',
+                    'data': serializer.data['connection_profile_lamination'],
                 },
             ]
         })
@@ -1115,7 +1361,10 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
             constructor.context = request.data['context']
         except:
             pass
-
+        try:
+            constructor.stb_info = request.data['stb_info']
+        except:
+            pass
         # MATERIALS END
 
         try:
@@ -1188,6 +1437,36 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
 
             for works in constructor.works.all():
                 constructor.price_constructor += works.price_output
+        except:
+            pass
+
+        try:
+            constructor.additional_profile_calc.clear()
+            for additional_profile in request.data['additional_profile_calc']:
+                constructor.additional_profile_calc.add(additional_profile)
+
+            for additional_profile in constructor.additional_profile_calc.all():
+                constructor.price_constructor += additional_profile.price_output
+        except:
+            pass
+
+        try:
+            constructor.connection_profile_calc.clear()
+            for connection_profile in request.data['connection_profile_calc']:
+                constructor.connection_profile_calc.add(connection_profile)
+
+            for connection_profile in constructor.connection_profile_calc.all():
+                constructor.price_constructor += connection_profile.price_output
+        except:
+            pass
+
+        try:
+            constructor.cother_complectation_profile_calc.clear()
+            for other_complectation_profile in request.data['other_complectation_profile_calc']:
+                constructor.other_complectation_profile_calc.add(other_complectation_profile)
+
+            for other_complectation_profile in constructor.other_complectation_profile_calc.all():
+                constructor.price_constructor += other_complectation_profile.price_output
         except:
             pass
 
@@ -1290,7 +1569,10 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
             constructor.context = request.data['context']
         except:
             pass
-
+        try:
+            constructor.stb_info = request.data['stb_info']
+        except:
+            pass
         # MATERIALS END
 
         try:
@@ -1376,9 +1658,38 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
         except:
             pass
 
+        try:
+            constructor.additional_profile_calc.clear()
+            for additional_profile in request.data['additional_profile_calc']:
+                constructor.additional_profile_calc.add(additional_profile)
+
+            for additional_profile in constructor.additional_profile_calc.all():
+                constructor.price_constructor += additional_profile.price_output
+        except:
+            pass
+
+        try:
+            constructor.connection_profile_calc.clear()
+            for connection_profile in request.data['connection_profile_calc']:
+                constructor.connection_profile_calc.add(connection_profile)
+
+            for connection_profile in constructor.connection_profile_calc.all():
+                constructor.price_constructor += connection_profile.price_output
+        except:
+            pass
+
+
+        try:
+            constructor.cother_complectation_profile_calc.clear()
+            for other_complectation_profile in request.data['other_complectation_profile_calc']:
+                constructor.other_complectation_profile_calc.add(other_complectation_profile)
+
+            for other_complectation_profile in constructor.other_complectation_profile_calc.all():
+                constructor.price_constructor += other_complectation_profile.price_output
+        except:
+            pass
+
         constructor.save()
 
         serializer = ConstructorSerializer(constructor)
         return Response({"data": serializer.data})
-
-

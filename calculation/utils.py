@@ -395,8 +395,8 @@ def calc_visors(visors_id, installation_id, color_id, width_1, width_2, width_3,
 
 def calc_slopes_of_metal(slopes_of_metal_id, installation_id, color_id,
                          width_1, width_2, width_3, width_4,
-                         lock_width_1, lock_width_2, lock_width_3, lock_width_4,lock_length,
-                         low_tides_width_1, low_tides_width_2, low_tides_width_3, low_tides_width_4,low_tides_length,
+                         lock_width_1, lock_width_2, lock_width_3, lock_width_4, lock_length,
+                         low_tides_width_1, low_tides_width_2, low_tides_width_3, low_tides_width_4, low_tides_length,
                          length, count, markups_type):
     slopes_of_metal = SlopesOfMetal.objects.get(id=slopes_of_metal_id)
     slopes_of_metal_markup = SlopesOfMetalMarkups.objects.get(slopes_of_metal=slopes_of_metal)
@@ -612,3 +612,162 @@ def calc_internal_slope(internal_slope_id, installation_id, color_id, type, f_co
                                                           installation_id=installation_id, color_id=color_id)
 
     return internal_slop_calc
+
+
+def calc_additional_profile(additional_profile_id, length, count, markups_type):
+    additional_profile = AdditionalProfile.objects.get(id=additional_profile_id)
+    additional_profile_markup = AdditionalProfileMarkups.objects.get(additional_profile=additional_profile)
+
+    price_input_additional_profile = additional_profile.price_input
+
+    if markups_type == 0:
+        in_percent = additional_profile_markup.markups_diler_in_percent
+        markup = additional_profile_markup.markups_diler
+        markups_name = '0'
+    elif markups_type == 1:
+        in_percent = additional_profile_markup.markups_retail_in_percent
+        markup = additional_profile_markup.markups_retail
+        markups_name = '1'
+    elif markups_type == 2:
+        in_percent = additional_profile_markup.markups_3_in_percent
+        markup = additional_profile_markup.markups_3
+        markups_name = '2'
+    elif markups_type == 3:
+        in_percent = additional_profile_markup.markups_4_in_percent
+        markup = additional_profile_markup.markups_4
+        markups_name = '3'
+    elif markups_type == 4:
+        in_percent = additional_profile_markup.markups_5_in_percent
+        markup = additional_profile_markup.markups_5
+        markups_name = '4'
+    if in_percent:
+        price_additional_profile = price_input_additional_profile + (price_input_additional_profile / 100 * markup)
+    else:
+        price_additional_profile = price_input_additional_profile + markup
+
+    sum = price_additional_profile * (length / 1000000)
+
+    linear_meter = length / 1000
+
+    if count > 0:
+        sum = sum * count
+        linear_meter = linear_meter * count
+
+    sum = round(sum, 2)
+    linear_meter = round(linear_meter, 2)
+
+    additional_profile_calc = AdditionalProfileCalc.objects.create(additional_profile_id=additional_profile_id,
+                                                                   length=length,
+                                                                   count=count,
+                                                                   markups_type=markups_name,
+                                                                   price_output=sum,
+                                                                   linear_meter=linear_meter)
+
+    return additional_profile_calc
+
+
+def calc_connection_profile(connection_profile_id, length, count, markups_type):
+    connection_profile = ConnectionProfile.objects.get(id=connection_profile_id)
+    connection_profile_markup = ConnectionProfileMarkups.objects.get(connection_profile=connection_profile)
+
+    price_input_connection_profile = connection_profile.price_input
+
+    if markups_type == 0:
+        in_percent = connection_profile_markup.markups_diler_in_percent
+        markup = connection_profile_markup.markups_diler
+        markups_name = '0'
+    elif markups_type == 1:
+        in_percent = connection_profile_markup.markups_retail_in_percent
+        markup = connection_profile_markup.markups_retail
+        markups_name = '1'
+    elif markups_type == 2:
+        in_percent = connection_profile_markup.markups_3_in_percent
+        markup = connection_profile_markup.markups_3
+        markups_name = '2'
+    elif markups_type == 3:
+        in_percent = connection_profile_markup.markups_4_in_percent
+        markup = connection_profile_markup.markups_4
+        markups_name = '3'
+    elif markups_type == 4:
+        in_percent = connection_profile_markup.markups_5_in_percent
+        markup = connection_profile_markup.markups_5
+        markups_name = '4'
+
+    if in_percent:
+        price_connection_profile = price_input_connection_profile + (price_input_connection_profile / 100 * markup)
+    else:
+        price_connection_profile = price_input_connection_profile + markup
+
+    sum = price_connection_profile * (length / 1000000)
+
+    linear_meter = length / 1000
+
+    if count > 0:
+        sum = sum * count
+        linear_meter = linear_meter * count
+
+    sum = round(sum, 2)
+    linear_meter = round(linear_meter, 2)
+
+    connection_profile_calc = ConnectionProfileCalc.objects.create(connection_profile_id=connection_profile_id,
+                                                                   length=length,
+                                                                   count=count,
+                                                                   markups_type=markups_name,
+                                                                   price_output=sum,
+                                                                   linear_meter=linear_meter)
+
+    return connection_profile_calc
+
+
+def calc_other_complectation_profile(other_complectation_profile_id, length, count, markups_type):
+    other_complectation_profile = OtherComplectationProfile.objects.get(id=other_complectation_profile_id)
+    other_complectation_profile_markup = OtherComplectationProfileMarkups.objects.get(other_complectation_profile=other_complectation_profile)
+
+    price_input_other_complectation_profile = other_complectation_profile.price_input
+
+    if markups_type == 0:
+        in_percent = other_complectation_profile_markup.markups_diler_in_percent
+        markup = other_complectation_profile_markup.markups_diler
+        markups_name = '0'
+    elif markups_type == 1:
+        in_percent = other_complectation_profile_markup.markups_retail_in_percent
+        markup = other_complectation_profile_markup.markups_retail
+        markups_name = '1'
+    elif markups_type == 2:
+        in_percent = other_complectation_profile_markup.markups_3_in_percent
+        markup = other_complectation_profile_markup.markups_3
+        markups_name = '2'
+    elif markups_type == 3:
+        in_percent = other_complectation_profile_markup.markups_4_in_percent
+        markup = other_complectation_profile_markup.markups_4
+        markups_name = '3'
+    elif markups_type == 4:
+        in_percent = other_complectation_profile_markup.markups_5_in_percent
+        markup = other_complectation_profile_markup.markups_5
+        markups_name = '4'
+
+    if in_percent:
+        price_other_complectation_profile = price_input_other_complectation_profile + (price_input_other_complectation_profile / 100 * markup)
+    else:
+        price_other_complectation_profile = price_input_other_complectation_profile + markup
+
+    sum = price_other_complectation_profile * (length / 1000000)
+
+    linear_meter = length / 1000
+
+    if count > 0:
+        sum = sum * count
+        linear_meter = linear_meter * count
+
+    sum = round(sum, 2)
+    linear_meter = round(linear_meter, 2)
+
+    other_complectation_profile_calc = OtherComplectationProfileCalc.objects.create(other_complectation_profile_id=other_complectation_profile_id,
+                                                                   length=length,
+                                                                   count=count,
+                                                                   markups_type=markups_name,
+                                                                   price_output=sum,
+                                                                   linear_meter=linear_meter)
+
+    return other_complectation_profile_calc
+

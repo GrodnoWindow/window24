@@ -694,6 +694,18 @@ def contract(request, pk):
     }
     return render(request, 'contract.html', context)
 
+def contract_blank(request):
+    try:
+        user = User.objects.get(username=request.user.username)
+    except User.DoesNotExist:
+        return redirect('login', )
+
+
+    context = {
+
+    }
+    return render(request, 'contract.html', context)
+
 def contract_offer(request, pk):
     try:
         user = User.objects.get(username=request.user.username)
