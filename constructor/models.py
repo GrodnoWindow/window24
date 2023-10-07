@@ -294,6 +294,8 @@ class AdditionalProfileLamination(models.Model):
 
 
 class AdditionalProfile(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Наименование')
+
     additional_article = models.ForeignKey(ArticleAdditionalProfile, on_delete=models.SET_NULL, verbose_name="Артикул",
                                            blank=True, null=True)
     additional_width = models.ForeignKey(AdditionalProfileWidth, on_delete=models.SET_NULL, verbose_name="Ширина 1",
@@ -358,6 +360,7 @@ class OtherComplectationProfileLamination(models.Model):
 
 
 class OtherComplectationProfile(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Наименование')
     additional_article = models.ForeignKey(OtherComplectationProfileArticle, on_delete=models.SET_NULL,
                                            verbose_name="Артикул",
                                            blank=True, null=True)
@@ -425,6 +428,7 @@ class ConnectionProfileLamination(models.Model):
 
 
 class ConnectionProfile(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Наименование')
     connection_article = models.ForeignKey(ConnectionProfileArticle, on_delete=models.SET_NULL, verbose_name="Артикул",
                                            blank=True, null=True)
     connection_width = models.ForeignKey(ConnectionProfileWidth, on_delete=models.SET_NULL, verbose_name="Ширина 1",

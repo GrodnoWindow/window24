@@ -441,7 +441,7 @@ class AdditionalProfileCalc(models.Model):
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
 
     def __str__(self):
-        return f' Добрный профиль № {self.pk} длинна {self.length} / ширина {self.width} = {self.price_output} BYN'
+        return f' Добрный профиль № {self.pk} {self.price_output} BYN'
 
     class Meta:
         verbose_name = 'Просчет доборного профиля'
@@ -458,7 +458,7 @@ class ConnectionProfileCalc(models.Model):
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
 
     def __str__(self):
-        return f' Соединительный профиль № {self.pk} длинна {self.length} / ширина {self.width} = {self.price_output} BYN'
+        return f' Соединительный профиль № {self.pk} длинна {self.length} = {self.price_output} BYN'
 
     class Meta:
         verbose_name = 'Просчет соединительного профиля'
@@ -476,7 +476,7 @@ class OtherComplectationProfileCalc(models.Model):
     price_output = models.FloatField(max_length=255, default=0.0, verbose_name='Цена')
 
     def __str__(self):
-        return f' Доп комп. профиль № {self.pk} длинна {self.length} / ширина {self.width} = {self.price_output} BYN'
+        return f' Доп комп. профиль № {self.pk} длинна {self.length} = {self.price_output} BYN'
 
     class Meta:
         verbose_name = 'Просчет доп комп. профиля'

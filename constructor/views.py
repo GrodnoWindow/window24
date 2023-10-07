@@ -309,7 +309,7 @@ class ArticleAdditionalProfileAPIView(APIView):
         return Response({
             'data': [
                 {
-                    'name': 'additional_profile_article',
+                    'name': 'additional_article',
                     'placeholder': 'Выберите артикул доборного профиля',
                     'label': 'Артикул доборного профиля',
                     'data': serializer.data['additional_profile_article'],
@@ -327,7 +327,7 @@ class AdditionalProfileWidthAPIView(APIView):
         return Response({
             'data': [
                 {
-                    'name': 'additional_profile_width',
+                    'name': 'additional_width',
                     'placeholder': 'Выберите ширину 1',
                     'label': 'Ширина 1',
                     'data': serializer.data['additional_profile_width'],
@@ -345,7 +345,7 @@ class AdditionalProfileWidth1APIView(APIView):
         return Response({
             'data': [
                 {
-                    'name': 'additional_profile_width1',
+                    'name': 'additional_width1',
                     'placeholder': 'Выберите ширину 2',
                     'label': 'Ширина 2',
                     'data': serializer.data['additional_profile_width1'],
@@ -363,7 +363,7 @@ class AdditionalProfileLaminationAPIView(APIView):
         return Response({
             'data': [
                 {
-                    'name': 'additional_profile_lamination',
+                    'name': 'additional_lamination',
                     'placeholder': 'Выберите лаимнацию доборного профиля',
                     'label': 'Ламинация доборного профиля',
                     'data': serializer.data['additional_profile_lamination'],
@@ -399,7 +399,7 @@ class ConnectionProfileArticleAPIView(APIView):
         return Response({
             'data': [
                 {
-                    'name': 'connection_profile_article',
+                    'name': 'connection_article',
                     'placeholder': 'Выберите артикул соединительных профиль',
                     'label': 'Артикул соединительных профилей',
                     'data': serializer.data['connection_profile_article'],
@@ -502,7 +502,7 @@ class ConnectionProfileWidthAPIView(APIView):
         return Response({
             'data': [
                 {
-                    'name': 'connection_profile_width',
+                    'name': 'connection_width',
                     'placeholder': 'Выберите ширину 1 соединительных профиль',
                     'label': 'Ширина 1 соединительных профилей',
                     'data': serializer.data['connection_profile_width'],
@@ -520,7 +520,7 @@ class ConnectionProfileWidth1APIView(APIView):
         return Response({
             'data': [
                 {
-                    'name': 'connection_profile_width1',
+                    'name': 'connection_width1',
                     'placeholder': 'Выберите ширину 2 соединительных профиль',
                     'label': 'Ширина 2 соединительных профилей',
                     'data': serializer.data['connection_profile_width1'],
@@ -538,7 +538,7 @@ class ConnectionProfileLaminationAPIView(APIView):
         return Response({
             'data': [
                 {
-                    'name': 'connection_profile_lamination',
+                    'name': 'connection_lamination',
                     'placeholder': 'Выберите ламинацию соединительных профиль',
                     'label': 'Ламинация соединительных профилей',
                     'data': serializer.data['connection_profile_lamination'],
@@ -1469,7 +1469,15 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
                 constructor.price_constructor += other_complectation_profile.price_output
         except:
             pass
+        try:
+            constructor.other_complectation_profile_calc.clear()
+            for other_complectation_profile in request.data['other_complectation_profile_calc']:
+                constructor.other_complectation_profile_calc.add(other_complectation_profile)
 
+            for other_complectation_profile in constructor.other_complectation_profile_calc.all():
+                constructor.price_constructor += other_complectation_profile.price_output
+        except:
+            pass
         constructor.save()
 
         serializer = ConstructorSerializer(constructor)
@@ -1680,7 +1688,7 @@ class ConstructorViewSet(mixins.CreateModelMixin,  # viewsets.ModelViewSet
 
 
         try:
-            constructor.cother_complectation_profile_calc.clear()
+            constructor.other_complectation_profile_calc.clear()
             for other_complectation_profile in request.data['other_complectation_profile_calc']:
                 constructor.other_complectation_profile_calc.add(other_complectation_profile)
 

@@ -16,7 +16,7 @@ import calculation
 from calculation.serializer import WindowsillCalcSerializer
 from constructor.models import LowTides, LowTidesColor, Flashing, FlashingColor, Visors, VisorsColor, Casing, \
     CasingColor, CasingFastening, SlopesOfMetal, SlopesOfMetalColor, InternalSlope, InternalSlopeColor, \
-    MountingMaterialsName, Works
+    MountingMaterialsName, Works, AdditionalProfile, ConnectionProfile, OtherComplectationProfile
 from constructor.serializer import ProductTypeSerializer, WindowsillSerializer
 from .serializer import MiscalculationSerializer, CommercialOfferSerializer, HideCostSerializer
 from .models import *
@@ -164,28 +164,28 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                 door_data["Ограничитель открывания"] = constructor.door.opening_limiter.name
                 data["Дверь"] = door_data
 
-            if constructor.connection_profile:
-                profile_data = {}
-                profile_data["Профиль"] = constructor.connection_profile.profile.name
-                profile_data["Артикул"] = constructor.connection_profile.connection_article.name
-                profile_data["Название соединителя"] = constructor.connection_profile.name.name
-                profile_data["Цвет внутри"] = constructor.connection_profile.color_inside.name
-                profile_data["Цвет снаружи"] = constructor.connection_profile.color_outside.name
-                profile_data["Длина"] = constructor.connection_profile.length
-                profile_data["Цена"] = constructor.connection_profile.price
+            # if constructor.connection_profile:
+            #     profile_data = {}
+            #     profile_data["Профиль"] = constructor.connection_profile.profile.name
+            #     profile_data["Артикул"] = constructor.connection_profile.connection_article.name
+            #     profile_data["Название соединителя"] = constructor.connection_profile.name.name
+            #     profile_data["Цвет внутри"] = constructor.connection_profile.color_inside.name
+            #     profile_data["Цвет снаружи"] = constructor.connection_profile.color_outside.name
+            #     profile_data["Длина"] = constructor.connection_profile.length
+            #     profile_data["Цена"] = constructor.connection_profile.price
+            #
+            #     data["Соединительный профиль"] = profile_data
 
-                data["Соединительный профиль"] = profile_data
+            # if constructor.additional_profile:
+            #     profile_data = {}
+            #     profile_data["Артикул"] = constructor.additional_profile.additional_article.name
+            #     profile_data["Ширина"] = constructor.additional_profile.width
+            #     profile_data["Цена"] = constructor.additional_profile.price
+            #
+            #     data["Доборный профиль"] = profile_data
 
-            if constructor.additional_profile:
-                profile_data = {}
-                profile_data["Артикул"] = constructor.additional_profile.additional_article.name
-                profile_data["Ширина"] = constructor.additional_profile.width
-                profile_data["Цена"] = constructor.additional_profile.price
-
-                data["Доборный профиль"] = profile_data
-
-            if constructor.other_complectation:
-                data["Прочее комплектующие"] = constructor.other_complectation.name
+            # if constructor.other_complectation:
+            #     data["Прочее комплектующие"] = constructor.other_complectation.name
 
             if constructor.sealant:
                 sealant_data = {}
@@ -203,6 +203,51 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                 lamination_data["Исполнение снаружи"] = constructor.lamination.seal_outside.name
                 lamination_data["Исполнение основы детали"] = constructor.lamination.seal_basic.name
                 data["Ламинация"] = lamination_data
+
+            if hasattr(constructor, 'additional_profile_calc') and constructor.additional_profile_calc.exists():
+                additional_profile_data = []
+                for el in constructor.additional_profile_calc.all():
+                    additional_profile_model = AdditionalProfile.objects.get(pk=el.additional_profile_id)
+                    additional_profile = {}
+                    additional_profile['Артикул'] = additional_profile_model.additional_article.name
+                    additional_profile['Ширина'] = additional_profile_model.additional_width.name
+                    additional_profile['Ширина1'] = additional_profile_model.additional_width.name
+                    additional_profile['Ламинация'] = additional_profile_model.additional_lamination.name
+                    additional_profile['Количество'] = el.count
+                    additional_profile['Цена'] = el.price_output
+                    additional_profile_data.append(additional_profile)
+
+                data["Доборные_Профиля"] = additional_profile_data
+
+            if hasattr(constructor, 'connection_profile_calc') and constructor.connection_profile_calc.exists():
+                connection_profile_data = []
+                for el in constructor.connection_profile_calc.all():
+                    connection_profile_model = ConnectionProfile.objects.get(pk=el.connection_profile_id)
+                    connection_profile = {}
+                    connection_profile['Артикул'] = connection_profile_model.connection_article.name
+                    connection_profile['Ширина'] = connection_profile_model.connection_width.name
+                    connection_profile['Ширина1'] = connection_profile_model.connection_width.name
+                    connection_profile['Ламинация'] = connection_profile_model.connection_lamination.name
+                    connection_profile['Количество'] = el.count
+                    connection_profile['Цена'] = el.price_output
+                    connection_profile_data.append(connection_profile)
+
+                data["Соединительные_Профиля"] = connection_profile_data
+
+            if hasattr(constructor, 'other_complectation_profile_calc') and constructor.other_complectation_profile_calc.exists():
+                other_complectation_profile_data = []
+                for el in constructor.other_complectation_profile_calc.all():
+                    other_complectation_profile_model = OtherComplectationProfile.objects.get(pk=el.other_complectation_id)
+                    other_complectation_profile = {}
+                    other_complectation_profile['Артикул'] = other_complectation_profile_model.additional_article.name
+                    other_complectation_profile['Ширина'] = other_complectation_profile_model.additional_width.name
+                    other_complectation_profile['Ширина1'] = other_complectation_profile_model.additional_width.name
+                    other_complectation_profile['Ламинация'] = other_complectation_profile_model.additional_lamination.name
+                    other_complectation_profile['Количество'] = el.count
+                    other_complectation_profile['Цена'] = el.price_output
+                    other_complectation_profile_data.append(other_complectation_profile)
+
+                data["Доп_Комплект_Профиля"] = other_complectation_profile_data
 
             if hasattr(constructor, 'windowsills_calc') and constructor.windowsills_calc.exists():
                 windowsill_data = []
