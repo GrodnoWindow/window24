@@ -846,7 +846,7 @@ class Order(models.Model):
         verbose_name_plural = 'Ордер'
 
     def __str__(self):
-        return f' Active : {self.active} Сумма {self.sum_byn} BYN Сумма '
+        return f'{self.pk} Active : {self.active} Сумма {self.sum_byn} BYN Сумма '
 
 
 class MiscalculationMob(models.Model):
@@ -880,4 +880,4 @@ class MiscalculationMob(models.Model):
         verbose_name_plural = 'Замеры'
 
     def __str__(self):
-        return f' Адрес: {self.address} Cтатус: {self.status} общая стоимость {self.total_cost} BYN'
+        return f' {self.pk} Адрес: {self.address} Cтатус: {self.status} общая стоимость {self.total_cost} BYN'

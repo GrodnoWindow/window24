@@ -772,12 +772,12 @@ class Constructor(models.Model):
     window_calc = models.ForeignKey(WindowsCalc, on_delete=models.SET_NULL, verbose_name="Просчет окна", null=True,
                                     blank=True)
     other_complectation_profile_calc = models.ManyToManyField(OtherComplectationProfileCalc,
-                                                              verbose_name="Прочее комплектующие", null=True,
+                                                              verbose_name="Прочее комплектующие",
                                                               blank=True)
     connection_profile_calc = models.ManyToManyField(ConnectionProfileCalc,
-                                           verbose_name="Соединительные профиля", null=True, blank=True)
+                                           verbose_name="Соединительные профиля",blank=True)
     additional_profile_calc = models.ManyToManyField(AdditionalProfileCalc,
-                                           verbose_name="Доборные профиля", null=True, blank=True)
+                                           verbose_name="Доборные профиля", blank=True)
 
     windowsills_calc = models.ManyToManyField(WindowsillCalc, verbose_name="Просчеты подоконников", blank=True)
     lowtides_calc = models.ManyToManyField(LowTidesCalc, verbose_name="Просчеты отливов", blank=True)

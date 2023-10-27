@@ -209,6 +209,7 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                 for el in constructor.additional_profile_calc.all():
                     additional_profile_model = AdditionalProfile.objects.get(pk=el.additional_profile_id)
                     additional_profile = {}
+                    additional_profile['Наименование'] = additional_profile_model.name
                     additional_profile['Артикул'] = additional_profile_model.additional_article.name
                     additional_profile['Ширина'] = additional_profile_model.additional_width.name
                     additional_profile['Ширина1'] = additional_profile_model.additional_width.name
@@ -224,6 +225,7 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
                 for el in constructor.connection_profile_calc.all():
                     connection_profile_model = ConnectionProfile.objects.get(pk=el.connection_profile_id)
                     connection_profile = {}
+                    connection_profile['Наименоваание'] = connection_profile_model.name
                     connection_profile['Артикул'] = connection_profile_model.connection_article.name
                     connection_profile['Ширина'] = connection_profile_model.connection_width.name
                     connection_profile['Ширина1'] = connection_profile_model.connection_width.name
@@ -237,8 +239,9 @@ class CommercialOfferViewSet(mixins.RetrieveModelMixin,
             if hasattr(constructor, 'other_complectation_profile_calc') and constructor.other_complectation_profile_calc.exists():
                 other_complectation_profile_data = []
                 for el in constructor.other_complectation_profile_calc.all():
-                    other_complectation_profile_model = OtherComplectationProfile.objects.get(pk=el.other_complectation_id)
+                    other_complectation_profile_model = OtherComplectationProfile.objects.get(pk=el.other_complectation_profile_id)
                     other_complectation_profile = {}
+                    other_complectation_profile['Наименоваание'] = other_complectation_profile_model.name
                     other_complectation_profile['Артикул'] = other_complectation_profile_model.additional_article.name
                     other_complectation_profile['Ширина'] = other_complectation_profile_model.additional_width.name
                     other_complectation_profile['Ширина1'] = other_complectation_profile_model.additional_width.name

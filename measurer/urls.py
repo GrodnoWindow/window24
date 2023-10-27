@@ -28,6 +28,8 @@ urlpatterns = [
     path('miscalculation/<int:pk>/send-to-manager/', send_to_manager, name='send_to_manager'),
     path('miscalculation/<int:pk>/confirm-order/', confirm_order, name='confirm_order'),
     path('miscalculation/<int:pk>/save-contract/<int:contract_pk>', save_contract, name='save_contract'),
+    # path('miscalculation/<int:pk>/save-contract/', save_contract, name='create_contract'),
     path('miscalculation/<int:pk>/save-passport/<int:passport_pk>', save_passport, name='save_passport'),
+    path('miscalculation/<int:pk>/save-passport/', create_passport, name='create_passport'),
 
 ]

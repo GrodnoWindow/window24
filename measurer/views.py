@@ -522,7 +522,8 @@ def miscalculation(request):
             date = datetime.datetime.strptime(date_now, '%Y-%m-%d').date() + datetime.timedelta(days=1)
 
     print(date)
-    miscalculation = MiscalculationMob.objects.filter(user=user, active=True, date=date).order_by('-pk')
+    # miscalculation = MiscalculationMob.objects.filter(user=user, active=True, date=date).order_by('-pk')
+    miscalculation = MiscalculationMob.objects.filter(active=True, date=date).order_by('-pk')
 
     form_miscalculation = MiscalculationForm(initial={
         'status': 1,
@@ -751,6 +752,7 @@ def send_to_manager(request, pk):
     return redirect('miscalculation')
 
 def save_passport(request, pk, passport_pk):
+
     passport = PassportDetails.objects.get(pk=passport_pk)
     passport_form = PassportDetailsForm(request.POST, instance=passport)
     if passport_form.is_valid():
@@ -764,6 +766,42 @@ def save_passport(request, pk, passport_pk):
         # Теперь объект PassportDetails сохранен в базе данных
         # Вы можете добавить дополнительные действия или перенаправить пользователя на другую страницу
         return redirect('order_list', pk=pk)
+
+def create_passport(request, pk):
+    miscalculation_mob = MiscalculationMob.objects.get(pk=pk)
+    client = miscalculation_mob.client
+
+    if request.method == "POST":
+        form = PassportDetailsForm(request.POST)
+        if form.is_valid():
+            # Create a new PassportDetails object with form data
+            passport_details = form.save()
+
+            # Update the client's passport_details with the newly created PassportDetails
+            client.passport_details = passport_details
+            client.save()
+
+            # Redirect to a success page or any other appropriate URL
+            return redirect('order_list',pk=pk)
+
+    else:
+        form = PassportDetailsForm()
+
+    return render(request, 'your_form_template.html', {'form': form})
+
+    # passport = PassportDetails.objects.get(pk=passport_pk)
+    # passport_form = PassportDetailsForm(request.POST, instance=passport)
+    # if passport_form.is_valid():
+    #     # Сохраняем форму, вызывая метод save()
+    #     passport = passport_form.save()
+    #     passport.save()
+    #     miscalculation = MiscalculationMob.objects.get(pk=pk)
+    #
+    #     miscalculation.client.passport_details = passport
+    #     miscalculation.client.save()
+    #     # Теперь объект PassportDetails сохранен в базе данных
+    #     # Вы можете добавить дополнительные действия или перенаправить пользователя на другую страницу
+    #     return redirect('order_list', pk=pk)
 
 def save_contract(request, pk,contract_pk):
     contract = Contract.objects.get(pk=contract_pk)
@@ -779,6 +817,8 @@ def save_contract(request, pk,contract_pk):
         miscalculation.contract.save()
         miscalculation.save()
         return redirect('order_list',pk=pk)
+
+
 
 def confirm_order(request, pk):
     miscalculation = MiscalculationMob.objects.get(pk=pk)
